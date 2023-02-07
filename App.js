@@ -35,7 +35,8 @@ const YourApp = () => {
       }}>
       <Text style={{
         color: "red",
-      }}>Working on android and ios now woop woop! 🎉</Text>
+      }}>Working on android and ios now
+      with app icons woop woop! 🎉</Text>
     </View>
   );
 };
