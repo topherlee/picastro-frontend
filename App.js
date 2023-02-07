@@ -8,6 +8,7 @@
 import React from 'react';
 //import type {PropsWithChildren} from 'react';
 import {
+  Image,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -25,20 +26,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import HomeScreen from './screens/HomeScreen';
+
 const YourApp = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text style={{
-        color: "red",
-      }}>Working on android and ios now
-      with app icons woop woop! 🎉</Text>
-    </View>
+    <HomeScreen />
   );
 };
-
 export default YourApp;
