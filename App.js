@@ -7,6 +7,9 @@
 
 import React from 'react';
 //import type {PropsWithChildren} from 'react';
+
+import SplashScreen from 'react-native-splash-screen';
+
 import {
   Image,
   SafeAreaView,
@@ -28,9 +31,15 @@ import {
 
 import HomeScreen from './screens/HomeScreen';
 
+
 const YourApp = () => {
+  // useEffect(() => {
+  //   SplashScreen.hide();
+  // }, []); 
+  SplashScreen.hide();
   return (
     <HomeScreen />
   );
 };
+
 export default YourApp;
