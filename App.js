@@ -5,10 +5,7 @@
  * @format
  */
 
-import React from 'react';
-//import type {PropsWithChildren} from 'react';
-
-import SplashScreen from 'react-native-splash-screen';
+import React, {useEffect} from 'react';
 
 import {
   Image,
@@ -31,12 +28,13 @@ import {
 
 import HomeScreen from './screens/HomeScreen';
 
+import SplashScreen from 'react-native-splash-screen';
+
 
 const YourApp = () => {
-  // useEffect(() => {
-  //   SplashScreen.hide();
-  // }, []); 
-  SplashScreen.hide();
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []); 
   return (
     <HomeScreen />
   );
