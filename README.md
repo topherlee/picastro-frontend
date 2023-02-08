@@ -1,5 +1,5 @@
-# PROJECT NAME
-A template repository for student software development teams to use in for coursework
+# Picastro
+A dedicated astrophotography image-sharing application and platform built on Django and React Native. 
 
 
 ## Your next steps
@@ -13,7 +13,7 @@ A template repository for student software development teams to use in for cours
 
 
 ## Requirements
-In order to run the app in an emulator on your local machine, you need to follow the instructions on https://reactnative.dev/docs/environment-setup.
+In order to run the app in an emulator on your local machine, you need to follow the instructions on [How to Set Up React Native Environment](https://reactnative.dev/docs/environment-setup).
 
 All libraries needed to build this application can be found in package.json. In order to install them, run `npm install` or `yarn install`, depending on the package manager you are using.
 
@@ -25,10 +25,21 @@ How do I test the code to ensure the build is correct?
 ## Building and Running the Application
  
 ### For iOS Development
-After cloning/pulling the source code onto your local machine, `cd` into the project folder, then run `cd ios` to change to the ios folder, afterwards run `pod install` to install all dependencies. The next step is to execute the command `npx react-native run-ios`.
+- Clone the source code onto your local machine
+- `cd` into the root project folder
+- Run `npm install` to install dependencies
+- `cd ios` to change to the ios folder
+- Run `pod install` to install Xcode dependencies
+- `cd ..` to get back to the root project folder
+- Run the command `npx react-native start`
+- Execute `npx react-native run-ios` to start the iOS Simulator and wait for the app to automatically launch
 
 ### For Android Development
-After cloning/pulling the source code onto your local machine, `cd` into the project folder, then run `npm install` to install all dependencies. In order to start the emulator, run the command `npx react-native start`, and after the emulator has been started completely, run `npx react-native run-android`.
+- Clone the source code onto your local machine
+- `cd` into the project folder
+- Run `npm install` to install all dependencies
+- Run the command `npx react-native start`
+- Execute `npx react-native run-android` to start the Android Emulator and wait for the app to automatically launch
 
   
 ## Team Members
@@ -37,5 +48,5 @@ After cloning/pulling the source code onto your local machine, `cd` into the pro
  * Steffen Atlas
  * Jay Gayyar
  * Mohtalifa Ema
- * Damilola Agbola
+ * Damilola Agboola
  * Sayed Ishayat Uddin
