@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Button,
     Image,
     SafeAreaView,
     ScrollView,
@@ -11,16 +12,48 @@ import {
 } from 'react-native';
 import Header from '../components/home/Header';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Header />
+            {/* <Header /> */}
             <ScrollView>
                 <Text style={styles.text}>
-                    Working on android and ios now with app icons woop woop!!! 
+                    This is the home screen
                     {"\n"}
                     🥳🎉
+                    {"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉{"\n"}
+                    🥳🎉
                 </Text>
+                <Button
+                    title='Go to Profile'
+                    onPress={() => navigation.navigate('Profile')}
+                />
             </ScrollView>
         </SafeAreaView>
     )

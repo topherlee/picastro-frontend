@@ -8,7 +8,8 @@ import {
 
 const Header = () => {
     return(
-        <View style={styles.container}>
+        // <View style={styles.container}>
+        <View>
             <Image 
                 style={styles.logo}
                 source={require('../../assets/logo.png')} 
