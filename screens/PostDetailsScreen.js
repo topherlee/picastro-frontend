@@ -1,7 +1,6 @@
 import { 
     View, 
     Text,
-    Button,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -9,18 +8,14 @@ import {
 
 import React from 'react'
 
-const ProfileScreen = ({ navigation }) => {
+const PostDetailsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
             {/* <Header /> */}
             <ScrollView>
                 <Text style={styles.text}>
-                    This is profile screen
+                    This is post details screen
                 </Text>
-                <Button
-                    title='Go to Home'
-                    onPress={() => navigation.navigate('Home')}
-                />
             </ScrollView>
         </SafeAreaView>
   )
@@ -39,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });  
 
-export default ProfileScreen
+export default PostDetailsScreen

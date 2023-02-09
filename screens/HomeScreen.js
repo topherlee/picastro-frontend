@@ -51,8 +51,8 @@ const HomeScreen = ({ navigation }) => {
                     🥳🎉
                 </Text>
                 <Button
-                    title='Go to Profile'
-                    onPress={() => navigation.navigate('Profile')}
+                    title='Go to Post Details'
+                    onPress={() => navigation.navigate('PostDetails')}
                 />
             </ScrollView>
         </SafeAreaView>

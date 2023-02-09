@@ -29,14 +29,13 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 
 import { NavigationContainer } from '@react-navigation/native';
-
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { MainStackNavigator } from './components/navigation/StackNavigator';
+import BottomTabNavigator from './components/navigation/TabNavigator';
 
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import HeaderBanner from './components/home/Header';
 
-const Stack = createNativeStackNavigator();
 
 const YourApp = () => {
   useEffect(() => {
@@ -44,27 +43,7 @@ const YourApp = () => {
   }, []); 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ 
-          headerTitle: (props) => <HeaderBanner {...props} />,
-          headerStyle: {
-            backgroundColor: 'black',
-          },
-          headerTintColor: '#fff',
-          headerTitleAlign: 'center',
-          headerBackTitleVisible: false,
-        }}
-      >
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          
-        />
-        <Stack.Screen 
-          name="Profile" 
-          component={ProfileScreen} 
-        />
-      </Stack.Navigator>
+      <BottomTabNavigator />
       {/* <HomeScreen /> */}
     </NavigationContainer>
   );
