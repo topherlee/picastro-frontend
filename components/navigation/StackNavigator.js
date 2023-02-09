@@ -18,16 +18,6 @@ const headerScreenOptionStyle = {
     headerBackTitleVisible: false,
 }
 
-const headerScreenOptionStyle2 = { 
-    headerTitle: (props) => <HeaderBanner {...props} />,
-    headerStyle: {
-      backgroundColor: 'white',
-    },
-    headerTintColor: '#fff',
-    headerTitleAlign: 'center',
-    headerBackTitleVisible: false,
-}
-
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={headerScreenOptionStyle}>
@@ -39,7 +29,7 @@ const MainStackNavigator = () => {
 
 const ProfileStackNavigator = () => {
     return (
-        <Stack.Navigator screenOptions={headerScreenOptionStyle2}>
+        <Stack.Navigator screenOptions={headerScreenOptionStyle}>
             <Stack.Screen name="Profile" component={ProfileScreen} />
         </Stack.Navigator>
     );

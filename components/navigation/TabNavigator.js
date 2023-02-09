@@ -7,15 +7,26 @@ import HeaderBanner from "../home/Header";
 
 const Tab = createBottomTabNavigator();
 
-const headerScreenOptionStyle = { 
-    headerShown: false
+const screenOptionStyle = { 
+    headerShown: false,
+    tabBarStyle: {
+        backgroundColor: "black",
+    }
 }
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={headerScreenOptionStyle}>
-      <Tab.Screen name="Home" component={MainStackNavigator} />
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
+    <Tab.Navigator screenOptions={screenOptionStyle}>
+        <Tab.Screen 
+            name="HomeTab" 
+            component={MainStackNavigator} 
+            options={{tabBarLabel: "Home"}}
+        />
+        <Tab.Screen 
+            name="ProfileTab" 
+            component={ProfileStackNavigator} 
+            options={{tabBarLabel: "Profile"}}
+        />
     </Tab.Navigator>
   );
 };
