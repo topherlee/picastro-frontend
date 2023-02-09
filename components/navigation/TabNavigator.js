@@ -11,7 +11,9 @@ const screenOptionStyle = {
     headerShown: false,
     tabBarStyle: {
         backgroundColor: "black",
-    }
+    },
+    tabBarActiveTintColor: "red",
+    tabBarInactiveTintColor: "white",
 }
 
 const BottomTabNavigator = () => {

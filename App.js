@@ -43,6 +43,11 @@ const YourApp = () => {
   }, []); 
   return (
     <NavigationContainer>
+
+    <StatusBar
+        barStyle='light-content'
+        backgroundColor="black"
+    />
       <BottomTabNavigator />
       {/* <HomeScreen /> */}
     </NavigationContainer>
