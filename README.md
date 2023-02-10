@@ -47,6 +47,6 @@ How do I test the code to ensure the build is correct?
  * Christopher Lee
  * Steffen Atlas
  * Jay Gayyar
- * Mohtalifa Ema
+ * Mohtalifa A Ema
  * Damilola Agboola
  * Sayed Ishayat Uddin
