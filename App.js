@@ -5,17 +5,17 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    useColorScheme,
+    View,
 } from 'react-native';
 
 import {
@@ -29,26 +29,20 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { MainStackNavigator } from './components/navigation/StackNavigator';
-import BottomTabNavigator from './components/navigation/TabNavigator';
+// import MainStackNavigator from './components/navigation/StackNavigator';
+// import BottomTabNavigator from './components/navigation/TabNavigator';
+import DrawerNavigator from './components/navigation/DrawerNavigator';
 
-import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import HeaderBanner from './components/home/Header';
-
+// import HomeScreen from './screens/HomeScreen';
 
 const YourApp = () => {
   useEffect(() => {
     SplashScreen.hide();
-  }, []); 
+  }, []);
   return (
     <NavigationContainer>
-
-    <StatusBar
-        barStyle='light-content'
-        backgroundColor="black"
-    />
-      <BottomTabNavigator />
+      <StatusBar barStyle="light-content" backgroundColor="black" />
+      <DrawerNavigator />
       {/* <HomeScreen /> */}
     </NavigationContainer>
   );
