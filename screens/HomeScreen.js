@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Button,
     Image,
     SafeAreaView,
     ScrollView,
@@ -11,16 +12,32 @@ import {
 } from 'react-native';
 import Header from '../components/home/Header';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Header />
             <ScrollView>
                 <Text style={styles.text}>
-                    Working on android and ios now with app icons woop woop!!! 
-                    {"\n"}
-                    🥳🎉
+                    This is the home screen
                 </Text>
+                <Button
+                    title='Go to Post Details'
+                    onPress={() => navigation.navigate('PostDetails')}
+                />
+                <Image 
+                    style={styles.image}
+                    resizeMode="contain"
+                    source={require('../assets/test3.png')}
+                />
+                <Image 
+                    style={styles.image}
+                    resizeMode="contain"
+                    source={require('../assets/test.jpg')}
+                />
+                <Image 
+                    style={styles.image}
+                    resizeMode="contain"
+                    source={require('../assets/test2.jpg')}
+                />
             </ScrollView>
         </SafeAreaView>
     )
@@ -29,7 +46,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black'
+        backgroundColor: 'black',
     },
     text: {
         fontSize: 25,
@@ -37,6 +54,10 @@ const styles = StyleSheet.create({
         color: 'red',
         textAlign: 'center'
     },
+    image: {
+        width: "100%",
+        height: 200
+    }
 });  
 
 export default HomeScreen;

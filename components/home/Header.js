@@ -8,7 +8,8 @@ import {
 
 const Header = () => {
     return(
-        <View style={styles.container}>
+        // <View style={styles.container}>
+        <View>
             <Image 
                 style={styles.logo}
                 source={require('../../assets/logo.png')} 
@@ -23,7 +24,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'lightgray',
         padding: 10,
         marginBottom: 20
     },
