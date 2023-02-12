@@ -9,6 +9,8 @@ import {
     Image,
   } from 'react-native';
 
+import SVGImg from './star-camps-button.svg';
+
 
 const StarCampsButton = () => (
     <View style={{
@@ -16,15 +18,7 @@ const StarCampsButton = () => (
         justifyContent: 'center',
         top: 0
         }}>
-        <Image
-            source={require('./home-button.png')}
-            resizeMode="contain"
-            style={{
-                width: 25,
-                height:25,
-                //tintColor: focused ? '#FFC700' : '#000000',
-            }}
-        />
+        <SVGImg width={25} height={25} /> 
     </View>
 );
 
