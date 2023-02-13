@@ -10,7 +10,8 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
-import Header from '../components/home/Header';
+import { DetailedFeedHeader } from '../components/atoms';
+
 
 const HomeScreen = ({ navigation }) => {
     return (

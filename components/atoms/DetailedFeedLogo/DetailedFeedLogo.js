@@ -6,27 +6,19 @@ import {
     View,
 } from 'react-native';
 
-const Header = () => {
+const DetailedFeedLogo = () => {
     return(
         // <View style={styles.container}>
         <View>
             <Image 
                 style={styles.logo}
-                source={require('../../assets/logo.png')} 
+                source={require('../../../assets/logo.png')} 
             />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10,
-        marginBottom: 20
-    },
     logo: {
         width: 75,
         height: 35,
@@ -34,4 +26,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Header;
+export default DetailedFeedLogo;

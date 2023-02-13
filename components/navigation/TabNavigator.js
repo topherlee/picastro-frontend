@@ -3,7 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { MainStackNavigator, ProfileStackNavigator } from "./StackNavigator";
 
-import HeaderBanner from "../home/Header";
+import { Image, Text, View } from 'react-native';
+
+import { HomeButton, StarCampsButton } from "../atoms";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,12 +24,22 @@ const BottomTabNavigator = () => {
         <Tab.Screen 
             name="HomeTab" 
             component={MainStackNavigator} 
-            options={{tabBarLabel: "Home"}}
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <HomeButton />
+                ),
+            }}
         />
         <Tab.Screen 
             name="ProfileTab" 
             component={ProfileStackNavigator} 
-            options={{tabBarLabel: "Profile"}}
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <StarCampsButton />
+                ),
+            }}
         />
     </Tab.Navigator>
   );
