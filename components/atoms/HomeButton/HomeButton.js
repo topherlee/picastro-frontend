@@ -30,21 +30,5 @@ const HomeButton = () => (
         />
     </View>
 );
-{/*
-const HomeButton = () => (
-    <SafeAreaView style={styles.container}>
-        <View>
-            <Button1
-                title="Home-Button"
-                onPress={() => Alert.alert('Simple Button pressed')}
-            />
-                <Image1
-                    style={styles.tinyLogo}
-                    source={require('./HomeButton.png')}
-                />
-        </View>
-    </SafeAreaView>
-); */}
-
 
 export default HomeButton;

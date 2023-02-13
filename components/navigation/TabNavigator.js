@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { MainStackNavigator, ProfileStackNavigator } from "./StackNavigator";
 
-import HeaderBanner from "../home/Header";
 import { Image, Text, View } from 'react-native';
 
 import { HomeButton, StarCampsButton } from "../atoms";
