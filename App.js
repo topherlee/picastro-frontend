@@ -29,11 +29,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 
 import { NavigationContainer } from '@react-navigation/native';
-// import MainStackNavigator from './components/navigation/StackNavigator';
-// import BottomTabNavigator from './components/navigation/TabNavigator';
 import DrawerNavigator from './components/navigation/DrawerNavigator';
-
-// import HomeScreen from './screens/HomeScreen';
 
 const YourApp = () => {
   useEffect(() => {
@@ -43,7 +39,6 @@ const YourApp = () => {
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="black" />
       <DrawerNavigator />
-      {/* <HomeScreen /> */}
     </NavigationContainer>
   );
 };

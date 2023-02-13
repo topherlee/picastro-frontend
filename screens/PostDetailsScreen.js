@@ -11,7 +11,6 @@ import React from 'react'
 const PostDetailsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-            {/* <Header /> */}
             <ScrollView>
                 <Text style={styles.text}>
                     This is post details screen
