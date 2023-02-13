@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeScreenHeader } from '../components/molecules';
+
 import {
     Button,
     Image,
@@ -12,12 +12,15 @@ import {
     View,
 } from 'react-native';
 
+import { HomeScreenHeader } from '../components/molecules';
+
 
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
+            <HomeScreenHeader />
+
             <ScrollView>
-                <HomeScreenHeader/>
                 <Text style={styles.text}>
                     This is the home screen
                 </Text>
