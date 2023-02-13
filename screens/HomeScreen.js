@@ -1,4 +1,5 @@
 import React from 'react';
+import { HomeScreenHeader } from '../components/molecules';
 import {
     Button,
     Image,
@@ -16,6 +17,7 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
+                <HomeScreenHeader/>
                 <Text style={styles.text}>
                     This is the home screen
                 </Text>
