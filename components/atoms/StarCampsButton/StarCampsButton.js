@@ -18,7 +18,7 @@ const StarCampsButton = () => (
         justifyContent: 'center',
         top: 0
         }}>
-        <SVGImg width={25} height={25} /> 
+        <SVGImg width={40} height={40} /> 
     </View>
 );
 

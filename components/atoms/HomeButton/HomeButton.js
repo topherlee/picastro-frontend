@@ -20,8 +20,8 @@ const HomeButton = () => (
             source={require('./home-button.png')}
             resizeMode="contain"
             style={{
-                width: 25,
-                height:25,
+                width: 40,
+                height:40,
                 //min-width: 0px,
                 //min-height: 0px,
                 //margin: 0px 4.78vw 1.35vw 0px,
