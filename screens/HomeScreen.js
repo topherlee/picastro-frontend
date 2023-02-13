@@ -38,6 +38,16 @@ const HomeScreen = ({ navigation }) => {
                     resizeMode="contain"
                     source={require('../assets/test2.jpg')}
                 />
+                <Image 
+                    style={styles.image}
+                    resizeMode="contain"
+                    source={require('../assets/test2.jpg')}
+                />
+                <Image 
+                    style={styles.image}
+                    resizeMode="contain"
+                    source={require('../assets/test2.jpg')}
+                />
             </ScrollView>
         </SafeAreaView>
     )
