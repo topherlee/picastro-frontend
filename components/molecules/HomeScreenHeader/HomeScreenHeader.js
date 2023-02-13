@@ -15,10 +15,11 @@ import {
 const HomeScreenHeader = () => {
   return (
     <View style={{
-        alignContent: 'center',
+        alignContent: 'stretch',
         alignItems: 'center',
         justifyContent: 'center',
-        top: 0
+        top: 0,
+        flexDirection: 'row',
         }}>
         <View>
             <Image
@@ -31,7 +32,13 @@ const HomeScreenHeader = () => {
                 }}
             />
         </View>
-        <View>
+        <View style={{
+            alignContent: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            top: 0,
+            flexDirection: 'column',
+            }}>
             <Text style={styles.textUserName}>
                 starboy32285
             </Text>
@@ -68,9 +75,13 @@ const styles = StyleSheet.create({
         fontSize: 21,
         fontWeight: 'bold',
         fontFamily: 'Inter',
-        fontWeight: '500',
+        fontWeight: '700',
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '72%',
+        height: 30,
+        //align-self: flex-end,
+        //margin: 0 0 '5%' 0,
     },
     textGenderIdentifier: {
         fontSize: 12,
