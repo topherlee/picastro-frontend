@@ -32,7 +32,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './components/navigation/DrawerNavigator';
 
-import { LoginScreen } from './screens/SigninScreen';2
+import { LoginScreen } from './screens/SigninScreen';
 
 const Stack = createStackNavigator();
 const isLoggedIn = false;

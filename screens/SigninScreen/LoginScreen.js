@@ -15,20 +15,21 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../assets/logo.png')} />
+      <Image style={styles.image} source={require('../../assets/logo-text.png')} /> 
+      {/* <StatusBar style="auto" /> */}
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
+          placeholder="Email"
+          placeholderTextColor="white"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
+          placeholder="Password"
+          placeholderTextColor="white"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         /> 
@@ -45,7 +46,7 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputView: {
-    backgroundColor: "White",
+    backgroundColor: "white",
     borderRadius: 30,
     width: "70%",
     height: 45,
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
   forgot_button: {
     height: 30,
     marginBottom: 30,
+    color: "white",
   },
   loginBtn: {
     width: "80%",
@@ -77,6 +79,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "Yellow",
+    backgroundColor: "yellow",
   },
 });
