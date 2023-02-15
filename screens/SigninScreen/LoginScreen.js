@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../../App";
 import {
   StyleSheet,
   Text,
@@ -10,18 +11,20 @@ import {
   ImageComponent,
 } from "react-native";
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen( { navigation } ) {
+  const { setIsSignedIn } = useContext(AppContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../assets/logo-text.png')} /> 
-      {/* <StatusBar style="auto" /> */}
+      <Image style={styles.image} source={require('../../assets/logo-text-gray.png')} /> 
+      <Text style={styles.title}>Register or Login</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Email"
-          placeholderTextColor="white"
+          placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
@@ -29,7 +32,7 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={styles.TextInput}
           placeholder="Password"
-          placeholderTextColor="white"
+          placeholderTextColor="black"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         /> 
@@ -37,12 +40,13 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Main')}>
+      <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
         <Text style={styles.loginText}>LET'S GO</Text> 
       </TouchableOpacity> 
     </View> 
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
   inputView: {
     backgroundColor: "white",
     borderRadius: 30,
-    width: "70%",
+    width: "80%",
     height: 45,
     marginBottom: 20,
     alignItems: "center",
@@ -65,7 +69,6 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 1,
     padding: 10,
-    marginLeft: 20,
   },
   forgot_button: {
     height: 30,
@@ -79,6 +82,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "yellow",
+    backgroundColor: "#FFC700",
   },
+  title: {
+    color: "#FFC700",
+    fontWeight: "bold",
+    fontSize: 20,
+    marginBottom: 10
+  },
+  loginText: {
+    fontWeight: "bold",
+  }
 });
