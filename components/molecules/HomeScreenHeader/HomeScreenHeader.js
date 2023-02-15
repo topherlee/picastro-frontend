@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     textContainer: {
         alignContent: 'flex-start',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         top: 0,
         width: '80%',
         flexDirection: 'column',
