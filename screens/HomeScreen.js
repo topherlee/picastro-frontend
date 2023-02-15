@@ -12,7 +12,7 @@ import {
     View,
 } from 'react-native';
 
-import { HomeScreenHeader } from '../components/molecules';
+import { HomeScreenHeader, HomeFeedImageContainer } from '../components/molecules';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -21,38 +21,12 @@ const HomeScreen = ({ navigation }) => {
             <HomeScreenHeader />
 
             <ScrollView>
-                <Text style={styles.text}>
-                    This is the home screen
-                </Text>
                 <Button
                     title='Go to Post Details'
                     onPress={() => navigation.navigate('PostDetails')}
                 />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test3.png')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test.jpg')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test2.jpg')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test2.jpg')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test2.jpg')}
-                />
+                <HomeFeedImageContainer />
+                
             </ScrollView>
         </SafeAreaView>
     )
