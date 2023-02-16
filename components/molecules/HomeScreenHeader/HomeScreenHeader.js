@@ -10,26 +10,15 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
-import { PicastroLogo } from '../../atoms';
+import { PicastroLogo, UserImage, HeaderUserName } from '../../atoms';
 
 const HomeScreenHeader = () => {
   return (
     <View style={styles.headerContainer}>
         <View>
-            <Image
-                source={require('../../../assets/Sample/sampleuser.png')}
-                resizeMode="contain"
-                style={styles.userImage}
-            />
+            <UserImage />
         </View>
-        <View style={styles.textContainer}>
-            <Text style={styles.textUserName}>
-                starboy32285
-            </Text>
-            <Text style={styles.textGenderIdentifier}>
-                he/him
-            </Text>
-        </View>
+        <HeaderUserName />
         <View>
             <PicastroLogo />
         </View>

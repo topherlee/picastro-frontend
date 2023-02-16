@@ -26,6 +26,8 @@ const HomeScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate('PostDetails')}
                 />
                 <HomeFeedImageContainer />
+                <HomeFeedImageContainer />
+                <HomeFeedImageContainer />
                 
             </ScrollView>
         </SafeAreaView>

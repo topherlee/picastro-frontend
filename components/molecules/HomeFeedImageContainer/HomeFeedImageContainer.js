@@ -11,9 +11,11 @@ import {
     View,
 } from 'react-native';
 
-import SVGImg from '../../../assets/Sample/star-icon.svg';
+import styled from 'styled-components';
 
-export const HomeFeedImageContainer = ({}) => {
+import SVGImg1 from '../../../assets/Sample/star-icon.svg';
+
+export const HomeFeedImageContainer = () => {
     return (
       <View>
         <View>
@@ -25,12 +27,14 @@ export const HomeFeedImageContainer = ({}) => {
           <Text style={styles.userName}>Starman 2022</Text>
         </View>
         <View>
-          <Text>
+          <TextStarNameShort>
             IC 443
-            
-            <Text>Jellyfish Nebula</Text>
-          </Text>
-          <SVGImg 
+          </TextStarNameShort>
+          <TextStarName>
+            Jellyfish Nebula
+          </TextStarName>
+          
+          <SVGImg1
             style={styles.starIcon}
              />
         </View>
@@ -104,13 +108,28 @@ const styles = StyleSheet.create({
 })
 
 
+const TextStarName = styled.Text`
+  display: flex;
+  color: #7a7a7a;
+  font-size: 11px;
+  font-weight: 400;
+  font-family: Inter;
+`;
 
-
-
+const TextStarNameShort = styled.Text`
+  width: 111.85%;
+  height: 71.6%;
+  margin: 15.3px 0px 0px 0px;
+  color: #7a7a7a;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: Inter;
+  box-sizing: border-box;
+`;
 
 
 /* 
-const ImageMoleculeRootRootRoot = styled.div`
+const ImageMoleculeRootRootRoot = styled.View`
   position: relative;
   gap: 85.5px;
   display: flex;
@@ -178,7 +197,7 @@ const ICJellyfishNebula1 = styled.div`
   box-sizing: border-box;
 `;
 const ICJellyfishNebula = styled.div`
-  display: contents;
+  display: flex;
   color: #7a7a7a;
   font-size: 11px;
   font-weight: 400;
