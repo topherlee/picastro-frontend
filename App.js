@@ -32,7 +32,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './components/navigation/DrawerNavigator';
 
-import { LoginScreen } from './screens/SigninScreen';
+import { LoginScreen, SignUpScreen } from './screens/SigninScreen';
 
 const Stack = createStackNavigator();
 
@@ -57,7 +57,10 @@ const YourApp = () => {
           {isSignedIn ? (
             <Stack.Screen name="MainStack" component={DrawerNavigator} />
           ) : (
-            <Stack.Screen name="LoginStack" component={LoginScreen}  />
+            <Stack.Group>
+              <Stack.Screen name="Login" component={LoginScreen}  />
+              <Stack.Screen name="SignUp" component={SignUpScreen}  /> 
+            </Stack.Group>
           )}
         </Stack.Navigator>
       </AppContext.Provider>

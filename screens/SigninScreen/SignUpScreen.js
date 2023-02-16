@@ -11,7 +11,7 @@ import {
   ImageComponent,
 } from "react-native";
 
-export default function LoginScreen( { navigation } ) {
+export default function SignUpScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AppContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +20,22 @@ export default function LoginScreen( { navigation } ) {
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../assets/logo-text-gray.png')} /> 
       <Text style={styles.title}>Register or Login</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="First Name"
+          placeholderTextColor="black"
+          onChangeText={(email) => setEmail(email)}
+        /> 
+      </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Last Name"
+          placeholderTextColor="black"
+          onChangeText={(email) => setEmail(email)}
+        /> 
+      </View> 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -38,15 +54,24 @@ export default function LoginScreen( { navigation } ) {
           onChangeText={(password) => setPassword(password)}
         /> 
       </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Confirm Password"
+          placeholderTextColor="black"
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+        /> 
+      </View>
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
       <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
-        <Text style={styles.loginText}>LET'S GO</Text> 
+        <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
       <Text style={styles.text}>
-        Don't have an account?  
-        <Text style={{color: "#FFC700"}} onPress= {function(){ navigation.navigate('SignUp') }}> Register here</Text>
+        Already have an account?  
+        <Text style={{color: "#FFC700"}} onPress= {function(){ navigation.navigate('Login') }}> Login here</Text>
       </Text> 
     
     </View> 
@@ -68,8 +93,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "80%",
     height: 45,
-    marginBottom: 20,
-    alignItems: "center",
+    marginBottom: 10,
+    alignItems: "flex-start"
   },
   TextInput: {
     height: 50,

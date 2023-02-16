@@ -124,7 +124,6 @@ const TextStarNameShort = styled.Text`
   font-size: 11px;
   font-weight: 700;
   font-family: Inter;
-  box-sizing: border-box;
 `;
 
 
