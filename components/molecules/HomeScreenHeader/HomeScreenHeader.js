@@ -10,7 +10,7 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
-
+import { PicastroLogo } from '../../atoms';
 
 const HomeScreenHeader = () => {
   return (
@@ -31,11 +31,7 @@ const HomeScreenHeader = () => {
             </Text>
         </View>
         <View>
-            <Image
-                source={require('../../../assets/logo.png')}
-                resizeMode="contain"
-                style={styles.picastroLogo}
-            />
+            <PicastroLogo />
         </View>
     </View>
   )
@@ -107,7 +103,7 @@ const styles = StyleSheet.create({
         left: 5,
         //flex: 1,
     },
-    picastroLogo: {
+    PicastroLogo: {
         width: 40,
         height: 40,
         right: 5,
