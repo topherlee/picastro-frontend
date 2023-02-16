@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     Button,
     Image,
@@ -11,33 +12,23 @@ import {
     View,
 } from 'react-native';
 
+import { HomeScreenHeader, HomeFeedImageContainer } from '../components/molecules';
+
 
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
+            <HomeScreenHeader />
+
             <ScrollView>
-                <Text style={styles.text}>
-                    This is the home screen
-                </Text>
                 <Button
                     title='Go to Post Details'
                     onPress={() => navigation.navigate('PostDetails')}
                 />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test3.png')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test.jpg')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test2.jpg')}
-                />
+                <HomeFeedImageContainer />
+                <HomeFeedImageContainer />
+                <HomeFeedImageContainer />
+                
             </ScrollView>
         </SafeAreaView>
     )
