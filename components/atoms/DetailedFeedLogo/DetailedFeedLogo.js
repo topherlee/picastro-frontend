@@ -12,7 +12,7 @@ const DetailedFeedLogo = () => {
         <View>
             <Image 
                 style={styles.logo}
-                source={require('../../../assets/logo.png')} 
+                source={require('../../../assets/logo.png')}   
             />
         </View>
     )
