@@ -69,10 +69,12 @@ export default function SignUpScreen( { navigation } ) {
       <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
-      <Text style={styles.text}>
-        Already have an account?  
-        <Text style={{color: "#FFC700"}} onPress= {function(){ navigation.navigate('Login') }}> Login here</Text>
-      </Text> 
+      <View style={{flexDirection:'row', marginTop: 20}}>
+        <Text style={styles.text}>Already have an account? </Text> 
+        <TouchableOpacity onPress= {function(){ navigation.navigate('Login') }}>
+          <Text style={{color: "#FFC700"}}> Login here</Text>
+        </TouchableOpacity>
+      </View>
     
     </View> 
   );
@@ -103,7 +105,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    marginTop: 20,
   },
   forgot_button: {
     height: 30,

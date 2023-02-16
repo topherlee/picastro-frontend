@@ -44,11 +44,12 @@ export default function LoginScreen( { navigation } ) {
       <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
         <Text style={styles.loginText}>LET'S GO</Text> 
       </TouchableOpacity>
-      <Text style={styles.text}>
-        Don't have an account?  
-        <Text style={{color: "#FFC700"}} onPress= {function(){ navigation.navigate('SignUp') }}> Register here</Text>
-      </Text> 
-    
+      <View style={{flexDirection:'row', marginTop: 20}}>
+        <Text style={styles.text}>Don't have an account? </Text> 
+        <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
+          <Text style={{color: "#FFC700"}}> Register here</Text>
+        </TouchableOpacity>
+      </View>
     </View> 
   );
 }
@@ -78,7 +79,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    marginTop: 20,
   },
   forgot_button: {
     height: 30,
