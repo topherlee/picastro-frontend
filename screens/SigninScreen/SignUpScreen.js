@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { AppContext } from "../../App";
 import {
   StyleSheet,
   Text,
@@ -10,9 +9,10 @@ import {
   TouchableOpacity,
   ImageComponent,
 } from "react-native";
+import { AuthContext } from "../../src/context/AuthContext";
 
 export default function SignUpScreen( { navigation } ) {
-  const { setIsSignedIn } = useContext(AppContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
