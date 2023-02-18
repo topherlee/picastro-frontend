@@ -100,7 +100,7 @@ const UserImage = styled.Image`
 
 const UserName = styled.Text`
   position: relative;
-  
+  top: 10px;
   left: 60px;
   margin: 5.5px 0px 90.9px 0px;
   color: #fcfcfc;

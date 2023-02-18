@@ -32,18 +32,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './components/navigation/DrawerNavigator';
 
-import { LoginScreen } from './screens/SigninScreen';
+import { LoginScreen, SignUpScreen } from './screens/SigninScreen';
+import { AuthProvider } from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
 
-export const AppContext = React.createContext({});
-
 const YourApp = () => {
   const [isSignedIn, setIsSignedIn] = React.useState(false);
-  const contextValue = React.useMemo(() => ({
-    isSignedIn,
-    setIsSignedIn
-  }), [isSignedIn])
+  const contextValue = React.useMemo(() => (
+    {isSignedIn, setIsSignedIn}
+  ), [isSignedIn])
 
   useEffect(() => {
     SplashScreen.hide();
@@ -51,16 +49,19 @@ const YourApp = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="black" />
-      <AppContext.Provider value={contextValue}>
+      <AuthProvider contextValue={contextValue}>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           {/* if isSignedIn, then use the drawer navigator, otherwise render the login screen */}
           {isSignedIn ? (
             <Stack.Screen name="MainStack" component={DrawerNavigator} />
           ) : (
-            <Stack.Screen name="LoginStack" component={LoginScreen}  />
+            <Stack.Group>
+              <Stack.Screen name="Login" component={LoginScreen}  />
+              <Stack.Screen name="SignUp" component={SignUpScreen}  /> 
+            </Stack.Group>
           )}
         </Stack.Navigator>
-      </AppContext.Provider>
+      </AuthProvider>
     </NavigationContainer>
   );
 };
