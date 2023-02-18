@@ -20,16 +20,15 @@ export const HomeFeedImageContainer = () => {
     return (
       <View1>
         <View2>
-          <ImageBackground 
-            //source={{uri:"https://file.rendit.io/n/nPzgPvxZ2JSAIkOomoXh.png"}}
-            >
+          <AstroImage
+            source={require('../../../assets/Sample/rectangle_9.png')}
+            />
             <UserImage
               source={require('../../../assets/Sample/sampleuser2.png')}
               resizeMode="contain"
               style={styles.userImageFrame}
             />
             <UserName>Starman 2022</UserName>
-          </ImageBackground>
         </View2>
         <View3>
           <TextStarNameShort>
@@ -52,41 +51,33 @@ export const HomeFeedImageContainer = () => {
 const View1 = styled.View`
   grid-column: 2 / span 1;
   position: relative;
-  height: 173px;
-  gap: 85.5px;
+  height: 185px;
+  
   display: flex;
   flex-direction: column;
-  flex: 1;
-  justify-content: flex-end;
+  
+  justify-content: flex-start;
   align-items: flex-start;
-  padding: 116px 0px 0px 0px;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-blend-mode: ;
   border: 1px solid white;
 `;
 //box-sizing: border-box;
 //background-color: black;
 
 const View2 = styled.View`
-  width: 183px;
-  height: 122px;
-  left: 0px;
-  top: 0px;
   position: relative;
-  gap: 4.47px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 6.6px 8.38px;
-  background-size: cover;
-  background-image: url("../../../assets/Sample/Rectangle_9.png");
+  
   border: 1px solid yellow;
 `;
 //box-sizing: border-box;
 //background-color: grey;
 
+
+const AstroImage = styled.Image`
+  position: absolute;
+  top: 0px;
+  min-width: 0px;
+  min-height: 0px;
+  `;
 const UserImage = styled.Image`
   position: absolute;
   
@@ -113,44 +104,21 @@ const UserName = styled.Text`
 
 const View3 = styled.View`
   position: relative;
-  
+  top: 120px;
   width: 182.76px;
   height: 57px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
-  padding: 1.55px 15.4px 1.55px 14.3px;
-  border: 1px solid blue;
+  
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #2e2e2e;
 `;
-//box-sizing: border-box;
-//border-radius: 0px 0px 5px 5px;
-//background-color: #2e2e2e;
-
-const TextStarName = styled.Text`
-position: absolute;
-width: 94px;
-height: 38.61px;
-left: 29.75px;
-top: 314.19px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 11px;
-line-height: 13px;
-
-color: #7A7A7A;
-border: 1px solid red;
-`;
-//background-color: red;
+//
+//border: 1px solid grey;
 
 const TextStarNameShort = styled.Text`
   position: absolute;
-  width: 94px;
-  height: 38.61px;
-  left: 29.75px;
-  top: 314.19px;
+  left: 15px;
+  top: 10px;
 
   font-family: 'Inter';
   font-style: normal;
@@ -159,7 +127,7 @@ const TextStarNameShort = styled.Text`
   line-height: 13px;
 
   color: #7A7A7A;
-  border: 1px solid green;
+  
 `;
 //box-sizing: border-box;
 //background-color: white;
@@ -170,13 +138,30 @@ const TextStarNameShort = styled.Text`
 // font-size: 11px;
 // font-weight: 700;
 // font-family: Inter;
+// border: 1px solid green;
+
+const TextStarName = styled.Text`
+position: absolute;
+width: 94px;
+top: 30px;
+left: 15px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 13px;
+
+color: #7A7A7A;
+`;
+//background-color: red;
+//border: 1px solid red;
 
 const StarIconWrapper = styled.View`
   position: absolute;
   width: 24.55px;
   height: 24.55px;
-  left: 158.26px;
-  top: 316.23px;
+  left: 150px;
+  top: 18px;
 `;
 //box-sizing: border-box;
 
