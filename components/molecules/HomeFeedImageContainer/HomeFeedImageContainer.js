@@ -73,7 +73,7 @@ const View2 = styled.View`
   height: 122px;
   left: 0px;
   top: 0px;
-  position: absolute;
+  position: relative;
   gap: 4.47px;
   display: flex;
   flex-direction: row;
@@ -88,21 +88,19 @@ const View2 = styled.View`
 //background-color: grey;
 
 const UserImage = styled.Image`
-  position: relative;
-  top: 10px;
+  position: absolute;
+  
   left: 10px;
   min-width: 0px;
   min-height: 0px;
-  margin: 0px 0px 84.8px 0px;
+  
 `;
 //box-sizing: border-box;
 //background-color: green;
 
 const UserName = styled.Text`
-  position: relative;
-  top: 10px;
+  position: absolute;
   left: 60px;
-  margin: 5.5px 0px 90.9px 0px;
   color: #fcfcfc;
   font-size: 10px;
   font-weight: 700;
@@ -115,7 +113,7 @@ const UserName = styled.Text`
 
 const View3 = styled.View`
   position: relative;
-  top: 123px;
+  
   width: 182.76px;
   height: 57px;
   display: flex;
