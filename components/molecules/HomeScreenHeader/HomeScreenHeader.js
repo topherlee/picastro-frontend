@@ -29,9 +29,9 @@ const HomeScreenHeader = () => {
 const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: '#2F2F2F',
-        left: '3%',
+        left: '1%',
         top: 0,
-        width: '90%',
+        width: '96%',
         height: 60,
         alignContent: 'space-around',
         alignItems: 'center',
