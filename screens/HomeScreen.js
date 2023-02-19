@@ -12,8 +12,8 @@ import {
     View,
 } from 'react-native';
 
-import { HomeScreenHeader, HomeFeedImageContainer } from '../components/molecules';
-
+import { HomeScreenHeader } from '../components/molecules';
+import { HomeFeedContainer } from '../components/organisms';
 
 const HomeScreen = ({ navigation }) => {
     return (
@@ -25,16 +25,7 @@ const HomeScreen = ({ navigation }) => {
                     title='Go to Post Details'
                     onPress={() => navigation.navigate('PostDetails')}
                 />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
-                <HomeFeedImageContainer />
+                <HomeFeedContainer />
             </ScrollView>
         </SafeAreaView>
     )

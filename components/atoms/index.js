@@ -4,3 +4,4 @@ export {default as DetailedFeedLogo} from './DetailedFeedLogo/DetailedFeedLogo';
 export {default as PicastroLogo} from './PicastroLogo/PicastroLogo';
 export {default as UserImage} from  './UserImage/UserImage';
 export {default as HeaderUserName} from './HeaderUserName/HeaderUserName';
+export {default as StarIcon} from './StarIcon/StarIcon';
