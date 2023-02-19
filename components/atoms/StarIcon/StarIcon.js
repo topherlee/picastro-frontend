@@ -15,57 +15,17 @@ import styled from 'styled-components';
 import StarIconSvg from '../../../assets/star-icon.svg';
 import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
-var imageSaved;
-
-// function setImageSaved (imageSaved=false) {
-//     console.log("pressed setImageSaved")
-//     return (!imageSaved);
-// };
-
 
 const StarIcon = () => {
-    const [imageSaved, setImageSaved] = React.useState(false);
-    onPress= () => {
-        console.log("pressed this.setImageSaved");
-        setImageSaved(!imageSaved)
-    }
-
-    <StarIconWrapper
-        onPress={this.onPress}
-        title="Save Image"
-    >
-        {imageSaved ? <StarIconSavedSvg /> : <StarIconSvg />}
-    </StarIconWrapper>
-
-// var imageSaved;
-    // const setImageSaved = function (imageSaved=false) {
-    //     console.log("pressed setImageSaved")
-    //     imageSaved = !imageSaved;
-    //     console.log(imageSaved);
-    //     return (imageSaved);
-    // };
-    // onPress = () => {
-    //     console.log("pressed this.setImageSaved");
-    //     setImageSaved();
-    // }
-
-    // if (!imageSaved) {
-    //     return (
-    //         <StarIconWrapper
-                
-    //             onPress={this.onPress}
-    //             title="Save Image"
-    //         >
-    //             <StarIconSvg />
-    //         </StarIconWrapper>
-    //     );
-    // } else {
-    //     return (
-    //         <StarIconWrapper>
-    //             <StarIconSavedSvg />
-    //         </StarIconWrapper>
-    //     );
-//     }
+    const [imageIsSaved, setImageIsSaved] = React.useState(false);
+    return (
+        <StarIconWrapper
+            onPress={ () => {setImageIsSaved(!imageIsSaved)}}
+            title="Save Image"
+        >
+            {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg /> }
+        </StarIconWrapper>
+    );
 };
 
 const StarIconWrapper = styled.TouchableOpacity`
