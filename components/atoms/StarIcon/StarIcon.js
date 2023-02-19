@@ -15,45 +15,18 @@ import styled from 'styled-components';
 import StarIconSvg from '../../../assets/star-icon.svg';
 import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
-var imageSaved;
-
-function setImageSaved (imageSaved=false) {
-    console.log("pressed setImageSaved")
-    return (!imageSaved);
-};
-
-
 const StarIcon = () => {
-    var imageSaved;
-    const setImageSaved = function (imageSaved=false) {
-        console.log("pressed setImageSaved")
-        imageSaved = !imageSaved;
-        console.log(imageSaved);
-        return (!imageSaved);
-    };
-    onPress = () => {
-        console.log("pressed this.setImageSaved");
-        setImageSaved();
-    }
-
-    if (!imageSaved) {
-        return (
-            <StarIconWrapper
-                
-                onPress={this.onPress}
-                title="Save Image"
-            >
-                <StarIconSvg />
-            </StarIconWrapper>
-        );
-    } else {
-        return (
-            <StarIconWrapper>
+    const [isSaved, setIsSaved] = React.useState(false);
+    return (
+        <StarIconWrapper onPress={ () => {setIsSaved(!isSaved)}}>
+            {isSaved ? 
                 <StarIconSavedSvg />
-            </StarIconWrapper>
-        );
-    }
-};
+                : 
+                <StarIconSvg />
+            }
+        </StarIconWrapper>
+    );
+}
 
 const StarIconWrapper = styled.TouchableOpacity`
   position: absolute;
