@@ -17,42 +17,55 @@ import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
 var imageSaved;
 
-function setImageSaved (imageSaved=false) {
-    console.log("pressed setImageSaved")
-    return (!imageSaved);
-};
+// function setImageSaved (imageSaved=false) {
+//     console.log("pressed setImageSaved")
+//     return (!imageSaved);
+// };
 
 
 const StarIcon = () => {
-    var imageSaved;
-    const setImageSaved = function (imageSaved=false) {
-        console.log("pressed setImageSaved")
-        imageSaved = !imageSaved;
-        console.log(imageSaved);
-        return (!imageSaved);
-    };
-    onPress = () => {
+    const [imageSaved, setImageSaved] = React.useState(false);
+    onPress= () => {
         console.log("pressed this.setImageSaved");
-        setImageSaved();
+        setImageSaved(!imageSaved)
     }
 
-    if (!imageSaved) {
-        return (
-            <StarIconWrapper
+    <StarIconWrapper
+        onPress={this.onPress}
+        title="Save Image"
+    >
+        {imageSaved ? <StarIconSavedSvg /> : <StarIconSvg />}
+    </StarIconWrapper>
+
+// var imageSaved;
+    // const setImageSaved = function (imageSaved=false) {
+    //     console.log("pressed setImageSaved")
+    //     imageSaved = !imageSaved;
+    //     console.log(imageSaved);
+    //     return (imageSaved);
+    // };
+    // onPress = () => {
+    //     console.log("pressed this.setImageSaved");
+    //     setImageSaved();
+    // }
+
+    // if (!imageSaved) {
+    //     return (
+    //         <StarIconWrapper
                 
-                onPress={this.onPress}
-                title="Save Image"
-            >
-                <StarIconSvg />
-            </StarIconWrapper>
-        );
-    } else {
-        return (
-            <StarIconWrapper>
-                <StarIconSavedSvg />
-            </StarIconWrapper>
-        );
-    }
+    //             onPress={this.onPress}
+    //             title="Save Image"
+    //         >
+    //             <StarIconSvg />
+    //         </StarIconWrapper>
+    //     );
+    // } else {
+    //     return (
+    //         <StarIconWrapper>
+    //             <StarIconSavedSvg />
+    //         </StarIconWrapper>
+    //     );
+//     }
 };
 
 const StarIconWrapper = styled.TouchableOpacity`

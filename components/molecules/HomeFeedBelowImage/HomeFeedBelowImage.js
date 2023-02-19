@@ -23,7 +23,6 @@ const HomeFeedBelowImage = () => (
         Jellyfish Nebula
       </TextStarName>
       <StarIcon />
-      
     </View3>
 );
 
