@@ -24,7 +24,6 @@ export const HomeFeedImageContainer = () => {
         <UserImage
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
-          style={styles.userImageFrame}
         />
         <UserName>Starman 2022</UserName>
       </View2>
@@ -33,11 +32,10 @@ export const HomeFeedImageContainer = () => {
 
 const View2 = styled.View`
   position: relative;
-  
-  border: 1px solid yellow;
-`;
+  `;
 //box-sizing: border-box;
 //background-color: grey;
+//border: 1px solid yellow;
 
 
 const AstroImage = styled.Image`
@@ -48,9 +46,10 @@ const AstroImage = styled.Image`
   `;
 const UserImage = styled.Image`
   position: absolute;
-  
+  top: 7px;
   left: 10px;
   min-width: 0px;
+  width: 27px;
   min-height: 0px;
   
 `;
@@ -59,7 +58,8 @@ const UserImage = styled.Image`
 
 const UserName = styled.Text`
   position: absolute;
-  left: 60px;
+  top: 11px;
+  left: 40px;
   color: #fcfcfc;
   font-size: 10px;
   font-weight: 700;
