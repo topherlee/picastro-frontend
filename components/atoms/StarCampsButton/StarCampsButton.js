@@ -9,7 +9,7 @@ import {
     Image,
   } from 'react-native';
 
-import SVGImg from './star-camps-button.svg';
+import StarCampsIcon from '../../../assets/buttons/star-camps-button.svg';
 
 
 const StarCampsButton = () => (
@@ -18,7 +18,7 @@ const StarCampsButton = () => (
         justifyContent: 'center',
         top: 0
         }}>
-        <SVGImg width={40} height={40} /> 
+        <StarCampsIcon width={40} height={40} /> 
     </View>
 );
 

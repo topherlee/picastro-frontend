@@ -17,7 +17,7 @@ const HomeButton = () => (
         top: 0
         }}>
         <Image
-            source={require('./home-button.png')}
+            source={require('../../../assets/buttons/home-button.png')}
             resizeMode="contain"
             style={{
                 width: 40,
