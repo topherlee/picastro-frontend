@@ -15,7 +15,7 @@ import {
 import styled from 'styled-components';
 
 
-export const HomeFeedImageContainer = () => {
+export const HomeFeedImageContainer = (props) => {
     return (
       <View2>
         <AstroImage

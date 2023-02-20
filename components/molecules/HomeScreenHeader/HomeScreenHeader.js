@@ -10,13 +10,16 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PicastroLogo, UserImage, HeaderUserName } from '../../atoms';
 
 const HomeScreenHeader = () => {
   return (
     <View style={styles.headerContainer}>
         <View>
-            <UserImage />
+            <TouchableOpacity>
+                <UserImage />
+            </TouchableOpacity>
         </View>
         <HeaderUserName />
         <View>
