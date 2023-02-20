@@ -31,14 +31,16 @@ How do I test the code to ensure the build is correct?
 - `cd ios` to change to the ios folder
 - Run `pod install` to install Xcode dependencies
 - `cd ..` to get back to the root project folder
-- Run the command `npx react-native start`
+- Run the command `npx react-native start` and then press `i` when prompted 
+- OR
 - Execute `npx react-native run-ios` to start the iOS Simulator and wait for the app to automatically launch
 
 ### For Android Development
 - Clone the source code onto your local machine
 - `cd` into the project folder
 - Run `npm install` to install all dependencies
-- Run the command `npx react-native start`
+- Run the command `npx react-native start` and then press `a` when prompted
+- OR
 - Execute `npx react-native run-android` to start the Android Emulator and wait for the app to automatically launch
 
   
