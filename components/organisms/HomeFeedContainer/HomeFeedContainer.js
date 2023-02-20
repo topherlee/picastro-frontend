@@ -41,9 +41,9 @@ const View1 = styled.TouchableOpacity`
   max-width: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
-  
+  align-content: stretch;
 `;
 //box-sizing: border-box;
 //background-color: black;

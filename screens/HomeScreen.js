@@ -21,12 +21,12 @@ const props = [
         imageURL: require('../assets/Sample/rectangle_9.png'),
     },
     {
-        userName: "admin",
-        imageURL: require('../assets/TestAstroImages/Element1.png'),
-    },
-    {
         userName: "starboy",
         imageURL: require('../assets/Sample/test2.jpg'),
+    },
+    {
+        userName: "admin",
+        imageURL: require('../assets/TestAstroImages/Element1.png'),
     },
     {
         userName: "stargirl",

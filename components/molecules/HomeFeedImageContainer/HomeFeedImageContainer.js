@@ -12,16 +12,27 @@ import {
     View,
 } from 'react-native';
 
+import { ImageResolvedAssetSource } from 'react-native';
+
 import styled from 'styled-components';
 
+var ratio;
 
 export const HomeFeedImageContainer = (props) => {
+  var source = Image.resolveAssetSource(props.imageURL);
+  ratio = (source.width / source.height);
     return (
       <View2>
         <AstroImage
           source={props.imageURL}
+          style={{
+            aspectRatio: ratio,
+            maxWidth: "100%",
+            height: "auto",
+          }}
           resizeMode="contain"
         />
+        {console.log(source.width,source.height)}
         <UserImage
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
@@ -34,7 +45,6 @@ export const HomeFeedImageContainer = (props) => {
 const View2 = styled.View`
   position: relative;
   width: 184px;
-  max-height: 200px;
   `;
 //box-sizing: border-box;
 //background-color: grey;
