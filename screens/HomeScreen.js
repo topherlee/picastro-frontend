@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     Button,
     Image,
@@ -11,42 +12,49 @@ import {
     View,
 } from 'react-native';
 
+import { HomeScreenHeader } from '../components/molecules';
+import { HomeFeedContainer } from '../components/organisms';
 
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <Text style={styles.text}>
-                    This is the home screen
-                </Text>
-                <Button
-                    title='Go to Post Details'
-                    onPress={() => navigation.navigate('PostDetails')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test3.png')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test.jpg')}
-                />
-                <Image 
-                    style={styles.image}
-                    resizeMode="contain"
-                    source={require('../assets/test2.jpg')}
-                />
+            <HomeScreenHeader />
+
+            <ScrollView 
+                style={styles.scrollViewContainer}
+                contentContainerStyle={contentContainerStyles}    
+            >
+                <HomeFeedContainer />
+                <HomeFeedContainer />
+                <HomeFeedContainer />
+                <HomeFeedContainer />
+                <HomeFeedContainer />
             </ScrollView>
         </SafeAreaView>
     )
+}
+
+const contentContainerStyles = {    //flex row for the homescreen layout
+    display: "flex", 
+    width: "100%", 
+    flexDirection: "row", 
+    flexWrap: "wrap",
+    columnGap: 8,
+    rowGap: 4,
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black',
+    },
+    scrollViewContainer: {
+        flex: 2, // the number of columns you want to devide the screen into
+        //marginHorizontal: "auto",
+        width: '96%',
+        left: '2%',
+        right: '2%',
+        paddingTop: '10%',
     },
     text: {
         fontSize: 25,
