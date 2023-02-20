@@ -10,22 +10,26 @@ import {
     Text,
     useColorScheme,
     View,
+    TouchableOpacity
 } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
 
 import { HomeFeedImageContainer, HomeFeedBelowImage } from '../../molecules';
 
 export const HomeFeedContainer = () => {
+  const navigation = useNavigation();  
     return (
-      <View1>
+      <View1 onPress={() => navigation.navigate('PostDetails')}>
         <HomeFeedImageContainer />
         <HomeFeedBelowImage />
       </View1>
     )
 }
 
-const View1 = styled.View`
+const View1 = styled.TouchableOpacity`
   position: relative;
   height: 185px;
   
