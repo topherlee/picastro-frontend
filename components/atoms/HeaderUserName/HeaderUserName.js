@@ -28,12 +28,12 @@ const HeaderUserName = () => {
 const styles = StyleSheet.create({
     textContainer: {
         alignContent: 'flex-start',
-        alignItems: 'center',
         justifyContent: 'flex-start',
         top: 0,
-        width: '80%',
+        width: '72%',
         flexDirection: 'column',
-        //flex: 2,
+        marginLeft: 25,
+        paddingRight: 10,
     },
     textUserName: {
         fontSize: 21,
@@ -42,15 +42,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: 'white',
         textAlign: 'left',
-        width: '72%',
-        height: 30,
-        //align-self: flex-end,
-        //margin: 0 0 '5%' 0,
-        position: 'absolute',
-        left: '22%',
-        right: '36%',
-        top: '4.67%',
-        bottom: '92%',
     },
     textGenderIdentifier: {
         fontSize: 12,

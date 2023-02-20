@@ -32,7 +32,6 @@ export const HomeFeedContainer = () => {
 const View1 = styled.TouchableOpacity`
   position: relative;
   height: 185px;
-  
   display: flex;
   flex-direction: column;
   

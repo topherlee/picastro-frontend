@@ -20,11 +20,11 @@ const HomeScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <HomeScreenHeader />
 
-            <ScrollView style={styles.scrollViewContainer}>
-                <Button
-                    title='Go to Post Details'
-                    onPress={() => navigation.navigate('PostDetails')}
-                />
+            <ScrollView 
+                style={styles.scrollViewContainer}
+                contentContainerStyle={contentContainerStyles}    
+            >
+                <HomeFeedContainer />
                 <HomeFeedContainer />
                 <HomeFeedContainer />
                 <HomeFeedContainer />
@@ -34,6 +34,15 @@ const HomeScreen = ({ navigation }) => {
     )
 }
 
+const contentContainerStyles = {    //flex row for the homescreen layout
+    display: "flex", 
+    width: "100%", 
+    flexDirection: "row", 
+    flexWrap: "wrap",
+    columnGap: 8,
+    rowGap: 4,
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -41,10 +50,11 @@ const styles = StyleSheet.create({
     },
     scrollViewContainer: {
         flex: 2, // the number of columns you want to devide the screen into
-        marginHorizontal: "auto",
+        //marginHorizontal: "auto",
         width: '96%',
         left: '2%',
-        //backgroundColor: "red"
+        right: '2%',
+        paddingTop: '10%',
     },
     text: {
         fontSize: 25,

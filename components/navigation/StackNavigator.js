@@ -13,7 +13,6 @@ const MainStackNavigator = () => {
   return (
     //<Stack.Navigator screenOptions={{headerShown:false}}>
     <Stack.Navigator screenOptions={DetailedFeedHeader}>
-      {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
     </Stack.Navigator>
