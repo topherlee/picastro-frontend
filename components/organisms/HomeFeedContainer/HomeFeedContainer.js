@@ -19,23 +19,29 @@ import styled from 'styled-components';
 
 import { HomeFeedImageContainer, HomeFeedBelowImage } from '../../molecules';
 
-export const HomeFeedContainer = () => {
-  const navigation = useNavigation();  
+export const HomeFeedContainer = (props) => {
+  const navigation = useNavigation();
     return (
       <View1 onPress={() => navigation.navigate('PostDetails')}>
-        <HomeFeedImageContainer />
-        <HomeFeedBelowImage />
+        <HomeFeedImageContainer 
+          {...props}  
+        />
+        <HomeFeedBelowImage 
+          style={{
+          }}
+        />
       </View1>
     )
 }
 
 const View1 = styled.TouchableOpacity`
   position: relative;
-  height: 185px;
+  height: auto;
+  max-height: 300px;
+  max-width: 200px;
   display: flex;
   flex-direction: column;
-  
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: flex-start;
   
 `;

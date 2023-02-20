@@ -15,6 +15,25 @@ import {
 import { HomeScreenHeader } from '../components/molecules';
 import { HomeFeedContainer } from '../components/organisms';
 
+const props = [
+    {
+        userName: "testperson",
+        imageURL: require('../assets/Sample/rectangle_9.png'),
+    },
+    {
+        userName: "admin",
+        imageURL: require('../assets/TestAstroImages/Element1.png'),
+    },
+    {
+        userName: "starboy",
+        imageURL: require('../assets/Sample/test2.jpg'),
+    },
+    {
+        userName: "stargirl",
+        imageURL: require('../assets/TestAstroImages/Element4.png'),
+    },
+]
+
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
@@ -24,11 +43,14 @@ const HomeScreen = ({ navigation }) => {
                 style={styles.scrollViewContainer}
                 contentContainerStyle={contentContainerStyles}    
             >
+                {props.map((props, index) => (
+                    <HomeFeedContainer {...props} key={index} />
+                ))}
+                {/* <HomeFeedContainer {...props}/> */}
+                {/* <HomeFeedContainer />
                 <HomeFeedContainer />
                 <HomeFeedContainer />
-                <HomeFeedContainer />
-                <HomeFeedContainer />
-                <HomeFeedContainer />
+                <HomeFeedContainer /> */}
             </ScrollView>
         </SafeAreaView>
     )
@@ -39,7 +61,7 @@ const contentContainerStyles = {    //flex row for the homescreen layout
     width: "100%", 
     flexDirection: "row", 
     flexWrap: "wrap",
-    columnGap: 8,
+    columnGap: 6,
     rowGap: 4,
 }
 

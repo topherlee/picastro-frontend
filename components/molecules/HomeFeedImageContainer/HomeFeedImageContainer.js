@@ -19,19 +19,22 @@ export const HomeFeedImageContainer = (props) => {
     return (
       <View2>
         <AstroImage
-          source={require('../../../assets/Sample/rectangle_9.png')}
+          source={props.imageURL}
+          resizeMode="contain"
         />
         <UserImage
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
         />
-        <UserName>Starman 2022</UserName>
+        <UserName>{props.userName}</UserName>
       </View2>
     )
 }
 
 const View2 = styled.View`
   position: relative;
+  width: 184px;
+  max-height: 200px;
   `;
 //box-sizing: border-box;
 //background-color: grey;
@@ -39,10 +42,8 @@ const View2 = styled.View`
 
 
 const AstroImage = styled.Image`
-  position: absolute;
-  top: 0px;
-  min-width: 0px;
-  min-height: 0px;
+  width: 100%;
+  max-height: 100%;
   `;
 const UserImage = styled.Image`
   position: absolute;
