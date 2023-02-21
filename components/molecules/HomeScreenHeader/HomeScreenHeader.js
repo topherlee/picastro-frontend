@@ -32,15 +32,12 @@ const HomeScreenHeader = () => {
 const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: '#2F2F2F',
-        left: '1%',
         top: 0,
-        width: '96%',
+        width: '100%',
         height: 60,
         alignContent: 'space-around',
         alignItems: 'center',
-        //justifyContent: 'center',
         flexDirection: 'row',
-        //flex: 1,
     },
     container: {
         //flex: 1,

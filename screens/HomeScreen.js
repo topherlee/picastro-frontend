@@ -31,6 +31,21 @@ const props = [
     {
         userName: "stargirl",
         imageURL: require('../assets/TestAstroImages/Element4.png'),
+    },{
+        userName: "testperson",
+        imageURL: require('../assets/Sample/rectangle_9.png'),
+    },
+    {
+        userName: "starboy",
+        imageURL: require('../assets/Sample/test2.jpg'),
+    },
+    {
+        userName: "admin",
+        imageURL: require('../assets/TestAstroImages/Element1.png'),
+    },
+    {
+        userName: "stargirl",
+        imageURL: require('../assets/TestAstroImages/Element4.png'),
     },
 ]
 
@@ -38,45 +53,34 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <HomeScreenHeader />
-
-            <ScrollView 
-                style={styles.scrollViewContainer}
-                contentContainerStyle={contentContainerStyles}    
-            >
-                {props.map((props, index) => (
-                    <HomeFeedContainer {...props} key={index} />
-                ))}
-                {/* <HomeFeedContainer {...props}/> */}
-                {/* <HomeFeedContainer />
-                <HomeFeedContainer />
-                <HomeFeedContainer />
-                <HomeFeedContainer /> */}
+            <ScrollView>
+                <View style={contentContainerStyles}>
+                    {props.map((props, index) => (
+                        <HomeFeedContainer {...props} key={index} />
+                    ))}
+                </View>
             </ScrollView>
         </SafeAreaView>
     )
 }
 
-const contentContainerStyles = {    //flex row for the homescreen layout
+const contentContainerStyles = {    //flex row for the homescreen
+    flex: 2,    //how many columns
     display: "flex", 
     width: "100%", 
     flexDirection: "row", 
     flexWrap: "wrap",
-    columnGap: 6,
-    rowGap: 4,
+    rowGap: 10,
+    paddingTop: "10%",
+    paddingBottom: "10%",
+    justifyContent: 'space-between'
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black',
-    },
-    scrollViewContainer: {
-        flex: 2, // the number of columns you want to devide the screen into
-        //marginHorizontal: "auto",
-        width: '96%',
-        left: '2%',
-        right: '2%',
-        paddingTop: '10%',
+        display: 'flex',
     },
     text: {
         fontSize: 25,
