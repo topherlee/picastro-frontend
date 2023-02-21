@@ -22,7 +22,7 @@ export default function LoginScreen( { navigation } ) {
       <Text style={styles.title}>Register or Login</Text>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.TextInput} 
           inputMode="email"
           placeholder="Email"
           placeholderTextColor="black"
