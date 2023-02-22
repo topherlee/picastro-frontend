@@ -18,7 +18,7 @@ export default function SignUpScreen( { navigation } ) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../assets/logo-text-gray.png')} /> 
+      <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       <Text style={styles.title}>Register or Login</Text>
       <View style={styles.inputView}>
         <TextInput
@@ -63,13 +63,10 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>
-      <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
-      </TouchableOpacity> 
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserName') }}>
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
-      <View style={{flexDirection:'row', marginTop: 20}}>
+      <View style={styles.bottomText}>
         <Text style={styles.text}>Already have an account? </Text> 
         <TouchableOpacity onPress= {function(){ navigation.navigate('Login') }}>
           <Text style={{color: "#FFC700"}}> Login here</Text>
@@ -88,52 +85,56 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    marginBottom: 40,
+    position: "absolute",
+    top: "10%",
+    marginBottom: "10%",
   },
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,
+    top: "4%",
     width: "80%",
-    height: 45,
-    marginBottom: 10,
-    textAlign: "center",
+    height: "6%",
+    marginBottom: "4%",
   },
   TextInput: {
-    height: 50,
     flex: 1,
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-   
-   
-    
+  },
+  bottomText: {
+    flexDirection:'row',
+    position: "absolute",
+    bottom: "10%" 
   },
   text: {
     color: "white",
-    
   },
   forgot_button: {
+    position: "relative",
+    top: "100%",
     height: 30,
-    marginBottom: 30,
     color: "#FFC700",
   },
   loginBtn: {
     width: "80%",
     borderRadius: 25,
-    height: 50,
+    height: "7%",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    position: "absolute",
+    bottom: "15%",
     backgroundColor: "#FFC700",
   },
   title: {
     color: "#FFC700",
     fontWeight: "bold",
     fontSize: 20,
-    marginBottom: 10
+    position: "absolute",
+    top: "27%",
   },
   loginText: {
     fontWeight: "bold",
-    
   }
 });

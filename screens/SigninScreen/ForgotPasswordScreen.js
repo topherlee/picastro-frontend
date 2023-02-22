@@ -18,7 +18,7 @@ export default function ForgotPasswordScreen( { navigation } ) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../assets/logo-text-gray.png')} /> 
+      <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       <Text style={styles.title}>Reset Password</Text>
       <View style={styles.inputView}>
         <TextInput
@@ -32,10 +32,15 @@ export default function ForgotPasswordScreen( { navigation } ) {
       
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('Login') }}>
         <Text style={styles.loginText}>Submit</Text> 
-      </TouchableOpacity> 
-      
-      <View style={{flexDirection:'row', marginTop: 20}}>
-        
+      </TouchableOpacity>
+      <View style={styles.bottomText}>
+        <TouchableOpacity onPress= {function(){ navigation.navigate('Login') }}>
+          <Text style={{color: "#FFC700"}}>Login </Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>or </Text> 
+        <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
+          <Text style={{color: "#FFC700"}}>Register for an account</Text>
+        </TouchableOpacity>
       </View>
     </View> 
   );
@@ -49,56 +54,55 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    marginBottom: 40,
+    position: "absolute",
+    top: "10%",
+    marginBottom: "10%",
   },
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,
     width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
+    height: "6%",
+    marginBottom: "4%",
   },
   TextInput: {
-    height: 50,
-    width: "100%",
     flex: 1,
     padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     textAlign: "center",
-    // borderWidth: 2,
-    // borderColor: "yellow"
+  },
+  bottomText: {
+    flexDirection:'row',
+    position: "absolute",
+    bottom: "10%" 
   },
   text: {
     color: "white",
   },
   forgot_button: {
     height: 30,
-    marginBottom: 30,
+    marginBottom: 0,
     color: "#FFC700",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "80%",
-    marginTop: 40,
-    borderRadius: 25,
-
-   },
+  },
   loginBtn: {
     width: "80%",
     borderRadius: 25,
-    height: 50,
+    height: "7%",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    position: "absolute",
+    bottom: "15%",
     backgroundColor: "#FFC700",
   },
   title: {
     color: "#FFC700",
     fontWeight: "bold",
     fontSize: 20,
-    marginBottom: 50
+    position: "absolute",
+    top: "27%",
   },
   loginText: {
     fontWeight: "bold",
-    fontSize: 18,
   }
 });
