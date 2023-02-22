@@ -17,20 +17,36 @@ import { HomeFeedContainer } from '../components/organisms';
 
 const props = [
     {
-        userName: "testperson",
-        imageURL: require('../assets/Sample/rectangle_9.png'),
+        "userName": "testperson",
+        "imageURL": require('../assets/Sample/rectangle_9.png'),
     },
     {
-        userName: "starboy",
-        imageURL: require('../assets/Sample/test2.jpg'),
+        "userName": "starboy",
+        "imageURL": require('../assets/Sample/test2.jpg'),
     },
     {
-        userName: "admin",
-        imageURL: require('../assets/TestAstroImages/Element1.png'),
+        "userName": "admin",
+        "imageURL": require('../assets/TestAstroImages/Element1.png'),
     },
     {
-        userName: "stargirl",
-        imageURL: require('../assets/TestAstroImages/Element4.png'),
+        "userName": "stargirl",
+        "imageURL": require('../assets/TestAstroImages/Element4.png'),
+    },
+    {
+        "imageURL": require('../assets/TestAstroImages/Element3.png'),
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "userName": "Starman",
+        "userImage": require('../assets/Sample/sampleuser2.png'),
+        "imageIsSaved": false,
+        "award": "gold",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum Tet 2 long",
+        "starCamp": "Glasgow",
+        "leadingLight": false
     },
 ]
 
@@ -39,9 +55,9 @@ const HomeScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <HomeScreenHeader />
 
-            <ScrollView 
+            <ScrollView
                 style={styles.scrollViewContainer}
-                contentContainerStyle={contentContainerStyles}    
+                contentContainerStyle={contentContainerStyles}
             >
                 {props.map((props, index) => (
                     <HomeFeedContainer {...props} key={index} />
@@ -57,9 +73,9 @@ const HomeScreen = ({ navigation }) => {
 }
 
 const contentContainerStyles = {    //flex row for the homescreen layout
-    display: "flex", 
-    width: "100%", 
-    flexDirection: "row", 
+    display: "flex",
+    width: "100%",
+    flexDirection: "row",
     flexWrap: "wrap",
     columnGap: 6,
     rowGap: 4,
@@ -88,6 +104,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 200
     }
-});  
+});
 
 export default HomeScreen;
