@@ -11,44 +11,31 @@ import {
 } from "react-native";
 import { AuthContext } from "../../src/context/AuthContext";
 
-export default function LoginScreen( { navigation } ) {
+export default function UserNameScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  // const [password, setPassword] = useState(null);
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../assets/logo-text-gray.png')} /> 
-      <Text style={styles.title}>Register or Login</Text>
+      <Text style={styles.title}>Create a Username</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
-          inputMode="email"
-          placeholder="Email"
+       
+          placeholder="Enter your User Name"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="black"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        /> 
-      </View> 
-      <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
+      
+      <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
+        <Text style={styles.loginText}>Lets Go</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserName') }}>
-        <Text style={styles.loginText}>LET'S GO</Text> 
-      </TouchableOpacity>
+      
       <View style={{flexDirection:'row', marginTop: 20}}>
-        <Text style={styles.text}>Don't have an account? </Text> 
-        <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
-          <Text style={{color: "#FFC700"}}> Register here</Text>
-        </TouchableOpacity>
+        
       </View>
     </View> 
   );
@@ -88,21 +75,27 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 30,
     color: "#FFC700",
-  },
+    justifyContent: "center",
+    alignItems: "center",
+    width: "80%",
+    marginTop: 40,
+    borderRadius: 25,
+
+   },
   loginBtn: {
     width: "80%",
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 400,
     backgroundColor: "#FFC700",
   },
   title: {
     color: "#FFC700",
     fontWeight: "bold",
     fontSize: 20,
-    marginBottom: 10
+    marginBottom: 50
   },
   loginText: {
     fontWeight: "bold",

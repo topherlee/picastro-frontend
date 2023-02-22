@@ -29,26 +29,13 @@ export default function ForgotPasswordScreen( { navigation } ) {
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      {/* <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="black"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        /> 
-      </View>  */}
+      
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('Login') }}>
         <Text style={styles.loginText}>Submit</Text> 
       </TouchableOpacity> 
-      {/* <TouchableOpacity style={styles.loginBtn} onPress={function(){setIsSignedIn(true)}}>
-        <Text style={styles.loginText}>LET'S GO</Text> 
-      </TouchableOpacity> */}
+      
       <View style={{flexDirection:'row', marginTop: 20}}>
-        {/* <Text style={styles.text}>Don't have an account? </Text>  */}
-        {/* <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
-          <Text style={{color: "#FFC700"}}> Register here</Text>
-        </TouchableOpacity> */}
+        
       </View>
     </View> 
   );
@@ -108,9 +95,10 @@ const styles = StyleSheet.create({
     color: "#FFC700",
     fontWeight: "bold",
     fontSize: 20,
-    marginBottom: 10
+    marginBottom: 50
   },
   loginText: {
     fontWeight: "bold",
+    fontSize: 18,
   }
 });

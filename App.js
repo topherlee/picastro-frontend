@@ -32,7 +32,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './components/navigation/DrawerNavigator';
 
-import { ForgotPasswordScreen, LoginScreen, SignUpScreen } from './screens/SigninScreen';
+import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, } from './screens/SigninScreen';
 import { AuthProvider } from './src/context/AuthContext';
 
 
@@ -60,6 +60,7 @@ const YourApp = () => {
               <Stack.Screen name="Login" component={LoginScreen}  />
               <Stack.Screen name="SignUp" component={SignUpScreen}  /> 
               <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}  /> 
+              <Stack.Screen name="UserName" component={UserNameScreen} />
               
             </Stack.Group>
           )}
