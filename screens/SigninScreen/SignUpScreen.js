@@ -66,7 +66,7 @@ export default function SignUpScreen( { navigation } ) {
       <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
+      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserName') }}>
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
       <View style={{flexDirection:'row', marginTop: 20}}>
