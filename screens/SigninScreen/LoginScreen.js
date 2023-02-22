@@ -74,8 +74,12 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     height: 50,
+    width: "100%",
     flex: 1,
     padding: 10,
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "yellow"
   },
   text: {
     color: "white",
