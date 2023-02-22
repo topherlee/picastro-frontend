@@ -11,25 +11,25 @@ import {
 } from "react-native";
 import { AuthContext } from "../../src/context/AuthContext";
 
-export default function LoginScreen( { navigation } ) {
+export default function ForgotPasswordScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  // const [password, setPassword] = useState(null);
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../assets/logo-text-gray.png')} /> 
-      <Text style={styles.title}>Register or Login</Text>
+      <Text style={styles.title}>Reset Password</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
           inputMode="email"
-          placeholder="Email"
+          placeholder="Enter your email Address"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      {/* <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Password"
@@ -37,18 +37,18 @@ export default function LoginScreen( { navigation } ) {
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         /> 
-      </View> 
-      <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
+      </View>  */}
+      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('Login') }}>
+        <Text style={styles.loginText}>Submit</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress={function(){setIsSignedIn(true)}}>
+      {/* <TouchableOpacity style={styles.loginBtn} onPress={function(){setIsSignedIn(true)}}>
         <Text style={styles.loginText}>LET'S GO</Text> 
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={{flexDirection:'row', marginTop: 20}}>
-        <Text style={styles.text}>Don't have an account? </Text> 
-        <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
+        {/* <Text style={styles.text}>Don't have an account? </Text>  */}
+        {/* <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
           <Text style={{color: "#FFC700"}}> Register here</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View> 
   );
@@ -88,7 +88,13 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 30,
     color: "#FFC700",
-  },
+    justifyContent: "center",
+    alignItems: "center",
+    width: "80%",
+    marginTop: 40,
+    borderRadius: 25,
+
+   },
   loginBtn: {
     width: "80%",
     borderRadius: 25,

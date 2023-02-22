@@ -63,7 +63,7 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
       <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
@@ -96,15 +96,21 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 45,
     marginBottom: 10,
-    alignItems: "flex-start"
+    textAlign: "center",
   },
   TextInput: {
     height: 50,
     flex: 1,
     padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+   
+   
+    
   },
   text: {
     color: "white",
+    
   },
   forgot_button: {
     height: 30,
@@ -128,5 +134,6 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontWeight: "bold",
+    
   }
 });
