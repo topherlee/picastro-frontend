@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     PicastroLogo: {
         width: 40,
         height: 40,
-        right: 5,
+        right: 10,
     }
 })
 

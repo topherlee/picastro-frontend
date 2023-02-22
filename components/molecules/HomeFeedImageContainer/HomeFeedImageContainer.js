@@ -32,7 +32,6 @@ export const HomeFeedImageContainer = (props) => {
           }}
           resizeMode="contain"
         />
-        {console.log(source.width,source.height)}
         <UserImage
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
