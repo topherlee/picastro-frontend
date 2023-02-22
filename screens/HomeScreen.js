@@ -21,6 +21,10 @@ const props = [
         imageURL: require('../assets/Sample/rectangle_9.png'),
     },
     {
+        userName: "stargirl",
+        imageURL: require('../assets/TestAstroImages/Element4.png'),
+    },
+    {
         userName: "starboy",
         imageURL: require('../assets/Sample/test2.jpg'),
     },
@@ -31,7 +35,8 @@ const props = [
     {
         userName: "stargirl",
         imageURL: require('../assets/TestAstroImages/Element4.png'),
-    },{
+    },
+    {
         userName: "testperson",
         imageURL: require('../assets/Sample/rectangle_9.png'),
     },
@@ -71,9 +76,10 @@ const contentContainerStyles = {    //flex row for the homescreen
     flexDirection: "row", 
     flexWrap: "wrap",
     rowGap: 10,
+    columnGap: 7,
     paddingTop: "10%",
     paddingBottom: "10%",
-    justifyContent: 'space-between'
+    justifyContent: "center"
 }
 
 const styles = StyleSheet.create({

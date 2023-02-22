@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 
 
-const HeaderUserName = () => {
+const HeaderUserName = ({style}) => {
     return(
-        <View style={styles.textContainer}>
+        <View style={style}>
             <Text style={styles.textUserName}>
                 starboy32285
             </Text>
@@ -26,15 +26,6 @@ const HeaderUserName = () => {
 }
 
 const styles = StyleSheet.create({
-    textContainer: {
-        alignContent: 'flex-start',
-        justifyContent: 'flex-start',
-        top: 0,
-        width: '72%',
-        flexDirection: 'column',
-        marginLeft: 25,
-        paddingRight: 10,
-    },
     textUserName: {
         fontSize: 21,
         fontWeight: 'bold',
