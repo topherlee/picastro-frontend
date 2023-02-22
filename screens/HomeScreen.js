@@ -21,10 +21,6 @@ const props = [
         "imageURL": require('../assets/Sample/rectangle_9.png'),
     },
     {
-<<<<<<< HEAD
-        "userName": "starboy",
-        "imageURL": require('../assets/Sample/test2.jpg'),
-=======
         userName: "stargirl",
         imageURL: require('../assets/TestAstroImages/Element4.png'),
     },
@@ -47,7 +43,6 @@ const props = [
     {
         userName: "starboy",
         imageURL: require('../assets/Sample/test2.jpg'),
->>>>>>> 0e8d64f03d840f96010bdf16b876cdb33d068450
     },
     {
         "userName": "admin",
@@ -79,45 +74,22 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <HomeScreenHeader />
-<<<<<<< HEAD
-
-            <ScrollView
-                style={styles.scrollViewContainer}
-                contentContainerStyle={contentContainerStyles}
-            >
-                {props.map((props, index) => (
-                    <HomeFeedContainer {...props} key={index} />
-                ))}
-                {/* <HomeFeedContainer {...props}/> */}
-                {/* <HomeFeedContainer />
-                <HomeFeedContainer />
-                <HomeFeedContainer />
-                <HomeFeedContainer /> */}
-=======
             <ScrollView>
                 <View style={contentContainerStyles}>
                     {props.map((props, index) => (
                         <HomeFeedContainer {...props} key={index} />
                     ))}
                 </View>
->>>>>>> 0e8d64f03d840f96010bdf16b876cdb33d068450
             </ScrollView>
         </SafeAreaView>
     )
 }
 
-<<<<<<< HEAD
-const contentContainerStyles = {    //flex row for the homescreen layout
-    display: "flex",
-    width: "100%",
-    flexDirection: "row",
-=======
 const contentContainerStyles = {    //flex row for the homescreen
     flex: 2,    //how many columns
     display: "flex", 
     width: "100%", 
     flexDirection: "row", 
->>>>>>> 0e8d64f03d840f96010bdf16b876cdb33d068450
     flexWrap: "wrap",
     rowGap: 10,
     columnGap: 7,
