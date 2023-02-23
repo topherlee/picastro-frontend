@@ -29,7 +29,7 @@ const props = [
         imageURL: require('../assets/Sample/test2.jpg'),
     },
     {
-        userName: "admin",
+        userName: "Steffen",
         imageURL: require('../assets/TestAstroImages/Element1.png'),
     },
     {

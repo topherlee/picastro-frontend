@@ -14,6 +14,8 @@ import {
 
 import { ImageResolvedAssetSource } from 'react-native';
 
+import { AstroImageWrapper } from '../../atoms';
+
 import styled from 'styled-components';
 
 var ratio;
@@ -23,14 +25,8 @@ export const HomeFeedImageContainer = (props) => {
   ratio = (source.width / source.height);
     return (
       <View2>
-        <AstroImage
-          source={props.imageURL}
-          style={{
-            aspectRatio: ratio,
-            maxWidth: "100%",
-            height: "auto",
-          }}
-          resizeMode="contain"
+        <AstroImageWrapper 
+          {...props}
         />
         <UserImage
           source={require('../../../assets/Sample/sampleuser2.png')}
@@ -50,10 +46,6 @@ const View2 = styled.View`
 //border: 1px solid yellow;
 
 
-const AstroImage = styled.Image`
-  width: 100%;
-  max-height: 100%;
-  `;
 const UserImage = styled.Image`
   position: absolute;
   top: 7px;
