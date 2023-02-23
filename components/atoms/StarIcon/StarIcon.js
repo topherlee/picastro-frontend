@@ -29,11 +29,8 @@ const StarIcon = () => {
 };
 
 const StarIconWrapper = styled.TouchableOpacity`
-  position: absolute;
   width: 24.55px;
   height: 24.55px;
-  left: 150px;
-  top: 18px;
 `;
 //box-sizing: border-box;
 

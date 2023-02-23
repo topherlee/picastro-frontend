@@ -22,7 +22,7 @@ import { HomeFeedImageContainer, HomeFeedBelowImage } from '../../molecules';
 export const HomeFeedContainer = (props) => {
   const navigation = useNavigation();
     return (
-      <View1 onPress={() => navigation.navigate('PostDetails')}>
+      <View1 onPress={() => navigation.navigate('PostDetails', props)}>
         <HomeFeedImageContainer 
           {...props}  
         />

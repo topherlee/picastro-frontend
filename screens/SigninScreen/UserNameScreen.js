@@ -28,6 +28,14 @@ export default function UserNameScreen( { navigation } ) {
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Confirm Username"
+          placeholderTextColor="black"
+          onChangeText={(email) => setEmail(email)}
+        /> 
+      </View> 
       <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
         <Text style={styles.loginText}>LET'S GO</Text> 
       </TouchableOpacity> 

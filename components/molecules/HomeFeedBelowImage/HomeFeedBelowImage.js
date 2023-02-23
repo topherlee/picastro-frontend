@@ -22,7 +22,9 @@ const HomeFeedBelowImage = () => (
       <TextStarName>
         Jellyfish Nebula
       </TextStarName>
-      <StarIcon />
+      <StarIconView>
+        <StarIcon />
+      </StarIconView>
     </View3>
 );
 
@@ -77,5 +79,13 @@ color: #7A7A7A;
 //background-color: red;
 //border: 1px solid red;
 
+const StarIconView = styled.View`
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  padding-right: 5%;
+  border: 0px solid yellow;
+`;
 
 export default HomeFeedBelowImage;
