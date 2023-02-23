@@ -17,7 +17,6 @@ const UserImage = () => {
         <Image
                 source={require('../../../assets/Sample/sampleuser.png')}
                 resizeMode="contain"
-                style={styles.userImage}
         />
     )
 }

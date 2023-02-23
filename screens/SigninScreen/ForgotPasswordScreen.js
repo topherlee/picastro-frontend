@@ -8,51 +8,43 @@ import {
   Button,
   TouchableOpacity,
   ImageComponent,
-  Alert,
   KeyboardAvoidingView,
-  Platform,
+  Alert,
 } from "react-native";
 import { AuthContext } from "../../src/context/AuthContext";
 
-export default function LoginScreen( { navigation } ) {
+export default function ForgotPasswordScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  // const [password, setPassword] = useState(null);
 
-  
+  const pressHandler = () =>{
+    Alert.alert("Details","A reset link has been sent to your email",)}
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      <Text style={styles.title}>Register or Login</Text>
+      <Text style={styles.title}>Reset Password</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
           inputMode="email"
-          placeholder="Email"
+          placeholder="Enter your email Address"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="black"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        /> 
-      </View> 
-      <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
-      </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
-        <Text style={styles.loginText}>LET'S GO</Text> 
+      
+      <TouchableOpacity style={styles.loginBtn} onPress={() => pressHandler()} >
+        <Text style={styles.loginText}>Click to Reset Password</Text> 
       </TouchableOpacity>
       <View style={styles.bottomText}>
-        <Text style={styles.text}>Don't have an account? </Text> 
+        <TouchableOpacity onPress= {function(){ navigation.navigate('Login') }}>
+          <Text style={{color: "#FFC700"}}>Login </Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>or </Text> 
         <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
-          <Text style={{color: "#FFC700"}}> Register here</Text>
+          <Text style={{color: "#FFC700"}}>Register for an account</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView> 
