@@ -8,13 +8,23 @@ import {
   Button,
   TouchableOpacity,
   ImageComponent,
+  Alert,
+  TouchableWithoutFeedback
 } from "react-native";
+
 import { AuthContext } from "../../src/context/AuthContext";
 
 export default function ForgotPasswordScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState(null);
-  // const [password, setPassword] = useState(null);
+ 
+  const pressHandler = () =>{
+    Alert.alert("Details","A reset link has been sent to your email",)
+  } 
+  // const noHandler = () =>{
+  //   Alert.alert("Details","A reset link has been sent to your email",)[
+  //   onPress= {function(){ navigation.navigate('Login') }}]
+  // }
 
   return (
     <View style={styles.container}>
@@ -29,18 +39,14 @@ export default function ForgotPasswordScreen( { navigation } ) {
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
+      {/* <TouchableWithoutFeedback onPress= {function(){ navigation.navigate('ForgotPassword') }}/> */}
       
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('Login') }}>
         <Text style={styles.loginText}>Submit</Text> 
-      </TouchableOpacity>
-      <View style={styles.bottomText}>
-        <TouchableOpacity onPress= {function(){ navigation.navigate('Login') }}>
-          <Text style={{color: "#FFC700"}}>Login </Text>
-        </TouchableOpacity>
-        <Text style={styles.text}>or </Text> 
-        <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
-          <Text style={{color: "#FFC700"}}>Register for an account</Text>
-        </TouchableOpacity>
+      </TouchableOpacity> 
+      
+      <View style={{flexDirection:'row', marginTop: 20}}>
+        
       </View>
     </View> 
   );
@@ -104,5 +110,6 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontWeight: "bold",
+    fontSize: 18,
   }
 });

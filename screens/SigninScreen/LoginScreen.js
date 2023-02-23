@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   ImageComponent,
+  Alert,
 } from "react-native";
 import { AuthContext } from "../../src/context/AuthContext";
 
@@ -15,6 +16,8 @@ export default function LoginScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+
+  
 
   return (
     <View style={styles.container}>
@@ -80,8 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     textAlign: "center",
-    // borderWidth: 2,
-    // borderColor: "yellow"
+    
   },
   bottomText: {
     flexDirection:'row',

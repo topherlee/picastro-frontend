@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   ImageComponent,
+  Alert,
 } from "react-native";
 import { AuthContext } from "../../src/context/AuthContext";
 
