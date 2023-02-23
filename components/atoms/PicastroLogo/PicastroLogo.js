@@ -15,7 +15,7 @@ import {
 const PicastroLogo = () => {
     return(
             <Image
-                source={require('../../../assets/logo.png')}
+                source={require('../../../assets/buttons/burger-button.png')}
                 resizeMode="contain"
                 style={styles.PicastroLogo}
             />
@@ -24,8 +24,8 @@ const PicastroLogo = () => {
 
 const styles = StyleSheet.create({
     PicastroLogo: {
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
         right: 10,
     }
 })

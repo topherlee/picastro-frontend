@@ -8,6 +8,9 @@ import {
   Button,
   TouchableOpacity,
   ImageComponent,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { AuthContext } from "../../src/context/AuthContext";
 
@@ -16,8 +19,10 @@ export default function LoginScreen( { navigation } ) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
+  
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       <Text style={styles.title}>Register or Login</Text>
       <View style={styles.inputView}>
@@ -50,7 +55,7 @@ export default function LoginScreen( { navigation } ) {
           <Text style={{color: "#FFC700"}}> Register here</Text>
         </TouchableOpacity>
       </View>
-    </View> 
+    </KeyboardAvoidingView> 
   );
 }
 
@@ -62,9 +67,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    position: "absolute",
-    top: "10%",
-    marginBottom: "10%",
+    position: "relative",
+    marginBottom: "20%",
   },
   inputView: {
     backgroundColor: "white",
@@ -80,38 +84,38 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     textAlign: "center",
-    // borderWidth: 2,
-    // borderColor: "yellow"
+    
   },
   bottomText: {
     flexDirection:'row',
-    position: "absolute",
-    bottom: "10%" 
+    position: "relative",
+    marginBottom: "2%"
   },
   text: {
     color: "white",
   },
   forgot_button: {
     height: 30,
-    paddingBottom: "10%",
     color: "#FFC700",
   },
   loginBtn: {
     width: "80%",
     borderRadius: 25,
     height: "7%",
+    minHeight: 50,
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
-    bottom: "15%",
+    position: "relative",
+    marginTop: "10%",
+    marginBottom: "3%",
     backgroundColor: "#FFC700",
   },
   title: {
     color: "#FFC700",
     fontWeight: "bold",
     fontSize: 20,
-    position: "absolute",
-    top: "27%",
+    position: "relative",
+    top: "-5%"
   },
   loginText: {
     fontWeight: "bold",

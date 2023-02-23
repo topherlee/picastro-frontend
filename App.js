@@ -16,6 +16,7 @@ import {
     Text,
     useColorScheme,
     View,
+    Alert,
 } from 'react-native';
 
 import {
