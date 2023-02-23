@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   image: {
     position: "relative",
     marginBottom: "20%",
-    borderWidth: 2,
   },
   inputView: {
     backgroundColor: "white",
