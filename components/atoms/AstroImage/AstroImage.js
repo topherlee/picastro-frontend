@@ -12,11 +12,8 @@ import {
 
 import styled from 'styled-components';
 
-import StarIconSvg from '../../../assets/star-icon.svg';
-import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
 const AstroImageWrapper = (props) => {
-    const [imageIsSaved, setImageIsSaved] = React.useState(false);
     var source = Image.resolveAssetSource(props.imageURL);
     ratio = (source.width / source.height);
     return (

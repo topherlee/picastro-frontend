@@ -14,7 +14,7 @@ import {
 
 import { ImageResolvedAssetSource } from 'react-native';
 
-import { AstroImageWrapper } from '../../atoms';
+import { AstroImageWrapper, AwardIcon } from '../../atoms';
 
 import styled from 'styled-components';
 
@@ -33,6 +33,14 @@ export const HomeFeedImageContainer = (props) => {
           resizeMode="contain"
         />
         <UserName>{props.userName}</UserName>
+        <AwardIconWrapper
+          resizeMode="contain">
+          <AwardIcon 
+            {...props}
+            resizeMode="contain"
+            
+          />
+        </AwardIconWrapper>
       </View2>
     )
 }
@@ -72,34 +80,19 @@ const UserName = styled.Text`
 //background-color: green;
 //border: 1px solid white;
 
-const styles = StyleSheet.create({
-  userImageFrame: {
-      //position: absolute,
-      width: 24,
-      height: 24,
-      left: 23,
-      top: 188,
-      //background: url(image.png);
-      //border: 3px solid #FDD015;
 
-      //min-width: 0px;
-      //min-height: 0px;
-      //margin: 0px 0px 84.8px 0px;
-      //box-sizing: border-box;
-  },
-  userName: {
-      //"position": "absolute",
-      left: '12%',
-      right: '52%',
-      top: '22%',
-      bottom: '76%',
-      fontFamily: 'Inter',
-      fontSize: 10,
-      fontWeight: 'normal',
-      fontWeight: '700',
-      color: '#FDFDFD',
-      //line-height: '12px',
-  },
-})
+const AwardIconWrapper = styled.View`
+  position: absolute;
+  width: 27px;
+  height: 20px;
+  top: 11px;
+  right: 10px;
+  color: #fcfcfc;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: Inter;
+`;
+
+
 
 export default HomeFeedImageContainer;

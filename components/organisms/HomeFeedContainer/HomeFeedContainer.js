@@ -24,7 +24,7 @@ export const HomeFeedContainer = (props) => {
     return (
       <View1 onPress={() => navigation.navigate('PostDetails', props)}>
         <HomeFeedImageContainer 
-          {...props}  
+          {...props}
         />
         <HomeFeedBelowImage 
           style={{

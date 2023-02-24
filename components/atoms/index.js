@@ -6,3 +6,4 @@ export {default as UserImage} from  './UserImage/UserImage';
 export {default as HeaderUserName} from './HeaderUserName/HeaderUserName';
 export {default as StarIcon} from './StarIcon/StarIcon';
 export {default as AstroImageWrapper} from './AstroImage/AstroImage';
+export {default as AwardIcon} from './AwardIcon/AwardIcon';

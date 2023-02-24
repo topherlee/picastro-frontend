@@ -19,10 +19,12 @@ const props = [
     {
         "userName": "testperson",
         "imageURL": require('../assets/Sample/rectangle_9.png'),
+        "award": "bronze",
     },
     {
-        userName: "stargirl",
-        imageURL: require('../assets/TestAstroImages/Element4.png'),
+        "userName": "stargirl",
+        "imageURL": require('../assets/TestAstroImages/Element4.png'),
+        "award": "silver",
     },
     {
         userName: "starboy",
@@ -58,6 +60,7 @@ const props = [
         "astroName": "Test 2 Long",
         "userName": "Starman",
         "userImage": require('../assets/Sample/sampleuser2.png'),
+        "imageCategory":"Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
