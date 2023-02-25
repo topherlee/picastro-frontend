@@ -36,20 +36,14 @@ export const HomeFeedContainer = (props) => {
 
 const View1 = styled.TouchableOpacity`
   position: relative;
-  height: auto;
-  max-height: 300px;
   max-width: 200px;
   margin-bottom: 8%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  align-content: stretch;
-  border: 1px solid white;
+  border: 0px solid white;
 `;
-//box-sizing: border-box;
-//background-color: black;
-//border: 1px solid white;
 
 
 export default HomeFeedContainer;

@@ -80,53 +80,64 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <HomeScreenHeader />
-            <MasonryList
-                data={props}
-                keyExtractor={item => item.id}
-                numColumns={2}
-                showsVerticalScrollIndicator={false}
-                renderItem={({item}) => <HomeFeedContainer {...item} />}
-                contentContainerStyle={{
-                    borderColor:"red", 
+            <ScrollView style={{
+                    backgroundColor: "black",
+                    borderColor:"blue", 
                     borderWidth: 0,
-                }}
-                style={{
-                    flex: 1,
-                    borderColor:"yellow", 
-                    borderWidth: 0,
-                    width: "98%",
-                    left: 4,
-                }}
-            >
-            </MasonryList>
+            }}
+            contentContainerStyle={{
+                display: "flex",
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: "center",
+                alignContent: 'center'
+            }}>
+                <MasonryList
+                    data={props}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({item}) => <HomeFeedContainer {...item} />}
+                    contentContainerStyle={{
+                        borderColor:"red", 
+                        borderWidth: 0,
+                        paddingTop: "3%",
+                        paddingLeft: "4%"
+                    }}
+                    style={{
+                        flex: 1,
+                        maxWidth: "96%",
+                        columnGap: 10,
+                        borderColor:"yellow", 
+                        borderWidth: 0,
+                    }}
+                >
+                </MasonryList>
+            </ScrollView>
         </SafeAreaView>
     )
 }
 
-{/* <MasonryList
-data={props}
-numColumns={2}
-renderItem={({item}) => { <HomeFeedContainer {...item}/>                    }}
->
-</MasonryList> */}
-const contentContainerStyles = {    //flex row for the homescreen
-    flex: 2,    //how many columns
-    display: "flex", 
-    width: "100%", 
-    flexDirection: "row", 
-    flexWrap: "wrap",
-    rowGap: 10,
-    columnGap: 7,
-    paddingTop: "10%",
-    paddingBottom: "10%",
-    justifyContent: "center"
-}
+// const contentContainerStyles = {    //flex row for the homescreen
+//     flex: 2,    //how many columns
+//     display: "flex", 
+//     width: "100%", 
+//     flexDirection: "row", 
+//     flexWrap: "wrap",
+//     rowGap: 10,
+//     columnGap: 7,
+//     paddingTop: "10%",
+//     paddingBottom: "10%",
+//     justifyContent: "center"
+// }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         display: 'flex',
-        backgroundColor: "black",
+        backgroundColor: "#2F2F2F",
+        borderColor:"green", 
+        borderWidth: 0,
     },
     text: {
         fontSize: 25,

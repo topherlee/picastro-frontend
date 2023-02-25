@@ -36,11 +36,13 @@ const HomeScreenHeader = () => {
 const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: '#2F2F2F',
+        display: "flex",
         top: 0,
-        left: '1%',
-        width: '96%',
+        width: '100%',
         height: 60,
         alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
         flexDirection: 'row',
     },
     textContainer: {

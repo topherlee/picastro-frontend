@@ -16,13 +16,14 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
-import { DetailedFeedBelowImage, DetailedFeedImage } from '../../molecules';
+import { DetailedFeedAboveImage, DetailedFeedBelowImage, DetailedFeedImage } from '../../molecules';
 
 export const HomeFeedContainer = (props) => {
   console.log("prop",props)
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
+            <DetailedFeedAboveImage {...props} />
             <View1>
                 <DetailedFeedImage
                 {...props}  
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
         marginVertical: "2%",
         borderWidth: 0, 
         borderColor: "red",
+        flex: 1,
     }
 })
 
