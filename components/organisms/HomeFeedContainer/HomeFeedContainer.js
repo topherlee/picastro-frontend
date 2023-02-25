@@ -39,12 +39,13 @@ const View1 = styled.TouchableOpacity`
   height: auto;
   max-height: 300px;
   max-width: 200px;
-  margin-bottom: 10%;
+  margin-bottom: 8%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   align-content: stretch;
+  border: 1px solid white;
 `;
 //box-sizing: border-box;
 //background-color: black;

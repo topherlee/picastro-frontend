@@ -42,7 +42,7 @@ export const HomeFeedImageContainer = (props) => {
 
 const View2 = styled.View`
   position: relative;
-  width: 183px;
+  width: 98%;
   `;
 //box-sizing: border-box;
 //background-color: grey;

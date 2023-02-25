@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: '#2F2F2F',
         top: 0,
-        width: '100%',
+        left: '1%',
+        width: '96%',
         height: 60,
         alignItems: 'center',
         flexDirection: 'row',

@@ -88,12 +88,14 @@ const HomeScreen = ({ navigation }) => {
                 renderItem={({item}) => <HomeFeedContainer {...item} />}
                 contentContainerStyle={{
                     borderColor:"red", 
-                    borderWidth: 1,
+                    borderWidth: 0,
                 }}
                 style={{
                     flex: 1,
                     borderColor:"yellow", 
-                    borderWidth: 1,
+                    borderWidth: 0,
+                    width: "98%",
+                    left: 4,
                 }}
             >
             </MasonryList>
