@@ -18,22 +18,16 @@ import AwardBronzeSvg from '../../../assets/buttons/award-bronze.svg';
 
 const AwardIcon = (props) => {
     if (props.award == "gold") {
-        return <AwardGoldSvg style={{
-            width: 26,
-            height: 30,
-          }}
-         />;
+        return <AwardGoldSvg resizeMode="contain" />;
     } else if (props.award == "silver") {
-        return <AwardSilverSvg style={styles.awardIcon}/>;
+        return <AwardSilverSvg resizeMode="contain" />;
     } else if (props.award == "bronze") {
-        return <AwardBronzeSvg />;
+        return <AwardBronzeSvg resizeMode="contain" />;
     };
 };
 
 const styles = StyleSheet.create({
     awardIcon: {
-        width: 26,
-        height: 30,
     },
 });
 

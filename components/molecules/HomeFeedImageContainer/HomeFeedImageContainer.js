@@ -33,13 +33,8 @@ export const HomeFeedImageContainer = (props) => {
           resizeMode="contain"
         />
         <UserName>{props.userName}</UserName>
-        <AwardIconWrapper
-          resizeMode="contain">
-          <AwardIcon 
-            {...props}
-            resizeMode="contain"
-            
-          />
+        <AwardIconWrapper>
+          <AwardIcon {...props} />
         </AwardIconWrapper>
       </View2>
     )
@@ -47,7 +42,7 @@ export const HomeFeedImageContainer = (props) => {
 
 const View2 = styled.View`
   position: relative;
-  width: 184px;
+  width: 183px;
   `;
 //box-sizing: border-box;
 //background-color: grey;
@@ -83,9 +78,9 @@ const UserName = styled.Text`
 
 const AwardIconWrapper = styled.View`
   position: absolute;
-  width: 27px;
-  height: 20px;
-  top: 11px;
+  width: 10%;
+  height: 25px;
+  top: 9px;
   right: 10px;
   color: #fcfcfc;
   font-size: 10px;

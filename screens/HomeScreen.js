@@ -29,6 +29,7 @@ const props = [
     {
         userName: "starboy",
         imageURL: require('../assets/Sample/test2.jpg'),
+        "award": "gold",
     },
     {
         userName: "Steffen",
