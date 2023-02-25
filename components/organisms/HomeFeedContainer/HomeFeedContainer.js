@@ -39,6 +39,7 @@ const View1 = styled.TouchableOpacity`
   height: auto;
   max-height: 300px;
   max-width: 200px;
+  margin-bottom: 10%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

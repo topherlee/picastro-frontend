@@ -14,6 +14,7 @@ import {
 
 import { HomeScreenHeader } from '../components/molecules';
 import { HomeFeedContainer } from '../components/organisms';
+import MasonryList from 'reanimated-masonry-list';
 
 const props = [
     {
@@ -74,21 +75,38 @@ const props = [
     },
 ]
 
+
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <HomeScreenHeader />
-            <ScrollView>
-                <View style={contentContainerStyles}>
-                    {props.map((props, index) => (
-                        <HomeFeedContainer {...props} key={index} />
-                    ))}
-                </View>
-            </ScrollView>
+            <MasonryList
+                data={props}
+                keyExtractor={item => item.id}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item}) => <HomeFeedContainer {...item} />}
+                contentContainerStyle={{
+                    borderColor:"red", 
+                    borderWidth: 1,
+                }}
+                style={{
+                    flex: 1,
+                    borderColor:"yellow", 
+                    borderWidth: 1,
+                }}
+            >
+            </MasonryList>
         </SafeAreaView>
     )
 }
 
+{/* <MasonryList
+data={props}
+numColumns={2}
+renderItem={({item}) => { <HomeFeedContainer {...item}/>                    }}
+>
+</MasonryList> */}
 const contentContainerStyles = {    //flex row for the homescreen
     flex: 2,    //how many columns
     display: "flex", 
@@ -105,8 +123,8 @@ const contentContainerStyles = {    //flex row for the homescreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
         display: 'flex',
+        backgroundColor: "black",
     },
     text: {
         fontSize: 25,
