@@ -38,7 +38,6 @@ export const HomeFeedImageContainer = (props) => {
           <AwardIcon 
             {...props}
             resizeMode="contain"
-            
           />
         </AwardIconWrapper>
       </View2>
