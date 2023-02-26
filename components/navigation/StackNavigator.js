@@ -15,6 +15,7 @@ const MainStackNavigator = () => {
     <Stack.Navigator screenOptions={DetailedFeedHeader}>
       <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
       <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
+      <Stack.Screen name="Filter" component={PostDetailsScreen} />
     </Stack.Navigator>
   );
 }
@@ -27,4 +28,12 @@ const ProfileStackNavigator = () => {
     );
 }
 
-export { MainStackNavigator, ProfileStackNavigator };
+const FilterStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={DetailedFeedHeader}>
+      <Stack.Screen name="Filter" component={HomeScreen} options={{headerShown: false}} />
+    </Stack.Navigator>
+  )
+}
+
+export { MainStackNavigator, ProfileStackNavigator, FilterStackNavigator };

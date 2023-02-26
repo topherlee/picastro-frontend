@@ -1,11 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { MainStackNavigator, ProfileStackNavigator } from "./StackNavigator";
+import { MainStackNavigator, ProfileStackNavigator, FilterStackNavigator } from "./StackNavigator";
 
 import { Image, Text, View } from 'react-native';
 
-import { HomeButton, StarCampsButton } from "../atoms";
+import { HomeButton, StarCampsButton, TelescopeButton } from "../atoms";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +38,16 @@ const BottomTabNavigator = () => {
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
                     <StarCampsButton />
+                ),
+            }}
+        />
+        <Tab.Screen 
+            name="FilterTab" 
+            component={FilterStackNavigator} 
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <TelescopeButton />
                 ),
             }}
         />
