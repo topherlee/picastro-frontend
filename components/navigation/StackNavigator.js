@@ -1,9 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import HomeScreen from "../../screens/HomeScreen"
+import HomeScreen from "../../screens/HomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
+import Coin from "../../screens/Coin";
 import { LoginScreen } from "../../screens/SigninScreen";
 import { DetailedFeedHeader } from "../molecules";
 
@@ -31,7 +32,7 @@ const ProfileStackNavigator = () => {
 const FilterStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={DetailedFeedHeader}>
-      <Stack.Screen name="Filter" component={HomeScreen} options={{headerShown: false}} />
+      <Stack.Screen name="Filter" component={Coin} options={{headerShown: false}} />
     </Stack.Navigator>
   )
 }
