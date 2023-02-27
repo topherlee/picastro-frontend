@@ -31,9 +31,9 @@ import SplashScreen from 'react-native-splash-screen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import DrawerNavigator from './components/navigation/DrawerNavigator';
+import DrawerNavigator from './src/components/navigation/DrawerNavigator';
 
-import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, } from './screens/SigninScreen';
+import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, } from './src/screens/SigninScreen';
 import { AuthProvider } from './src/context/AuthContext';
 
 

@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-import { AuthContext } from "../../src/context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function ForgotPasswordScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
