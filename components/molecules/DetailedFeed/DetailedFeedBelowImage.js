@@ -17,7 +17,7 @@ import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
 
-const DetailedFeedBelowImage = (props) => (
+const DetailedFeedBelowImage = ({props}) => (
     <Container>
       <Row1>
         <AwardIconWrapper>

@@ -20,6 +20,7 @@ import styled from 'styled-components';
 import { HomeFeedImageContainer, HomeFeedBelowImage } from '../../molecules';
 
 export const HomeFeedContainer = (props) => {
+  console.log("HFC", props)
   const navigation = useNavigation();
     return (
       <View1 onPress={() => navigation.navigate('PostDetails', props)}>

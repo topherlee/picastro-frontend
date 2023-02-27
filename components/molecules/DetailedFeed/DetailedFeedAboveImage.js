@@ -13,7 +13,7 @@ import styled from 'styled-components';
 
 import {StarIcon} from '../../atoms';
 
-const DetailedFeedAboveImage = (props) => (
+const DetailedFeedAboveImage = ({props}) => (
     <NameBanner>
       <View>
         <UsernameText>{props.userName}</UsernameText>

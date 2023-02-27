@@ -18,18 +18,18 @@ import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import { DetailedFeedAboveImage, DetailedFeedBelowImage, DetailedFeedImage } from '../../molecules';
 
-export const HomeFeedContainer = (props) => {
-  console.log("prop",props)
+export const HomeFeedContainer = ({props}) => {
+  console.log("DFC",props)
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
-            <DetailedFeedAboveImage {...props} />
+            <DetailedFeedAboveImage props={props} />
             <View1>
                 <DetailedFeedImage
-                {...props}  
+                props={props}  
                 />
             </View1>
-            <DetailedFeedBelowImage {...props} />
+            <DetailedFeedBelowImage props={props} />
         </View>
     )
 }
