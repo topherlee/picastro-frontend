@@ -9,7 +9,7 @@ import {
 
 import React from 'react'
 import styled from 'styled-components';
-import { DetailedFeedContainer } from '../components/organisms';
+import { DetailedFeedContainer, FullWidthPostsContainer } from '../components/organisms';
 
 // const props = [
 //     {
@@ -73,7 +73,7 @@ const PostDetailsScreen = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={containerstyle}>
                 <View style={styles.feedView}>
-                <DetailedFeedContainer props={props}  />
+                <FullWidthPostsContainer props={props}  />
                     {/* {props.map((props, index) => (
                         <DetailedFeedContainer {...props} key={index} />
                     ))} */}

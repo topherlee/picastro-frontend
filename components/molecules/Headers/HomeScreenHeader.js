@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { PicastroLogo, UserImage, HeaderUserName } from '../../atoms';
+import { BurgerButton, UserImage, HeaderUserName } from '../../atoms';
 
 const HomeScreenHeader = () => {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ const HomeScreenHeader = () => {
         <HeaderUserName style={styles.textContainer} />
         <View>
             <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-                <PicastroLogo />
+                <BurgerButton />
             </TouchableOpacity>
         </View>
     </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         //flex: 1,
     },
-    PicastroLogo: {
+    BurgerButton: {
         width: 40,
         height: 40,
         right: 5,

@@ -12,22 +12,22 @@ import {
 } from 'react-native';
 
 
-const PicastroLogo = () => {
+const BurgerButton = () => {
     return(
             <Image
                 source={require('../../../assets/buttons/burger-button.png')}
                 resizeMode="contain"
-                style={styles.PicastroLogo}
+                style={styles.BurgerButton}
             />
     )
 }
 
 const styles = StyleSheet.create({
-    PicastroLogo: {
+    BurgerButton: {
         width: 30,
         height: 30,
         right: 10,
     }
 })
 
-export default PicastroLogo;
+export default BurgerButton;

@@ -6,7 +6,7 @@ import {
     View,
 } from 'react-native';
 
-const DetailedFeedLogo = () => {
+const PicastroLogo = () => {
     return(
         // <View style={styles.container}>
         <View>
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DetailedFeedLogo;
+export default PicastroLogo;

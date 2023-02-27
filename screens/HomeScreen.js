@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import { HomeScreenHeader } from '../components/molecules';
-import { HomeFeedContainer } from '../components/organisms';
+import { HomeFeedContainer, HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 
 const props = [
@@ -23,7 +23,7 @@ const props = [
         "astroNameShort2": "NGC 1234",
         "astroNameShort3": "Omega",
         "astroName": "Star #1",
-        "userName": "Steffen",
+        "userName": "Starman",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "bronze",
@@ -237,7 +237,13 @@ const props = [
         "starCamp": "Glasgow",
         "leadingLight": false
     },
+    // {
+    //     "astroName": "Messier 104, M104, NGC 4594, Sombrero Galaxy",
+    //     "astroName": "Omega Nebula, Messier 17, M17, NGC 6618, Swan Nebula, Horseshoe Nebula, Lobster Nebula"
+    // }
 ]
+
+//astroName.split(", ").map()
 
 
 const HomeScreen = ({ navigation }) => {
@@ -261,7 +267,7 @@ const HomeScreen = ({ navigation }) => {
                     keyExtractor={item => item.id}
                     numColumns={2}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => <HomeFeedContainer {...item} />}
+                    renderItem={({item}) => <HalfWidthPostsContainer {...item} />}
                     contentContainerStyle={{
                         borderColor:"red", 
                         borderWidth: 0,
