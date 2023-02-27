@@ -10,9 +10,8 @@ import {
     Text,
     useColorScheme,
     View,
+    ImageResolvedAssetSource
 } from 'react-native';
-
-import { ImageResolvedAssetSource } from 'react-native';
 
 import { AstroImageWrapper, AwardIcon } from '../../atoms';
 

@@ -27,6 +27,7 @@ export const HomeFeedContainer = (props) => {
           {...props}
         />
         <HomeFeedBelowImage 
+          {...props}
           style={{
           }}
         />
