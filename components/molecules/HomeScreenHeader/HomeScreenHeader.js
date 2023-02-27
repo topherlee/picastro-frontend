@@ -10,10 +10,12 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PicastroLogo, UserImage, HeaderUserName } from '../../atoms';
 
 const HomeScreenHeader = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
         <View style={styles.userImage}>
@@ -23,7 +25,9 @@ const HomeScreenHeader = () => {
         </View>
         <HeaderUserName style={styles.textContainer} />
         <View>
-            <PicastroLogo />
+            <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
+                <PicastroLogo />
+            </TouchableOpacity>
         </View>
     </View>
   )
@@ -32,10 +36,13 @@ const HomeScreenHeader = () => {
 const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: '#2F2F2F',
+        display: "flex",
         top: 0,
         width: '100%',
         height: 60,
         alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
         flexDirection: 'row',
     },
     textContainer: {

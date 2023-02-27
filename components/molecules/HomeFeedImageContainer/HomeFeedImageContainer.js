@@ -10,9 +10,10 @@ import {
     Text,
     useColorScheme,
     View,
+    ImageResolvedAssetSource
 } from 'react-native';
 
-import { ImageResolvedAssetSource } from 'react-native';
+import { AstroImageWrapper, AwardIcon } from '../../atoms';
 
 import styled from 'styled-components';
 
@@ -23,37 +24,30 @@ export const HomeFeedImageContainer = (props) => {
   ratio = (source.width / source.height);
     return (
       <View2>
-        <AstroImage
-          source={props.imageURL}
-          style={{
-            aspectRatio: ratio,
-            maxWidth: "100%",
-            height: "auto",
-          }}
-          resizeMode="contain"
+        <AstroImageWrapper 
+          {...props}
         />
         <UserImage
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
         />
         <UserName>{props.userName}</UserName>
+        <AwardIconWrapper>
+          <AwardIcon {...props} />
+        </AwardIconWrapper>
       </View2>
     )
 }
 
 const View2 = styled.View`
   position: relative;
-  width: 184px;
+  width: 98%;
   `;
 //box-sizing: border-box;
 //background-color: grey;
 //border: 1px solid yellow;
 
 
-const AstroImage = styled.Image`
-  width: 100%;
-  max-height: 100%;
-  `;
 const UserImage = styled.Image`
   position: absolute;
   top: 7px;
@@ -61,7 +55,6 @@ const UserImage = styled.Image`
   min-width: 0px;
   width: 27px;
   min-height: 0px;
-  
 `;
 //box-sizing: border-box;
 //background-color: green;
@@ -73,41 +66,23 @@ const UserName = styled.Text`
   color: #fcfcfc;
   font-size: 10px;
   font-weight: 700;
-  font-family: Inter;
-  
+  font-family: Inter;  
 `;
 //box-sizing: border-box;
 //background-color: green;
 //border: 1px solid white;
 
-const styles = StyleSheet.create({
-  userImageFrame: {
-      //position: absolute,
-      width: 24,
-      height: 24,
-      left: 23,
-      top: 188,
-      //background: url(image.png);
-      //border: 3px solid #FDD015;
+const AwardIconWrapper = styled.View`
+  position: absolute;
+  width: 10%;
+  height: 25px;
+  top: 9px;
+  right: 10px;
+  color: #fcfcfc;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: Inter;
+`;
 
-      //min-width: 0px;
-      //min-height: 0px;
-      //margin: 0px 0px 84.8px 0px;
-      //box-sizing: border-box;
-  },
-  userName: {
-      //"position": "absolute",
-      left: '12%',
-      right: '52%',
-      top: '22%',
-      bottom: '76%',
-      fontFamily: 'Inter',
-      fontSize: 10,
-      fontWeight: 'normal',
-      fontWeight: '700',
-      color: '#FDFDFD',
-      //line-height: '12px',
-  },
-})
 
 export default HomeFeedImageContainer;

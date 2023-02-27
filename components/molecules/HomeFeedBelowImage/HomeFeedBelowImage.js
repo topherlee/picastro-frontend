@@ -14,13 +14,13 @@ import styled from 'styled-components';
 import { StarIcon } from "../../atoms";
 
 
-const HomeFeedBelowImage = () => (
+const HomeFeedBelowImage = (props) => (
     <View3>
       <TextStarNameShort>
-        IC 443
+        {props.astroNameShort}
       </TextStarNameShort>
       <TextStarName>
-        Jellyfish Nebula
+        {props.astroName}
       </TextStarName>
       <StarIconView>
         <StarIcon />
@@ -29,8 +29,9 @@ const HomeFeedBelowImage = () => (
 );
 
 const View3 = styled.View`
-  width: 182.76px;
+  width: 98%;
   height: 57px;
+  top: -2px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   background-color: #2e2e2e;
@@ -70,7 +71,7 @@ top: 30px;
 left: 15px;
 font-family: 'Inter';
 font-style: normal;
-font-weight: 700;
+font-weight: normal;
 font-size: 11px;
 line-height: 13px;
 

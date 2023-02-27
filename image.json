@@ -1,5 +1,36 @@
 {
-"astroImages":[
-    {"imageUrl":"/assets/TestAstroImages/Element1.png", "astroNameShort":"IC 443", "astroName":"Jellyfish Nebula", "userName":"Starman 2022", "userImage":"/assets/Sample/sampleuser2.png", "imageIsSaved":true, "award":"bronze", "exposureTime":"3 hrs", "moonPhase":"25%", "cloudCoverage":"5%", "bortle":"6", "imageDescription":"I captured this nebula deeps sky object from my back garden in the USA. This was such a labour of love to gather but I’m super proud of it.<br><br>The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula[1][2] (catalogued as Messier 17 or M17 or NGC 6618) is an H II region in the constellation Sagittarius. Charles Messier catalogued it in 1764. It is by some of the richest starfields of the Milky Way, figuring in the northern two-thirds of Sagittarius.", "starCamp":"", "leadingLight":true},
-    {"imageUrl":"/assets/TestAstroImages/Element3.png", "astroNameShort":"Test2", "astroName":"Test 2 Long", "userName":"Starman 2022", "userImage":"/assets/Sample/sampleuser2.png", "imageIsSaved":false, "award":"gold", "exposureTime":"6 hrs", "moonPhase":"50%", "cloudCoverage":"10%", "bortle":"3", "imageDescription":"Lorem ipsum Test 2 long", "starCamp":"Glasgow", "leadingLight":false},
+  "astroImages": [
+    {
+      "imageUrl": "/assets/TestAstroImages/Element1.png",
+      "astroNameShort": "IC 443",
+      "astroName": "Jellyfish Nebula",
+      "userName": "Starman 2022",
+      "userImage": "/assets/Sample/sampleuser2.png",
+      "imageIsSaved": true,
+      "award": "bronze",
+      "exposureTime": "3 hrs",
+      "moonPhase": "25%",
+      "cloudCoverage": "5%",
+      "bortle": "6",
+      "imageDescription": "I captured this nebula deeps sky object from my back garden in the USA. This was such a labour of love to gather but I’m super proud of it.<br><br>The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula[1][2] (catalogued as Messier 17 or M17 or NGC 6618) is an H II region in the constellation Sagittarius. Charles Messier catalogued it in 1764. It is by some of the richest starfields of the Milky Way, figuring in the northern two-thirds of Sagittarius.",
+      "starCamp": "",
+      "leadingLight": true
+    },
+    {
+      "imageUrl": "/assets/TestAstroImages/Element3.png",
+      "astroNameShort": "Test2",
+      "astroName": "Test 2 Long",
+      "userName": "Starman 2022",
+      "userImage": "/assets/Sample/sampleuser2.png",
+      "imageIsSaved": false,
+      "award": "gold",
+      "exposureTime": "6 hrs",
+      "moonPhase": "50%",
+      "cloudCoverage": "10%",
+      "bortle": "3",
+      "imageDescription": "Lorem ipsum Tet 2 long",
+      "starCamp": "Glasgow",
+      "leadingLight": false
+    }
+  ]
 }

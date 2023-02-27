@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 var ratio;
 
-const DetailedFeedImage = (props) => {
+const DetailedFeedImage = ({props}) => {
+  console.log("DFI", props)
   var source = Image.resolveAssetSource(props.imageURL);
   ratio = (source.width / source.height);
   return (

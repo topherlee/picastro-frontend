@@ -15,7 +15,7 @@ const ProfileScreen = ({ navigation }) => {
             {/* <Header /> */}
             <ScrollView>
                 <Text style={styles.text}>
-                    This is profile screen
+                    Still in progress... check back later
                 </Text>
                 <Button
                     title='Go to Home'
