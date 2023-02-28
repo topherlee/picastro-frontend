@@ -35,7 +35,7 @@ export const HomeFeedContainer = ({props}) => {
 }
 
 const View1 = styled.TouchableOpacity`
-
+    width: 100%;
 `;
 
 const styles = StyleSheet.create({
