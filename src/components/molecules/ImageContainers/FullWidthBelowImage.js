@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import styled from 'styled-components';
+import { MoreOrLess } from "@rntext/more-or-less";
 
 import {StarIcon, AwardIcon} from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
@@ -47,14 +48,25 @@ const FullWidthBelowImage = ({props}) => (
         </IconView>
         <Text style={{color: "#7a7a7a", fontWeight: "bold"}}>BORTLE <Text style={{color: "#FFC700", fontWeight: "bold"}}>{props.bortle}</Text></Text>
       </Row2>
-      <Row1>
-        <Text style={{
+      <MoreOrLess
+        numberOfLines={3}
+        textStyle={{
           color: "#7a7a7a", 
-          fontWeight: "bold", 
-        }}>
-          {props.imageDescription}
-        </Text>
-      </Row1>
+          fontWeight: 500, 
+        }}
+        containerStyle= {{
+          marginTop: "3%",
+          width: "100%",
+          borderWidth: 0,
+          borderColor: "yellow"
+        }}
+        textButtonStyle={{
+          color: "#FFC700"
+        }}
+        animated
+      >
+        {props.imageDescription}
+      </MoreOrLess>
 
       
     </Container>

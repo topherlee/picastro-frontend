@@ -14,42 +14,6 @@ import { DualColumnMasonryList } from '../components/templates';
 
 const props = [
     {
-        "imageURL": require('../assets/TestAstroImages/Element241.png'),
-        "astroNameShort": "IC442",
-        "astroNameShort2": "NGC 1234",
-        "astroNameShort3": "Omega",
-        "astroName": "Star #1",
-        "userName": "Starman",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "bronze",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "imageURL": require('../assets/TestAstroImages/Element261.png'),
-        "astroNameShort": "SS234",
-        "astroNameShort2": "NGC 5678",
-        "astroNameShort3": "Omega Nebula",
-        "astroName": "Star #2",
-        "userName": "Moonboy",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "none",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
-        "starCamp": "Edinburgh",
-        "leadingLight": false
-    },
-    {
         "imageURL": require('../assets/TestAstroImages/Element6.png'),
         "astroNameShort": "DC420",
         "astroName": "Star #3",
@@ -256,11 +220,11 @@ const props = [
     // }
 ]
 
-const SortByScreen = ({ navigation, props }) => {
+const SortByScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <DualColumnMasonryList {...props}/>
+            <DualColumnMasonryList props={props}/>
         </SafeAreaView>
     )
 };

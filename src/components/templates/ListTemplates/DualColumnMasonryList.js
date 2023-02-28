@@ -18,7 +18,7 @@ import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../../organisms';
 
 
-const DualColumnMasonryList = (props) => {
+const DualColumnMasonryList = ({props}) => {
     return (
         <ScrollView style={{
             backgroundColor: "black",
