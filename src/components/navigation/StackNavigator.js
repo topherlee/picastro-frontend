@@ -5,6 +5,7 @@ import HomeScreen from "../../screens/HomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen";
+import SortByScreen from "../../screens/SortByScreen";
 import Coin from "../../screens/Coin";
 import { LoginScreen } from "../../screens/SigninScreen";
 import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
@@ -38,10 +39,10 @@ const NotificationsStackNavigator = () => {
   );
 }
 
-const FilterStackNavigator = () => {
+const SortByStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={UserNameImageBurgerHeader}>
-      <Stack.Screen name="Filter" component={Coin} options={{headerShown: false}} />
+      <Stack.Screen name="Filter" component={SortByScreen} options={{headerShown: false}} />
     </Stack.Navigator>
   )
 }
@@ -49,6 +50,6 @@ const FilterStackNavigator = () => {
 export { 
   MainStackNavigator,
   ProfileStackNavigator,
-  FilterStackNavigator,
+  SortByStackNavigator,
   NotificationsStackNavigator
 };

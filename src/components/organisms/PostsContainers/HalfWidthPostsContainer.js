@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
 
-import { HomeFeedImageContainer, HomeFeedBelowImage, HalfWidthBelowImage, HalfWidthImageContainer } from '../../molecules';
+import { HalfWidthBelowImage, HalfWidthImageContainer } from '../../molecules';
 
 export const HalfWidthPostsContainer = (props) => {
   console.log("HFC", props)

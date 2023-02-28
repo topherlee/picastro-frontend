@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import {
+  Button,
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+  TouchableOpacity
+} from 'react-native';
 
 export class Coin extends Component {
   render() {

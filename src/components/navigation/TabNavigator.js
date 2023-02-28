@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { 
     MainStackNavigator,
     ProfileStackNavigator,
-    FilterStackNavigator,
+    SortByStackNavigator,
     NotificationsStackNavigator
 } from "./StackNavigator";
 
@@ -57,8 +57,8 @@ const BottomTabNavigator = () => {
             }}
         />
         <Tab.Screen 
-            name="FilterTab" 
-            component={FilterStackNavigator} 
+            name="SortByTab" 
+            component={SortByStackNavigator} 
             options={{
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
