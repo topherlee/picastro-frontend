@@ -73,7 +73,7 @@ const PostDetailsScreen = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={containerstyle}>
                 <View style={styles.feedView}>
-                <FullWidthPostsContainer props={props}  />
+                    <FullWidthPostsContainer props={props}  />
                     {/* {props.map((props, index) => (
                         <DetailedFeedContainer {...props} key={index} />
                     ))} */}
