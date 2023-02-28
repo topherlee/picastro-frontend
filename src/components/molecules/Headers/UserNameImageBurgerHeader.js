@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BurgerButton, UserImage, HeaderUserName } from '../../atoms';
 
-const HomeScreenHeader = () => {
+const UserNameImageBurgerHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
     }
 });  
 
-export default HomeScreenHeader;
+export default UserNameImageBurgerHeader;

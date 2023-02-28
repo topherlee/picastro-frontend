@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { StarIcon } from "../../atoms";
 
 
-const HomeFeedBelowImage = (props) => (
+const HalfWidthBelowImage = (props) => (
     <View3>
       <TextStarNameShort>
         {props.astroNameShort}
@@ -89,4 +89,4 @@ const StarIconView = styled.View`
   border: 0px solid yellow;
 `;
 
-export default HomeFeedBelowImage;
+export default HalfWidthBelowImage;

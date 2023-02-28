@@ -9,7 +9,7 @@ import {
 
 import React from 'react'
 import styled from 'styled-components';
-import { DetailedFeedContainer, FullWidthPostsContainer } from '../components/organisms';
+import { FullWidthPostsContainer } from '../components/organisms';
 
 // const props = [
 //     {

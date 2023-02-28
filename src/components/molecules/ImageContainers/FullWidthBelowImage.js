@@ -17,7 +17,7 @@ import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
 
-const DetailedFeedBelowImage = ({props}) => (
+const FullWidthBelowImage = ({props}) => (
     <Container>
       <Row1>
         <AwardIconWrapper>
@@ -148,4 +148,4 @@ const CommentInput = styled.TextInput`
   placeholderTextColor="black"
 `
 
-export default DetailedFeedBelowImage;
+export default FullWidthBelowImage;

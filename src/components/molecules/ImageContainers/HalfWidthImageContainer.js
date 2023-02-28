@@ -19,7 +19,7 @@ import styled from 'styled-components';
 
 var ratio;
 
-export const HomeFeedImageContainer = (props) => {
+export const HalfWidthImageContainer = (props) => {
   var source = Image.resolveAssetSource(props.imageURL);
   ratio = (source.width / source.height);
     return (
@@ -85,4 +85,4 @@ const AwardIconWrapper = styled.View`
 `;
 
 
-export default HomeFeedImageContainer;
+export default HalfWidthImageContainer;

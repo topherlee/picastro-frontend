@@ -16,20 +16,20 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
-import { DetailedFeedAboveImage, DetailedFeedBelowImage, DetailedFeedImage } from '../../molecules';
+import { FullWidthAboveImage, FullWidthImage, FullWidthBelowImage } from '../../molecules';
 
 export const FullWidthPostsContainer = ({props}) => {
   console.log("DFC",props)
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
-            <DetailedFeedAboveImage props={props} />
+            <FullWidthAboveImage props={props} />
             <View1>
-                <DetailedFeedImage
+                <FullWidthImage
                 props={props}  
                 />
             </View1>
-            <DetailedFeedBelowImage props={props} />
+            <FullWidthBelowImage props={props} />
         </View>
     )
 }

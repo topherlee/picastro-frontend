@@ -13,7 +13,7 @@ import styled from 'styled-components';
 
 import {StarIcon} from '../../atoms';
 
-const DetailedFeedAboveImage = ({props}) => {
+const FullWidthAboveImage = ({props}) => {
   var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
   ratio = (source.width / source.height);
   return (
@@ -76,4 +76,4 @@ const UserImage = styled.Image`
 //
 //border: 1px solid grey;
 
-export default DetailedFeedAboveImage;
+export default FullWidthAboveImage;

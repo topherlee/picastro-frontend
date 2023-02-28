@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 var ratio;
 
-const DetailedFeedImage = ({props}) => {
+const FullWidthImage = ({props}) => {
   console.log("DFI", props)
   var source = Image.resolveAssetSource(props.imageURL);
   ratio = (source.width / source.height);
@@ -28,4 +28,4 @@ const AstroImage = styled.Image`
   max-height: 100%;
 `;
 
-export default DetailedFeedImage;
+export default FullWidthImage;

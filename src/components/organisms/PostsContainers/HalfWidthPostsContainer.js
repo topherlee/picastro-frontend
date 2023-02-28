@@ -17,17 +17,17 @@ import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
 
-import { HomeFeedImageContainer, HomeFeedBelowImage } from '../../molecules';
+import { HomeFeedImageContainer, HomeFeedBelowImage, HalfWidthBelowImage, HalfWidthImageContainer } from '../../molecules';
 
 export const HalfWidthPostsContainer = (props) => {
   console.log("HFC", props)
   const navigation = useNavigation();
     return (
       <View1 onPress={() => navigation.navigate('PostDetails', props)}>
-        <HomeFeedImageContainer 
+        <HalfWidthImageContainer 
           {...props}
         />
-        <HomeFeedBelowImage 
+        <HalfWidthBelowImage 
           {...props}
           style={{
           }}

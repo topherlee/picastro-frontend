@@ -1,6 +1,6 @@
 import { PicastroLogo } from "../../atoms";
 
-const DetailedFeedHeader = { 
+const PicastroLogoHeader = { 
     headerTitle: (props) => <PicastroLogo {...props} />,
     headerStyle: {
       backgroundColor: 'black',
@@ -10,4 +10,4 @@ const DetailedFeedHeader = {
     headerBackTitleVisible: false,
 }
 
-export default DetailedFeedHeader;
+export default PicastroLogoHeader;

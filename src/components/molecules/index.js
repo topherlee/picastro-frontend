@@ -6,3 +6,8 @@ export {default as HomeFeedBelowImage} from './HomeFeedBelowImage/HomeFeedBelowI
 export {default as BottomFilterModal} from './Modals/BottomModal';
 export {default as PicastroLogoHeader} from './Headers/PicastroLogoHeader';
 export {default as UserNameImageBurgerHeader} from './Headers/UserNameImageBurgerHeader';
+export {default as FullWidthAboveImage} from './ImageContainers/FullWidthAboveImage';
+export {default as FullWidthBelowImage} from './ImageContainers/FullWidthBelowImage';
+export {default as FullWidthImage} from './ImageContainers/FullWidthImage';
+export {default as HalfWidthBelowImage} from './ImageContainers/HalfWidthBelowImage';
+export {default as HalfWidthImageContainer} from './ImageContainers/HalfWidthImageContainer';
