@@ -14,7 +14,7 @@ const FullWidthImage = ({props}) => {
         source={props.imageURL}
         style={{
           aspectRatio: ratio,
-          maxWidth: '100%',
+          width: '100%',
           height: 'auto',
         }}
         resizeMode="contain"
