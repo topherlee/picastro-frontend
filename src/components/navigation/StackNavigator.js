@@ -4,9 +4,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../screens/HomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
+import NotificationsScreen from "../../screens/NotificationsScreen";
 import Coin from "../../screens/Coin";
 import { LoginScreen } from "../../screens/SigninScreen";
-import { PicastroLogoHeader } from "../molecules";
+import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
 
 const Stack = createStackNavigator();
 
@@ -29,12 +30,25 @@ const ProfileStackNavigator = () => {
     );
 }
 
+const NotificationsStackNavigator = () => {
+  return (
+      <Stack.Navigator screenOptions={PicastroLogoHeader}>
+          <Stack.Screen name="Profile" component={NotificationsScreen} />
+      </Stack.Navigator>
+  );
+}
+
 const FilterStackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={DetailedFeedHeader}>
+    <Stack.Navigator screenOptions={UserNameImageBurgerHeader}>
       <Stack.Screen name="Filter" component={Coin} options={{headerShown: false}} />
     </Stack.Navigator>
   )
 }
 
-export { MainStackNavigator, ProfileStackNavigator, FilterStackNavigator };
+export { 
+  MainStackNavigator,
+  ProfileStackNavigator,
+  FilterStackNavigator,
+  NotificationsStackNavigator
+};

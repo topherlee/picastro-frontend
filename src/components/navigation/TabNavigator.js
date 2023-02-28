@@ -1,11 +1,16 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { MainStackNavigator, ProfileStackNavigator, FilterStackNavigator } from "./StackNavigator";
+import { 
+    MainStackNavigator,
+    ProfileStackNavigator,
+    FilterStackNavigator,
+    NotificationsStackNavigator
+} from "./StackNavigator";
 
 import { Image, Text, View } from 'react-native';
 
-import { HomeButton, StarCampsButton, TelescopeButton } from "../atoms";
+import { HomeButton, StarCampsButton, TelescopeButton, NotificationsButton } from "../atoms";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +43,16 @@ const BottomTabNavigator = () => {
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
                     <StarCampsButton />
+                ),
+            }}
+        />
+        <Tab.Screen 
+            name="NotificationsTab" 
+            component={NotificationsStackNavigator} 
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <NotificationsButton />
                 ),
             }}
         />

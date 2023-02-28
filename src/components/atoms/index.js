@@ -8,3 +8,4 @@ export {default as StarIcon} from './IconsAndLogos/StarIcon';
 export {default as AstroImageWrapper} from './AstroImage/AstroImage';
 export {default as AwardIcon} from './IconsAndLogos/AwardIcon';
 export {default as TelescopeButton} from './Buttons/TelescopeButton';
+export {default as NotificationsButton} from './Buttons/NotificationsButton';
