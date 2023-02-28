@@ -12,8 +12,8 @@ import {
     View,
 } from 'react-native';
 
-import { HomeScreenHeader } from '../components/molecules';
-import { HomeFeedContainer, HalfWidthPostsContainer } from '../components/organisms';
+import { UserNameImageBurgerHeader } from '../components/molecules';
+import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 
 const props = [
@@ -249,7 +249,7 @@ const props = [
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <HomeScreenHeader />
+            <UserNameImageBurgerHeader />
             <ScrollView style={{
                     backgroundColor: "black",
                     borderColor:"blue", 

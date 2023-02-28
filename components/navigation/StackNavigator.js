@@ -6,14 +6,14 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
 import Coin from "../../screens/Coin";
 import { LoginScreen } from "../../screens/SigninScreen";
-import { DetailedFeedHeader } from "../molecules";
+import { PicastroLogoHeader } from "../molecules";
 
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
   return (
     //<Stack.Navigator screenOptions={{headerShown:false}}>
-    <Stack.Navigator screenOptions={DetailedFeedHeader}>
+    <Stack.Navigator screenOptions={PicastroLogoHeader}>
       <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
       <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
       <Stack.Screen name="Filter" component={PostDetailsScreen} />
@@ -23,7 +23,7 @@ const MainStackNavigator = () => {
 
 const ProfileStackNavigator = () => {
     return (
-        <Stack.Navigator screenOptions={DetailedFeedHeader}>
+        <Stack.Navigator screenOptions={PicastroLogoHeader}>
             <Stack.Screen name="Profile" component={ProfileScreen} />
         </Stack.Navigator>
     );

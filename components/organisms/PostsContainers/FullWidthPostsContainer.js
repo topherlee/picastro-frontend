@@ -18,7 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import { DetailedFeedAboveImage, DetailedFeedBelowImage, DetailedFeedImage } from '../../molecules';
 
-export const HomeFeedContainer = ({props}) => {
+export const FullWidthPostsContainer = ({props}) => {
   console.log("DFC",props)
   const navigation = useNavigation();
     return (
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HomeFeedContainer;
+export default FullWidthPostsContainer;
