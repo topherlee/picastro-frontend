@@ -34,7 +34,7 @@ const ProfileStackNavigator = () => {
 const NotificationsStackNavigator = () => {
   return (
       <Stack.Navigator screenOptions={PicastroLogoHeader}>
-          <Stack.Screen name="Profile" component={NotificationsScreen} />
+          <Stack.Screen name="Coin" component={Coin} />
       </Stack.Navigator>
   );
 }

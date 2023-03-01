@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Image,
-  ImageBackground,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TouchableOpacity
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import ajax from '../../services/FetchCoins';
+import CoinList from '../components/CoinList';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#B6A6BB',
+  }
+})
 
 export class Coin extends Component {
+
+  state = {
+    coins: []
+  }
+
+  async componentDidMount() {
+    const coins = await ajax.fetchCoins();
+    this.setState({coins});
+  }
+
   render() {
     return (
-      <View>
-        <Text>Coin Screen</Text>
+      <View style={styles.container}>
+      {
+        this.state.coins.length > 0
+        ? <CoinList coins={this.state.coins} />
+        : <Text>No coins</Text>
+      }
       </View>
     )
   }
