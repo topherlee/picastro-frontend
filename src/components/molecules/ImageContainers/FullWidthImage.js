@@ -6,8 +6,10 @@ var ratio;
 
 const FullWidthImage = ({props}) => {
   console.log("DFI", props)
+
   var source = Image.resolveAssetSource(props.imageURL);
   ratio = (source.width / source.height);
+
   return (
     <View>
       <AstroImage

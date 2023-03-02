@@ -63,7 +63,11 @@ const FullWidthBelowImage = ({props}) => (
         textButtonStyle={{
           color: "#FFC700"
         }}
+<<<<<<< HEAD
         >
+=======
+      >
+>>>>>>> 4e95e155894d9d4f3905d8d32c6d9da27e0ac900
         {props.imageDescription}
       </MoreOrLess>
 
