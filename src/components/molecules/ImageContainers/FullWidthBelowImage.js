@@ -115,16 +115,17 @@ const FullWidthBelowImage = ({props}) => {
             paddingHorizontal: "10%"}}>
           <TextInput 
             multiline={true}
-            numberOfLines={5}
+            textAlignVertical="top"
             placeholder="Write a comment"
             placeholderTextColor="black"
             autoFocus={true}
             style={{
               backgroundColor: "white",
               width:"100%", 
-              height: "100%", 
+              minHeight: 50,
+              maxHeight: 150,
               paddingHorizontal: "3%",
-              paddingVertical: "5%",
+              paddingVertical: "4%",
               borderRadius: 10,
             }}
           />
