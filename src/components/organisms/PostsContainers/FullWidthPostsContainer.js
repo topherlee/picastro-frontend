@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    Button,
+    Pressable,
     Image,
     ImageBackground,
     SafeAreaView,
@@ -30,13 +30,19 @@ export const FullWidthPostsContainer = ({props}) => {
     return (
         <View style={styles.container}>
             <Modal
-                animationType="slide"
+                animationType="fade"
                 visible={modalVisible}
                 presentationStyle="pageSheet"
                 onRequestClose={() => {
                     setModalVisible(!modalVisible);
                 }}
-            >   
+            > 
+                <Pressable 
+                    style={styles.button}
+                    onPress = { () => setModalVisible(!modalVisible) }
+                > 
+                    <Text style={styles.text}>Go back</Text>
+                </Pressable>
                 <ReactNativeZoomableView
                     maxZoom={3}
                     minZoom={1}
@@ -81,6 +87,18 @@ const styles = StyleSheet.create({
         borderWidth: 0, 
         borderColor: "red",
         flex: 1,
+    },
+    button: {
+        flexDirection: "row",
+        justifyContent: 'flex-end',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        elevation: 3,
+        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    },
+    text: {
+        color: "#FFC700",
+        fontWeight: 700
     }
 })
 
