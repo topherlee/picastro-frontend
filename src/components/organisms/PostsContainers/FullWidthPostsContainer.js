@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         elevation: 3,
         backgroundColor: 'rgba(0, 0, 0, 0.95)',
+        maxHeight: 50
     },
     text: {
         color: "#FFC700",
