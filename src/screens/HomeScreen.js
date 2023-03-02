@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
     Button,
@@ -76,7 +76,7 @@ const props = [
         "award": "bronze",
         "astroNameShort": "Test2",
         "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
+        "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -92,7 +92,7 @@ const props = [
         "imageURL": require('../assets/TestAstroImages/Element5.png'),
         "award": "silver",
         "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
+        "astroName": "Test 2 Long", "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -108,7 +108,7 @@ const props = [
         "imageURL": require('../assets/TestAstroImages/Element181.png'),
         "award": "gold",
         "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
+        "astroName": "Test 2 Long", "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -125,7 +125,7 @@ const props = [
         "award": "none",
         "astroNameShort": "Test2",
         "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
+        "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -136,7 +136,7 @@ const props = [
         "starCamp": "Glasgow",
         "leadingLight": false
     },
-    
+
     {
         "imageURL": require('../assets/TestAstroImages/Element241.png'),
         "astroNameShort": "IC442",
@@ -195,7 +195,7 @@ const props = [
         "award": "bronze",
         "astroNameShort": "Test2",
         "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
+        "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -211,7 +211,7 @@ const props = [
         "imageURL": require('../assets/TestAstroImages/Element5.png'),
         "award": "silver",
         "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
+        "astroName": "Test 2 Long", "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -227,7 +227,7 @@ const props = [
         "imageURL": require('../assets/TestAstroImages/Element181.png'),
         "award": "gold",
         "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
+        "astroName": "Test 2 Long", "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -244,7 +244,7 @@ const props = [
         "award": "none",
         "astroNameShort": "Test2",
         "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
+        "imageCategory": "Nebula",
         "imageIsSaved": false,
         "award": "gold",
         "exposureTime": "6 hrs",
@@ -265,31 +265,53 @@ const props = [
 
 
 const HomeScreen = ({ navigation }) => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+
+    let getFeeds = () => {
+        fetch(`http://127.0.0.1:8000/api/feed/home`)
+            .then(res => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+            })
+            .then(
+                (result) => {
+                    console.log(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    };
+
+    getFeeds();
+
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress= {function(){ navigation.navigate('UserScreen') }}>
-            <UserNameImageBurgerHeader />
+            <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
+                <UserNameImageBurgerHeader />
             </TouchableOpacity>
             <ScrollView style={{
-                    backgroundColor: "black",
-                    borderColor:"blue", 
-                    borderWidth: 0,
+                backgroundColor: "black",
+                borderColor: "blue",
+                borderWidth: 0,
             }}
-            contentContainerStyle={{
-                display: "flex",
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: "center",
-                alignContent: 'center'
-            }}>
+                contentContainerStyle={{
+                    display: "flex",
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: "center",
+                    alignContent: 'center'
+                }}>
                 <MasonryList
                     data={props}
                     keyExtractor={item => item.id}
                     numColumns={2}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => <HalfWidthPostsContainer {...item} />}
+                    renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
                     contentContainerStyle={{
-                        borderColor:"red", 
+                        borderColor: "red",
                         borderWidth: 0,
                         paddingTop: "3%",
                         paddingLeft: "4%"
@@ -298,7 +320,7 @@ const HomeScreen = ({ navigation }) => {
                         flex: 1,
                         maxWidth: "96%",
                         columnGap: 10,
-                        borderColor:"yellow", 
+                        borderColor: "yellow",
                         borderWidth: 0,
                     }}
                 >
@@ -313,7 +335,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         backgroundColor: "#2F2F2F",
-        borderColor:"green", 
+        borderColor: "green",
         borderWidth: 0,
     },
     text: {
