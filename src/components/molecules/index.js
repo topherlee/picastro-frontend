@@ -6,3 +6,5 @@ export {default as FullWidthBelowImage} from './ImageContainers/FullWidthBelowIm
 export {default as FullWidthImage} from './ImageContainers/FullWidthImage';
 export {default as HalfWidthBelowImage} from './ImageContainers/HalfWidthBelowImage';
 export {default as HalfWidthImageContainer} from './ImageContainers/HalfWidthImageContainer';
+export {default as UserNameImageWithoutBurger} from './Headers/UserNameImageWithoutBurger';
+export {default as ExtendedPicastroBurgerHeader} from './Headers/ExtendedPicastroBurgerHead';

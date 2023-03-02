@@ -9,6 +9,9 @@ import SortByScreen from "../../screens/SortByScreen";
 import Coin from "../../screens/Coin";
 import { LoginScreen } from "../../screens/SigninScreen";
 import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
+import UserScreen from "../../screens/UserScreen"
+import EditProfile from "../../screens/EditProfile";
+import YourMainSetup from "../../screens/YourMainSetup";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +22,10 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
       <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
       <Stack.Screen name="Filter" component={PostDetailsScreen} />
+      <Stack.Screen name="UserScreen" component={UserScreen} options={{headerShown: false}} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="YourMainSetup" component={YourMainSetup} />
+
     </Stack.Navigator>
   );
 }

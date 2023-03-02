@@ -8,14 +8,14 @@ import {
     StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     TouchableOpacity,
+    useColorScheme,
     View,
 } from 'react-native';
-
-import { UserNameImageBurgerHeader } from '../components/molecules';
+import { ExtendedPicastroBurgerHeader, UserNameImageBurgerHeader,UserNameImageWithoutBurger } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
+import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
 
 const props = [
     {
@@ -264,11 +264,20 @@ const props = [
 //astroName.split(", ").map()
 
 
-const HomeScreen = ({ navigation }) => {
+const UserScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress= {function(){ navigation.navigate('UserScreen') }}>
-            <UserNameImageBurgerHeader />
+            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}
+            <ExtendedPicastroBurgerHeader />
+            {/* <UserNameImageWithoutBurger /> */}
+            <AwardIcon />
+
+            <Text style={styles.text}>Lawyer By Day,amateur photographer by night. Help Elliot fight</Text>   
+            <Text style={styles.text}>Photo by Me</Text>  
+            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}        
+            <AwardIcon />
+            <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
+                <Text style={styles.loginText}>Edit Profile</Text> 
             </TouchableOpacity>
             <ScrollView style={{
                     backgroundColor: "black",
@@ -315,17 +324,45 @@ const styles = StyleSheet.create({
         backgroundColor: "#2F2F2F",
         borderColor:"green", 
         borderWidth: 0,
+        
     },
     text: {
-        fontSize: 25,
+        fontSize: 15,
         fontWeight: '500',
-        color: 'red',
+        color: 'white',
         textAlign: 'center'
     },
     image: {
-        width: "100%",
-        height: 200
-    }
+        position: "relative",
+        marginBottom: "10%",
+    },
+    loginBtn: {
+        width: "80%",
+        borderRadius: 25,
+        height: "7%",
+        minHeight: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        marginTop: "10%",
+        marginBottom: "3%",
+        backgroundColor: "#FFC700",
+    },
+    loginText: {
+        fontWeight: "bold",
+        // flexDirection:'row',
+        // position: "relative",
+        // marginBottom: "2%"
+        
+    },
+   
+    // title: {
+    //     color: "#FFC700",
+    //     fontWeight: "bold",
+    //     fontSize: 20,
+    //     position: "relative",
+    //     top: "-5%"
+    //   },
 });
 
-export default HomeScreen;
+export default UserScreen;
