@@ -1,5 +1,6 @@
 import { 
     View, 
+    KeyboardAvoidingView,
     Text,
     SafeAreaView,
     ScrollView,
@@ -9,6 +10,7 @@ import {
 
 import React from 'react'
 import styled from 'styled-components';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { FullWidthPostsContainer } from '../components/organisms';
 
 // const props = [
@@ -69,8 +71,17 @@ var ratio;
 
 const PostDetailsScreen = ({ route, navigation }) => {
     const props = route.params;
+    const headerHeight = useHeaderHeight();
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} >
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"} 
+            style={{
+                borderColor: "yellow",
+                borderWidth: 0,
+            }}
+            keyboardVerticalOffset={headerHeight}
+        >
             <ScrollView contentContainerStyle={containerstyle}>
                 <View style={styles.feedView}>
                     <FullWidthPostsContainer props={props}  />
@@ -79,6 +90,7 @@ const PostDetailsScreen = ({ route, navigation }) => {
                     ))} */}
                 </View>
             </ScrollView>
+        </KeyboardAvoidingView>
         </SafeAreaView>
   )
 }
@@ -86,6 +98,7 @@ const PostDetailsScreen = ({ route, navigation }) => {
 const containerstyle = {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "flex-end",
     alignItems: "center",
     width: "100%",
     borderColor: "yellow",

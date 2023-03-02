@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {
   StyleSheet,
   Button,
   View,
-  SafeAreaView,
   Text,
   Alert,
   Image,
   TextInput,
+  KeyboardAvoidingView,
+  Modal,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import styled from 'styled-components';
@@ -18,7 +21,10 @@ import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
 
-const FullWidthBelowImage = ({props}) => (
+const FullWidthBelowImage = ({props}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
     <Container>
       <Row1>
         <AwardIconWrapper>
@@ -36,6 +42,7 @@ const FullWidthBelowImage = ({props}) => (
             <StarIcon />
         </IconView>
       </Row1>
+
       <Row2>
         <IconView>
           <ExposureSvg /><LightText> {props.exposureTime}</LightText>
@@ -48,6 +55,7 @@ const FullWidthBelowImage = ({props}) => (
         </IconView>
         <Text style={{color: "#7a7a7a", fontWeight: "bold"}}>BORTLE <Text style={{color: "#FFC700", fontWeight: "bold"}}>{props.bortle}</Text></Text>
       </Row2>
+
       <MoreOrLess
         numberOfLines={3}
         textStyle={{
@@ -67,9 +75,64 @@ const FullWidthBelowImage = ({props}) => (
         {props.imageDescription}
       </MoreOrLess>
 
-      
+      <TouchableOpacity onPress={() => {setModalVisible(true)}}>
+        <CommentInputView>
+          <Text>Write a comment</Text>
+        </CommentInputView>
+      </TouchableOpacity>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        presentationStyle="overFullScreen"
+        onRequestClose={() => {
+            setModalVisible(false);
+        }}
+      >
+        <TouchableWithoutFeedback onPress={()=>{;setModalVisible(false)}}>
+          <View style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)'
+          }} />
+        </TouchableWithoutFeedback>
+
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{
+            backgroundColor: "black",
+            position: "absolute",
+            width: "100%",
+            bottom: 1,}}
+        >
+          <View style={{
+            backgroundColor: "black",
+            width: "100%",
+            paddingVertical: "4%",
+            paddingHorizontal: "10%"}}>
+          <TextInput 
+            multiline={true}
+            numberOfLines={5}
+            placeholder="Write a comment"
+            placeholderTextColor="black"
+            autoFocus={true}
+            style={{
+              backgroundColor: "white",
+              width:"100%", 
+              height: "100%", 
+              paddingHorizontal: "3%",
+              paddingVertical: "5%",
+              borderRadius: 10,
+            }}
+          />
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
     </Container>
-);
+)};
 
 const Container = styled.View`
   display: flex;
@@ -100,6 +163,13 @@ const Row2 = styled.View`
   width: 95%;
   padding-vertical: 2%;
   border: 0px solid red;
+`
+
+const CommentInputView = styled.View`
+  background-color: white;
+  margin-vertical: 3%;
+  padding: 4%;
+  border-radius: 10px;
 `
 
 const AwardIconWrapper = styled.View`
@@ -154,9 +224,5 @@ const LightText = styled.Text`
   color: #7a7a7a;  
 `
 
-const CommentInput = styled.TextInput`
-  placeholder="Write a comment here..."
-  placeholderTextColor="black"
-`
 
 export default FullWidthBelowImage;

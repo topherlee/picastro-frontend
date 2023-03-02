@@ -30,7 +30,7 @@ export const FullWidthPostsContainer = ({props}) => {
     return (
         <View style={styles.container}>
             <Modal
-                animationType="fade"
+                animationType="slide"
                 visible={modalVisible}
                 presentationStyle="pageSheet"
                 onRequestClose={() => {
@@ -65,13 +65,16 @@ export const FullWidthPostsContainer = ({props}) => {
                     />
                 </ReactNativeZoomableView>
             </Modal>
+
             <FullWidthAboveImage props={props} />
+
             <TouchableOpacity 
                 onPress={() => setModalVisible(true)}  >
                 <FullWidthImage
                 props={props}
                 />
             </TouchableOpacity>
+
             <FullWidthBelowImage props={props} />
         </View>
     )
@@ -83,7 +86,7 @@ const View1 = styled.TouchableOpacity`
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: "2%",
+        marginVertical: "0%",
         borderWidth: 0, 
         borderColor: "red",
         flex: 1,
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#FFC700",
         fontWeight: 700
-    }
+    },
 })
 
 export default FullWidthPostsContainer;
