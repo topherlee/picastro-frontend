@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
     Button,
@@ -17,7 +17,7 @@ import { UserNameImageBurgerHeader } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 
-const props = [
+const existingData = [
     {
         "imageURL": require('../assets/TestAstroImages/Element241.png'),
         "astroNameShort": "IC442",
@@ -191,6 +191,7 @@ const props = [
     },
     {
         "userName": "testperson",
+        "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element2.png'),
         "award": "bronze",
         "astroNameShort": "Test2",
@@ -208,6 +209,7 @@ const props = [
     },
     {
         "userName": "stargirl",
+        "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element5.png'),
         "award": "silver",
         "astroNameShort": "Test2",
@@ -224,6 +226,7 @@ const props = [
     },
     {
         "userName": "starboy",
+        "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element181.png'),
         "award": "gold",
         "astroNameShort": "Test2",
@@ -240,6 +243,7 @@ const props = [
     },
     {
         "userName": "Steffen",
+        "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element7.png'),
         "award": "none",
         "astroNameShort": "Test2",
@@ -267,8 +271,9 @@ const props = [
 const HomeScreen = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    let incomingData;
 
-    let getFeeds = () => {
+    let getHomeFeed = () => {
         fetch(`http://10.0.2.2:8000/api/feed/home`)
             .then(res => {
                 console.log(res.status);
@@ -278,56 +283,95 @@ const HomeScreen = ({ navigation }) => {
             .then(
                 (result) => {
                     console.log(result);
+                    incomingData = result;
+                    console.log("incomingData2", incomingData);
+                    renderView(incomingData);
                 },
                 (error) => {
                     console.log(error);
                 }
             )
+            
     };
 
-    getFeeds();
+    const inputData = getHomeFeed();
+    // console.log("inputData", inputData);
+    // console.log("incomingData", incomingData);
+    // console.log("getHomeFeed", getHomeFeed);
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
-                <UserNameImageBurgerHeader />
-            </TouchableOpacity>
-            <ScrollView style={{
-                backgroundColor: "black",
-                borderColor: "blue",
-                borderWidth: 0,
-            }}
-                contentContainerStyle={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: "center",
-                    alignContent: 'center'
-                }}>
-                <MasonryList
-                    data={props}
-                    keyExtractor={item => item.id}
-                    numColumns={2}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+    let props;
+
+    function renderView(inputData) {
+        if (
+            inputData &&
+            inputData[0]["imageURL"] &&
+            inputData[0]["astroName"] &&
+            inputData[0]["astroNameShort"] &&
+            inputData[0]["award"] &&
+            inputData[0]["imageIsSaved"] &&
+            inputData[0]["userName"] &&
+            inputData[0]["userImage"]
+        ) {
+            console.log("property check: true");
+            props = inputData;
+            console.log("props", props);
+        } else {
+            console.log("property check: false",
+                inputData,
+                inputData[0]["imageURL"],
+                inputData[0]["astroName"],
+                inputData[0]["astroNameShort"],
+                inputData[0]["award"],
+                inputData[0]["imageIsSaved"],
+                inputData[0]["userName"],
+                inputData[0]["userImage"]
+                );
+            props = existingData;
+            console.log("props", props);
+        };
+
+        return (
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
+                    <UserNameImageBurgerHeader />
+                </TouchableOpacity>
+                <ScrollView style={{
+                    backgroundColor: "black",
+                    borderColor: "blue",
+                    borderWidth: 0,
+                }}
                     contentContainerStyle={{
-                        borderColor: "red",
-                        borderWidth: 0,
-                        paddingTop: "3%",
-                        paddingLeft: "4%"
-                    }}
-                    style={{
+                        display: "flex",
                         flex: 1,
-                        maxWidth: "96%",
-                        columnGap: 10,
-                        borderColor: "yellow",
-                        borderWidth: 0,
-                    }}
-                >
-                </MasonryList>
-            </ScrollView>
-        </SafeAreaView>
-    )
+                        flexDirection: 'row',
+                        justifyContent: "center",
+                        alignContent: 'center'
+                    }}>
+                    <MasonryList
+                        data={props}
+                        keyExtractor={item => item.id}
+                        numColumns={2}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+                        contentContainerStyle={{
+                            borderColor: "red",
+                            borderWidth: 0,
+                            paddingTop: "3%",
+                            paddingLeft: "4%"
+                        }}
+                        style={{
+                            flex: 1,
+                            maxWidth: "96%",
+                            columnGap: 10,
+                            borderColor: "yellow",
+                            borderWidth: 0,
+                        }}
+                    >
+                    </MasonryList>
+                </ScrollView>
+            </SafeAreaView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
