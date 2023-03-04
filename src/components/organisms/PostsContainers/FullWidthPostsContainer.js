@@ -21,12 +21,23 @@ import styled from 'styled-components';
 import { FullWidthAboveImage, FullWidthImage, FullWidthBelowImage } from '../../molecules';
 
 export const FullWidthPostsContainer = ({props}) => {
-  console.log("DFC",props);
+  //console.log("DFC",props);
 
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
-  var source = Image.resolveAssetSource(props.imageURL);
-  ratio = (source.width / source.height);
+//   var source = Image.resolveAssetSource(props.imageURL);
+//   ratio = (source.width / source.height);
+
+    const [imgWidth, setImgWidth] = useState(0);
+    const [imgHeight, setImgHeight] = useState(0);
+    var ratio;
+
+    Image.getSize(props.imageURL, (width, height) => {
+      setImgWidth(width);
+      setImgHeight(height);
+      ratio = width / height;
+    });
+
     return (
         <View style={styles.container}>
             <Modal
@@ -55,11 +66,12 @@ export const FullWidthPostsContainer = ({props}) => {
                     style={{backgroundColor: 'rgba(0, 0, 0, 0.95)'}}
                 >   
                     <Image 
-                        source={props.imageURL}
+                        source={{uri: props.imageURL}}
                         style={{
                             aspectRatio: ratio,
-                            width: '100%',
-                            height: 'auto',
+                            maxWidth: "100%",
+                            width: imgWidth,
+                            height: imgHeight,
                         }}
                         resizeMode="contain"
                     />

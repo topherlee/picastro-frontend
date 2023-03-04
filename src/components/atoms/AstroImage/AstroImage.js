@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     StyleSheet,
     Button,
@@ -12,17 +12,26 @@ import {
 
 import styled from 'styled-components';
 
+var ratio;
 
 const AstroImageWrapper = (props) => {
-    var source = Image.resolveAssetSource(props.imageURL);
-    ratio = (source.width / source.height);
+    const [imgWidth, setImgWidth] = useState(0);
+    const [imgHeight, setImgHeight] = useState(0);
+
+    Image.getSize(props.imageURL, (width, height) => {
+      setImgWidth(width);
+      setImgHeight(height);
+      ratio = width / height;
+    });
+
     return (
         <AstroImage
-          source={props.imageURL}
+          source={{uri: props.imageURL}}
           style={{
             aspectRatio: ratio,
             maxWidth: "100%",
-            height: "auto",
+            width: imgWidth,
+            height: imgHeight,
           }}
           resizeMode="contain"
         />

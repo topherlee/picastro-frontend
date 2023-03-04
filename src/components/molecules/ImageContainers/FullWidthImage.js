@@ -1,23 +1,33 @@
 import {View, Text, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 var ratio;
 
 const FullWidthImage = ({props}) => {
-  console.log("DFI", props)
+  //console.log("DFI", props)
 
-  var source = Image.resolveAssetSource(props.imageURL);
-  ratio = (source.width / source.height);
+  // var source = Image.resolveAssetSource(props.imageURL);
+  // ratio = (source.width / source.height);
+
+  const [imgWidth, setImgWidth] = useState(0);
+  const [imgHeight, setImgHeight] = useState(0);
+
+  Image.getSize(props.imageURL, (width, height) => {
+    setImgWidth(width);
+    setImgHeight(height);
+    ratio = width / height;
+  });
 
   return (
     <View>
       <AstroImage
-        source={props.imageURL}
+        source={{uri: props.imageURL}}
         style={{
           aspectRatio: ratio,
-          width: '100%',
-          height: 'auto',
+          maxWidth: "100%",
+          width: imgWidth,
+          height: imgHeight,
         }}
         resizeMode="contain"
       />

@@ -20,7 +20,7 @@ import styled from 'styled-components';
 import { HalfWidthBelowImage, HalfWidthImageContainer } from '../../molecules';
 
 export const HalfWidthPostsContainer = (props) => {
-  console.log("HFC", props)
+  //console.log("HFC", props)
   const navigation = useNavigation();
     return (
       <View1 onPress={() => navigation.navigate('PostDetails', props)}>

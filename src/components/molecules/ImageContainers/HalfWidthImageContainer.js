@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Button,
     Image,
@@ -20,8 +20,7 @@ import styled from 'styled-components';
 var ratio;
 
 export const HalfWidthImageContainer = (props) => {
-  var source = Image.resolveAssetSource(props.imageURL);
-  ratio = (source.width / source.height);
+  
     return (
       <View2>
         <AstroImageWrapper 

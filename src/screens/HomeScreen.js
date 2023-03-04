@@ -265,8 +265,6 @@ const existingData = [
     // }
 ]
 
-//astroName.split(", ").map()
-
 
 const HomeScreen = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
@@ -276,16 +274,17 @@ const HomeScreen = ({ navigation }) => {
     let getHomeFeed = () => {
         fetch(`http://10.0.2.2:8000/api/feed/home`)
             .then(res => {
-                console.log(res.status);
-                console.log(res.headers);
+                // console.log(res.status);
+                // console.log(res.headers);
                 return res.json();
             })
             .then(
                 (result) => {
-                    console.log(result);
+                    // console.log(result);
                     incomingData = result;
-                    console.log("incomingData2", incomingData);
-                    renderView(incomingData);
+                    // console.log("incomingData2", incomingData);
+                    //renderView(incomingData);
+                    setData(result);
                 },
                 (error) => {
                     console.log(error);
@@ -299,80 +298,80 @@ const HomeScreen = ({ navigation }) => {
     // console.log("incomingData", incomingData);
     // console.log("getHomeFeed", getHomeFeed);
 
-    let props;
+    // let props;
 
-    function renderView(inputData) {
-        if (
-            inputData &&
-            inputData[0]["imageURL"] &&
-            inputData[0]["astroName"] &&
-            inputData[0]["astroNameShort"] &&
-            inputData[0]["award"] &&
-            inputData[0]["imageIsSaved"] &&
-            inputData[0]["userName"] &&
-            inputData[0]["userImage"]
-        ) {
-            console.log("property check: true");
-            props = inputData;
-            console.log("props", props);
-        } else {
-            console.log("property check: false",
-                inputData,
-                inputData[0]["imageURL"],
-                inputData[0]["astroName"],
-                inputData[0]["astroNameShort"],
-                inputData[0]["award"],
-                inputData[0]["imageIsSaved"],
-                inputData[0]["userName"],
-                inputData[0]["userImage"]
-                );
-            props = existingData;
-            console.log("props", props);
-        };
+    // function renderView(inputData) {
+    //     if (
+    //         inputData &&
+    //         inputData[0]["imageURL"] &&
+    //         inputData[0]["astroName"] &&
+    //         inputData[0]["astroNameShort"] &&
+    //         inputData[0]["award"] &&
+    //         inputData[0]["imageIsSaved"] &&
+    //         inputData[0]["userName"] &&
+    //         inputData[0]["userImage"]
+    //     ) {
+    //         console.log("property check: true");
+    //         props = inputData;
+    //         console.log("props", props);
+    //     } else {
+    //         console.log("property check: false",
+    //             inputData,
+    //             inputData[0]["imageURL"],
+    //             inputData[0]["astroName"],
+    //             inputData[0]["astroNameShort"],
+    //             inputData[0]["award"],
+    //             inputData[0]["imageIsSaved"],
+    //             inputData[0]["userName"],
+    //             inputData[0]["userImage"]
+    //             );
+    //         props = existingData;
+    //         console.log("props", props);
+    //     };
 
-        return (
-            <SafeAreaView style={styles.container}>
-                <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
-                    <UserNameImageBurgerHeader />
-                </TouchableOpacity>
-                <ScrollView style={{
-                    backgroundColor: "black",
-                    borderColor: "blue",
-                    borderWidth: 0,
-                }}
+    return (
+        <SafeAreaView style={styles.container}>
+            <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
+                <UserNameImageBurgerHeader />
+            </TouchableOpacity>
+            <ScrollView style={{
+                backgroundColor: "black",
+                borderColor: "blue",
+                borderWidth: 0,
+            }}
+                contentContainerStyle={{
+                    display: "flex",
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: "center",
+                    alignContent: 'center'
+                }}>
+                <MasonryList
+                    data={data}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
                     contentContainerStyle={{
-                        display: "flex",
+                        borderColor: "red",
+                        borderWidth: 0,
+                        paddingTop: "3%",
+                        paddingLeft: "4%"
+                    }}
+                    style={{
                         flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: "center",
-                        alignContent: 'center'
-                    }}>
-                    <MasonryList
-                        data={props}
-                        keyExtractor={item => item.id}
-                        numColumns={2}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
-                        contentContainerStyle={{
-                            borderColor: "red",
-                            borderWidth: 0,
-                            paddingTop: "3%",
-                            paddingLeft: "4%"
-                        }}
-                        style={{
-                            flex: 1,
-                            maxWidth: "96%",
-                            columnGap: 10,
-                            borderColor: "yellow",
-                            borderWidth: 0,
-                        }}
-                    >
-                    </MasonryList>
-                </ScrollView>
-            </SafeAreaView>
-        )
-    }
+                        maxWidth: "96%",
+                        columnGap: 10,
+                        borderColor: "yellow",
+                        borderWidth: 0,
+                    }}
+                >
+                </MasonryList>
+            </ScrollView>
+        </SafeAreaView>
+    )
 }
+
 
 const styles = StyleSheet.create({
     container: {
