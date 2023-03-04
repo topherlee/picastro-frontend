@@ -19,12 +19,12 @@ import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
 
 const props = [
     {
-        "imageURL": "https://assets1.cbsnewsstatic.com/hub/i/r/2021/08/02/d9ac932d-6482-4798-9b9e-96caec967826/thumbnail/620x463/9ef7321a2c4274bab26eb11694f4d368/galaxiescollide.jpg",
+        "imageURL": "http://127.0.0.1:8000/data/assets/TestAstroImages/Element1.png",
         "astroNameShort": "IC442",
         "astroNameShort2": "NGC 1234",
         "astroNameShort3": "Omega",
         "astroName": "Star #1",
-        "userName": "Starman",
+        "poster": "Starman",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "bronze",
@@ -36,29 +36,29 @@ const props = [
         "starCamp": "Glasgow",
         "leadingLight": false
     },
-    // {
-    //     "imageURL": require('../assets/TestAstroImages/Element261.png'),
-    //     "astroNameShort": "SS234",
-    //     "astroNameShort2": "NGC 5678",
-    //     "astroNameShort3": "Omega Nebula",
-    //     "astroName": "Star #2",
-    //     "userName": "Moonboy",
-    //     "userImage": require('../assets/Sample/sampleuser2.png'),
-    //     "imageIsSaved": false,
-    //     "award": "none",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
-    //     "starCamp": "Edinburgh",
-    //     "leadingLight": false
-    // },
+    {
+        "imageURL": "https://assets3.cbsnewsstatic.com/hub/i/r/2021/08/02/170e414f-dcd6-4f57-b7bd-9f8082b49046/thumbnail/620x349/34fcbaf7845cecb6d5213359c77718db/jupiterjetstreams.jpg",
+        "astroNameShort": "SS234",
+        "astroNameShort2": "NGC 5678",
+        "astroNameShort3": "Omega Nebula",
+        "astroName": "Star #2",
+        "poster": "Moonboy",
+        "userImage": require('../assets/Sample/sampleuser2.png'),
+        "imageIsSaved": false,
+        "award": "none",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
+        "starCamp": "Edinburgh",
+        "leadingLight": false
+    },
     // {
     //     "imageURL": require('../assets/TestAstroImages/Element6.png'),
     //     "astroNameShort": "DC420",
     //     "astroName": "Star #3",
-    //     "userName": "Moongirl",
+    //     "poster": "Moongirl",
     //     "userImage": require('../assets/Sample/sampleuser2.png'),
     //     "imageIsSaved": false,
     //     "award": "silver",
@@ -71,7 +71,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "testperson",
+    //     "poster": "testperson",
     //     "imageURL": require('../assets/TestAstroImages/Element2.png'),
     //     "award": "bronze",
     //     "astroNameShort": "Test2",
@@ -88,7 +88,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "stargirl",
+    //     "poster": "stargirl",
     //     "imageURL": require('../assets/TestAstroImages/Element5.png'),
     //     "award": "silver",
     //     "astroNameShort": "Test2",
@@ -104,7 +104,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "starboy",
+    //     "poster": "starboy",
     //     "imageURL": require('../assets/TestAstroImages/Element181.png'),
     //     "award": "gold",
     //     "astroNameShort": "Test2",
@@ -120,7 +120,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "Steffen",
+    //     "poster": "Steffen",
     //     "imageURL": require('../assets/TestAstroImages/Element7.png'),
     //     "award": "none",
     //     "astroNameShort": "Test2",
@@ -143,7 +143,7 @@ const props = [
     //     "astroNameShort2": "NGC 1234",
     //     "astroNameShort3": "Omega",
     //     "astroName": "Star #1",
-    //     "userName": "Starman",
+    //     "poster": "Starman",
     //     "userImage": require('../assets/Sample/sampleuser2.png'),
     //     "imageIsSaved": false,
     //     "award": "bronze",
@@ -161,7 +161,7 @@ const props = [
     //     "astroNameShort2": "NGC 5678",
     //     "astroNameShort3": "Omega Nebula",
     //     "astroName": "Star #2",
-    //     "userName": "Moonboy",
+    //     "poster": "Moonboy",
     //     "userImage": require('../assets/Sample/sampleuser2.png'),
     //     "imageIsSaved": false,
     //     "award": "none",
@@ -177,7 +177,7 @@ const props = [
     //     "imageURL": require('../assets/TestAstroImages/Element6.png'),
     //     "astroNameShort": "DC420",
     //     "astroName": "Star #3",
-    //     "userName": "Moongirl",
+    //     "poster": "Moongirl",
     //     "userImage": require('../assets/Sample/sampleuser2.png'),
     //     "imageIsSaved": false,
     //     "award": "silver",
@@ -190,7 +190,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "testperson",
+    //     "poster": "testperson",
     //     "imageURL": require('../assets/TestAstroImages/Element2.png'),
     //     "award": "bronze",
     //     "astroNameShort": "Test2",
@@ -207,7 +207,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "stargirl",
+    //     "poster": "stargirl",
     //     "imageURL": require('../assets/TestAstroImages/Element5.png'),
     //     "award": "silver",
     //     "astroNameShort": "Test2",
@@ -223,7 +223,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "starboy",
+    //     "poster": "starboy",
     //     "imageURL": require('../assets/TestAstroImages/Element181.png'),
     //     "award": "gold",
     //     "astroNameShort": "Test2",
@@ -239,7 +239,7 @@ const props = [
     //     "leadingLight": false
     // },
     // {
-    //     "userName": "Steffen",
+    //     "poster": "Steffen",
     //     "imageURL": require('../assets/TestAstroImages/Element7.png'),
     //     "award": "none",
     //     "astroNameShort": "Test2",
@@ -324,7 +324,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#2F2F2F",
         borderColor:"green", 
         borderWidth: 0,
-        
     },
     text: {
         fontSize: 15,

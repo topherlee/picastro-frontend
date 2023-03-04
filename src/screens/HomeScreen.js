@@ -24,7 +24,7 @@ const existingData = [
         "astroNameShort2": "NGC 1234",
         "astroNameShort3": "Omega",
         "astroName": "Star #1",
-        "userName": "Starman",
+        "poster": "Starman",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "bronze",
@@ -42,7 +42,7 @@ const existingData = [
         "astroNameShort2": "NGC 5678",
         "astroNameShort3": "Omega Nebula",
         "astroName": "Star #2",
-        "userName": "Moonboy",
+        "poster": "Moonboy",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "none",
@@ -58,7 +58,7 @@ const existingData = [
         "imageURL": require('../assets/TestAstroImages/Element6.png'),
         "astroNameShort": "DC420",
         "astroName": "Star #3",
-        "userName": "Moongirl",
+        "poster": "Moongirl",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "silver",
@@ -71,7 +71,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "testperson",
+        "poster": "testperson",
         "imageURL": require('../assets/TestAstroImages/Element2.png'),
         "award": "bronze",
         "astroNameShort": "Test2",
@@ -88,7 +88,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "stargirl",
+        "poster": "stargirl",
         "imageURL": require('../assets/TestAstroImages/Element5.png'),
         "award": "silver",
         "astroNameShort": "Test2",
@@ -104,7 +104,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "starboy",
+        "poster": "starboy",
         "imageURL": require('../assets/TestAstroImages/Element181.png'),
         "award": "gold",
         "astroNameShort": "Test2",
@@ -120,7 +120,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "Steffen",
+        "poster": "Steffen",
         "imageURL": require('../assets/TestAstroImages/Element7.png'),
         "award": "none",
         "astroNameShort": "Test2",
@@ -143,7 +143,7 @@ const existingData = [
         "astroNameShort2": "NGC 1234",
         "astroNameShort3": "Omega",
         "astroName": "Star #1",
-        "userName": "Starman",
+        "poster": "Starman",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "bronze",
@@ -161,7 +161,7 @@ const existingData = [
         "astroNameShort2": "NGC 5678",
         "astroNameShort3": "Omega Nebula",
         "astroName": "Star #2",
-        "userName": "Moonboy",
+        "poster": "Moonboy",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "none",
@@ -177,7 +177,7 @@ const existingData = [
         "imageURL": require('../assets/TestAstroImages/Element6.png'),
         "astroNameShort": "DC420",
         "astroName": "Star #3",
-        "userName": "Moongirl",
+        "poster": "Moongirl",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "silver",
@@ -190,7 +190,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "testperson",
+        "poster": "testperson",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element2.png'),
         "award": "bronze",
@@ -208,7 +208,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "stargirl",
+        "poster": "stargirl",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element5.png'),
         "award": "silver",
@@ -225,7 +225,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "starboy",
+        "poster": "starboy",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element181.png'),
         "award": "gold",
@@ -242,7 +242,7 @@ const existingData = [
         "leadingLight": false
     },
     {
-        "userName": "Steffen",
+        "poster": "Steffen",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageURL": require('../assets/TestAstroImages/Element7.png'),
         "award": "none",
@@ -308,7 +308,7 @@ const HomeScreen = ({ navigation }) => {
     //         inputData[0]["astroNameShort"] &&
     //         inputData[0]["award"] &&
     //         inputData[0]["imageIsSaved"] &&
-    //         inputData[0]["userName"] &&
+    //         inputData[0]["poster"] &&
     //         inputData[0]["userImage"]
     //     ) {
     //         console.log("property check: true");
@@ -322,7 +322,7 @@ const HomeScreen = ({ navigation }) => {
     //             inputData[0]["astroNameShort"],
     //             inputData[0]["award"],
     //             inputData[0]["imageIsSaved"],
-    //             inputData[0]["userName"],
+    //             inputData[0]["poster"],
     //             inputData[0]["userImage"]
     //             );
     //         props = existingData;
