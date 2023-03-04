@@ -38,6 +38,9 @@ export const FullWidthPostsContainer = ({props}) => {
       ratio = width / height;
     });
 
+    
+    const [contWidth, setContWidth] = useState(0);
+    const [contHeight, setContHeight] = useState(0);
     return (
         <View style={styles.container}>
             <Modal
@@ -81,9 +84,12 @@ export const FullWidthPostsContainer = ({props}) => {
             <FullWidthAboveImage props={props} />
 
             <TouchableOpacity 
-                onPress={() => setModalVisible(true)}  >
+                onPress={() => setModalVisible(true)}  
+            >
                 <FullWidthImage
                 props={props}
+                contHeight={contHeight}
+                contWidth={contWidth}
                 />
             </TouchableOpacity>
 
@@ -102,6 +108,7 @@ const styles = StyleSheet.create({
         borderWidth: 0, 
         borderColor: "red",
         flex: 1,
+        maxWidth: "100%"
     },
     button: {
         flexDirection: "row",
