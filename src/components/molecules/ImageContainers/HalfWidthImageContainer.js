@@ -32,7 +32,7 @@ export const HalfWidthImageContainer = (props) => {
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
         />
-        <UserName>{props.username}</UserName>
+        <UserName>{props.userName}</UserName>
         <AwardIconWrapper>
           <AwardIcon {...props} />
         </AwardIconWrapper>
