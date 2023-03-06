@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
     Button,
     Image,
@@ -13,16 +13,17 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BurgerButton, UserImage, HeaderUserName } from '../../atoms';
+import { AuthContext } from '../../../context/AuthContext';
 
 const UserNameImageBurgerHeader = () => {
-  const navigation = useNavigation();
-  return (
-    <View style={styles.headerContainer}>
-        <View style={styles.userImage}>
-            <TouchableOpacity>
-                <UserImage />
-            </TouchableOpacity>
-        </View>
+    const navigation = useNavigation();
+    return (
+        <View style={styles.headerContainer}>
+            <View style={styles.userImage}>
+                <TouchableOpacity>
+                    <UserImage />
+                </TouchableOpacity>
+            </View>
         <HeaderUserName style={styles.textContainer} />
         <View>
             <TouchableOpacity onPress={function() {navigation.openDrawer()}} >

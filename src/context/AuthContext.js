@@ -6,6 +6,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [domain, setDomain] = useState('http://127.0.0.1:8000');
     const [token, setToken] = useState('');
+    const [currentUser, setCurrentUser] = useState(null);
 
     const globalContext = {
         domain,
@@ -14,6 +15,8 @@ export const AuthProvider = ({children, contextValue}) => {
         setIsSignedIn,
         token,
         setToken,
+        currentUser,
+        setCurrentUser,
     }
 
     return (

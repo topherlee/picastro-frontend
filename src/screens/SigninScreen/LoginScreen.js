@@ -23,7 +23,7 @@ export default function LoginScreen( { navigation } ) {
 
   useEffect(() => {
     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-})
+  }, [])
 
   function handleLogin(){
 

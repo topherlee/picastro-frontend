@@ -269,17 +269,14 @@ const existingData = [
 
 
 const HomeScreen = ({ navigation }) => {
-    const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    const {domain, setDomain, token} = useContext(AuthContext);
+    const {domain, setDomain, token, setCurrentUser} = useContext(AuthContext);
     let incomingData;
 
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log(`Token ${token}`)
-    })
 
-    let getHomeFeed = () => {
         fetch(`${domain}/api/feed/home`, {
             method: 'GET',
             headers: {
@@ -287,53 +284,16 @@ const HomeScreen = ({ navigation }) => {
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => {
-                // console.log(res.status);
-                // console.log(res.headers);
-                return res.json();
-            })
-            .then(
-                (result) => {
-                    // console.log(result);
-                    //incomingData = result;
-                    setData(result);
-                },
-            ).catch (err => {
-                console.log(err);
-                //setData(existingData);
-            }
-
-            )
-    };
-
-    const inputData = getHomeFeed();
-    // console.log("inputData", inputData);
-    // console.log("incomingData", incomingData);
-    // console.log("getHomeFeed", getHomeFeed);
-
-    // let props;
-
-    // function renderView(inputData) {
-    //     if (
-    //         inputData
-    //     ) {
-    //         console.log("property check: true");
-    //         setData(inputData)
-    //     } else {
-    //         console.log("property check: false",
-    //             inputData,
-    //             inputData[0]["imageURL"],
-    //             inputData[0]["astroName"],
-    //             inputData[0]["astroNameShort"],
-    //             inputData[0]["award"],
-    //             inputData[0]["imageIsSaved"],
-    //             inputData[0]["poster"],
-    //             inputData[0]["userImage"]
-    //             );
-    //         setData(existingData);
-    //         console.log("props", existingData);
-    //     };
-    // }
+        .then(res => {return res.json()})
+        .then((result) => {
+            // console.log(result);
+            //incomingData = result;
+            setData(result);
+        }).catch (err => {
+            console.log(err);
+            //setData(existingData);
+        })
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
