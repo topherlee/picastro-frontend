@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Button,
     Image,
@@ -10,16 +10,47 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
+import { AuthContext } from '../../../context/AuthContext';
 
 
 const HeaderUserName = ({style}) => {
-    return(
-        <View style={style}>
+    
+    const [data, setData] = useState([]);
+    const {domain, setDomain, token, setCurrentUser} = useContext(AuthContext);
+    
+    useEffect(() => {
+        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+        //console.log(`Token ${token}`)
+
+        const localCurrentUser = require('../../../../assets/data/currentUser.json');
+        
+        fetch(`${domain}/api/current_user/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {return res.json()})
+        .then((result) => {
+            console.log(result);
+            //incomingData = result;
+            setData(result);
+        }).catch (err => {
+            console.log(err);
+            setData(localCurrentUser);
+        })
+    }, [])
+
+    return (
+    
+        <View
+            style={style}>
             <Text style={styles.textUserName}>
-                starboy32285
+                {data[0].username}
             </Text>
             <Text style={styles.textGenderIdentifier}>
-                he/him
+                {data[0].genderIdentifier}
             </Text>
         </View>
     )

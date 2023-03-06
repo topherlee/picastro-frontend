@@ -50,11 +50,14 @@ export default function LoginScreen( { navigation } ) {
         })
         .then(json => {
           console.log('JSON',json);
+          console.log('JSON.',json.access);
           setToken(json.access);
           setIsSignedIn(true);
         })
         .catch(error => {
-          console.log("error",error.data);
+          console.log("error",error);
+          setIsSignedIn(true);
+          //setToken("LoginViaApiFailed,sorryForThat");
         })
     
   }
