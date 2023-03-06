@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import {
     Button,
@@ -11,10 +11,12 @@ import {
     useColorScheme,
     TouchableOpacity,
     View,
+    Platform
 } from 'react-native';
 
 import { UserNameImageBurgerHeader } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
+import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 
 const existingData = [
@@ -269,10 +271,22 @@ const existingData = [
 const HomeScreen = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const {domain, setDomain, token} = useContext(AuthContext);
     let incomingData;
 
+    useEffect(() => {
+        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+        //console.log(`Token ${token}`)
+    })
+
     let getHomeFeed = () => {
-        fetch(`http://10.0.2.2:8000/api/feed/home`)
+        fetch(`${domain}/api/feed/home`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => {
                 // console.log(res.status);
                 // console.log(res.headers);
@@ -281,16 +295,15 @@ const HomeScreen = ({ navigation }) => {
             .then(
                 (result) => {
                     // console.log(result);
-                    incomingData = result;
-                    // console.log("incomingData2", incomingData);
-                    //renderView(incomingData);
+                    //incomingData = result;
                     setData(result);
                 },
-                (error) => {
-                    console.log(error);
-                }
+            ).catch (err => {
+                console.log(err);
+                //setData(existingData);
+            }
+
             )
-            
     };
 
     const inputData = getHomeFeed();
@@ -302,18 +315,10 @@ const HomeScreen = ({ navigation }) => {
 
     // function renderView(inputData) {
     //     if (
-    //         inputData &&
-    //         inputData[0]["imageURL"] &&
-    //         inputData[0]["astroName"] &&
-    //         inputData[0]["astroNameShort"] &&
-    //         inputData[0]["award"] &&
-    //         inputData[0]["imageIsSaved"] &&
-    //         inputData[0]["poster"] &&
-    //         inputData[0]["userImage"]
+    //         inputData
     //     ) {
     //         console.log("property check: true");
-    //         props = inputData;
-    //         console.log("props", props);
+    //         setData(inputData)
     //     } else {
     //         console.log("property check: false",
     //             inputData,
@@ -325,9 +330,10 @@ const HomeScreen = ({ navigation }) => {
     //             inputData[0]["poster"],
     //             inputData[0]["userImage"]
     //             );
-    //         props = existingData;
-    //         console.log("props", props);
+    //         setData(existingData);
+    //         console.log("props", existingData);
     //     };
+    // }
 
     return (
         <SafeAreaView style={styles.container}>

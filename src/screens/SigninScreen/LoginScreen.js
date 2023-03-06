@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,23 +15,63 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 
 export default function LoginScreen( { navigation } ) {
-  const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
-  const [email, setEmail] = useState(null);
+  const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [error, setError] = useState(false);
+  const [securePassword, setSecurePassword] = useState(true);
 
-  
+  useEffect(() => {
+    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+})
+
+  function handleLogin(){
+
+    var body = JSON.stringify({
+      'username': username,
+      'password': password
+    })
+    
+    fetch(`${domain}/api/token/both/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: body
+        })
+        .then(res => {
+          console.log('STATUS',res.status);
+          if (res.ok) {
+            return res.json();
+          } else {
+            setError(true)
+            throw res.json();
+          }
+        })
+        .then(json => {
+          console.log('JSON',json);
+          setToken(json.access);
+          setIsSignedIn(true);
+        })
+        .catch(error => {
+          console.log("error",error.data);
+        })
+    
+  }
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      <Text style={styles.title}>Register or Login</Text>
-      <View style={styles.inputView}>
+      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
+      <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
-          inputMode="email"
-          placeholder="Email"
+          inputMode="text"
+          placeholder="Username"
           placeholderTextColor="black"
-          onChangeText={(email) => setEmail(email)}
+          autoComplete="username"
+          onChangeText={(username) => setUsername(username)}
+          onBlur={() => setError(false)}
         /> 
       </View> 
       <View style={styles.inputView}>
@@ -39,14 +79,15 @@ export default function LoginScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="black"
-          secureTextEntry={true}
+          secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
+          onBlur={() => setError(false)}
         /> 
       </View> 
       <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress={function(){ setIsSignedIn(true) }}>
+      <TouchableOpacity style={styles.loginBtn} onPress={ () => handleLogin() }>
         <Text style={styles.loginText}>LET'S GO</Text> 
       </TouchableOpacity>
       <View style={styles.bottomText}>
@@ -112,6 +153,13 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#FFC700",
+    fontWeight: "bold",
+    fontSize: 20,
+    position: "relative",
+    top: "-5%"
+  },
+  titleRed: {
+    color: "red",
     fontWeight: "bold",
     fontSize: 20,
     position: "relative",

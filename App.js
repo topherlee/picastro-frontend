@@ -35,8 +35,6 @@ import { AuthProvider } from './src/context/AuthContext';
 import OnboardingNavigator from './src/components/navigation/OnboardingNavigator';
 
 
-
-
 const YourApp = () => {
 
   useEffect(() => {
