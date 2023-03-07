@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
     const {domain, setDomain, token, setCurrentUser} = useContext(AuthContext);
     
     //const localFeedData = require('../../feed.json');
-    const localFeedData = require('../../assets/data/feed.json');
+    const localFeedData = require('../assets/data/feed.json');
 
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";

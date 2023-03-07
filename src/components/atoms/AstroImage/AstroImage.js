@@ -14,7 +14,6 @@ import {
 import styled from 'styled-components';
 import AutoscaleImage from "../AutoscaleImage/AutoscaleImage";
 
-var ratio;
 
 const AstroImageWrapper = (props) => {
     // const [imgWidth, setImgWidth] = useState(0);
@@ -25,6 +24,7 @@ const AstroImageWrapper = (props) => {
     //   setImgHeight(height);
     //   ratio = width / height;
     // });
+    console.log(props);
 
     return (
       <AutoscaleImage uri={props.imageURL} width={(0.96*Dimensions.get('window').width-33)/2} />

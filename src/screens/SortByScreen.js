@@ -221,10 +221,14 @@ const props = [
 ]
 
 const SortByScreen = ({ navigation }) => {
+
+    const localFeedData = require('../assets/data/feed.json');
+
+
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <DualColumnMasonryList props={props}/>
+            <DualColumnMasonryList props={localFeedData}/>
         </SafeAreaView>
     )
 };
