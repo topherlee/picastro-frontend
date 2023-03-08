@@ -19,6 +19,7 @@ import styled from 'styled-components';
 
 
 export const HalfWidthImageContainer = (props) => {
+    console.log(props);
   
     // const [contWidth, setContWidth] = useState(0);
     // const [contHeight, setContHeight] = useState(0);
@@ -32,7 +33,7 @@ export const HalfWidthImageContainer = (props) => {
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
         />
-        <UserName>{props.userName}</UserName>
+        <UserName>{props.poster.username}</UserName>
         <AwardIconWrapper>
           <AwardIcon {...props} />
         </AwardIconWrapper>
