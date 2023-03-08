@@ -21,7 +21,7 @@ const ExtendedPicastroLogo = () => {
 const styles = StyleSheet.create({
     logo: {
         position: "relative",
-        marginBottom: "20%",
+        // marginBottom: "5%",
     }
     
    

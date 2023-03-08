@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     },
     image: {
         position: "relative",
-        marginBottom: "10%",
+        
     },
     loginBtn: {
         width: "80%",

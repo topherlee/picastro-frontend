@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#2F2F2F',
         display: "flex",
         width: '100%',
-        height: 60,
+        // height: 60,
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginBottom: "10%",
-        marginTop: "20%"
+        // marginBottom: "10%",
+        // marginTop: "20%"
        
         
         
@@ -53,7 +53,9 @@ const styles = StyleSheet.create({
     },
     userImage: {
         position: "relative",
-        marginBottom: "5%",       
+        // marginBottom: "5%",   
+        borderWidth: 1,
+        borderColor:"white"    
         
 
     },
