@@ -288,7 +288,7 @@ const HomeScreen = ({ navigation }) => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log(`Token ${token}`)
 
-        fetch(`${domain}/api/feed/home`, {
+        fetch(`${domain}/api/feed/home/`, {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -297,7 +297,11 @@ const HomeScreen = ({ navigation }) => {
         })
         .then(res => {return res.json()})
         .then((result) => {
+<<<<<<< HEAD
             console.log(result);
+=======
+            //console.log("INCOMINGDATA",token,result)
+>>>>>>> dc0a5291a61f0ad317a829c4a109d616da732bc6
             setData(result);
         }).catch (err => {
             console.log(err, "Failed to get data from API, using local data instead.");

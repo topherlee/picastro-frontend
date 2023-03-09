@@ -17,6 +17,31 @@ import { AuthContext } from '../../../context/AuthContext';
 
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
+    // const {domain, setDomain, token, currentUser, setCurrentUser} = useContext(AuthContext);
+    
+    // useEffect(() => {
+    //     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+    //     //console.log(`Token ${token}`)
+
+    //     fetch(`${domain}/api/current_user/`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Authorization': `Token ${token}`,
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //     .then(res => {return res.json()})
+    //     .then((result) => {
+    //         //console.log("INCOMINGDATA",token,result)
+    //         setCurrentUser(result);
+    //         console.log("currentuser",currentUser)
+    //         console.log('result',result)
+    //     }).catch (err => {
+    //         console.log(err);
+    //         //setData(existingData);
+    //     })
+    // }, [])
+    
     return (
         <View style={styles.headerContainer}>
             <View style={styles.userImage}>
