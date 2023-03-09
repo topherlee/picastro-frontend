@@ -342,13 +342,13 @@ const styles = StyleSheet.create({
         
     },
     loginBtn: {
-        width: "80%",
+        width: "30%",
         borderRadius: 25,
         height: "7%",
-        minHeight: 50,
+        // minHeight: 50,
         alignItems: "center",
         justifyContent: "center",
-        position: "relative",
+        // position: "relative",
         marginTop: "10%",
         marginBottom: "3%",
         backgroundColor: "#FFC700",

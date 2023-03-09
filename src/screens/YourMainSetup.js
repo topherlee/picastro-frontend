@@ -166,7 +166,7 @@ forgot_button: {
   color: "#FFC700",
 },
 loginBtn: {
-  width: "80%",
+  width: "100%",
   borderRadius: 25,
   height: "7%",
   minHeight: 50,

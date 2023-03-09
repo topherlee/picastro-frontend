@@ -36,23 +36,30 @@ import { AuthContext } from "../context/AuthContext";
         width: "80%",
        }}
       >
+     
+        
+            
+        
       <Text style={styles.title}>Edit Profile</Text>
-      <View style={styles.inputView}>
+      <View style={styles.headerContainer}>
+      <View style={styles.inputView1}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.TextInput1}
           placeholder="Level of Experience"
           placeholderTextColor="black"
           
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={styles.inputView1}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.TextInput1}
           placeholder="DropDown?"
           placeholderTextColor="black"
          
         /> 
       </View> 
+      </View> 
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -130,6 +137,18 @@ const styles = StyleSheet.create({container: {
   alignItems: "center",
   justifyContent: "center",
 },
+headerContainer: {
+  backgroundColor: 'black',
+  display: "flex",
+  top: 0,
+  width: '100%',
+  height: 60,
+  alignItems: 'center',
+  alignContent: 'center',
+  justifyContent: 'center',
+  flexDirection: 'row',
+  gap: 10,
+},
 image: {
   position: "relative",
   marginBottom: "20%",
@@ -142,6 +161,16 @@ inputView: {
   marginBottom: 20,
   alignItems: "center",
 },
+inputView1: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "45%",
+  height: 35,
+  marginBottom: 20,
+  alignItems: "center",
+  
+},
+
 TextInput: {
   height: 50,
   width: "100%",
@@ -150,13 +179,24 @@ TextInput: {
   textAlign: "center",
   
 },
+TextInput1: {
+  height: 30,
+  width: "100%",
+  flex: 1,
+  padding: 10,
+  textAlign: "center",
+  fontSize:10,
+  fontWeight: "bold",
+  
+},
 // bottomText: {
 //   flexDirection:'row',
 //   position: "relative",
 //   marginBottom: "2%"
 // },
 text: {
-  color: "white",
+  color: "black",
+  
 },
 forgot_button: {
   height: 30,
