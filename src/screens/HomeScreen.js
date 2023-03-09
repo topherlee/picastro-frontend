@@ -20,6 +20,263 @@ import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 
 
+const feedData = [
+    {
+        "imageURL": "https://apod.nasa.gov/apod/image/2303/noirlab2307a2048c.jpg",
+        "astroNameShort": "IC442",
+        "astroNameShort2": "NGC 1234",
+        "astroNameShort3": "Omega",
+        "astroName": "Star #1",
+        "userName": "Starman",
+        //"userImage": require('../../../../assets/Sample/sampleuser2.png'),
+        "imageIsSaved": false,
+        "award": "bronze",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "Nigeria"
+    },
+    {
+        "imageURL": "https://apod.nasa.gov/apod/image/2303/NGC3169LRGBrevFinalcropCDK1000_27Feb2023_1024.jpg",
+        "astroNameShort": "SS234",
+        "astroNameShort2": "NGC 5678",
+        "astroNameShort3": "Omega Nebula",
+        "astroName": "Star #2",
+        "userName": "Moonboy",
+        //"userImage": require('../../../../assets/Sample/sampleuser.png'),
+        "imageIsSaved": false,
+        "award": "none",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
+        "starCamp": "Edinburgh",
+        "leadingLight": false,
+        "userLocation": "India"
+    },
+    {
+        "imageURL": "https://assets1.cbsnewsstatic.com/hub/i/r/2021/08/02/d9ac932d-6482-4798-9b9e-96caec967826/thumbnail/620x463/9ef7321a2c4274bab26eb11694f4d368/galaxiescollide.jpg",
+        "astroNameShort": "DC420",
+        "astroName": "Star #3",
+        "userName": "Moongirl",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageIsSaved": false,
+        "award": "silver",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Aberdeen",
+        "leadingLight": false,
+        "userLocation": "Bangladesh"
+    },
+    {
+        "userName": "testperson",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2303/FlamingStarComet_Roell_1080_annotated.jpg",
+        "award": "bronze",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "USA"
+    },
+    {
+        "userName": "stargirl",
+        //"userImage": require('../../../src/assets/Sample/sampleuser.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/CrescentPoseiden_Chasiotis_1080.jpg",
+        "award": "silver",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "Netherlands"
+    },
+    {
+        "userName": "starboy",
+        //"userImage": require('../../../src/assets/Sample/sampleuser.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/ZodiacalPlanets_Merzlyakov_960_annotated.jpg",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "UK",
+        "award": "none"
+    },
+    {
+        "userName": "Steffen",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/iapetus_cassini_960.jpg",
+        "award": "none",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "Germany"
+    },
+    {
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/JupiterOccultationFefoBouvier1024.jpg",
+        "astroNameShort": "IC442",
+        "astroNameShort2": "NGC 1234",
+        "astroNameShort3": "Omega",
+        "astroName": "Star #1",
+        "userName": "Starman",
+        //"userImage": require('../../../src/assets/Sample/sampleuser.png'),
+        "imageIsSaved": false,
+        "award": "bronze",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "Nigeria"
+    },
+    {
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/jonesemberson1_1024.jpg",
+        "astroNameShort": "SS234",
+        "astroNameShort2": "NGC 5678",
+        "astroNameShort3": "Omega Nebula",
+        "astroName": "Star #2",
+        "userName": "Moonboy",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageIsSaved": false,
+        "award": "none",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
+        "starCamp": "Edinburgh",
+        "leadingLight": false,
+        "userLocation": "India"
+    },
+    {
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/Pleiades_WiseAntonucci_960_Roll.jpg",
+        "astroNameShort": "DC420",
+        "astroName": "Star #3",
+        "userName": "Moongirl",
+        //"userImage": require('../../../src/assets/Sample/sampleuser.png'),
+        "imageIsSaved": false,
+        "award": "silver",
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Aberdeen",
+        "leadingLight": false,
+        "userLocation": "Bangladesh"
+    },
+    {
+        "userName": "testperson",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/NGC772-L2bh-RGB-19-8aT-cC1024.jpg",
+        "award": "bronze",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "USA"
+    },
+    {
+        "userName": "stargirl",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/SunHalphaC_Ergun_960.jpg",
+        "award": "silver",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "Netherlands"
+    },
+    {
+        "userName": "starboy",
+        //"userImage": require('../../../src/assets/Sample/sampleuser.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/CometZtfYosemite_Mostofi_960.jpg",
+        "award": "gold",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "UK"
+    },
+    {
+        "userName": "Steffen",
+        //"userImage": require('../../../src/assets/Sample/sampleuser2.png'),
+        "imageURL": "https://apod.nasa.gov/apod/image/2302/Ngc1850_HubbleOzsarac_960.jpg",
+        "award": "none",
+        "astroNameShort": "Test2",
+        "astroName": "Test 2 Long",
+        "imageCategory": "Nebula",
+        "imageIsSaved": false,
+        "exposureTime": "6 hrs",
+        "moonPhase": "50%",
+        "cloudCoverage": "10%",
+        "bortle": "3",
+        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "starCamp": "Glasgow",
+        "leadingLight": false,
+        "userLocation": "Germany"
+    }
+];
+
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
     const {domain, setDomain, token, setCurrentUser} = useContext(AuthContext);
@@ -27,7 +284,7 @@ const HomeScreen = ({ navigation }) => {
     //const localFeedData = require('../../feed.json');
     const localFeedData = require('../assets/data/feed.json');
 
-    useEffect(() => {
+    useEffect((innerFeedData) => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log(`Token ${token}`)
 
@@ -40,11 +297,17 @@ const HomeScreen = ({ navigation }) => {
         })
         .then(res => {return res.json()})
         .then((result) => {
+<<<<<<< HEAD
+            console.log(result);
+=======
             //console.log("INCOMINGDATA",token,result)
+>>>>>>> dc0a5291a61f0ad317a829c4a109d616da732bc6
             setData(result);
         }).catch (err => {
             console.log(err, "Failed to get data from API, using local data instead.");
-            setData(localFeedData);
+            console.log(innerFeedData);
+            setData(feedData);
+            console.log(data);
         })
     }, [])
 
