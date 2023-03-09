@@ -25,11 +25,15 @@ import { AuthContext } from "../context/AuthContext";
       
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
       <ScrollView style={{
-        width: "100%",
+        // width: "100%",
         height: 45,
+        // backgroundColor: "black",
+        // borderColor:"blue", 
+        // borderWidth: 0,
         backgroundColor: "black",
         borderColor:"blue", 
         borderWidth: 0,
+        width: "80%",
        }}
       >
       <Text style={styles.title}>Edit Profile</Text>
@@ -133,7 +137,7 @@ image: {
 inputView: {
   backgroundColor: "white",
   borderRadius: 10,
-  width: "80%",
+  width: "100%",
   height: 45,
   marginBottom: 20,
   alignItems: "center",
@@ -159,14 +163,14 @@ forgot_button: {
   color: "#FFC700",
 },
 loginBtn: {
-  width: "80%",
+  width: "100%",
   borderRadius: 25,
   height: "7%",
   minHeight: 50,
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-  marginTop: "10%",
+  marginTop: "0%",
   marginBottom: "3%",
   backgroundColor: "#FFC700",
 },

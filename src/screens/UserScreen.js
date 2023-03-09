@@ -267,14 +267,15 @@ const props = [
 const UserScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}
+           
             <ExtendedPicastroBurgerHeader />
-            {/* <UserNameImageWithoutBurger /> */}
+            
             <AwardIcon />
-
+            <View style={styles.textcontainer}>
             <Text style={styles.text}>Lawyer By Day,amateur photographer by night. Help Elliot fight</Text>   
             <Text style={styles.text}>Photo by Me</Text>  
-            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}        
+            </View>
+              
             <AwardIcon />
             <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
                 <Text style={styles.loginText}>Edit Profile</Text> 
@@ -325,6 +326,10 @@ const styles = StyleSheet.create({
         borderColor:"green", 
         borderWidth: 0,
         
+    },
+    textcontainer: {
+        marginTop:"5%",
+        marginBottom:"5%",
     },
     text: {
         fontSize: 15,

@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     logo: {
         position: "relative",
         // marginBottom: "5%",
+        width: 200,
+        height: 75,
     }
     
    

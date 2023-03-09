@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
         marginTop:"20%",
         //flex: 1,
     },
-    BurgerButton: {
-        width: 40,
-        height: 40,
-        right: 5,
-    }
+    // BurgerButton: {
+    //     width: 40,
+    //     height: 40,
+    //     right: 5,
+    // }
 });  
 
 export default UserNameImageWithoutBurger;

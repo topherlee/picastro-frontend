@@ -24,20 +24,20 @@ const YourMainSetup = ({ navigation }) => {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
+      <View style={styles.textcontainer}>
+            <Text style={styles.title}>Your Main Setup</Text>   
+            <Text style={styles.text}>Press the + sign at the bottom of the form to add a new setup. </Text>  
+      </View>
+
       <ScrollView style={{
-        width: "100%",
-        height: 45,
         backgroundColor: "black",
         borderColor:"blue", 
         borderWidth: 0,
-        // borderRadius: 10,
-        // alignItems: "center",
-        // justifyContent: "center",
-                    
-       }}
-      >
-      
-      <Text style={styles.title}>Your Main Setup</Text>
+        width: "80%",
+       
+        
+      }}
+      >            
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -93,13 +93,15 @@ const YourMainSetup = ({ navigation }) => {
           placeholderTextColor="black"
          
         /> 
+        
       </View>
       <View style={styles.inputView}>
-        <TextInput
+      <TextInput
           style={styles.TextInput}
           placeholder="Other Equipment Here"
           placeholderTextColor="black"
         /> 
+        
       </View>
       
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserScreen') }}>
@@ -120,15 +122,25 @@ const styles = StyleSheet.create({container: {
 },
 image: {
   position: "relative",
-  marginBottom: "20%",
+  // marginBottom: "20%",
 },
 inputView: {
   backgroundColor: "white",
   borderRadius: 10,
-  width: "80%",
+  width: "100%",
   height: 45,
   marginBottom: 20,
+  // alignItems: "center",
+  justifyContent: "center",
+  // borderWidth: 5,
+  // borderColor:"yellow" 
+},
+textcontainer:{
+  marginTop:"10%",
+  marginBottom:"5%",
   alignItems: "center",
+  justifyContent: "center",
+  // position: "relative",
 },
 
 TextInput: {
@@ -137,6 +149,7 @@ TextInput: {
   flex: 1,
   padding: 10,
   textAlign: "center",
+  justifyContent: "center",
   
 },
 bottomText: {
@@ -146,6 +159,7 @@ bottomText: {
 },
 text: {
   color: "white",
+  justifyContent: "center",
 },
 forgot_button: {
   height: 30,
@@ -159,12 +173,12 @@ loginBtn: {
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-  marginTop: "10%",
+  // marginTop: "10%",
   marginBottom: "3%",
   backgroundColor: "#FFC700",
 },
 title: {
-  color: "#FFC700",
+  color: "yellow",
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
