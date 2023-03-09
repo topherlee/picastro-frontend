@@ -12,6 +12,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import { AuthContext } from "../../context/AuthContext";
 
 export default function LoginScreen( { navigation } ) {
@@ -83,6 +85,9 @@ export default function LoginScreen( { navigation } ) {
           onChangeText={(password) => setPassword(password)}
           onBlur={() => setError(false)}
         /> 
+        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name="eye-outline" size={30} color="lightgray"/>
+        </TouchableOpacity>
       </View> 
       <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
@@ -118,6 +123,8 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
   },
   TextInput: {
     height: 50,
@@ -125,7 +132,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     textAlign: "center",
-    color: "black"
+    color: "black",
+    borderColor: "yellow",
+    borderWidth: 0,
   },
   bottomText: {
     flexDirection:'row',
