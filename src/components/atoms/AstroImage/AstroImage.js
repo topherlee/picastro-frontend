@@ -24,7 +24,7 @@ const AstroImageWrapper = (props) => {
     //   setImgHeight(height);
     //   ratio = width / height;
     // });
-    console.log(props);
+    //console.log(props);
 
     return (
       <AutoscaleImage uri={props.imageURL} width={(0.96*Dimensions.get('window').width-33)/2} />

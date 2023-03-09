@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,20 +14,73 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 
 export default function SignUpScreen( { navigation } ) {
-  const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { domain, setToken, setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  
+  function handleRegister() {
+    var body = JSON.stringify({
+      'username': username,
+      'password': password,
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email
+    })
+    
+    if (password === confirmPassword) {
+      fetch(`${domain}/api/auth/register/`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: body
+          })
+          .then(res => {
+            console.log('STATUS',res.status);
+            if (res.ok) {
+              return res.json();
+            } else {
+              setError(true)
+              throw res.json();
+            }
+          })
+          .then(json => {
+            console.log('REGISTRATION SUCCESS',json);
+            setToken(json.token.access);
+            setIsSignedIn(true);
+            //navigation.navigate('UserName')
+          })
+          .catch(error => {
+            throw(error)
+          })
+      } else {
+        console.log("password error")
+        setError(true);
+      }
+  }
+
+  useEffect(() => {
+    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+  }, [])
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      <Text style={styles.title}>Register or Login</Text>
+      {/* {!error ? <Text style={styles.title}>Register or Login</Text> : <Text style={styles.titleRed}>Error registering</Text>} */}
+      <Text style={!error ? styles.title : styles.titleRed}>
+        {!error ? "Register for an account" : "Unable to register, please check your details and try again"}
+      </Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="First Name"
           placeholderTextColor="black"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(firstName) => setFirstName(firstName)}
         /> 
       </View> 
       <View style={styles.inputView}>
@@ -35,9 +88,18 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Last Name"
           placeholderTextColor="black"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(lastName) => setLastName(lastName)}
         /> 
       </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Username"
+          placeholderTextColor="black"
+          secureTextEntry={false}
+          onChangeText={(username) => setUsername(username)}
+        /> 
+      </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -62,10 +124,10 @@ export default function SignUpScreen( { navigation } ) {
           placeholder="Confirm Password"
           placeholderTextColor="black"
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
         /> 
       </View>
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserName') }}>
+      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ handleRegister() }}>
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
       <View style={styles.bottomText}>
@@ -134,7 +196,16 @@ title: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%"
+  top: "-5%",
+  textAlign: "center"
+},
+titleRed: {
+  color: "red",
+  fontWeight: "bold",
+  fontSize: 20,
+  position: "relative",
+  top: "-5%",
+  textAlign: "center"
 },
 loginText: {
   fontWeight: "bold",

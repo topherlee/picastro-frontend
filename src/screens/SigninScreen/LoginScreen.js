@@ -49,15 +49,12 @@ export default function LoginScreen( { navigation } ) {
           }
         })
         .then(json => {
-          console.log('JSON',json);
-          console.log('JSON.',json.access);
+          console.log('LOGIN SUCCESS',json);
           setToken(json.access);
           setIsSignedIn(true);
         })
         .catch(error => {
-          console.log("error",error);
-          setIsSignedIn(true);
-          //setToken("LoginViaApiFailed,sorryForThat");
+          throw(error);
         })
     
   }
@@ -65,11 +62,11 @@ export default function LoginScreen( { navigation } ) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
+      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Login or Register</Text>}
       <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
-          inputMode="text"
+          inputMode="email"
           placeholder="Username"
           placeholderTextColor="black"
           autoComplete="username"
