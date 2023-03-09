@@ -19,7 +19,7 @@ import styled from 'styled-components';
 
 
 export const HalfWidthImageContainer = (props) => {
-    console.log(props);
+    console.log("HalfWidthImageContainer", props);
   
     // const [contWidth, setContWidth] = useState(0);
     // const [contHeight, setContHeight] = useState(0);
