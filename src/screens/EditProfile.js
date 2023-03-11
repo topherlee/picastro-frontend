@@ -1,4 +1,7 @@
 import React, { useState, useContext } from "react";
+import DropDownPicker from 'react-native-dropdown-picker';
+
+
 import {
   StyleSheet,
   Text,
@@ -10,45 +13,86 @@ import {
   TouchableOpacity,
   ImageComponent,
   Alert,
+  FlatList,
+  Footer,
+ 
   KeyboardAvoidingView,
+  
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 
-  const EditProfile = ({ navigation }) => {
-  const { setIsSignedIn } = useContext(AuthContext);     
+const EditProfile = ({ navigation }) => {
+  const { setIsSignedIn } = useContext(AuthContext); 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: '0-1 year', value: '0-1 year'},
+    {label: '2-5 years', value: '2-5 yearsa'},
+    {label: '5-10 years', value: '5-10 years'},
+    {label: '10 years -above', value: '10 years -above'},
+
+  ]);   
 
 
   return (
     
+    
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       
+      
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
-      <ScrollView style={{
-        // width: "100%",
-        height: 45,
-        // backgroundColor: "black",
-        // borderColor:"blue", 
-        // borderWidth: 0,
-        backgroundColor: "black",
-        borderColor:"blue", 
-        borderWidth: 0,
-        width: "80%",
+      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
+        <Text style={styles.loginText}>Change Image</Text> 
+      </TouchableOpacity>
+        <ScrollView style={{
+          height: 45,
+          backgroundColor: "black",
+          borderColor:"blue", 
+          borderWidth: 0,
+          width: "80%",
+        // <Footer />
        }}
       >
      
+     {/* <FlatList
+      ListHeaderComponent={
+      <>
+      open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          placeholder="Level of Experience"
+        
+      </>}
+      
+      
+      ListFooterComponent={
+        <Footer/>
+      }/> */}
         
             
         
       <Text style={styles.title}>Edit Profile</Text>
       <View style={styles.headerContainer}>
       <View style={styles.inputView1}>
-        <TextInput
+        {/* <TextInput
           style={styles.TextInput1}
           placeholder="Level of Experience"
           placeholderTextColor="black"
           
-        /> 
+        />  */}
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          placeholder="Level of Experience"
+        />
       </View> 
       <View style={styles.inputView1}>
         <TextInput
@@ -110,7 +154,7 @@ import { AuthContext } from "../context/AuthContext";
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Shop web link (Optional)"
+          placeholder="Shop Web Link (Optional)"
           placeholderTextColor="black"
         /> 
       </View>
@@ -151,14 +195,14 @@ headerContainer: {
 },
 image: {
   position: "relative",
-  marginBottom: "20%",
+  marginBottom: "5%",
 },
 inputView: {
   backgroundColor: "white",
   borderRadius: 10,
   width: "100%",
-  height: 45,
-  marginBottom: 20,
+  height: 40,
+  marginBottom: 7,
   alignItems: "center",
 },
 inputView1: {
@@ -177,23 +221,20 @@ TextInput: {
   flex: 1,
   padding: 10,
   textAlign: "center",
+  fontWeight: "bold",
   
 },
 TextInput1: {
   height: 30,
   width: "100%",
   flex: 1,
-  padding: 10,
+  // padding: 10,
   textAlign: "center",
   fontSize:10,
   fontWeight: "bold",
   
 },
-// bottomText: {
-//   flexDirection:'row',
-//   position: "relative",
-//   marginBottom: "2%"
-// },
+
 text: {
   color: "black",
   
@@ -206,12 +247,12 @@ loginBtn: {
   width: "100%",
   borderRadius: 25,
   height: "7%",
-  minHeight: 50,
+  // minHeight: 50,
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
   marginTop: "0%",
-  marginBottom: "3%",
+  marginBottom: "0%",
   backgroundColor: "#FFC700",
 },
 title: {
