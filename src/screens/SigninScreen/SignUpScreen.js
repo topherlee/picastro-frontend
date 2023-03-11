@@ -144,7 +144,6 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Confirm Password"
           placeholderTextColor="black"
-          returnKeyType="submit"
           secureTextEntry={securePassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
           onSubmitEditing={() => handleLogin()}
