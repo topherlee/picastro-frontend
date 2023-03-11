@@ -9,10 +9,10 @@ import {
     Image,
 } from 'react-native';
 
-import TelescopeButtonSvg from '../../../assets/buttons/telescope-button.svg';
+import GalaxyButtonGreySvg from '../../../assets/buttons/galaxy_button_grey.svg';
 
 
-const TelescopeButton = () => {
+const GalaxyButtonGrey = () => {
 
     const [modalVisible, setModalVisible] = useState(true);
 
@@ -22,14 +22,13 @@ const TelescopeButton = () => {
             justifyContent: 'center',
             top: 0
         }}>
-            <TelescopeButtonSvg
-                width={40}
-                height={40}
-                
+            <GalaxyButtonGreySvg
+                width={53}
+                height={53}
             />
         </View>
     );
 };
 
 
-export default TelescopeButton;
+export default GalaxyButtonGrey;

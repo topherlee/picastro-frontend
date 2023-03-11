@@ -12,3 +12,6 @@ export {default as AwardIcon} from './IconsAndLogos/AwardIcon';
 export {default as TelescopeButton} from './Buttons/TelescopeButton';
 export {default as NotificationsButton} from './Buttons/NotificationsButton';
 export {default as AutoscaleImage} from './AutoscaleImage/AutoscaleImage';
+export {default as NebulaButton} from './Buttons/NebulaButton';
+export {default as GalaxyButtonGrey} from './Buttons/GalaxyButtonGrey';
+export {default as CometButtonGrey} from './Buttons/CometButtonGrey';
