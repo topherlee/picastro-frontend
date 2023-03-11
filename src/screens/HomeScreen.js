@@ -297,11 +297,7 @@ const HomeScreen = ({ navigation }) => {
         })
         .then(res => {return res.json()})
         .then((result) => {
-<<<<<<< HEAD
-            console.log(result);
-=======
             //console.log("INCOMINGDATA",token,result)
->>>>>>> dc0a5291a61f0ad317a829c4a109d616da732bc6
             setData(result);
         }).catch (err => {
             console.log(err, "Failed to get data from API, using local data instead.");

@@ -71,7 +71,10 @@ export default function LoginScreen( { navigation } ) {
           inputMode="email"
           placeholder="Username"
           placeholderTextColor="black"
-          autoComplete="username"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
         /> 
@@ -84,9 +87,10 @@ export default function LoginScreen( { navigation } ) {
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
           onBlur={() => setError(false)}
+          onSubmitEditing={() => handleLogin()}
         /> 
         <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
-          <Icon name="eye-outline" size={30} color="lightgray"/>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
         </TouchableOpacity>
       </View> 
       <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>

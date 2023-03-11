@@ -12,10 +12,12 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function SignUpScreen( { navigation } ) {
-  const { domain, setToken, setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { domain, setToken, setIsSignedIn, setDomain } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [error, setError] = useState(false);
+  const [securePassword, setSecurePassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -71,7 +73,6 @@ export default function SignUpScreen( { navigation } ) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      {/* {!error ? <Text style={styles.title}>Register or Login</Text> : <Text style={styles.titleRed}>Error registering</Text>} */}
       <Text style={!error ? styles.title : styles.titleRed}>
         {!error ? "Register for an account" : "Unable to register, please check your details and try again"}
       </Text>
@@ -80,6 +81,10 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="First Name"
           placeholderTextColor="black"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
           onChangeText={(firstName) => setFirstName(firstName)}
         /> 
       </View> 
@@ -88,6 +93,10 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Last Name"
           placeholderTextColor="black"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
           onChangeText={(lastName) => setLastName(lastName)}
         /> 
       </View> 
@@ -97,6 +106,10 @@ export default function SignUpScreen( { navigation } ) {
           placeholder="Username"
           placeholderTextColor="black"
           secureTextEntry={false}
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
           onChangeText={(username) => setUsername(username)}
         /> 
       </View>
@@ -106,6 +119,10 @@ export default function SignUpScreen( { navigation } ) {
           inputMode="email"
           placeholder="Email"
           placeholderTextColor="black"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
@@ -114,18 +131,27 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="black"
-          secureTextEntry={true}
+          returnKeyType="next"
+          secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
         /> 
+        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
+        </TouchableOpacity>
       </View> 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Confirm Password"
           placeholderTextColor="black"
-          secureTextEntry={true}
+          returnKeyType="submit"
+          secureTextEntry={securePassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+          onSubmitEditing={() => handleLogin()}
         /> 
+        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ handleRegister() }}>
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
@@ -158,6 +184,8 @@ inputView: {
   height: 45,
   marginBottom: 20,
   alignItems: "center",
+  display: "flex",
+  flexDirection: "row",
 },
 TextInput: {
   height: 50,
