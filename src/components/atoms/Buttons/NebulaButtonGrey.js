@@ -20,9 +20,13 @@ const NebulaButtonGrey = () => {
 
     return (
         <View style={{
+            width: 100,
+            height: 107,
+            borderColor: 'white',
+            borderWidth: 0,
             alignItems: 'center',
-            justifyContent: 'center',
-            top: 0
+            gap: 5,
+            top: 30
         }}>
             <NebulaButtonGreySvg
                 width={53}

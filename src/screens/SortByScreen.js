@@ -69,9 +69,12 @@ const SortByScreen = ({ navigation }) => {
                             <ScrollView
                                 horizontal={true}
                             >
-                                <IssTransitButtonGrey />
-                                <LunarButtonGrey />
-                                <SolarButtonGrey />
+                                <IssTransitButtonGrey
+                                    styles={styles.iconContainer} />
+                                <LunarButtonGrey
+                                    styles={styles.iconContainer} />
+                                <SolarButtonGrey
+                                    styles={styles.iconContainer} />
                                 <PlanetButtonGrey />
                                 <CometButtonGrey />
                                 <GalaxyButtonGrey />
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         display: 'flex',
         backgroundColor: "#2F2F2F",
-        borderColor: "green",
+        borderColor: "yellow",
         borderWidth: 0,
     },
     text: {
@@ -156,6 +159,14 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
     },
+    iconContainer: {
+        width: 150,
+        borderColor: 'white',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 0
+    }
 
 });
 

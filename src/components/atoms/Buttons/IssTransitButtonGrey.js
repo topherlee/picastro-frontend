@@ -21,7 +21,7 @@ const IssTransitButtonGrey = () => {
     return (
         <View style={{
             alignItems: 'center',
-            justifyContent: 'center',
+            
             top: 0
         }}>
             <IssTransitButtonGreySvg
