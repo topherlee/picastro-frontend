@@ -19,11 +19,7 @@ const IssTransitButtonGrey = () => {
     const [modalVisible, setModalVisible] = useState(true);
 
     return (
-        <View style={{
-            alignItems: 'center',
-            
-            top: 0
-        }}>
+        <View style={SortByModalButtonStyling.iconContainer}>
             <IssTransitButtonGreySvg
                 width={53}
                 height={53}

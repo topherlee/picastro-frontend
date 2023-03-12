@@ -11,7 +11,7 @@ import {
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
-import ClustersButtonGreySvg from '../../../assets/buttons/clusters_button_grey.svg';
+import ClustersButtonGreySvg from '../../../assets/buttons/clusters_button_yellow.svg';
 
 
 const ClustersButtonGrey = () => {

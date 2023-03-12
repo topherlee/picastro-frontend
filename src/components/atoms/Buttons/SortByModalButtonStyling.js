@@ -12,11 +12,11 @@ export default StyleSheet.create({
       fontSize: 13,
     },
     iconContainer: {
-        width: 150,
+        width: 100,
+        height: 107,
         borderColor: 'white',
-        borderWidth: 1,
+        borderWidth: 0,
         alignItems: 'center',
-        justifyContent: 'center',
         gap: 5,
         top: 30
     }

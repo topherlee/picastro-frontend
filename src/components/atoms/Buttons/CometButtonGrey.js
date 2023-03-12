@@ -11,7 +11,7 @@ import {
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
-import CometButtonGreySvg from '../../../assets/buttons/comet_button_grey.svg';
+import CometButtonGreySvg from '../../../assets/buttons/comet_button_yellow.svg';
 
 
 const CometButtonGrey = () => {
