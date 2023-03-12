@@ -11,10 +11,10 @@ import {
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
-import CometButtonGreySvg from '../../../assets/buttons/comet_button_grey.svg';
+import AsterismsButtonGreySvg from '../../../assets/buttons/asterisms_button_grey.svg';
 
 
-const CometButtonGrey = () => {
+const AsterismsButtonGrey = () => {
 
     const [modalVisible, setModalVisible] = useState(true);
 
@@ -24,16 +24,16 @@ const CometButtonGrey = () => {
             justifyContent: 'center',
             top: 0
         }}>
-            <CometButtonGreySvg
+            <AsterismsButtonGreySvg
                 width={53}
                 height={53}
             />
             <Text style={SortByModalButtonStyling.SortByModalText}>
-                Comets
+                Asterisms/ Constellations
             </Text>
         </View>
     );
 };
 
 
-export default CometButtonGrey;
+export default AsterismsButtonGrey;

@@ -10,11 +10,10 @@ import {
 } from 'react-native';
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
+import SolarButtonGreySvg from '../../../assets/buttons/solar_button_grey.svg';
 
-import CometButtonGreySvg from '../../../assets/buttons/comet_button_grey.svg';
 
-
-const CometButtonGrey = () => {
+const SolarButtonGrey = () => {
 
     const [modalVisible, setModalVisible] = useState(true);
 
@@ -24,16 +23,16 @@ const CometButtonGrey = () => {
             justifyContent: 'center',
             top: 0
         }}>
-            <CometButtonGreySvg
+            <SolarButtonGreySvg
                 width={53}
                 height={53}
             />
             <Text style={SortByModalButtonStyling.SortByModalText}>
-                Comets
+                Solar
             </Text>
         </View>
     );
 };
 
 
-export default CometButtonGrey;
+export default SolarButtonGrey;

@@ -9,10 +9,12 @@ import {
     Image,
 } from 'react-native';
 
-import NebulaButtonGreySvg from '../../../assets/buttons/nebula_button_grey.svg';
+import SortByModalButtonStyling from './SortByModalButtonStyling';
+
+import PlanetButtonGreySvg from '../../../assets/buttons/planet_button_grey.svg';
 
 
-const NebulaButton = () => {
+const PlanetButtonGrey = () => {
 
     const [modalVisible, setModalVisible] = useState(true);
 
@@ -22,13 +24,17 @@ const NebulaButton = () => {
             justifyContent: 'center',
             top: 0
         }}>
-            <NebulaButtonGreySvg
+            <PlanetButtonGreySvg
                 width={53}
                 height={53}
+                style={SortByModalButtonStyling.SortByModalSvg}
             />
+            <Text style={SortByModalButtonStyling.SortByModalText}>
+                Planets
+            </Text>
         </View>
     );
 };
 
 
-export default NebulaButton;
+export default PlanetButtonGrey;

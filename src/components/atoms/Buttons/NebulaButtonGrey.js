@@ -11,10 +11,10 @@ import {
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
-import CometButtonGreySvg from '../../../assets/buttons/comet_button_grey.svg';
+import NebulaButtonGreySvg from '../../../assets/buttons/nebula_button_grey.svg';
 
 
-const CometButtonGrey = () => {
+const NebulaButtonGrey = () => {
 
     const [modalVisible, setModalVisible] = useState(true);
 
@@ -24,16 +24,16 @@ const CometButtonGrey = () => {
             justifyContent: 'center',
             top: 0
         }}>
-            <CometButtonGreySvg
+            <NebulaButtonGreySvg
                 width={53}
                 height={53}
             />
             <Text style={SortByModalButtonStyling.SortByModalText}>
-                Comets
+                Nebula
             </Text>
         </View>
     );
 };
 
 
-export default CometButtonGrey;
+export default NebulaButtonGrey;

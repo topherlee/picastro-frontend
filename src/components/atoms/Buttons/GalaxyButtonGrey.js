@@ -9,6 +9,8 @@ import {
     Image,
 } from 'react-native';
 
+import SortByModalButtonStyling from './SortByModalButtonStyling';
+
 import GalaxyButtonGreySvg from '../../../assets/buttons/galaxy_button_grey.svg';
 
 
@@ -26,6 +28,9 @@ const GalaxyButtonGrey = () => {
                 width={53}
                 height={53}
             />
+            <Text style={SortByModalButtonStyling.SortByModalText}>
+                Galaxies
+            </Text>
         </View>
     );
 };

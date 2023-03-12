@@ -14,9 +14,15 @@ import React, { useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
 import { DualColumnMasonryList } from '../components/templates';
 import {
-    NebulaButton,
+    NebulaButtonGrey,
     GalaxyButtonGrey,
-    CometButtonGrey
+    CometButtonGrey,
+    PlanetButtonGrey,
+    AsterismsButtonGrey,
+    ClustersButtonGrey,
+    IssTransitButtonGrey,
+    LunarButtonGrey,
+    SolarButtonGrey
 } from '../components/atoms';
 
 
@@ -40,19 +46,38 @@ const SortByScreen = ({ navigation }) => {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Hello World!</Text>
                             <Pressable
-                                style={[styles.button, styles.buttonClose]}
+                                style={[styles.button, styles.buttonUnselected]}
                                 onPress={() => setModalVisible(!modalVisible)}>
-                                <Text style={styles.textStyle}>Hide Modal</Text>
+                                <Text style={styles.buttonText}>Randomizer</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonUnselected]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.buttonText}>Most recent</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonUnselected]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.buttonText}>Equipment Type</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonSelected]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.buttonText}>Hide Modal</Text>
                             </Pressable>
                             <ScrollView
                                 horizontal={true}
                             >
-                                <NebulaButton />
+                                <IssTransitButtonGrey />
+                                <LunarButtonGrey />
+                                <SolarButtonGrey />
+                                <PlanetButtonGrey />
+                                <CometButtonGrey />
                                 <GalaxyButtonGrey />
-                                <CometButtonGrey />
-                                <CometButtonGrey />
+                                <AsterismsButtonGrey />
+                                <NebulaButtonGrey />
+                                <ClustersButtonGrey />
                             </ScrollView>
                         </View>
                     </View>
@@ -89,7 +114,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         flex: 1,
-        flexDirection: 'row',
+        
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
         width: '100%',
@@ -103,15 +128,24 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     button: {
-        borderRadius: 20,
-        padding: 10,
+        borderRadius: 25,
+        padding: 8,
         elevation: 2,
+        width: 90,
+        height: 32
     },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
+    buttonUnselected: {
+        backgroundColor: '#DDD7D7',
     },
-    buttonClose: {
-        backgroundColor: '#2196F3',
+    buttonSelected: {
+        backgroundColor: '#FDD015',
+    },
+    buttonText: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 11,
+        textAlign: 'center',
+        textAlignVertical: 'center'
     },
     textStyle: {
         color: 'white',
