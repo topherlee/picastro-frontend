@@ -23,8 +23,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
       <Stack.Screen name="Filter" component={PostDetailsScreen} />
       <Stack.Screen name="UserScreen" component={UserScreen} options={{headerShown: false}} />
-      <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="YourMainSetup" component={YourMainSetup} />
+      <Stack.Screen name="EditProfile" component={EditProfile} options={{headerShown: false}}/>
+      <Stack.Screen name="YourMainSetup" component={YourMainSetup} options={{headerShown: false}}/>
 
     </Stack.Navigator>
   );
