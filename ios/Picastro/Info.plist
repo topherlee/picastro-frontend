@@ -4,6 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>MaterialCommunityIcons.ttf</string>
 		<string>Inter-ExtraBold.ttf</string>
 		<string>Inter-ExtraLight.ttf</string>
 		<string>Inter-Light.ttf</string>

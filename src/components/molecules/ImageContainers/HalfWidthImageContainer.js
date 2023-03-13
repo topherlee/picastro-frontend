@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Button,
     Image,
@@ -17,11 +17,13 @@ import { AstroImageWrapper, AwardIcon } from '../../atoms';
 
 import styled from 'styled-components';
 
-var ratio;
 
 export const HalfWidthImageContainer = (props) => {
-  var source = Image.resolveAssetSource(props.imageURL);
-  ratio = (source.width / source.height);
+    console.log("HalfWidthImageContainer", props);
+  
+    // const [contWidth, setContWidth] = useState(0);
+    // const [contHeight, setContHeight] = useState(0);
+
     return (
       <View2>
         <AstroImageWrapper 
@@ -31,7 +33,7 @@ export const HalfWidthImageContainer = (props) => {
           source={require('../../../assets/Sample/sampleuser2.png')}
           resizeMode="contain"
         />
-        <UserName>{props.userName}</UserName>
+        <UserName>{props.poster.username}</UserName>
         <AwardIconWrapper>
           <AwardIcon {...props} />
         </AwardIconWrapper>

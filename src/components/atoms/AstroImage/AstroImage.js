@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     StyleSheet,
     Button,
@@ -7,25 +7,37 @@ import {
     Text,
     Alert,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
   } from 'react-native';
 
 import styled from 'styled-components';
+import AutoscaleImage from "../AutoscaleImage/AutoscaleImage";
 
 
 const AstroImageWrapper = (props) => {
-    var source = Image.resolveAssetSource(props.imageURL);
-    ratio = (source.width / source.height);
+    // const [imgWidth, setImgWidth] = useState(0);
+    // const [imgHeight, setImgHeight] = useState(0);
+
+    // Image.getSize(props.imageURL, (width, height) => {
+    //   setImgWidth(width);
+    //   setImgHeight(height);
+    //   ratio = width / height;
+    // });
+    //console.log(props);
+
     return (
-        <AstroImage
-          source={props.imageURL}
-          style={{
-            aspectRatio: ratio,
-            maxWidth: "100%",
-            height: "auto",
-          }}
-          resizeMode="contain"
-        />
+      <AutoscaleImage uri={props.imageURL} width={(0.96*Dimensions.get('window').width-33)/2} />
+        // <AstroImage
+        //   source={{uri: props.imageURL}}
+        //   style={{
+        //     aspectRatio: ratio,
+        //     maxWidth: "100%",
+        //     width: imgWidth,
+        //     height: imgHeight,
+        //   }}
+        //   resizeMode="contain"
+        // />
     );
 };
 

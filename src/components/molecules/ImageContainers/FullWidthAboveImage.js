@@ -31,7 +31,7 @@ const FullWidthAboveImage = ({props}) => {
       />
       <NameBanner>
         <View>
-          <UsernameText>{props.userName}</UsernameText>
+          <UsernameText>{props.poster.username}</UsernameText>
           <LocationText>{props.starCamp}</LocationText>
         </View>
       </NameBanner>

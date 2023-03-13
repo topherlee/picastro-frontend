@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,22 +12,80 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function SignUpScreen( { navigation } ) {
-  const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { domain, setToken, setIsSignedIn, setDomain } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const [error, setError] = useState(false);
+  const [securePassword, setSecurePassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  
+  function handleRegister() {
+    var body = JSON.stringify({
+      'username': username,
+      'password': password,
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email
+    })
+    
+    if (password === confirmPassword) {
+      fetch(`${domain}/api/auth/register/`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: body
+          })
+          .then(res => {
+            console.log('STATUS',res.status);
+            if (res.ok) {
+              return res.json();
+            } else {
+              setError(true)
+              throw res.json();
+            }
+          })
+          .then(json => {
+            console.log('REGISTRATION SUCCESS',json);
+            setToken(json.token.access);
+            setIsSignedIn(true);
+            //navigation.navigate('UserName')
+          })
+          .catch(error => {
+            throw(error)
+          })
+      } else {
+        console.log("password error")
+        setError(true);
+      }
+  }
+
+  useEffect(() => {
+    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+  }, [])
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      <Text style={styles.title}>Register or Login</Text>
+      <Text style={!error ? styles.title : styles.titleRed}>
+        {!error ? "Register for an account" : "Unable to register, please check your details and try again"}
+      </Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="First Name"
           placeholderTextColor="black"
-          onChangeText={(email) => setEmail(email)}
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
+          onChangeText={(firstName) => setFirstName(firstName)}
         /> 
       </View> 
       <View style={styles.inputView}>
@@ -35,15 +93,36 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Last Name"
           placeholderTextColor="black"
-          onChangeText={(email) => setEmail(email)}
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
+          onChangeText={(lastName) => setLastName(lastName)}
         /> 
       </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Username"
+          placeholderTextColor="black"
+          secureTextEntry={false}
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
+          onChangeText={(username) => setUsername(username)}
+        /> 
+      </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           inputMode="email"
           placeholder="Email"
           placeholderTextColor="black"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
@@ -52,20 +131,28 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="black"
-          secureTextEntry={true}
+          returnKeyType="next"
+          secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
         /> 
+        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
+        </TouchableOpacity>
       </View> 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Confirm Password"
           placeholderTextColor="black"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={securePassword}
+          onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+          onSubmitEditing={() => handleLogin()}
         /> 
+        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserName') }}>
+      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ handleRegister() }}>
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
       <View style={styles.bottomText}>
@@ -96,6 +183,8 @@ inputView: {
   height: 45,
   marginBottom: 20,
   alignItems: "center",
+  display: "flex",
+  flexDirection: "row",
 },
 TextInput: {
   height: 50,
@@ -134,7 +223,16 @@ title: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%"
+  top: "-5%",
+  textAlign: "center"
+},
+titleRed: {
+  color: "red",
+  fontWeight: "bold",
+  fontSize: 20,
+  position: "relative",
+  top: "-5%",
+  textAlign: "center"
 },
 loginText: {
   fontWeight: "bold",
