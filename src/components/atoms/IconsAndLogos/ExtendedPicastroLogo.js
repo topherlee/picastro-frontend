@@ -22,8 +22,12 @@ const styles = StyleSheet.create({
     logo: {
         position: "relative",
         // marginBottom: "5%",
-        width: 200,
-        height: 75,
+        // width: 200,
+        // height: 75,
+        width: "80%",
+        height:55,
+        marginTop: "5%",
+        // marginBottom: "15%",
     }
     
    

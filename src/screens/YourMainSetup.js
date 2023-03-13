@@ -21,20 +21,21 @@ const YourMainSetup = ({ navigation }) => {
 
   return (
     
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-      
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
+      
       <View style={styles.textcontainer}>
             <Text style={styles.title}>Your Main Setup</Text>   
-            <Text style={styles.text}>Press the + sign at the bottom of the form to add a new setup. </Text>  
+            <Text style={styles.text}>To add a new setup  </Text>  
+            <Text style={styles.text}> Press the + sign at </Text>
+            <Text style={styles.text}> the bottom of the form . </Text>   
       </View>
 
       <ScrollView style={{
         backgroundColor: "black",
         borderColor:"blue", 
         borderWidth: 0,
-        width: "80%",
-       
+        width: "80%",      
         
       }}
       >            
@@ -113,7 +114,6 @@ const YourMainSetup = ({ navigation }) => {
   );
 }
 
-
 const styles = StyleSheet.create({container: {
   flex: 1,
   backgroundColor: "black",
@@ -122,25 +122,28 @@ const styles = StyleSheet.create({container: {
 },
 image: {
   position: "relative",
-  // marginBottom: "20%",
+  width: 155,
+  height:45,
+  marginBottom: "5%",
 },
+
 inputView: {
   backgroundColor: "white",
   borderRadius: 10,
   width: "100%",
-  height: 45,
-  marginBottom: 20,
+  height: 40,
+  marginBottom: 10,
   // alignItems: "center",
   justifyContent: "center",
   // borderWidth: 5,
   // borderColor:"yellow" 
 },
 textcontainer:{
-  marginTop:"10%",
+  // marginTop:"5%",
   marginBottom:"5%",
   alignItems: "center",
   justifyContent: "center",
-  // position: "relative",
+  position: "relative",
 },
 
 TextInput: {
@@ -160,6 +163,7 @@ bottomText: {
 text: {
   color: "white",
   justifyContent: "center",
+  // marginTop:'10%'
 },
 forgot_button: {
   height: 30,
@@ -174,7 +178,7 @@ loginBtn: {
   justifyContent: "center",
   position: "relative",
   // marginTop: "10%",
-  marginBottom: "3%",
+  marginBottom: "5%",
   backgroundColor: "#FFC700",
 },
 title: {
@@ -182,7 +186,9 @@ title: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%"
+  marginBottom: "5%",
+  top: "10%"
+  
 },
 loginText: {
   fontWeight: "bold",

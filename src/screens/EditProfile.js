@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
 
 
+
 import {
   StyleSheet,
   Text,
@@ -15,6 +16,7 @@ import {
   Alert,
   FlatList,
   Footer,
+  SafeAreaView,
  
   KeyboardAvoidingView,
   
@@ -38,52 +40,27 @@ const EditProfile = ({ navigation }) => {
   return (
     
     
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-      
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
       
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
+      <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
+      <TouchableOpacity style={styles.loginBtn1} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
         <Text style={styles.loginText}>Change Image</Text> 
       </TouchableOpacity>
-        <ScrollView style={{
+      
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style ={{
           height: 45,
           backgroundColor: "black",
           borderColor:"blue", 
           borderWidth: 0,
           width: "80%",
+          flex: 1
         // <Footer />
        }}
-      >
-     
-     {/* <FlatList
-      ListHeaderComponent={
-      <>
-      open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          placeholder="Level of Experience"
-        
-      </>}
-      
-      
-      ListFooterComponent={
-        <Footer/>
-      }/> */}
-        
-            
-        
-      <Text style={styles.title}>Edit Profile</Text>
+      >            
       <View style={styles.headerContainer}>
       <View style={styles.inputView1}>
-        {/* <TextInput
-          style={styles.TextInput1}
-          placeholder="Level of Experience"
-          placeholderTextColor="black"
-          
-        />  */}
+        
         <DropDownPicker
           open={open}
           value={value}
@@ -165,11 +142,11 @@ const EditProfile = ({ navigation }) => {
           placeholderTextColor="black"
         /> 
       </View>
+      
+      </ScrollView>
       <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
         <Text style={styles.loginText}>Next</Text> 
-      </TouchableOpacity>
-      </ScrollView>
-      
+      </TouchableOpacity>          
     
     </KeyboardAvoidingView> 
   );
@@ -195,7 +172,15 @@ headerContainer: {
 },
 image: {
   position: "relative",
+  width: 155,
+  height:45,
   marginBottom: "5%",
+},
+image1: {
+  position: "relative",
+  width: 84.54,
+  height: 85,
+  // marginTop: "2%",
 },
 inputView: {
   backgroundColor: "white",
@@ -210,6 +195,7 @@ inputView1: {
   borderRadius: 10,
   width: "45%",
   height: 35,
+  marginTop: 3,
   marginBottom: 20,
   alignItems: "center",
   
@@ -225,26 +211,25 @@ TextInput: {
   
 },
 TextInput1: {
-  height: 30,
+  // height: 10,
   width: "100%",
   flex: 1,
   // padding: 10,
   textAlign: "center",
-  fontSize:10,
-  fontWeight: "bold",
-  
+  fontSize:12,
+    
 },
 
 text: {
   color: "black",
-  
+    
 },
 forgot_button: {
   height: 30,
   color: "#FFC700",
 },
 loginBtn: {
-  width: "100%",
+  width: "35%",
   borderRadius: 25,
   height: "7%",
   // minHeight: 50,
@@ -252,6 +237,17 @@ loginBtn: {
   justifyContent: "center",
   position: "relative",
   marginTop: "0%",
+  marginBottom: "0%",
+  backgroundColor: "#FFC700",
+},
+loginBtn1: {
+  width: "35%",
+  borderRadius: 25,
+  height: "5%",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "relative",
+  marginTop: "3%",
   marginBottom: "0%",
   backgroundColor: "#FFC700",
 },
