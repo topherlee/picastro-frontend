@@ -68,7 +68,7 @@ export const FullWidthPostsContainer = ({props}) => {
                     onZoomAfter={this.logOutZoomState}
                     disablePanOnInitialZoom={true}
                 >   
-                    <AutoscaleImage uri={props.imageURL} width={Dimensions.get('window').width}/>
+                    <AutoscaleImage uri={props.image} width={Dimensions.get('window').width}/>
                 </ReactNativeZoomableView>
             </Modal>
 
