@@ -12,12 +12,10 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
 import { AuthContext } from "../../context/AuthContext";
 
 export default function LoginScreen( { navigation } ) {
-  const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn, domain, setDomain, setToken, setRefreshToken} = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -51,12 +49,13 @@ export default function LoginScreen( { navigation } ) {
           }
         })
         .then(json => {
-          console.log('LOGIN SUCCESS',json);
+          console.log('JSON',json);
           setToken(json.access);
+          setRefreshToken(json.refresh);
           setIsSignedIn(true);
         })
-        .catch(error => {
-          throw(error);
+        .catch(error => { 
+          console.log("error",error.data);
         })
     
   }
@@ -64,17 +63,14 @@ export default function LoginScreen( { navigation } ) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Login or Register</Text>}
+      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
       <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
-          textContentType="username"
-          autoCompleteType="username"
+          inputMode="text"
           placeholder="Username"
           placeholderTextColor="black"
-          autoCorrect={false}
-          clearButtonMode="while-editing"
-          returnKeyType="next"
+          autoComplete="username"
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
         /> 
@@ -82,18 +78,12 @@ export default function LoginScreen( { navigation } ) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          textContentType="password"
-          autoCompleteType="password"
           placeholder="Password"
           placeholderTextColor="black"
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
           onBlur={() => setError(false)}
-          onSubmitEditing={() => handleLogin()}
         /> 
-        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
-          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
-        </TouchableOpacity>
       </View> 
       <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
@@ -129,8 +119,6 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
   },
   TextInput: {
     height: 50,
@@ -138,9 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     textAlign: "center",
-    color: "black",
-    borderColor: "yellow",
-    borderWidth: 0,
+    
   },
   bottomText: {
     flexDirection:'row',
