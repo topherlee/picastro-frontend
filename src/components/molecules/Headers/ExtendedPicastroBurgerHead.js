@@ -35,25 +35,27 @@ const styles = StyleSheet.create({
         backgroundColor: '#2F2F2F',
         display: "flex",
         width: '100%',
-        height: 60,
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginBottom: "10%",
-        marginTop: "20%"
-       
-        
-        
+        gap: 10,    
+               
     },
     BurgerButton: {
-        width: 40,
+        width: 30,
         height: 2,
         right: 5,
     },
     userImage: {
         position: "relative",
-        marginBottom: "5%",       
+        marginBottom: "5%",   
+        // borderWidth: 1,
+        // borderColor:"white"  
+        width: "60%",
+        height:45,
+        marginBottom: "5%",  
+        
         
 
     },

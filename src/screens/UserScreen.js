@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     useColorScheme,
     View,
+    Linking,
 } from 'react-native';
 import { ExtendedPicastroBurgerHeader, UserNameImageBurgerHeader,UserNameImageWithoutBurger } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
@@ -267,18 +268,27 @@ const props = [
 const UserScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}
+           
             <ExtendedPicastroBurgerHeader />
-            {/* <UserNameImageWithoutBurger /> */}
+            <Image style={styles.image1} source={require('../assets/Sample/sampleuserwithicon.png')} />
+            
             <AwardIcon />
-
-            <Text style={styles.text}>Lawyer By Day,amateur photographer by night. Help Elliot fight</Text>   
-            <Text style={styles.text}>Photo by Me</Text>  
-            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}        
+            <View style={styles.textcontainer}>
+            <Text style={styles.text}>   Lawyer By Day, very amateur astrophotographer    </Text>   
+            <Text style={styles.text}>    by night. All Photo by Me. Help Elliot fight                   </Text> 
+            <TouchableOpacity onPress={() => Linking.openURL('http://google.com')}>
+            <Text style={styles.text1}> Picastro link </Text> 
+               
+            </TouchableOpacity>
+            
+            </View>
+              
             <AwardIcon />
+            {/* <View style={styles.headerContainer}> */}
             <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
                 <Text style={styles.loginText}>Edit Profile</Text> 
             </TouchableOpacity>
+            {/* </View> */}
             <ScrollView style={{
                     backgroundColor: "black",
                     borderColor:"blue", 
@@ -325,24 +335,53 @@ const styles = StyleSheet.create({
         borderColor:"green", 
         borderWidth: 0,
     },
+    headerContainer: {
+        backgroundColor: 'black',
+        display: "flex",
+        top: 0,
+        width: '100%',
+        height: 60,
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        // gap: 10,
+    },
+    textcontainer: {
+        marginTop:"5%",
+        marginBottom:"5%",
+    },
     text: {
         fontSize: 15,
         fontWeight: '500',
+        justifyContent: 'center',
         color: 'white',
         textAlign: 'center'
+        
+    },
+    text1: {
+        fontSize: 14,
+        marginTop: 10,
+        justifyContent: 'center',
+        color: 'grey',
+        left: 30,
+        
     },
     image: {
         position: "relative",
-        marginBottom: "10%",
+        width: 155,
+        height:45,
+        marginBottom: "5%",
+        
     },
     loginBtn: {
-        width: "80%",
+        width: "30%",
         borderRadius: 25,
         height: "7%",
-        minHeight: 50,
+        // minHeight: 50,
         alignItems: "center",
         justifyContent: "center",
-        position: "relative",
+        // position: "relative",
         marginTop: "10%",
         marginBottom: "3%",
         backgroundColor: "#FFC700",

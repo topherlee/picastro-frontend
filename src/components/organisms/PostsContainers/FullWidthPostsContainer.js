@@ -20,26 +20,13 @@ import Modal from "react-native-modal";
 import styled from 'styled-components';
 import { FullWidthAboveImage, FullWidthImage, FullWidthBelowImage } from '../../molecules';
 import { AutoscaleImage } from '../../atoms';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export const FullWidthPostsContainer = ({props}) => {
   //console.log("DFC",props);
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
-//   var source = Image.resolveAssetSource(props.imageURL);
-//   ratio = (source.width / source.height);
-
-    const [imgWidth, setImgWidth] = useState(0);
-    const [imgHeight, setImgHeight] = useState(0);
-    var ratio;
-
-    Image.getSize(props.imageURL, (width, height) => {
-      setImgWidth(width);
-      setImgHeight(height);
-      ratio = width / height;
-    });
-
-    
+    const navigation = useNavigation();
+    const [modalVisible, setModalVisible] = useState(false);
     const [contWidth, setContWidth] = useState(0);
     const [contHeight, setContHeight] = useState(0);
     return (
@@ -52,12 +39,12 @@ export const FullWidthPostsContainer = ({props}) => {
                 backdropOpacity={0.8}
                 propagateSwipe
             > 
-                <Pressable 
+                <TouchableOpacity 
                     style={styles.button}
                     onPress = { () => setModalVisible(!modalVisible) }
                 > 
-                    <Text style={styles.text}>Go back</Text>
-                </Pressable>
+                    <Icon name='window-close' size={30} color="lightgray"/>
+                </TouchableOpacity>
                 <ReactNativeZoomableView
                     maxZoom={3}
                     minZoom={1}
@@ -68,7 +55,7 @@ export const FullWidthPostsContainer = ({props}) => {
                     onZoomAfter={this.logOutZoomState}
                     disablePanOnInitialZoom={true}
                 >   
-                    <AutoscaleImage uri={props.imageURL} width={Dimensions.get('window').width}/>
+                    <AutoscaleImage uri={props.image} width={Dimensions.get('window').width}/>
                 </ReactNativeZoomableView>
             </Modal>
 
@@ -107,11 +94,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 32,
         elevation: 3,
-        maxHeight: 50
-    },
-    text: {
-        color: "#FFC700",
-        fontWeight: 700
+        maxHeight: 50,
+        top: 40,
+        zIndex: 400
     },
 })
 

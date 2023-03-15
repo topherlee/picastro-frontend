@@ -8,13 +8,9 @@ var ratio;
 const FullWidthImage = ({props}) => {
   //console.log("DFI", props)
 
-  // var source = Image.resolveAssetSource(require('../../../assets/TestAstroImages/Element161.png'));
-  // ratio2 = (source.width / source.height);
-  // console.log(ratio2)
-
   return (
     <View>
-      <AutoscaleImage uri={props.imageURL} width={0.93*Dimensions.get('window').width} />
+      <AutoscaleImage uri={props.image} width={0.93*Dimensions.get('window').width} />
     </View>
   );
 };

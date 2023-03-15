@@ -9,6 +9,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [refreshtoken, setRefreshToken] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
     
+
     const globalContext = {
         domain,
         setDomain,

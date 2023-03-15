@@ -24,9 +24,10 @@ const BurgerButtonForEXPL = () => {
 
 const styles = StyleSheet.create({
     BurgerButton: {
-        width: 40,
-        height: 40,
-        right: 10,
+        width: 30,
+        height: 30,
+        left: 10,
+        
     }
 })
 
