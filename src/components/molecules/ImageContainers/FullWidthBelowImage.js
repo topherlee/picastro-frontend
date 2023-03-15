@@ -65,6 +65,7 @@ const FullWidthBelowImage = ({props}) => {
         containerStyle= {{
           marginTop: "3%",
           width: "100%",
+          paddingBottom: "4%",
           borderWidth: 0,
           borderColor: "yellow"
         }}
