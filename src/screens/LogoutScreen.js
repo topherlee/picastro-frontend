@@ -26,6 +26,7 @@ export default function LogoutScreen( { navigation } ) {
   }, [])
 
   function handleLogout(){
+    
     console.log("REFRESHTOKEN",refreshtoken);
     var body = JSON.stringify({
       'refresh':refreshtoken
@@ -51,6 +52,7 @@ export default function LogoutScreen( { navigation } ) {
           console.log('logout',json);
           setRefreshToken(json.refresh);
           setIsSignedIn(false);
+          navigation.navigate('OnboardingNavigator');
         })
         .catch(error => { 
           console.log("error", error);
