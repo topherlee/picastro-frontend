@@ -35,18 +35,20 @@ const HeaderUserName = ({style},props) => {
         .then((result) => {
             //console.log("INCOMINGDATA",result.username)
             setData(result);
+            console.log("HeaderUserName", data);
         }).catch (err => {
             console.log(err);
             //setData(existingData);
         })
     }, [])
+
     return(
         <View style={style}>
             <Text style={styles.textUserName}>
                 {data.username}
             </Text>
             <Text style={styles.textGenderIdentifier}>
-                {data.first_name} {data.last_name}
+                {data.first_name} {data.last_name} 
             </Text>
         </View>
     )

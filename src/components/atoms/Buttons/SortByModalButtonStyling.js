@@ -1,15 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    SortByModalSvg: {
-      color: 'blue'
+    sortByModalSvg: {
+      color: 'blue',
+      width: 70,
+      height: 70
     },
     SortByModalText: {
-      color: '#959595',
       fontFamily: 'Inter',
       fontStyle: 'normal',
       fontWeight: 'medium',
       fontSize: 13,
+      textAlign: 'center'
+    },
+    SortByModalTextGrey: {
+      color: '#959595',
+    },
+    SortByModalTextYellow: {
+      color: '#FFC700'
     },
     iconContainer: {
         width: 100,
