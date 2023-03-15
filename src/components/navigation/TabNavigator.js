@@ -5,12 +5,18 @@ import {
     MainStackNavigator,
     ProfileStackNavigator,
     SortByStackNavigator,
-    NotificationsStackNavigator
+    NotificationsStackNavigator,
+    ImageUploadStackNavigator
 } from "./StackNavigator";
 
 import { Image, Text, View } from 'react-native';
 
-import { HomeButton, StarCampsButton, TelescopeButton, NotificationsButton } from "../atoms";
+import {    HomeButton,
+            StarCampsButton,
+            TelescopeButton,
+            NotificationsButton,
+            ImageUploadButton
+} from "../atoms";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +49,16 @@ const BottomTabNavigator = () => {
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
                     <StarCampsButton />
+                ),
+            }}
+        />
+        <Tab.Screen 
+            name="ImageUploadTab" 
+            component={ImageUploadStackNavigator} 
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <ImageUploadButton />
                 ),
             }}
         />

@@ -5,11 +5,27 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-} from 'react-native'
+} from 'react-native';
 
-import React from 'react'
+import React from 'react';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+
+const options = {
+    title: 'Select Image',
+    type: 'library',
+    options: {
+        selectionLimit: 1,
+        mediaType: 'photo',
+        includeBase64: false,
+    },
+}
 
 const NotificationsScreen = ({ navigation }) => {
+
+    const openGalery = async() => {
+        const images = await launchImageLibrary(options);
+        console.log(images);
+    }
   return (
     <SafeAreaView style={styles.container}>
             {/* <Header /> */}
@@ -18,8 +34,8 @@ const NotificationsScreen = ({ navigation }) => {
                     Still in progress... check back later
                 </Text>
                 <Button
-                    title='Go to Home'
-                    onPress={() => navigation.navigate('Home')}
+                    title='Upload'
+                    onPress={openGalery}
                 />
             </ScrollView>
         </SafeAreaView>

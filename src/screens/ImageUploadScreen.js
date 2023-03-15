@@ -15,7 +15,7 @@ import {
 import { AuthContext } from "../context/AuthContext";
 
 
-const YourMainSetup = ({ navigation }) => {
+const ImageUploadScreen = ({ navigation }) => {
   const { setIsSignedIn } = useContext(AuthContext);
      
 
@@ -25,7 +25,7 @@ const YourMainSetup = ({ navigation }) => {
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
       
       <View style={styles.textcontainer}>
-            <Text style={styles.title}>Your Main Setup</Text>   
+            <Text style={styles.title}>Upload Image</Text>   
             <Text style={styles.text}>To add a new setup  </Text>  
             <Text style={styles.text}> Press the + sign at </Text>
             <Text style={styles.text}> the bottom of the form . </Text>   
@@ -194,4 +194,4 @@ loginText: {
   fontWeight: "bold",
 }
 });
-export default YourMainSetup;
+export default ImageUploadScreen;
