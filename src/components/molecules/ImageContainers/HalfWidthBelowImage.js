@@ -31,7 +31,6 @@ const HalfWidthBelowImage = (props) => (
 const View3 = styled.View`
   width: 98%;
   height: 57px;
-  top: -2px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   background-color: #2e2e2e;

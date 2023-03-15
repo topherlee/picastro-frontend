@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     useColorScheme,
     View,
+    Linking,
 } from 'react-native';
 import { ExtendedPicastroBurgerHeader, UserNameImageBurgerHeader,UserNameImageWithoutBurger } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
@@ -19,12 +20,12 @@ import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
 
 const props = [
     {
-        "imageURL": require('../assets/TestAstroImages/Element241.png'),
+        "imageURL": "http://127.0.0.1:8000/data/assets/TestAstroImages/Element1.png",
         "astroNameShort": "IC442",
         "astroNameShort2": "NGC 1234",
         "astroNameShort3": "Omega",
         "astroName": "Star #1",
-        "userName": "Starman",
+        "poster": "Starman",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "bronze",
@@ -37,12 +38,12 @@ const props = [
         "leadingLight": false
     },
     {
-        "imageURL": require('../assets/TestAstroImages/Element261.png'),
+        "imageURL": "https://assets3.cbsnewsstatic.com/hub/i/r/2021/08/02/170e414f-dcd6-4f57-b7bd-9f8082b49046/thumbnail/620x349/34fcbaf7845cecb6d5213359c77718db/jupiterjetstreams.jpg",
         "astroNameShort": "SS234",
         "astroNameShort2": "NGC 5678",
         "astroNameShort3": "Omega Nebula",
         "astroName": "Star #2",
-        "userName": "Moonboy",
+        "poster": "Moonboy",
         "userImage": require('../assets/Sample/sampleuser2.png'),
         "imageIsSaved": false,
         "award": "none",
@@ -54,207 +55,207 @@ const props = [
         "starCamp": "Edinburgh",
         "leadingLight": false
     },
-    {
-        "imageURL": require('../assets/TestAstroImages/Element6.png'),
-        "astroNameShort": "DC420",
-        "astroName": "Star #3",
-        "userName": "Moongirl",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "silver",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Aberdeen",
-        "leadingLight": false
-    },
-    {
-        "userName": "testperson",
-        "imageURL": require('../assets/TestAstroImages/Element2.png'),
-        "award": "bronze",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "userName": "stargirl",
-        "imageURL": require('../assets/TestAstroImages/Element5.png'),
-        "award": "silver",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "userName": "starboy",
-        "imageURL": require('../assets/TestAstroImages/Element181.png'),
-        "award": "gold",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "userName": "Steffen",
-        "imageURL": require('../assets/TestAstroImages/Element7.png'),
-        "award": "none",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
+    // {
+    //     "imageURL": require('../assets/TestAstroImages/Element6.png'),
+    //     "astroNameShort": "DC420",
+    //     "astroName": "Star #3",
+    //     "poster": "Moongirl",
+    //     "userImage": require('../assets/Sample/sampleuser2.png'),
+    //     "imageIsSaved": false,
+    //     "award": "silver",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Aberdeen",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "testperson",
+    //     "imageURL": require('../assets/TestAstroImages/Element2.png'),
+    //     "award": "bronze",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long",
+    //     "imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "stargirl",
+    //     "imageURL": require('../assets/TestAstroImages/Element5.png'),
+    //     "award": "silver",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "starboy",
+    //     "imageURL": require('../assets/TestAstroImages/Element181.png'),
+    //     "award": "gold",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "Steffen",
+    //     "imageURL": require('../assets/TestAstroImages/Element7.png'),
+    //     "award": "none",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long",
+    //     "imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
     
-    {
-        "imageURL": require('../assets/TestAstroImages/Element241.png'),
-        "astroNameShort": "IC442",
-        "astroNameShort2": "NGC 1234",
-        "astroNameShort3": "Omega",
-        "astroName": "Star #1",
-        "userName": "Starman",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "bronze",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "imageURL": require('../assets/TestAstroImages/Element261.png'),
-        "astroNameShort": "SS234",
-        "astroNameShort2": "NGC 5678",
-        "astroNameShort3": "Omega Nebula",
-        "astroName": "Star #2",
-        "userName": "Moonboy",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "none",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
-        "starCamp": "Edinburgh",
-        "leadingLight": false
-    },
-    {
-        "imageURL": require('../assets/TestAstroImages/Element6.png'),
-        "astroNameShort": "DC420",
-        "astroName": "Star #3",
-        "userName": "Moongirl",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "silver",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Aberdeen",
-        "leadingLight": false
-    },
-    {
-        "userName": "testperson",
-        "imageURL": require('../assets/TestAstroImages/Element2.png'),
-        "award": "bronze",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "userName": "stargirl",
-        "imageURL": require('../assets/TestAstroImages/Element5.png'),
-        "award": "silver",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "userName": "starboy",
-        "imageURL": require('../assets/TestAstroImages/Element181.png'),
-        "award": "gold",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long","imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "userName": "Steffen",
-        "imageURL": require('../assets/TestAstroImages/Element7.png'),
-        "award": "none",
-        "astroNameShort": "Test2",
-        "astroName": "Test 2 Long",
-        "imageCategory":"Nebula",
-        "imageIsSaved": false,
-        "award": "gold",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
+    // {
+    //     "imageURL": require('../assets/TestAstroImages/Element241.png'),
+    //     "astroNameShort": "IC442",
+    //     "astroNameShort2": "NGC 1234",
+    //     "astroNameShort3": "Omega",
+    //     "astroName": "Star #1",
+    //     "poster": "Starman",
+    //     "userImage": require('../assets/Sample/sampleuser2.png'),
+    //     "imageIsSaved": false,
+    //     "award": "bronze",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "imageURL": require('../assets/TestAstroImages/Element261.png'),
+    //     "astroNameShort": "SS234",
+    //     "astroNameShort2": "NGC 5678",
+    //     "astroNameShort3": "Omega Nebula",
+    //     "astroName": "Star #2",
+    //     "poster": "Moonboy",
+    //     "userImage": require('../assets/Sample/sampleuser2.png'),
+    //     "imageIsSaved": false,
+    //     "award": "none",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
+    //     "starCamp": "Edinburgh",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "imageURL": require('../assets/TestAstroImages/Element6.png'),
+    //     "astroNameShort": "DC420",
+    //     "astroName": "Star #3",
+    //     "poster": "Moongirl",
+    //     "userImage": require('../assets/Sample/sampleuser2.png'),
+    //     "imageIsSaved": false,
+    //     "award": "silver",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Aberdeen",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "testperson",
+    //     "imageURL": require('../assets/TestAstroImages/Element2.png'),
+    //     "award": "bronze",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long",
+    //     "imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "stargirl",
+    //     "imageURL": require('../assets/TestAstroImages/Element5.png'),
+    //     "award": "silver",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "starboy",
+    //     "imageURL": require('../assets/TestAstroImages/Element181.png'),
+    //     "award": "gold",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
+    // {
+    //     "poster": "Steffen",
+    //     "imageURL": require('../assets/TestAstroImages/Element7.png'),
+    //     "award": "none",
+    //     "astroNameShort": "Test2",
+    //     "astroName": "Test 2 Long",
+    //     "imageCategory":"Nebula",
+    //     "imageIsSaved": false,
+    //     "award": "gold",
+    //     "exposureTime": "6 hrs",
+    //     "moonPhase": "50%",
+    //     "cloudCoverage": "10%",
+    //     "bortle": "3",
+    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //     "starCamp": "Glasgow",
+    //     "leadingLight": false
+    // },
     // {
     //     "astroName": "Messier 104, M104, NGC 4594, Sombrero Galaxy",
     //     "astroName": "Omega Nebula, Messier 17, M17, NGC 6618, Swan Nebula, Horseshoe Nebula, Lobster Nebula"
@@ -267,18 +268,27 @@ const props = [
 const UserScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}
+           
             <ExtendedPicastroBurgerHeader />
-            {/* <UserNameImageWithoutBurger /> */}
+            <Image style={styles.image1} source={require('../assets/Sample/sampleuserwithicon.png')} />
+            
             <AwardIcon />
-
-            <Text style={styles.text}>Lawyer By Day,amateur photographer by night. Help Elliot fight</Text>   
-            <Text style={styles.text}>Photo by Me</Text>  
-            {/* <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo-text-gray.png')} /> */}        
+            <View style={styles.textcontainer}>
+            <Text style={styles.text}>   Lawyer By Day, very amateur astrophotographer    </Text>   
+            <Text style={styles.text}>    by night. All Photo by Me. Help Elliot fight                   </Text> 
+            <TouchableOpacity onPress={() => Linking.openURL('http://google.com')}>
+            <Text style={styles.text1}> Picastro link </Text> 
+               
+            </TouchableOpacity>
+            
+            </View>
+              
             <AwardIcon />
+            {/* <View style={styles.headerContainer}> */}
             <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
                 <Text style={styles.loginText}>Edit Profile</Text> 
             </TouchableOpacity>
+            {/* </View> */}
             <ScrollView style={{
                     backgroundColor: "black",
                     borderColor:"blue", 
@@ -324,26 +334,54 @@ const styles = StyleSheet.create({
         backgroundColor: "#2F2F2F",
         borderColor:"green", 
         borderWidth: 0,
-        
+    },
+    headerContainer: {
+        backgroundColor: 'black',
+        display: "flex",
+        top: 0,
+        width: '100%',
+        height: 60,
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        // gap: 10,
+    },
+    textcontainer: {
+        marginTop:"5%",
+        marginBottom:"5%",
     },
     text: {
         fontSize: 15,
         fontWeight: '500',
+        justifyContent: 'center',
         color: 'white',
         textAlign: 'center'
+        
+    },
+    text1: {
+        fontSize: 14,
+        marginTop: 10,
+        justifyContent: 'center',
+        color: 'grey',
+        left: 30,
+        
     },
     image: {
         position: "relative",
-        marginBottom: "10%",
+        width: 155,
+        height:45,
+        marginBottom: "5%",
+        
     },
     loginBtn: {
-        width: "80%",
+        width: "30%",
         borderRadius: 25,
         height: "7%",
-        minHeight: 50,
+        // minHeight: 50,
         alignItems: "center",
         justifyContent: "center",
-        position: "relative",
+        // position: "relative",
         marginTop: "10%",
         marginBottom: "3%",
         backgroundColor: "#FFC700",

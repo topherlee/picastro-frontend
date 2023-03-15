@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PicastroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PicastroTests.m */; };
 		09430B942681C9CEE7793091 /* libPods-Picastro-PicastroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8334480FC9018B9E869FC42 /* libPods-Picastro-PicastroTests.a */; };
+		0F4327E129BA3C5900B51087 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F4327E029BA3C5900B51087 /* MaterialCommunityIcons.ttf */; };
 		0FC1761F29A391C60050CE89 /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0FC1761929A3916C0050CE89 /* Inter-Black.ttf */; };
 		0FC1762029A391C80050CE89 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0FC1761829A3916C0050CE89 /* Inter-Bold.ttf */; };
 		0FC1762129A391CB0050CE89 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0FC1761B29A3916C0050CE89 /* Inter-ExtraBold.ttf */; };
@@ -40,6 +41,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* PicastroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PicastroTests.m; sourceTree = "<group>"; };
 		05C7956F8BC334BDA950C1E2 /* libPods-Picastro.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Picastro.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F4327E029BA3C5900B51087 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		0FC1761629A3916C0050CE89 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
 		0FC1761729A3916C0050CE89 /* Inter-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLight.ttf"; sourceTree = "<group>"; };
 		0FC1761829A3916C0050CE89 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				0FC1761629A3916C0050CE89 /* Inter-Regular.ttf */,
 				0FC1761C29A3916D0050CE89 /* Inter-SemiBold.ttf */,
 				0FC1761D29A3916D0050CE89 /* Inter-Thin.ttf */,
+				0F4327E029BA3C5900B51087 /* MaterialCommunityIcons.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				0FC1762029A391C80050CE89 /* Inter-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0FC1762629A391D40050CE89 /* Inter-SemiBold.ttf in Resources */,
+				0F4327E129BA3C5900B51087 /* MaterialCommunityIcons.ttf in Resources */,
 				0FC1762329A391CF0050CE89 /* Inter-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

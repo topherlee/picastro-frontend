@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Button,
@@ -7,20 +7,29 @@ import {
     Text,
     Alert,
     Image,
-  } from 'react-native';
+} from 'react-native';
 
 import TelescopeButtonSvg from '../../../assets/buttons/telescope-button.svg';
 
 
-const TelescopeButton = () => (
-    <View style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        top: 0
+const TelescopeButton = () => {
+
+    const [modalVisible, setModalVisible] = useState(true);
+
+    return (
+        <View style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            top: 0
         }}>
-        <TelescopeButtonSvg width={40} height={40} /> 
-    </View>
-);
+            <TelescopeButtonSvg
+                width={40}
+                height={40}
+                
+            />
+        </View>
+    );
+};
 
 
 export default TelescopeButton;

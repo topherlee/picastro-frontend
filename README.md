@@ -48,7 +48,7 @@ How do I test the code to ensure the build is correct?
  Who's working on this application?
  * Christopher Lee
  * Steffen Atlas
- * Jay Gajjar
  * Mohtalifa A Ema
  * Damilola Agboola
+ * Jay Gajjar
  * Sayed Ishayat Uddin
