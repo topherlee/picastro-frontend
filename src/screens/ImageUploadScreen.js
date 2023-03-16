@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,11 +13,68 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
+import { launchImageLibrary } from "react-native-image-picker";
 
+var photo;
 
 const ImageUploadScreen = ({ navigation }) => {
-  const { setIsSignedIn } = useContext(AuthContext);
-     
+  const { setIsSignedIn, domain, token } = useContext(AuthContext);
+
+  const pickImage = () => {
+    launchImageLibrary(mediaType="photo", (response) => {
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+    
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+      
+        photo=response.assets[0];   
+        console.log('Response = ', photo);
+      }
+    });
+  }
+
+  const uploadImage = () => {
+    var formData = new FormData();
+    formData.append("image", {
+      'uri': photo.uri, 
+      'name': photo.fileName, 
+      'type':photo.type
+    })
+    formData.append("astroName", "test")
+    formData.append("astroNameShort", "test")
+    formData.append("award", "bronze")
+    formData.append("exposureTime", "3h")
+    formData.append("moonPhase", "50%")
+    formData.append("cloudCoverage", "10%")
+    formData.append("bortle", "5")
+    formData.append("starCamp", "Aberdeen")
+    formData.append("imageDescription", "lorem ipsum dolor sit amet")
+    formData.append("poster", "3")
+    console.log(formData)
+    fetch(`${domain}/posts/`, {
+      method: 'POST',
+      headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'multipart/form-data'
+      },
+      body: formData
+    }).then(res => {return res.json()})
+    .then((result) => {
+      console.log(result)
+    }).catch (err => {
+        console.log(err);
+        //setData(existingData);
+    })
+  }
+
 
   return (
     
@@ -30,7 +87,11 @@ const ImageUploadScreen = ({ navigation }) => {
             <Text style={styles.text}> Press the + sign at </Text>
             <Text style={styles.text}> the bottom of the form . </Text>   
       </View>
+      <View>
+        <Button title="Upload Image" onPress={pickImage}>
 
+        </Button>
+      </View>
       <ScrollView style={{
         backgroundColor: "black",
         borderColor:"blue", 
@@ -105,7 +166,7 @@ const ImageUploadScreen = ({ navigation }) => {
         
       </View>
       
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('UserScreen') }}>
+      <TouchableOpacity style={styles.loginBtn} onPress= {uploadImage}>
         <Text style={styles.loginText}>Save</Text> 
       </TouchableOpacity>
       </ScrollView>
@@ -182,7 +243,7 @@ loginBtn: {
   backgroundColor: "#FFC700",
 },
 title: {
-  color: "FFC700",
+  color: "#FFC700",
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
