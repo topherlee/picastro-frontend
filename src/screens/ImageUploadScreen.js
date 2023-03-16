@@ -11,17 +11,24 @@ import {
   Alert,
   ScrollView,
   KeyboardAvoidingView,
+  Dimensions,
+  SafeAreaView
 } from "react-native";
+import { useHeaderHeight } from '@react-navigation/elements';
 import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
+import { AutoscaleImage } from "../components/atoms";
 
-var photo;
+// var photo;
+var imgHeight;
 
 const ImageUploadScreen = ({ navigation }) => {
   const { setIsSignedIn, domain, token } = useContext(AuthContext);
+  const [photo, setPhoto] = useState(null);
 
   const pickImage = () => {
-    launchImageLibrary(mediaType="photo", (response) => {
+
+    launchImageLibrary({mediaType:"photo", presentationStyle: "popover", includeExtra: true}, (response) => {
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -35,8 +42,9 @@ const ImageUploadScreen = ({ navigation }) => {
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
       
-        photo=response.assets[0];   
-        console.log('Response = ', photo);
+        // photo=response.assets[0];   
+        setPhoto(response.assets[0])
+        // console.log('Response = ', response);
       }
     });
   }
@@ -59,6 +67,7 @@ const ImageUploadScreen = ({ navigation }) => {
     formData.append("imageDescription", "lorem ipsum dolor sit amet")
     formData.append("poster", "3")
     console.log(formData)
+
     fetch(`${domain}/posts/`, {
       method: 'POST',
       headers: {
@@ -66,120 +75,119 @@ const ImageUploadScreen = ({ navigation }) => {
           'Content-Type': 'multipart/form-data'
       },
       body: formData
-    }).then(res => {return res.json()})
-    .then((result) => {
+    }).then(res => {
+      return res.json()
+    }).then((result) => {
       console.log(result)
     }).catch (err => {
         console.log(err);
-        //setData(existingData);
     })
   }
 
+  function renderChosenImage() {
+    if (photo) {
+      console.log(photo)
+      //return <AutoscaleImage uri={photo.uri} width={Dimensions.get('window').width}/>
+      return <Image source={{ uri: photo.uri }} style={{width: Dimensions.get('window').width, height: photo.height*Dimensions.get('window').width/photo.height, marginTop: "2%"}} />
+    } else {
+      return null
+    }
+  }
 
+  const headerHeight = useHeaderHeight()
   return (
-    
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
-      <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
-      
-      <View style={styles.textcontainer}>
-            <Text style={styles.title}>Upload Image</Text>   
-            <Text style={styles.text}>To add a new setup  </Text>  
-            <Text style={styles.text}> Press the + sign at </Text>
-            <Text style={styles.text}> the bottom of the form . </Text>   
-      </View>
-      <View>
-        <Button title="Upload Image" onPress={pickImage}>
-
-        </Button>
-      </View>
-      <ScrollView style={{
-        backgroundColor: "black",
-        borderColor:"blue", 
-        borderWidth: 0,
-        width: "80%",      
-        
-      }}
-      >            
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Main Telescope Name"
-          placeholderTextColor="black"
-          
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Main Mount Name "
-          placeholderTextColor="black"
-          
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Guide Camera Name"
-          placeholderTextColor="black"
-         
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Off Axis Guide Camera"
-          placeholderTextColor="black"
-          
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Filter Wheel Name"
-          placeholderTextColor="black"
-          
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Filters"
-          placeholderTextColor="black"
-          
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Barlow lense"
-          placeholderTextColor="black"
-         
-        /> 
-        
-      </View>
-      <View style={styles.inputView}>
-      <TextInput
-          style={styles.TextInput}
-          placeholder="Other Equipment Here"
-          placeholderTextColor="black"
-        /> 
-        
-      </View>
-      
-      <TouchableOpacity style={styles.loginBtn} onPress= {uploadImage}>
-        <Text style={styles.loginText}>Save</Text> 
-      </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={{paddingVertical: "3%",}}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+            <View style={styles.textcontainer}>
+              <Text style={styles.title}>Upload Image</Text>
+              {renderChosenImage()}
+              <TouchableOpacity style={styles.loginBtn} onPress={pickImage}>
+                <Text style={styles.loginText}>Choose an image</Text> 
+              </TouchableOpacity>
+            </View>
+                        
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Main Telescope Name"
+                placeholderTextColor="black"
+                
+              /> 
+            </View> 
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Main Mount Name "
+                placeholderTextColor="black"
+                
+              /> 
+            </View> 
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Guide Camera Name"
+                placeholderTextColor="black"
+              
+              /> 
+            </View> 
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Off Axis Guide Camera"
+                placeholderTextColor="black"
+                
+              /> 
+            </View> 
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Filter Wheel Name"
+                placeholderTextColor="black"
+                
+              /> 
+            </View> 
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Filters"
+                placeholderTextColor="black"
+                
+              /> 
+            </View> 
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Barlow lense"
+                placeholderTextColor="black"
+              
+              /> 
+              
+            </View>
+            <View style={styles.inputView}>
+            <TextInput
+                style={styles.TextInput}
+                placeholder="Other Equipment Here"
+                placeholderTextColor="black"
+              /> 
+              
+            </View>
+            
+            <TouchableOpacity style={styles.loginBtn} onPress= {uploadImage}>
+              <Text style={styles.loginText}>Save</Text> 
+            </TouchableOpacity>
+        </KeyboardAvoidingView>
       </ScrollView>
-      
-    </KeyboardAvoidingView> 
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({container: {
   flex: 1,
   backgroundColor: "black",
-  alignItems: "center",
-  justifyContent: "center",
+  borderWidth: 0,
+  borderColor: "yellow"
 },
 image: {
   position: "relative",
@@ -187,7 +195,6 @@ image: {
   height:45,
   marginBottom: "5%",
 },
-
 inputView: {
   backgroundColor: "white",
   borderRadius: 10,
@@ -201,10 +208,10 @@ inputView: {
 },
 textcontainer:{
   // marginTop:"5%",
+  display: "flex",
   marginBottom:"5%",
   alignItems: "center",
   justifyContent: "center",
-  position: "relative",
 },
 
 TextInput: {
@@ -248,7 +255,6 @@ title: {
   fontSize: 20,
   position: "relative",
   marginBottom: "5%",
-  top: "10%"
   
 },
 loginText: {
