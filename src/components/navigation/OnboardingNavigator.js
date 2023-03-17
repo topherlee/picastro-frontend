@@ -1,8 +1,8 @@
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet, } from 'react-native'
 import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './DrawerNavigator';
-import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen } from '../../screens/SigninScreen';
+import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, LogoutScreen} from '../../screens/SigninScreen';
 import { AuthContext } from '../../context/AuthContext';
 
 const Stack = createStackNavigator();
@@ -14,12 +14,14 @@ const OnboardingNavigator = () => {
           {/* if isSignedIn, then use the drawer navigator, otherwise render the login screen */}
           {isSignedIn ? (
             <Stack.Screen name="MainStack" component={DrawerNavigator} />
+          
           ) : (
             <Stack.Group>
               <Stack.Screen name="Login" component={LoginScreen}  />
               <Stack.Screen name="SignUp" component={SignUpScreen}  /> 
               <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}  /> 
               <Stack.Screen name="UserName" component={UserNameScreen} />
+              <Stack.Screen name="Logout"   component={LogoutScreen} /> 
               
             </Stack.Group>
           )}
