@@ -182,7 +182,7 @@ loginBtn: {
   backgroundColor: "#FFC700",
 },
 title: {
-  color: "yellow",
+  color: "FFC700",
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",

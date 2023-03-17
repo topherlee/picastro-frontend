@@ -12,7 +12,8 @@ import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
 import UserScreen from "../../screens/UserScreen"
 import EditProfile from "../../screens/EditProfile";
 import YourMainSetup from "../../screens/YourMainSetup";
-import Coin from "../../screens/Coin";
+import ImageUploadScreen from "../../screens/ImageUploadScreen";
+
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
@@ -54,9 +55,18 @@ const SortByStackNavigator = () => {
   )
 }
 
+const ImageUploadStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={PicastroLogoHeader}>
+      <Stack.Screen name="ImageUpload" component={ImageUploadScreen} />
+    </Stack.Navigator>
+  )
+}
+
 export { 
   MainStackNavigator,
   ProfileStackNavigator,
   SortByStackNavigator,
-  NotificationsStackNavigator
+  NotificationsStackNavigator,
+  ImageUploadStackNavigator
 };

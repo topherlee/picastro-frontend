@@ -11,7 +11,7 @@ import {
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
-import CometButtonGreySvg from '../../../assets/buttons/comet_button_grey.svg';
+import CometButtonGreySvg from '../../../assets/buttons/comet_button_yellow.svg';
 
 
 const CometButtonGrey = () => {
@@ -19,15 +19,7 @@ const CometButtonGrey = () => {
     const [modalVisible, setModalVisible] = useState(true);
 
     return (
-        <View style={{
-            width: 100,
-            height: 107,
-            borderColor: 'white',
-            borderWidth: 0,
-            alignItems: 'center',
-            gap: 5,
-            top: 30
-        }}>
+        <View style={SortByModalButtonStyling.iconContainer}>
             <CometButtonGreySvg
                 width={53}
                 height={53}

@@ -40,13 +40,14 @@ const HeaderUserName = ({style},props) => {
             //setData(existingData);
         })
     }, [])
+
     return(
         <View style={style}>
             <Text style={styles.textUserName}>
                 {data.username}
             </Text>
             <Text style={styles.textGenderIdentifier}>
-                {data.first_name} {data.last_name}
+                {data.first_name} {data.last_name} 
             </Text>
         </View>
     )

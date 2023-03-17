@@ -146,7 +146,7 @@ export default function SignUpScreen( { navigation } ) {
           placeholderTextColor="black"
           secureTextEntry={securePassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-          onSubmitEditing={() => handleLogin()}
+          onSubmitEditing={() => handleRegister()}
         /> 
         <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
