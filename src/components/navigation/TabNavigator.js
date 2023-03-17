@@ -24,6 +24,7 @@ const screenOptionStyle = {
     headerShown: false,
     tabBarStyle: {
         backgroundColor: "black",
+        paddingTop: 10
     },
     tabBarActiveTintColor: "red",
     tabBarInactiveTintColor: "white",
