@@ -68,10 +68,10 @@ export default function LoginScreen( { navigation } ) {
       <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
-          textContentType="username"
-          autoCompleteType="username"
+          textContentType={'username'}
           placeholder="Username"
           placeholderTextColor="black"
+          autoCapitalize={'none'}
           autoCorrect={false}
           clearButtonMode="while-editing"
           returnKeyType="next"
@@ -82,8 +82,9 @@ export default function LoginScreen( { navigation } ) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          textContentType="password"
-          autoCompleteType="password"
+          textContentType={'password'}
+          autoCapitalize={'none'}
+          autoCorrect={false}
           placeholder="Password"
           placeholderTextColor="black"
           secureTextEntry={securePassword}

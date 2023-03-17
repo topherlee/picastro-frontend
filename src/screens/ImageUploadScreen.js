@@ -14,7 +14,7 @@ import {
   Dimensions,
   SafeAreaView
 } from "react-native";
-import { useHeaderHeight } from '@react-navigation/elements';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
 import { AutoscaleImage } from "../components/atoms";
@@ -25,6 +25,7 @@ var imgHeight;
 const ImageUploadScreen = ({ navigation }) => {
   const { setIsSignedIn, domain, token } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
+  const [rerender, setRerender] = useState(false);
 
   const pickImage = () => {
 
@@ -84,17 +85,6 @@ const ImageUploadScreen = ({ navigation }) => {
     })
   }
 
-  function renderChosenImage() {
-    if (photo) {
-      console.log(photo)
-      //return <AutoscaleImage uri={photo.uri} width={Dimensions.get('window').width}/>
-      return <Image source={{ uri: photo.uri }} style={{width: Dimensions.get('window').width, height: photo.height*Dimensions.get('window').width/photo.height, marginTop: "2%"}} />
-    } else {
-      return null
-    }
-  }
-
-  const headerHeight = useHeaderHeight()
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{paddingVertical: "3%",}}>
@@ -102,10 +92,21 @@ const ImageUploadScreen = ({ navigation }) => {
         >
             <View style={styles.textcontainer}>
               <Text style={styles.title}>Upload Image</Text>
-              {renderChosenImage()}
-              <TouchableOpacity style={styles.loginBtn} onPress={pickImage}>
-                <Text style={styles.loginText}>Choose an image</Text> 
+              <TouchableOpacity onPress={pickImage}>
+                {photo? 
+                  <AutoscaleImage key={photo.uri} uri={photo.uri} width={Dimensions.get('window').width}/> 
+                  : 
+                  <Icon name="file-image-plus" size={100} color={'#FFC700'}/>
+                  // <Image source={'../assets/Sample/sampleuserbig.png'} />
+                }
               </TouchableOpacity>
+              {photo?
+              <TouchableOpacity style={styles.loginBtn} onPress={pickImage}>
+                <Text style={styles.loginText}>Choose an image</Text>
+              </TouchableOpacity>
+              :
+              null
+              }
             </View>
                         
             <View style={styles.inputView}>
@@ -245,7 +246,7 @@ loginBtn: {
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-  // marginTop: "10%",
+  marginTop: "5%",
   marginBottom: "5%",
   backgroundColor: "#FFC700",
 },
