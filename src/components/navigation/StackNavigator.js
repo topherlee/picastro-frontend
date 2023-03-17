@@ -6,13 +6,13 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen";
 import SortByScreen from "../../screens/SortByScreen";
-import Coin from "../../screens/LogoutScreen";
+import {LogoutScreen } from "../../screens/SigninScreen";
 import { LoginScreen } from "../../screens/SigninScreen";
 import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
 import UserScreen from "../../screens/UserScreen"
 import EditProfile from "../../screens/EditProfile";
 import YourMainSetup from "../../screens/YourMainSetup";
-
+import Coin from "../../screens/Coin";
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
