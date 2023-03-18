@@ -33,7 +33,7 @@ export default function LogoutScreen( { navigation } )
     
     console.log("REFRESHTOKEN",token.refresh);
     var body = JSON.stringify({
-      'refresh':`${token.refresh}`
+      'refresh_token':`${token.refresh}`
     })
 
     fetch(`${domain}/api/auth/logout/`, {
