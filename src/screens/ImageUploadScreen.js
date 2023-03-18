@@ -23,7 +23,7 @@ import jwtDecode from "jwt-decode";
 var userID;
 
 const ImageUploadScreen = ({ navigation }) => {
-  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken } = useContext(AuthContext);
+  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken, fetchInstance } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
   const [astroNameShort, setAstroNameShort] = useState('');
@@ -37,7 +37,7 @@ const ImageUploadScreen = ({ navigation }) => {
   useEffect(() => {
     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
 
-    userID = jwtDecode(token.access).user_id;
+    userID = jwtDecode(token?.access).user_id;
   }, [token])
 
   const uploadedHandler = () => {
@@ -67,39 +67,62 @@ const ImageUploadScreen = ({ navigation }) => {
     });
   }
 
-  const uploadImage = () => {
-    var formData = new FormData();
-    formData.append("image", {
-      'uri': photo.uri,
-      'name': photo.fileName,
-      'type': photo.type
-    })
-    formData.append("imageDescription", imageDescription)
-    formData.append("astroNameShort", astroNameShort)
-    formData.append("astroName", astroName)
-    formData.append("exposureTime", exposureTime)
-    formData.append("moonPhase", moonPhase)
-    formData.append("cloudCoverage", cloudCoverage)
-    formData.append("bortle", bortle)
-    formData.append("starCamp", "Aberdeen")
-    formData.append("award", "none")
-    formData.append("poster", userID)
+  const uploadImage = async () => {
+    try {
+      var formData = new FormData();
+      formData.append("image", {
+        'uri': photo.uri,
+        'name': photo.fileName,
+        'type': photo.type
+      })
+      formData.append("imageDescription", imageDescription)
+      formData.append("astroNameShort", astroNameShort)
+      formData.append("astroName", astroName)
+      formData.append("exposureTime", exposureTime)
+      formData.append("moonPhase", moonPhase)
+      formData.append("cloudCoverage", cloudCoverage)
+      formData.append("bortle", bortle)
+      formData.append("starCamp", "Aberdeen")
+      formData.append("award", "none")
+      // formData.append("astroName", "test")
+      // formData.append("astroNameShort", "test")
+      // formData.append("award", "bronze")
+      // formData.append("exposureTime", "3h")
+      // formData.append("moonPhase", "50%")
+      // formData.append("cloudCoverage", "10%")
+      // formData.append("bortle", "5")
+      // formData.append("starCamp", "Aberdeen")
+      // formData.append("imageDescription", "lorem ipsum dolor sit amet")
+      formData.append("poster", userID)
 
-    fetch(`${domain}/posts/`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${token.access}`,
-        'Content-Type': 'multipart/form-data'
-      },
-      body: formData
-    }).then(res => {
-      return res.json()
-    }).then((result) => {
-      console.log('UPLOAD SUCCESSFUL', result)
-      uploadedHandler();
-    }).catch(err => {
-      console.log(err);
-    })
+      // fetch(`${domain}/posts/`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Authorization': `Token ${token.access}`,
+      //     'Content-Type': 'multipart/form-data'
+      //   },
+      //   body: formData
+      // }).then(res => {
+      //   return res.json()
+      // }).then((result) => {
+      //   console.log('UPLOAD SUCCESSFUL', result)
+      //   uploadedHandler();
+      // }).catch(err => {
+      //   console.log(err);
+      // })
+
+      var {response,data} = await fetchInstance('/posts/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          body: formData
+        })
+
+      console.log('UPLOAD RESULT', data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

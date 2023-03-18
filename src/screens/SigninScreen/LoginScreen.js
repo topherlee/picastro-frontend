@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import * as Keychain from 'react-native-keychain';
 import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -26,14 +27,14 @@ export default function LoginScreen( { navigation } ) {
     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
   }, [])
 
-  function handleLogin(){
+    async function handleLogin(){
 
     var body = JSON.stringify({
       'username': username,
       'password': password
     })
     
-    fetch(`${domain}/api/auth/login/`, {
+    await fetch(`${domain}/api/auth/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,8 +50,9 @@ export default function LoginScreen( { navigation } ) {
             throw res.json();
           }
         })
-        .then(json => {
+        .then(async json => {
           console.log('JSON',json);
+          await Keychain.setGenericPassword('token',JSON.stringify(json))
           setToken(json);
           setIsSignedIn(true);
         })
