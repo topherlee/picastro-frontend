@@ -23,7 +23,7 @@ import { AutoscaleImage } from "../components/atoms";
 var imgHeight;
 
 const ImageUploadScreen = ({ navigation }) => {
-  const { setIsSignedIn, domain, token } = useContext(AuthContext);
+  const { setIsSignedIn, domain, token, refreshAccessToken } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [rerender, setRerender] = useState(false);
 

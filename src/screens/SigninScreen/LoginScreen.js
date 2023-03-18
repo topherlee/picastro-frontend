@@ -32,7 +32,7 @@ export default function LoginScreen( { navigation } ) {
       'password': password
     })
     
-    fetch(`${domain}/api/token/both/`, {
+    fetch(`${domain}/api/auth/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
