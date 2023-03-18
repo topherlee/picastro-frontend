@@ -43,7 +43,7 @@ const BottomTabNavigator = () => {
                 ),
             }}
         />
-        <Tab.Screen 
+        {/* <Tab.Screen 
             name="ProfileTab" 
             component={ProfileStackNavigator} 
             options={{
@@ -52,7 +52,7 @@ const BottomTabNavigator = () => {
                     <StarCampsButton />
                 ),
             }}
-        />
+        /> */}
         <Tab.Screen 
             name="ImageUploadTab" 
             component={ImageUploadStackNavigator} 
@@ -63,7 +63,7 @@ const BottomTabNavigator = () => {
                 ),
             }}
         />
-        <Tab.Screen 
+        {/* <Tab.Screen 
             name="NotificationsTab" 
             component={NotificationsStackNavigator} 
             options={{
@@ -72,7 +72,7 @@ const BottomTabNavigator = () => {
                     <NotificationsButton />
                 ),
             }}
-        />
+        /> */}
         <Tab.Screen 
             name="SortByTab" 
             component={SortByStackNavigator} 

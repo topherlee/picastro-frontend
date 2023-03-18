@@ -45,7 +45,7 @@ const UserNameImageBurgerHeader = () => {
     return (
         <View style={styles.headerContainer}>
             <View style={styles.userImage}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
                     <UserImage />
                 </TouchableOpacity>
             </View>

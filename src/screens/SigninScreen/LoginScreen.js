@@ -69,7 +69,7 @@ export default function LoginScreen( { navigation } ) {
           style={styles.TextInput} 
           textContentType={'username'}
           placeholder="Username"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoCapitalize={'none'}
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -85,9 +85,10 @@ export default function LoginScreen( { navigation } ) {
           autoCapitalize={'none'}
           autoCorrect={false}
           placeholder="Password"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
+          onSubmitEditing={handleLogin}
           onBlur={() => setError(false)}
         /> 
       </View> 

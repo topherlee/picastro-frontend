@@ -80,7 +80,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="First Name"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoComplete="off"
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -92,7 +92,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Last Name"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoComplete="off"
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -104,7 +104,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Username"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           secureTextEntry={false}
           autoComplete="off"
           autoCorrect={false}
@@ -118,7 +118,7 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           inputMode="email"
           placeholder="Email"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoComplete="off"
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -130,7 +130,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Password"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           returnKeyType="next"
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
@@ -143,7 +143,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Confirm Password"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           secureTextEntry={securePassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
           onSubmitEditing={() => handleRegister()}

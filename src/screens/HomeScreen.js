@@ -42,13 +42,11 @@ const HomeScreen = ({ navigation }) => {
         }).catch (err => {
             console.log(err, "Failed to get data from API.");
         })
-    }, [])
+    }, [data])
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
-                <UserNameImageBurgerHeader />
-            </TouchableOpacity>
+            <UserNameImageBurgerHeader />
             <ScrollView style={{
                 backgroundColor: "black",
                 borderColor: "blue",

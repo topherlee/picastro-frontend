@@ -30,7 +30,7 @@ export default function ForgotPasswordScreen( { navigation } ) {
           style={styles.TextInput} 
           inputMode="email"
           placeholder="Enter your email Address"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 

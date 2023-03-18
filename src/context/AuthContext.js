@@ -7,7 +7,15 @@ export const AuthProvider = ({children, contextValue}) => {
     const [domain, setDomain] = useState('http://127.0.0.1:8000');
     const [token, setToken] = useState(null);
     const [refreshToken, setRefreshToken] = useState(null);
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState({
+        "id": null,
+        "username": null,
+        "first_name": null,
+        "last_name": null,
+        "email": null,
+        "last_login": null,
+        "date_joined": null
+    });
     const [loading, setLoading] = useState(false);
 
     async function refreshAllTokens() {
@@ -55,7 +63,7 @@ export const AuthProvider = ({children, contextValue}) => {
             if (token) {
                 refreshAllTokens();
             }
-        }, 24000);
+        }, 240000);
         return () => clearInterval(interval)
     }, [refreshToken, loading])
 

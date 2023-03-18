@@ -24,41 +24,25 @@ var imgHeight;
 
 const ImageUploadScreen = ({ navigation }) => {
   const [user, setUser] = useState([]);
-  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken } = useContext(AuthContext);
+  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken, currentUser } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
-  const [rerender, setRerender] = useState(false);
-  const [
-    imageDescription, setImageDescription,
-    astroNameShort, setAstroNameShort,
-    astroName, setAstroName,
-    exposureTime, setExposureTime,
-    moonPhase, setMoonPhase,
-    cloudCoverage, setCloudCoverage,
-    bortle, setBortle,
-  ] = useState('');
+  const [imageDescription, setImageDescription] = useState('');
+  const [astroNameShort, setAstroNameShort] = useState('');
+  const [astroName, setAstroName] = useState('');
+  const [exposureTime, setExposureTime] = useState('');
+  const [moonPhase, setMoonPhase] = useState('');
+  const [cloudCoverage, setCloudCoverage] = useState('');
+  const [bortle, setBortle] = useState('');
+  
 
   useEffect(() => {
     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
     //console.log(`Token ${token}`)
-
-    fetch(`${domain}/api/current_user/`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Token ${token}`,
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => {return res.json()})
-    .then((result) => {
-        //console.log("INCOMINGDATA",result.username)
-        setCurrentUser(result);
-        setUser(result);
-    }).catch (err => {
-        console.log(err);
-        //setData(existingData);
-    })
   }, [])
 
+  const uploadedHandler = () => {
+    Alert.alert("Upload Successful","Your image has been uploaded.",)
+  }
 
   const pickImage = () => {
 
@@ -98,8 +82,8 @@ const ImageUploadScreen = ({ navigation }) => {
     formData.append("cloudCoverage", cloudCoverage)
     formData.append("bortle", bortle)
     formData.append("starCamp", "Aberdeen")
-    formData.append("poster", "3")
-    console.log(formData)
+    formData.append("award", "none")
+    formData.append("poster", currentUser.id)
 
     fetch(`${domain}/posts/`, {
       method: 'POST',
@@ -111,7 +95,8 @@ const ImageUploadScreen = ({ navigation }) => {
     }).then(res => {
       return res.json()
     }).then((result) => {
-      console.log(result)
+      console.log('UPLOAD SUCCESSFUL', result)
+      uploadedHandler();
     }).catch(err => {
       console.log(err);
     })
@@ -129,7 +114,6 @@ const ImageUploadScreen = ({ navigation }) => {
                 <AutoscaleImage key={photo.uri} uri={photo.uri} width={Dimensions.get('window').width} />
                 :
                 <Icon name="file-image-plus" size={100} color={'#FFC700'} />
-                // <Image source={'../assets/Sample/sampleuserbig.png'} />
               }
             </TouchableOpacity>
             {photo ?
@@ -144,7 +128,7 @@ const ImageUploadScreen = ({ navigation }) => {
             <TextInput
               style={styles.TextInput}
               placeholder="Image Description"
-              placeholderTextColor="black"
+              placeholderTextColor="grey"
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
             />
@@ -152,8 +136,8 @@ const ImageUploadScreen = ({ navigation }) => {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Astro Name Short (e.g. 'M17')"
-              placeholderTextColor="black"
+              placeholder="Messier Object Number (e.g. 'M17')"
+              placeholderTextColor="grey"
               onChangeText={newAstroNameShort => setAstroNameShort(newAstroNameShort)}
               defaultValue={astroNameShort}
             />
@@ -161,8 +145,8 @@ const ImageUploadScreen = ({ navigation }) => {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Astro Name Long"
-              placeholderTextColor="black"
+              placeholder="Object Common Name (e.g. 'Rosette Nebula')"
+              placeholderTextColor="grey"
               onChangeText={newAstroName => setAstroName(newAstroName)}
               defaultValue={astroName}
             />
@@ -171,7 +155,7 @@ const ImageUploadScreen = ({ navigation }) => {
             <TextInput
               style={styles.TextInput}
               placeholder="Exposure Time"
-              placeholderTextColor="black"
+              placeholderTextColor="grey"
               onChangeText={newExposureTime => setExposureTime(newExposureTime)}
               defaultValue={exposureTime}
             />
@@ -180,7 +164,7 @@ const ImageUploadScreen = ({ navigation }) => {
             <TextInput
               style={styles.TextInput}
               placeholder="Moon Phase"
-              placeholderTextColor="black"
+              placeholderTextColor="grey"
               onChangeText={newMoonPhase => setMoonPhase(newMoonPhase)}
               defaultValue={moonPhase}
             />
@@ -189,7 +173,7 @@ const ImageUploadScreen = ({ navigation }) => {
             <TextInput
               style={styles.TextInput}
               placeholder="Cloud Coverage"
-              placeholderTextColor="black"
+              placeholderTextColor="grey"
               onChangeText={newCloudCoverage => setCloudCoverage(newCloudCoverage)}
               defaultValue={cloudCoverage}
             />
@@ -197,78 +181,12 @@ const ImageUploadScreen = ({ navigation }) => {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="BORTLE"
-              placeholderTextColor="black"
+              placeholder="Bortle Scale"
+              placeholderTextColor="grey"
               onChangeText={newBortle => setBortle(newBortle)}
               defaultValue={bortle}
             />
           </View>
-          {/* <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Main Telescope Name"
-              placeholderTextColor="black"
-              
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Main Mount Name "
-              placeholderTextColor="black"
-
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Guide Camera Name"
-              placeholderTextColor="black"
-
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Off Axis Guide Camera"
-              placeholderTextColor="black"
-
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Filter Wheel Name"
-              placeholderTextColor="black"
-
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Filters"
-              placeholderTextColor="black"
-
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Barlow lense"
-              placeholderTextColor="black"
-
-            />
-
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Other Equipment Here"
-              placeholderTextColor="black"
-            />
-
-          </View> */}
-
           <TouchableOpacity style={styles.loginBtn} onPress={uploadImage}>
             <Text style={styles.loginText}>Save</Text>
           </TouchableOpacity>

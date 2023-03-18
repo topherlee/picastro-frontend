@@ -18,7 +18,7 @@ import localCurrentUser from '../../../assets/data/currentUser';
 
 const HeaderUserName = ({style},props) => {
     const [data, setData] = useState([]);
-    const {domain, setDomain, token} = useContext(AuthContext);
+    const {domain, setDomain, token, setCurrentUser, currentUser} = useContext(AuthContext);
 
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
@@ -34,7 +34,7 @@ const HeaderUserName = ({style},props) => {
         .then(res => {return res.json()})
         .then((result) => {
             //console.log("INCOMINGDATA",result.username)
-            setData(result);
+            setCurrentUser(result);
         }).catch (err => {
             console.log(err);
             //setData(existingData);
@@ -44,10 +44,10 @@ const HeaderUserName = ({style},props) => {
     return(
         <View style={style}>
             <Text style={styles.textUserName}>
-                {data.username}
+                {currentUser.username}
             </Text>
             <Text style={styles.textGenderIdentifier}>
-                {data.first_name} {data.last_name} 
+                {currentUser.first_name} {currentUser.last_name} 
             </Text>
         </View>
     )
