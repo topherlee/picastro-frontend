@@ -18,7 +18,7 @@ import { UserNameImageBurgerHeader } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
-
+import jwtDecode from 'jwt-decode';
 
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
@@ -27,11 +27,11 @@ const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log(`Token ${token}`)
-
+        console.log('AccessToken',jwtDecode(token.access))
         fetch(`${domain}/api/feed/home/`, {
             method: 'GET',
             headers: {
-                'Authorization': `Token ${token}`,
+                'Authorization': `Token ${token.access}`,
                 'Content-Type': 'application/json'
             }
         })

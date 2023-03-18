@@ -6,7 +6,6 @@ export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [domain, setDomain] = useState('http://127.0.0.1:8000');
     const [token, setToken] = useState(null);
-    const [refreshToken, setRefreshToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         "id": null,
         "username": null,
@@ -19,14 +18,14 @@ export const AuthProvider = ({children, contextValue}) => {
     const [loading, setLoading] = useState(false);
 
     async function refreshAllTokens() {
-        console.log('UPDATING TOKENS', refreshToken)
+        console.log('UPDATING TOKENS', token.refresh)
 
         var response = await fetch(`${domain}/api/auth/login/refresh/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({'refresh':refreshToken})
+            body: JSON.stringify({'refresh':token.refresh})
         })
         
         var newTokens = await response.json();
@@ -35,12 +34,10 @@ export const AuthProvider = ({children, contextValue}) => {
 
         if (response.ok) {
             console.log('REFRESH OK', newTokens)
-            setToken(newTokens.access);
-            setRefreshToken(newTokens.refresh);
+            setToken(newTokens);
         }else {
             console.log('REFRESH TOKEN EXPIRED')
             setToken('');
-            setRefreshToken('');
             setIsSignedIn(false);
         }
     }
@@ -54,8 +51,6 @@ export const AuthProvider = ({children, contextValue}) => {
         setToken,
         currentUser,
         setCurrentUser,
-        refreshToken,
-        setRefreshToken
     }
 
     useEffect(() => {
@@ -65,7 +60,7 @@ export const AuthProvider = ({children, contextValue}) => {
             }
         }, 240000);
         return () => clearInterval(interval)
-    }, [refreshToken, loading])
+    }, [token, loading])
 
     return (
         <AuthContext.Provider value={globalContext}>{children}</AuthContext.Provider>

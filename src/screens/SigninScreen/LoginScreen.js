@@ -13,9 +13,10 @@ import {
   Platform,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function LoginScreen( { navigation } ) {
-  const { setIsSignedIn, domain, setDomain, setToken, setRefreshToken} = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -50,8 +51,7 @@ export default function LoginScreen( { navigation } ) {
         })
         .then(json => {
           console.log('JSON',json);
-          setToken(json.access);
-          setRefreshToken(json.refresh);
+          setToken(json);
           setIsSignedIn(true);
         })
         .catch(error => { 
@@ -91,6 +91,9 @@ export default function LoginScreen( { navigation } ) {
           onSubmitEditing={handleLogin}
           onBlur={() => setError(false)}
         /> 
+        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
+        </TouchableOpacity>
       </View> 
       <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
@@ -126,6 +129,8 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
   },
   TextInput: {
     height: 50,
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     textAlign: "center",
-    
+    color: "black",
   },
   bottomText: {
     flexDirection:'row',

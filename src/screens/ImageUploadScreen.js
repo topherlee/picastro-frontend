@@ -18,13 +18,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
 import { AutoscaleImage } from "../components/atoms";
+import jwtDecode from "jwt-decode";
 
-// var photo;
-var imgHeight;
+var userID;
 
 const ImageUploadScreen = ({ navigation }) => {
-  const [user, setUser] = useState([]);
-  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken, currentUser } = useContext(AuthContext);
+  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
   const [astroNameShort, setAstroNameShort] = useState('');
@@ -37,8 +36,9 @@ const ImageUploadScreen = ({ navigation }) => {
 
   useEffect(() => {
     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-    //console.log(`Token ${token}`)
-  }, [])
+
+    userID = jwtDecode(token.access).user_id;
+  }, [token])
 
   const uploadedHandler = () => {
     Alert.alert("Upload Successful","Your image has been uploaded.",)
@@ -83,12 +83,12 @@ const ImageUploadScreen = ({ navigation }) => {
     formData.append("bortle", bortle)
     formData.append("starCamp", "Aberdeen")
     formData.append("award", "none")
-    formData.append("poster", currentUser.id)
+    formData.append("poster", userID)
 
     fetch(`${domain}/posts/`, {
       method: 'POST',
       headers: {
-        'Authorization': `Token ${token}`,
+        'Authorization': `Token ${token.access}`,
         'Content-Type': 'multipart/form-data'
       },
       body: formData

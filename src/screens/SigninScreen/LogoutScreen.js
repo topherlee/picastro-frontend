@@ -17,7 +17,7 @@ export default function LogoutScreen( { navigation } )
 {
   
   
-  const { setIsSignedIn, domain, setDomain, setToken, token, refreshToken} = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn, domain, setDomain, setToken, token} = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -31,16 +31,16 @@ export default function LogoutScreen( { navigation } )
 
   function handleLogout(){
     
-    console.log("REFRESHTOKEN",refreshToken);
+    console.log("REFRESHTOKEN",token.refresh);
     var body = JSON.stringify({
-      'refresh':`${refreshToken}`
+      'refresh':`${token.refresh}`
     })
 
     fetch(`${domain}/api/auth/logout/`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
+          'Authorization': `Token ${token.access}`
       },
       body: body
   })
@@ -55,8 +55,7 @@ export default function LogoutScreen( { navigation } )
   })
   .then(json => {
     console.log('JSON',json);
-    setToken(json.access);
-    setRefreshToken(json.refresh);
+    setToken(json);
     setIsSignedIn(false);
   })
   .catch(e => {

@@ -27,7 +27,7 @@ const HeaderUserName = ({style},props) => {
         fetch(`${domain}/api/current_user/`, {
             method: 'GET',
             headers: {
-                'Authorization': `Token ${token}`,
+                'Authorization': `Token ${token.access}`,
                 'Content-Type': 'application/json'
             }
         })

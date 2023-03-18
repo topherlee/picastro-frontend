@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BurgerButton, UserImage, HeaderUserName } from '../../atoms';
+import { UserImage, HeaderUserName } from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
@@ -52,7 +53,7 @@ const UserNameImageBurgerHeader = () => {
         <HeaderUserName style={styles.textContainer} />
         <View>
             <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-                <BurgerButton />
+                <Icon name={"menu"} size={40} color="lightgray" style={{paddingRight: 10}} />
             </TouchableOpacity>
         </View>
     </View>
