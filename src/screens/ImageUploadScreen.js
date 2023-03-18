@@ -106,6 +106,11 @@ const ImageUploadScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingVertical: "3%", }}>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          borderWidth: 0,
+          borderColor:"yellow" }}
         >
           <View style={styles.textcontainer}>
             <Text style={styles.title}>Upload Image</Text>
@@ -117,8 +122,8 @@ const ImageUploadScreen = ({ navigation }) => {
               }
             </TouchableOpacity>
             {photo ?
-              <TouchableOpacity style={styles.loginBtn} onPress={pickImage}>
-                <Text style={styles.loginText}>Choose an image</Text>
+              <TouchableOpacity style={styles.loginBtn2} onPress={pickImage}>
+                <Text style={styles.loginText}>Pick another image</Text>
               </TouchableOpacity>
               :
               null
@@ -212,7 +217,7 @@ const styles = StyleSheet.create({
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,
-    width: "100%",
+    width: "80%",
     height: 40,
     marginBottom: 10,
     // alignItems: "center",
@@ -252,15 +257,27 @@ const styles = StyleSheet.create({
     color: "#FFC700",
   },
   loginBtn: {
-    width: "100%",
+    width: "80%",
     borderRadius: 25,
-    height: "7%",
+    height: "4%",
     minHeight: 50,
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
     marginTop: "5%",
     marginBottom: "5%",
+    backgroundColor: "#FFC700",
+  },
+  loginBtn2: {
+    width: "100%",
+    borderRadius: 25,
+    height: "4%",
+    minHeight: 50,
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "5%",
+    marginBottom: "5%",
+    paddingHorizontal: '10%',
     backgroundColor: "#FFC700",
   },
   title: {
