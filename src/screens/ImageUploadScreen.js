@@ -75,6 +75,9 @@ const ImageUploadScreen = ({ navigation }) => {
         'name': photo.fileName,
         'type': photo.type
       })
+      
+      formData.append("poster", userID)
+      
       formData.append("imageDescription", imageDescription)
       formData.append("astroNameShort", astroNameShort)
       formData.append("astroName", astroName)
@@ -93,7 +96,6 @@ const ImageUploadScreen = ({ navigation }) => {
       // formData.append("bortle", "5")
       // formData.append("starCamp", "Aberdeen")
       // formData.append("imageDescription", "lorem ipsum dolor sit amet")
-      formData.append("poster", userID)
 
       // fetch(`${domain}/posts/`, {
       //   method: 'POST',

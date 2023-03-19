@@ -22,18 +22,36 @@ export const AuthProvider = ({children, contextValue}) => {
     });
     const [loading, setLoading] = useState(false);
 
+    //gets access and refresh token from keychain in JSON object format
+    async function getSavedTokens() {
+        console.log('GETTING SAVED TOKENS')
+        var credentials = await Keychain.getGenericPassword();
+        if (credentials) {
+            credentials = JSON.parse(credentials.password);
+            return credentials;
+        } else {
+            console.log('saved credentials null')
+            return null;
+        }
+    }
+    
+    //save tokens in keychain
+    //tokenPair: a JSON object containing access and refresh tokens
+    async function setSavedTokens(tokenPair) {
+        console.log('SAVING NEW TOKENS', tokenPair)
+        await Keychain.setGenericPassword('token', JSON.stringify(tokenPair));
+    }
+
     async function refreshAllTokens() {
         try {
-            var credentials = await Keychain.getGenericPassword();
-            console.log('UPDATING TOKENS', token.refresh)
-            console.log('CREDS', JSON.parse(credentials.password))
+            var credentials = await getSavedTokens();
 
             var response = await fetch(`${domain}/api/auth/login/refresh/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({'refresh':token.refresh})
+                body: JSON.stringify({'refresh':credentials?.refresh})
             })
             
             newToken = await response.json();
@@ -41,14 +59,13 @@ export const AuthProvider = ({children, contextValue}) => {
 
             if (response.ok) {
                 console.log('REFRESH OK', newToken)
-                await Keychain.setGenericPassword('token', JSON.stringify(newToken))
+                setSavedTokens(newToken)
                 setToken(newToken);
                 return newToken;
             }else {
                 console.log('REFRESH TOKEN EXPIRED')
                 setToken(null);
                 setIsSignedIn(false);
-                return null
             }
         } catch (err) {
             console.log('REFRESH TOKEN ERROR', err)
@@ -57,36 +74,40 @@ export const AuthProvider = ({children, contextValue}) => {
     }
 
     let originalRequest = async (url, config) => {
-        url = `${domain}${url}`
-        var response = await fetch(url, config)
-        var data = await response.json()
-        return {response, data}
+        try{
+            url = `${domain}${url}`
+            var response = await fetch(url, config)
+            var data = await response.json()
+            return {response, data}
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     let fetchInstance = async (url, config={}) => {
         try {
-            var credentials = await Keychain.getGenericPassword();
-            credentials = JSON.parse(credentials.password)
+            var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access)
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
             if (isExpired) {
-                console.log('REFERSHING EXPIRED TOKEN')
-                newToken = await refreshAllTokens();
-                setToken(newToken)
-                await Keychain.setGenericPassword('token', JSON.stringify(newToken))
+                console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE')
+                credentials = await refreshAllTokens();
+                setToken(credentials)
+            } else {
+                console.log('TOKEN VALID')
             }
 
             //proceed with request
 
             config['headers'] = {
-                Authorization: `Token ${newToken?.access}`
+                Authorization: `Token ${credentials?.access}`
             }
 
             var {response, data} = await originalRequest(url, config)
             return {response, data}
         } catch (err) {
-            console.log('FETCH ERROR')
+            console.log('FETCH ERROR', err)
         }
     }
 
@@ -99,7 +120,9 @@ export const AuthProvider = ({children, contextValue}) => {
         setToken,
         currentUser,
         setCurrentUser,
-        fetchInstance
+        fetchInstance, 
+        getSavedTokens, 
+        setSavedTokens
     }
 
      useEffect(() => {
