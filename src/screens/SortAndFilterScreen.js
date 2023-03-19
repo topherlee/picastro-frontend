@@ -26,7 +26,7 @@ import {
 } from '../components/atoms';
 
 
-const SortByScreen = ({ navigation }) => {
+const SortAndFilterScreen = ({ navigation }) => {
 
     const localFeedData = require('../assets/data/feed.json');
     const [modalVisible, setModalVisible] = useState(true);
@@ -170,4 +170,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default SortByScreen;
+export default SortAndFilterScreen;
