@@ -19,6 +19,8 @@ import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
 import { AutoscaleImage } from "../components/atoms";
 import jwtDecode from "jwt-decode";
+import { SelectList } from "react-native-dropdown-select-list";
+
 
 var userID;
 
@@ -26,12 +28,21 @@ const ImageUploadScreen = ({ navigation }) => {
   const { setIsSignedIn, domain, token, setDomain, refreshAccessToken, fetchInstance } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
+  const [selected, setSelected] = useState('')
+  const [imageCategory, setImageCategory] = useState('');
   const [astroNameShort, setAstroNameShort] = useState('');
   const [astroName, setAstroName] = useState('');
   const [exposureTime, setExposureTime] = useState('');
   const [moonPhase, setMoonPhase] = useState('');
   const [cloudCoverage, setCloudCoverage] = useState('');
   const [bortle, setBortle] = useState('');
+
+  const category = [
+    {key:'nebula', value:'Nebula'},
+    {key:'asterism', value:'Asterism'},
+    {key: 'other', value: 'Other'},
+  ];
+
   
 
   useEffect(() => {
@@ -76,6 +87,7 @@ const ImageUploadScreen = ({ navigation }) => {
         'type': photo.type
       })
       formData.append("imageDescription", imageDescription)
+      formData.append("imageCategory", imageCategory)
       formData.append("astroNameShort", astroNameShort)
       formData.append("astroName", astroName)
       formData.append("exposureTime", exposureTime)
@@ -159,6 +171,15 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <SelectList
+              style={[styles.TextInput, styles.DropdownSelectList]}
+              placeholder="Object Category"
+              data={category}
+              setSelected={setSelected}
+              dropdownStyles={styles.DropdownSelectListBox}
             />
           </View>
           <View style={styles.inputView}>
@@ -255,7 +276,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
   TextInput: {
     height: 50,
     width: "100%",
@@ -264,6 +284,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
 
+  },
+  DropdownSelectList: {
+    zIndex: 400,
+  },
+  DropdownSelectListBox: {
+    zIndex: 400,
+    backgroundColor: 'red'
   },
   bottomText: {
     flexDirection: 'row',
