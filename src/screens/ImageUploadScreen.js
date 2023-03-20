@@ -238,7 +238,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={bortle}
             />
           </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={uploadImage}>
+          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(() => {uploadedHandler()})}>
             <Text style={styles.loginText}>Save</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
