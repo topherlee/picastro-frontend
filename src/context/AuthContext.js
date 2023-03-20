@@ -9,7 +9,8 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000/' : 'http://10.0.2.2:8000/');
+    //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000/');
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         "id": null,
@@ -59,13 +60,14 @@ export const AuthProvider = ({children, contextValue}) => {
 
             if (response.ok) {
                 console.log('REFRESH OK', newToken)
-                setSavedTokens(newToken)
+                await setSavedTokens(newToken)
                 setToken(newToken);
                 return newToken;
             }else {
                 console.log('REFRESH TOKEN EXPIRED')
                 setToken(null);
                 setIsSignedIn(false);
+                return Promise.reject(new Error('Token expired please login again'))
             }
         } catch (err) {
             console.log('REFRESH TOKEN ERROR', err)
