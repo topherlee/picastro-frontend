@@ -10,7 +10,7 @@ import {
     StyleSheet,
 } from 'react-native';
 
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
 import { DualColumnMasonryList } from '../components/templates';
 import {
@@ -25,15 +25,51 @@ import {
     SolarButtonGrey
 } from '../components/atoms';
 
+import { AuthContext, currentUser } from '../context/AuthContext';
+import MasonryList from 'reanimated-masonry-list';
+import { HalfWidthPostsContainer } from '../components/organisms';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import localCurrentUser from '../assets/data/currentUser';
+
 
 const SortAndFilterScreen = ({ navigation }) => {
-
-    const localFeedData = require('../assets/data/feed.json');
+    const [data, setData] = useState([]);
+    const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
     const [modalVisible, setModalVisible] = useState(true);
+    const [urlAttachement, setUrlAttachement] = useState("");
+
+
+    useEffect(() => {
+        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+        //console.log('AccessToken',jwtDecode(token.access))
+
+        async function loadSortAndFilterScreen() {
+            var {response,data} = await fetchInstance('/api/feed/?imageCategory=asterism', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token.access}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            setData(data);
+        }
+
+        loadSortAndFilterScreen().catch(err => {console.log(err)})
+        // .then(res => {return res.json()})
+        // .then((result) => {
+        //     //console.log("INCOMINGDATA",token,result)
+        //     setData(result);
+        // }).catch (err => {
+        //     console.log(err, "Failed to get data from API.");
+        // })
+    }, [])
+
+
 
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
+            <Text>Test</Text>
             <View>
                 <Modal
                     animationType="slide"
@@ -53,7 +89,11 @@ const SortAndFilterScreen = ({ navigation }) => {
                             </Pressable>
                             <Pressable
                                 style={[styles.button, styles.buttonUnselected]}
-                                onPress={() => setModalVisible(!modalVisible)}>
+                                onPress={() => {
+                                    setModalVisible(!modalVisible)
+                                    setUrlAttachement('?ordering=pub_date')
+                                }
+                            }>
                                 <Text style={styles.buttonText}>Most recent</Text>
                             </Pressable>
                             <Pressable
@@ -70,7 +110,12 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 horizontal={true}
                             >
                                 <IssTransitButtonGrey
-                                    styles={styles.iconContainer} />
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setModalVisible(!modalVisible)
+                                        setUrlAttachement('?imageCategory=iss_transit')
+                                    }}
+                                />
                                 <LunarButtonGrey
                                     styles={styles.iconContainer} />
                                 <SolarButtonGrey
@@ -78,15 +123,64 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 <PlanetButtonGrey />
                                 <CometButtonGrey />
                                 <GalaxyButtonGrey />
-                                <AsterismsButtonGrey />
-                                <NebulaButtonGrey />
+                                <AsterismsButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setModalVisible(!modalVisible)
+                                        setUrlAttachement('?imageCategory=asterism')
+                                    }}
+                                />
+                                <NebulaButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setModalVisible(!modalVisible);
+                                        setUrlAttachement('?imageCategory=nebula');
+                                        SortAndFilterScreen();
+                                    }}
+                                />
                                 <ClustersButtonGrey />
                             </ScrollView>
                         </View>
                     </View>
                 </Modal>
             </View>
-            
+            <ScrollView style={{
+                backgroundColor: "black",
+                borderColor: "blue",
+                borderWidth: 0,
+            }}
+                contentContainerStyle={{
+                    display: "flex",
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: "center",
+                    alignContent: 'center'
+                }}>
+                {data.length > 0 ? 
+                    <MasonryList
+                        data={data}
+                        keyExtractor={item => item.id}
+                        numColumns={2}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+                        contentContainerStyle={{
+                            borderColor: "red",
+                            borderWidth: 0,
+                            paddingTop: "3%",
+                            paddingLeft: "4%"
+                        }}
+                        style={{
+                            flex: 1,
+                            maxWidth: "96%",
+                            columnGap: 10,
+                            borderColor: "yellow",
+                            borderWidth: 0,
+                        }}
+                    />
+                : 
+                    <Text style={{color:'white'}}>Nothing to display here</Text>
+                }
+            </ScrollView>
         </SafeAreaView>
     )
 };
