@@ -182,6 +182,7 @@ const ImageUploadScreen = ({ navigation }) => {
               data={category}
               setSelected={setSelected}
               dropdownStyles={styles.DropdownSelectListBox}
+              zIndex={400}
             />
           </View>
           <View style={styles.inputView}>
@@ -291,7 +292,7 @@ const styles = StyleSheet.create({
     zIndex: 400,
   },
   DropdownSelectListBox: {
-    zIndex: 400,
+    zIndex: 500,
     backgroundColor: 'red'
   },
   bottomText: {

@@ -23,9 +23,17 @@ import { AuthContext } from '../context/AuthContext';
 
 const UserScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
-    const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl
+    } = useContext(AuthContext);
     const [modalVisible, setModalVisible] = useState(true);
-    const [urlAttachement, setUrlAttachement] = useState("");
+    
 
     //setUrlAttachement('?poster=' + currentUser.id);
 
@@ -33,8 +41,10 @@ const UserScreen = ({ navigation }) => {
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
-
-        const urlForApiCall = '/api/feed/?poster=4';
+        console.log(currentUser);
+        
+        const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+        console.log("urlForApiCall", urlForApiCall);
 
         async function loadSortAndFilterScreen() {
             var {response,data} = await fetchInstance(urlForApiCall, {
@@ -63,7 +73,7 @@ const UserScreen = ({ navigation }) => {
            
             <ExtendedPicastroBurgerHeader />
             <Image style={styles.image1} source={require('../assets/Sample/sampleuserwithicon.png')} />
-            
+            <Text style={styles.text}>test2 {currentUser.username}</Text>
             <AwardIcon />
             <View style={styles.textcontainer}>
             <Text style={styles.text}>   Lawyer By Day, very amateur astrophotographer    </Text>   

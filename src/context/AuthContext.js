@@ -21,6 +21,8 @@ export const AuthProvider = ({children, contextValue}) => {
         "date_joined": null
     });
     const [loading, setLoading] = useState(false);
+    const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
+
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -122,7 +124,9 @@ export const AuthProvider = ({children, contextValue}) => {
         setCurrentUser,
         fetchInstance, 
         getSavedTokens, 
-        setSavedTokens
+        setSavedTokens,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl
     }
 
      useEffect(() => {

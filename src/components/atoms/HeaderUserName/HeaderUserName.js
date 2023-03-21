@@ -11,8 +11,7 @@ import {
     View,
     Platform
 } from 'react-native';
-import { AuthContext } from '../../../context/AuthContext';
-import localCurrentUser from '../../../assets/data/currentUser';
+import { AuthContext, setCurrentUser, currentUser } from '../../../context/AuthContext';
 
 //console.log(localCurrentUser);
 

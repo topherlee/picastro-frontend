@@ -21,14 +21,14 @@ import MasonryList from 'reanimated-masonry-list';
 
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
-    const {domain, setDomain, token, fetchInstance} = useContext(AuthContext);
+    const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
     
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
 
         async function loadHomescreen() {
-            var {response,data} = await fetchInstance('/api/feed/home/', {
+            var {response,data} = await fetchInstance('/api/feed/', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${token.access}`,
@@ -62,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
                     flexDirection: 'row',
                     justifyContent: "center",
                     alignContent: 'center'
-                }}>
+                }}>  
                 {data.length > 0 ? 
                     <MasonryList
                         data={data}
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: '500',
         color: 'red',
-        textAlign: 'center'
+        textAlign: 'center',
+        zIndex: 500
     },
     image: {
         width: "100%",

@@ -34,7 +34,15 @@ import localCurrentUser from '../assets/data/currentUser';
 
 const SortAndFilterScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
-    const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl
+    } = useContext(AuthContext);
     const [modalVisible, setModalVisible] = useState(true);
     const [urlAttachement, setUrlAttachement] = useState("");
 
@@ -43,8 +51,11 @@ const SortAndFilterScreen = ({ navigation }) => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
 
+        const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+        console.log("urlForApiCall", urlForApiCall);
+
         async function loadSortAndFilterScreen() {
-            var {response,data} = await fetchInstance('/api/feed/?imageCategory=asterism', {
+            var {response,data} = await fetchInstance(urlForApiCall, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${token.access}`,
@@ -69,7 +80,6 @@ const SortAndFilterScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <Text>Test</Text>
             <View>
                 <Modal
                     animationType="slide"
@@ -126,8 +136,8 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 <AsterismsButtonGrey
                                     styles={styles.iconContainer}
                                     onPress={() => {
-                                        setModalVisible(!modalVisible)
-                                        setUrlAttachement('?imageCategory=asterism')
+                                        setModalVisible(false);
+                                        setSearchAndFilterUrl('?imageCategory=asterism');
                                     }}
                                 />
                                 <NebulaButtonGrey
