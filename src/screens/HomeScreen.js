@@ -10,6 +10,7 @@ import {
     Text,
     useColorScheme,
     TouchableOpacity,
+    RefreshControl,
     View,
     Platform
 } from 'react-native';
@@ -22,23 +23,24 @@ import MasonryList from 'reanimated-masonry-list';
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
     const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
-    
+    const [refreshing, setRefreshing] = useState(true);
+
+    async function loadHomescreen() {
+        var {response,data} = await fetchInstance('/api/feed/home/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token.access}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        setData(data);
+    }
+
     useEffect(() => {
         Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
 
-        async function loadHomescreen() {
-            var {response,data} = await fetchInstance('/api/feed/', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Token ${token.access}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            setData(data);
-        }
-
-        loadHomescreen().catch(err => {console.log(err)})
+        loadHomescreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})
         // .then(res => {return res.json()})
         // .then((result) => {
         //     //console.log("INCOMINGDATA",token,result)
@@ -51,18 +53,24 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <ScrollView style={{
-                backgroundColor: "black",
-                borderColor: "blue",
-                borderWidth: 0,
-            }}
+            <ScrollView 
+                refreshControl={
+                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={() => {loadHomescreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})}} />
+                }
+                style={{
+                    backgroundColor: "black",
+                    borderColor: "blue",
+                    borderWidth: 0,
+                }}
                 contentContainerStyle={{
                     display: "flex",
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: "center",
                     alignContent: 'center'
-                }}>  
+                }}
+                showsVerticalScrollIndicator={false}
+            >
                 {data.length > 0 ? 
                     <MasonryList
                         data={data}
