@@ -98,7 +98,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                         <View style={styles.modalView}>
                             <Pressable
                                 style={ 
-                                    (setActiveSelector == 'randomizer') ? [styles.button, styles.buttonSelected] : 
+                                    (activeSelector == 'randomizer') ? [styles.button, styles.buttonSelected] : 
                                     [styles.button, styles.buttonUnselected] }
                                 onPress={() => {
                                     setSortModalVisible(!isSortModalVisible);
@@ -111,7 +111,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                             </Pressable>
                             <Pressable
                                 style={ 
-                                    (setActiveSelector == 'most_recent') ? [styles.button, styles.buttonSelected] : 
+                                    (activeSelector == 'most_recent') ? [styles.button, styles.buttonSelected] : 
                                     [styles.button, styles.buttonUnselected] }
                                 onPress={() => {
                                     setSortModalVisible(!isSortModalVisible);
@@ -124,7 +124,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                             </Pressable>
                             <Pressable
                                 style={ 
-                                    (setActiveSelector == 'object_type') ? [styles.button, styles.buttonSelected] : 
+                                    (activeSelector == 'object_type') ? [styles.button, styles.buttonSelected] : 
                                     [styles.button, styles.buttonUnselected] }
                                 onPress={() => {
                                     setActiveSelector('object_type');
