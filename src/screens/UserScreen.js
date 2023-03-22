@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     awardcontainer:{
-        marginTop: '5%%',
+        marginTop: '5%',
         flexDirection: 'row',
         marginLeft: '5%',
         marginRight:'5%',
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     },
     awardcount:{
         color: '#FFF',
-        marginTop:5,
+        marginTop: 5,
         marginRight:'5%',
     },
 
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
         marginBottom:"5%",
     },
     profiledesc: {
-        textAlignments: 'left',
+        //textAlignments: 'left',
         fontSize: 15,
         fontWeight: 500,
         color: 'white',
