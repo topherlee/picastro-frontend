@@ -53,7 +53,7 @@ export default function SignUpScreen( { navigation } ) {
           })
           .then(json => {
             console.log('REGISTRATION SUCCESS',json);
-            setToken(json.token.access);
+            setToken(json.token);
             setIsSignedIn(true);
             //navigation.navigate('UserName')
           })

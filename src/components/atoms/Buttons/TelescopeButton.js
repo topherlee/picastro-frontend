@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     StyleSheet,
     Button,
@@ -7,26 +7,45 @@ import {
     Text,
     Alert,
     Image,
+    TouchableOpacity,
 } from 'react-native';
+import { AuthContext } from '../../../context/AuthContext';
+
 
 import TelescopeButtonSvg from '../../../assets/buttons/telescope-button.svg';
 
 
 const TelescopeButton = () => {
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible
+    } = useContext(AuthContext);
 
-    const [modalVisible, setModalVisible] = useState(true);
-
+    
     return (
         <View style={{
             alignItems: 'center',
             justifyContent: 'center',
             top: 0
         }}>
-            <TelescopeButtonSvg
-                width={40}
-                height={40}
-                
-            />
+            <TouchableOpacity
+                onPress={() => {
+                    setSortModalVisible(!isSortModalVisible);
+                }}
+            >
+                <TelescopeButtonSvg
+                    width={40}
+                    height={40}
+
+                />
+            </TouchableOpacity>
         </View>
     );
 };

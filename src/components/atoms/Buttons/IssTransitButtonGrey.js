@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     StyleSheet,
     Button,
@@ -9,6 +9,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+import { AuthContext } from '../../../context/AuthContext';
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
@@ -17,31 +18,51 @@ import IssTransitButtonYellowSvg from '../../../assets/buttons/iss_transit_butto
 
 const IssTransitButtonGrey = () => {
     const [filterValue, setFilterValue] = React.useState(false);
-    const [modalVisible, setModalVisible] = useState(true);
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible,
+        activeSelector,
+        setActiveSelector,
+        activeObjectSelector,
+        setActiveObjectSelector
+    } = useContext(AuthContext);
 
     return (
         <TouchableOpacity
             style={SortByModalButtonStyling.iconContainer}
-            onPress={ () => {setFilterValue(!filterValue)}}
+            onPress={ () => {
+                setActiveObjectSelector('iss_transit');
+                setSearchAndFilterUrl('?imageCategory=iss_transit');
+                console.log("searchAndFilterUrl iss", searchAndFilterUrl);
+                setSortModalVisible(!isSortModalVisible);
+                //loadSortAndFilterScreen()
+            }}
             title="Filter Value"
         >
-            {filterValue ? 
-                <IssTransitButtonGreySvg
+            {(activeObjectSelector == 'iss_transit') ? 
+                <IssTransitButtonYellowSvg
                     style={SortByModalButtonStyling.sortByModalSvg} /> 
-                : <IssTransitButtonYellowSvg
+                : <IssTransitButtonGreySvg
                 width={53}
                 height={53}
                 />
             }
-            {filterValue ? 
+            {(activeObjectSelector == 'iss_transit') ? 
                 <Text style={[
                     SortByModalButtonStyling.SortByModalText,
-                    SortByModalButtonStyling.SortByModalTextGrey ]} >
+                    SortByModalButtonStyling.SortByModalTextYellow ]} >
                     ISS Transit
                 </Text>
                 : <Text style={[
                     SortByModalButtonStyling.SortByModalText,
-                    SortByModalButtonStyling.SortByModalTextYellow ]} >
+                    SortByModalButtonStyling.SortByModalTextGrey ]} >
                     ISS Transit
                 </Text>
             }

@@ -18,14 +18,12 @@ const screenOptionStyle = {
   headerLeft: false,
   headerRight: () => <DrawerToggleButton />,
   drawerStyle: {
-    backgroundColor:  '#ffffe0',
+    backgroundColor:  '#0d0d0d',
     width: '90%'
   },
+  drawerLabelStyle: {color:'white'},
   drawerType: "front",
-  
 };
-
-
 
 const DrawerNavigator = ({navigation}) => {
   return (

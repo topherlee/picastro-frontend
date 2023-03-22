@@ -9,7 +9,8 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000/' : 'http://10.0.2.2:8000/');
+    //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000/');
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         "id": null,
@@ -20,7 +21,7 @@ export const AuthProvider = ({children, contextValue}) => {
         "last_login": null,
         "date_joined": null
     });
-    const [loading, setLoading] = useState(false);
+    
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -59,13 +60,14 @@ export const AuthProvider = ({children, contextValue}) => {
 
             if (response.ok) {
                 console.log('REFRESH OK', newToken)
-                setSavedTokens(newToken)
+                await setSavedTokens(newToken)
                 setToken(newToken);
                 return newToken;
             }else {
                 console.log('REFRESH TOKEN EXPIRED')
                 setToken(null);
                 setIsSignedIn(false);
+                return Promise.reject(new Error('Token expired please login again'))
             }
         } catch (err) {
             console.log('REFRESH TOKEN ERROR', err)
@@ -111,6 +113,15 @@ export const AuthProvider = ({children, contextValue}) => {
         }
     }
 
+    //put those in separate context file, since it's not AuthContext,
+    //but more related to Screens
+    const [loading, setLoading] = useState(false);
+    const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
+    const [isSortModalVisible, setSortModalVisible] = useState(true);
+    const [activeSelector, setActiveSelector] = useState("");
+    const [activeObjectSelector, setActiveObjectSelector] = useState("");
+
+
     const globalContext = {
         domain,
         setDomain,
@@ -122,7 +133,15 @@ export const AuthProvider = ({children, contextValue}) => {
         setCurrentUser,
         fetchInstance, 
         getSavedTokens, 
-        setSavedTokens
+        setSavedTokens,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible,
+        activeSelector,
+        setActiveSelector,
+        activeObjectSelector,
+        setActiveObjectSelector
     }
 
      useEffect(() => {

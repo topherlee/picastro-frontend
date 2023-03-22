@@ -182,6 +182,7 @@ const ImageUploadScreen = ({ navigation }) => {
               data={category}
               setSelected={setSelected}
               dropdownStyles={styles.DropdownSelectListBox}
+              zIndex={400}
             />
           </View>
           <View style={styles.inputView}>
@@ -238,7 +239,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={bortle}
             />
           </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={uploadImage}>
+          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(() => {uploadedHandler()})}>
             <Text style={styles.loginText}>Save</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -291,7 +292,7 @@ const styles = StyleSheet.create({
     zIndex: 400,
   },
   DropdownSelectListBox: {
-    zIndex: 400,
+    zIndex: 500,
     backgroundColor: 'red'
   },
   bottomText: {

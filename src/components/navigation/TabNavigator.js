@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { AuthContext } from '../../context/AuthContext';
 
-import { 
+import {
     MainStackNavigator,
     ProfileStackNavigator,
     SortFilterStackNavigator,
@@ -11,16 +12,17 @@ import {
 
 import { Image, Text, View } from 'react-native';
 
-import {    HomeButton,
-            StarCampsButton,
-            TelescopeButton,
-            NotificationsButton,
-            ImageUploadButton
+import {
+    HomeButton,
+    StarCampsButton,
+    TelescopeButton,
+    NotificationsButton,
+    ImageUploadButton
 } from "../atoms";
 
 const Tab = createBottomTabNavigator();
 
-const screenOptionStyle = { 
+const screenOptionStyle = {
     headerShown: false,
     tabBarStyle: {
         backgroundColor: "black",
@@ -31,19 +33,25 @@ const screenOptionStyle = {
 }
 
 const BottomTabNavigator = () => {
-  return (
-    <Tab.Navigator screenOptions={screenOptionStyle}>
-        <Tab.Screen 
-            name="HomeTab" 
-            component={MainStackNavigator} 
-            options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                    <HomeButton />
-                ),
-            }}
-        />
-        {/* <Tab.Screen 
+    const {
+        isSortModalVisible,
+        setSortModalVisible
+    } = useContext(AuthContext);
+
+
+    return (
+        <Tab.Navigator screenOptions={screenOptionStyle}>
+            <Tab.Screen
+                name="HomeTab"
+                component={MainStackNavigator}
+                options={{
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ focused }) => (
+                        <HomeButton />
+                    ),
+                }}
+            />
+            {/* <Tab.Screen 
             name="ProfileTab" 
             component={ProfileStackNavigator} 
             options={{
@@ -53,17 +61,17 @@ const BottomTabNavigator = () => {
                 ),
             }}
         /> */}
-        <Tab.Screen 
-            name="ImageUploadTab" 
-            component={ImageUploadStackNavigator} 
-            options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                    <ImageUploadButton />
-                ),
-            }}
-        />
-        {/* <Tab.Screen 
+            <Tab.Screen
+                name="ImageUploadTab"
+                component={ImageUploadStackNavigator}
+                options={{
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ focused }) => (
+                        <ImageUploadButton />
+                    ),
+                }}
+            />
+            {/* <Tab.Screen 
             name="NotificationsTab" 
             component={NotificationsStackNavigator} 
             options={{
@@ -73,18 +81,19 @@ const BottomTabNavigator = () => {
                 ),
             }}
         /> */}
-        <Tab.Screen 
-            name="SortAndFilterTab" 
-            component={SortFilterStackNavigator} 
-            options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                    <TelescopeButton />
-                ),
-            }}
-        />
-    </Tab.Navigator>
-  );
+            <Tab.Screen
+                name="SortAndFilterTab"
+                component={SortFilterStackNavigator}
+                options={{
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TelescopeButton
+                            onPress={() => setSortModalVisible(true)} />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
+    );
 };
 
 export default BottomTabNavigator;

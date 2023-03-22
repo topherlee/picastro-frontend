@@ -18,7 +18,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
-    // const {domain, setDomain, token, currentUser, setCurrentUser} = useContext(AuthContext);
+    const {
+        domain,
+        setDomain,
+        token,
+        currentUser,
+        setCurrentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl
+    } = useContext(AuthContext);
     
     // useEffect(() => {
     //     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
@@ -46,18 +54,31 @@ const UserNameImageBurgerHeader = () => {
     return (
         <View style={styles.headerContainer}>
             <View style={styles.userImage}>
-                <TouchableOpacity onPress={function () { navigation.navigate('UserScreen') }}>
+                <TouchableOpacity 
+                    style={styles.userImage}
+                    onPress={function () {
+                        setSearchAndFilterUrl('?poster=' + currentUser.id);
+                        navigation.navigate('UserScreen');
+                     }}
+                >
                     <UserImage />
                 </TouchableOpacity>
             </View>
-        <HeaderUserName style={styles.textContainer} />
-        <View>
-            <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-                <Icon name={"menu"} size={40} color="lightgray" style={{paddingRight: 10}} />
-            </TouchableOpacity>
+            <HeaderUserName 
+                style={styles.textContainer}
+                onPress={function () {
+                    setSearchAndFilterUrl(currentUser.id);
+                    navigation.navigate('UserScreen');
+                    console.log(searchAndFilterUrl);
+                }}
+            />
+            <View>
+                <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
+                    <Icon name={"menu"} size={40} color="lightgray" />
+                </TouchableOpacity>
+            </View>
         </View>
-    </View>
-  )
+    )
 }
 
 const styles = StyleSheet.create({
@@ -71,6 +92,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        paddingHorizontal: 15
     },
     textContainer: {
         alignContent: 'flex-start',
@@ -93,7 +115,7 @@ const styles = StyleSheet.create({
     },
     userImage: {
         height: 40,
-        paddingLeft: 20,
+        paddingLeft: 0,
         //flex: 1,
     },
     BurgerButton: {
