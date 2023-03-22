@@ -47,6 +47,7 @@ export default function LoginScreen( { navigation } ) {
             return res.json();
           } else {
             setError(true)
+            console.log('error')
             throw res.json();
           }
         })
@@ -58,6 +59,7 @@ export default function LoginScreen( { navigation } ) {
         })
         .catch(error => { 
           console.log("error",error.data);
+          setError(true)
         })
     
   }
