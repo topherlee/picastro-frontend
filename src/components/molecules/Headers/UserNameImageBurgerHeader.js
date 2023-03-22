@@ -64,21 +64,21 @@ const UserNameImageBurgerHeader = () => {
                     <UserImage />
                 </TouchableOpacity>
             </View>
-        <HeaderUserName 
-            style={styles.textContainer}
-            onPress={function () {
-                setSearchAndFilterUrl(currentUser.id);
-                navigation.navigate('UserScreen');
-                console.log(searchAndFilterUrl);
-             }}
-        />
-        <View>
-            <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-                <Icon name={"menu"} size={40} color="lightgray" style={{paddingRight: 10}} />
-            </TouchableOpacity>
+            <HeaderUserName 
+                style={styles.textContainer}
+                onPress={function () {
+                    setSearchAndFilterUrl(currentUser.id);
+                    navigation.navigate('UserScreen');
+                    console.log(searchAndFilterUrl);
+                }}
+            />
+            <View>
+                <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
+                    <Icon name={"menu"} size={40} color="lightgray" />
+                </TouchableOpacity>
+            </View>
         </View>
-    </View>
-  )
+    )
 }
 
 const styles = StyleSheet.create({
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        paddingHorizontal: 15
     },
     textContainer: {
         alignContent: 'flex-start',
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     },
     userImage: {
         height: 40,
-        paddingLeft: 20,
+        paddingLeft: 0,
         //flex: 1,
     },
     BurgerButton: {

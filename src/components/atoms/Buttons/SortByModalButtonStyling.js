@@ -9,7 +9,7 @@ export default StyleSheet.create({
     SortByModalText: {
       fontFamily: 'Inter',
       fontStyle: 'normal',
-      fontWeight: 'medium',
+      fontWeight: 500,
       fontSize: 13,
       textAlign: 'center'
     },
