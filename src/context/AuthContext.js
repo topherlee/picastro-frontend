@@ -21,9 +21,7 @@ export const AuthProvider = ({children, contextValue}) => {
         "last_login": null,
         "date_joined": null
     });
-    const [loading, setLoading] = useState(false);
-    const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
-
+    
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -115,6 +113,15 @@ export const AuthProvider = ({children, contextValue}) => {
         }
     }
 
+    //put those in separate context file, since it's not AuthContext,
+    //but more related to Screens
+    const [loading, setLoading] = useState(false);
+    const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
+    const [isSortModalVisible, setSortModalVisible] = useState(true);
+    const [activeSelector, setActiveSelector] = useState("");
+    const [activeObjectSelector, setActiveObjectSelector] = useState("");
+
+
     const globalContext = {
         domain,
         setDomain,
@@ -128,7 +135,13 @@ export const AuthProvider = ({children, contextValue}) => {
         getSavedTokens, 
         setSavedTokens,
         searchAndFilterUrl,
-        setSearchAndFilterUrl
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible,
+        activeSelector,
+        setActiveSelector,
+        activeObjectSelector,
+        setActiveObjectSelector
     }
 
      useEffect(() => {
