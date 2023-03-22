@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BurgerButton, PicastroLogo } from '../../atoms';
+import { PicastroLogo } from '../../atoms';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const PicastroBurgerHeader = () => {
   const navigation = useNavigation();
@@ -23,7 +24,7 @@ const PicastroBurgerHeader = () => {
         </View>
         <View>
             <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-                <BurgerButton />
+                <Icon name={"menu"} size={40} color="lightgray" style={{paddingRight: 10}} />
             </TouchableOpacity>
         </View>
     </View>

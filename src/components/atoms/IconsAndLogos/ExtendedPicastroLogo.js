@@ -8,7 +8,6 @@ import {
 
 const ExtendedPicastroLogo = () => {
     return(
-        // <View style={styles.container}>
         <View>
             <Image 
                 style={styles.logo}
@@ -24,10 +23,10 @@ const styles = StyleSheet.create({
         // marginBottom: "5%",
         // width: 200,
         // height: 75,
-        width: "80%",
-        height:55,
+        alignSelf: 'center',
+        width: 117.53,
+        height:34.2,
         marginTop: "5%",
-        // marginBottom: "15%",
     }
     
    

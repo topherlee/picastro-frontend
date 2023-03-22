@@ -12,20 +12,19 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BurgerButtonForEXPL, ExtendedPicastroLogo } from '../../atoms';
+import { ExtendedPicastroLogo } from '../../atoms';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const ExtendedPicastroBurgerHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
-        <View style={styles.userImage}>
+        <View style={styles.picastroLogo}>
             <ExtendedPicastroLogo />
         </View>
-        <View>
-            <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-                <BurgerButtonForEXPL />
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
+            <Icon name={"menu"} size={40} color="lightgray" />
+        </TouchableOpacity>
     </View>
   )
 }
@@ -37,9 +36,12 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         alignContent: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
+        paddingRight: 10,
         flexDirection: 'row',
         gap: 10,    
+        borderWidth: 0,
+        borderColor:"white" 
                
     },
     BurgerButton: {
@@ -47,17 +49,15 @@ const styles = StyleSheet.create({
         height: 2,
         right: 5,
     },
-    userImage: {
+    picastroLogo: {
         position: "relative",
         marginBottom: "5%",   
-        // borderWidth: 1,
-        // borderColor:"white"  
+        borderWidth: 0,
+        borderColor:"white",
         width: "60%",
-        height:45,
+        height: 45,
+        right: 20,
         marginBottom: "5%",  
-        
-        
-
     },
     });
     
