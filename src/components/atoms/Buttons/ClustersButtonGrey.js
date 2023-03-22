@@ -11,7 +11,7 @@ import {
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
-import ClustersButtonGreySvg from '../../../assets/buttons/clusters_button_grey.svg';
+import ClustersButtonGreySvg from '../../../assets/buttons/clusters_button_yellow.svg';
 
 
 const ClustersButtonGrey = () => {
@@ -19,15 +19,7 @@ const ClustersButtonGrey = () => {
     const [modalVisible, setModalVisible] = useState(true);
 
     return (
-        <View style={{
-            width: 100,
-            height: 107,
-            borderColor: 'white',
-            borderWidth: 0,
-            alignItems: 'center',
-            gap: 5,
-            top: 30
-        }}>
+        <View style={SortByModalButtonStyling.iconContainer}>
             <ClustersButtonGreySvg
                 width={53}
                 height={53}

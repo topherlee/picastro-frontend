@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import * as Keychain from 'react-native-keychain';
 
 export default function SignUpScreen( { navigation } ) {
   const { domain, setToken, setIsSignedIn, setDomain } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -51,9 +52,10 @@ export default function SignUpScreen( { navigation } ) {
               throw res.json();
             }
           })
-          .then(json => {
+          .then(async json => {
             console.log('REGISTRATION SUCCESS',json);
-            setToken(json.token.access);
+            await Keychain.setGenericPassword('token',JSON.stringify(json.token));
+            setToken(json.token);
             setIsSignedIn(true);
             //navigation.navigate('UserName')
           })
@@ -80,7 +82,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="First Name"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoComplete="off"
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -92,7 +94,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Last Name"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoComplete="off"
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -104,7 +106,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Username"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           secureTextEntry={false}
           autoComplete="off"
           autoCorrect={false}
@@ -118,7 +120,7 @@ export default function SignUpScreen( { navigation } ) {
           style={styles.TextInput}
           inputMode="email"
           placeholder="Email"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           autoComplete="off"
           autoCorrect={false}
           clearButtonMode="while-editing"
@@ -130,7 +132,7 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Password"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           returnKeyType="next"
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
@@ -143,10 +145,10 @@ export default function SignUpScreen( { navigation } ) {
         <TextInput
           style={styles.TextInput}
           placeholder="Confirm Password"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           secureTextEntry={securePassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-          onSubmitEditing={() => handleLogin()}
+          onSubmitEditing={() => handleRegister()}
         /> 
         <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>

@@ -12,9 +12,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import * as Keychain from 'react-native-keychain';
 import { AuthContext } from "../../context/AuthContext";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function LoginScreen( { navigation } ) {
   const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -27,14 +27,14 @@ export default function LoginScreen( { navigation } ) {
     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
   }, [])
 
-  function handleLogin(){
+    async function handleLogin(){
 
     var body = JSON.stringify({
       'username': username,
       'password': password
     })
     
-    fetch(`${domain}/api/token/both/`, {
+    await fetch(`${domain}/api/auth/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,16 +47,19 @@ export default function LoginScreen( { navigation } ) {
             return res.json();
           } else {
             setError(true)
+            console.log('error')
             throw res.json();
           }
         })
-        .then(json => {
-          console.log('LOGIN SUCCESS',json);
-          setToken(json.access);
+        .then(async json => {
+          console.log('JSON',json);
+          await Keychain.setGenericPassword('token',JSON.stringify(json))
+          setToken(json);
           setIsSignedIn(true);
         })
-        .catch(error => {
-          throw(error);
+        .catch(error => { 
+          console.log("error",error.data);
+          setError(true)
         })
     
   }
@@ -64,14 +67,14 @@ export default function LoginScreen( { navigation } ) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
-      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Login or Register</Text>}
+      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
       <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
         <TextInput
           style={styles.TextInput} 
-          textContentType="username"
-          autoCompleteType="username"
+          textContentType={'username'}
           placeholder="Username"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
+          autoCapitalize={'none'}
           autoCorrect={false}
           clearButtonMode="while-editing"
           returnKeyType="next"
@@ -82,14 +85,15 @@ export default function LoginScreen( { navigation } ) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          textContentType="password"
-          autoCompleteType="password"
+          textContentType={'password'}
+          autoCapitalize={'none'}
+          autoCorrect={false}
           placeholder="Password"
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
+          onSubmitEditing={handleLogin}
           onBlur={() => setError(false)}
-          onSubmitEditing={() => handleLogin()}
         /> 
         <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
@@ -139,8 +143,6 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: "center",
     color: "black",
-    borderColor: "yellow",
-    borderWidth: 0,
   },
   bottomText: {
     flexDirection:'row',

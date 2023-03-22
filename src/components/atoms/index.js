@@ -23,3 +23,4 @@ export {default as LunarButtonGrey} from './Buttons/LunarButtonGrey';
 export {default as SolarButtonGrey} from './Buttons/SolarButtonGrey';
 export {default as SortByModalText} from './Buttons/SortByModalButtonStyling';
 export {default as SortByModalButtonStyling} from './Buttons/SortByModalButtonStyling';
+export {default as ImageUploadButton} from './Buttons/ImageUploadButton';

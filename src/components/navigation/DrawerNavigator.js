@@ -7,6 +7,8 @@ import {
   DrawerToggleButton,
 } from '@react-navigation/drawer';
 import TabNavigator from './TabNavigator';
+import LogoutScreen from '../../screens/SigninScreen/LogoutScreen';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -16,17 +18,21 @@ const screenOptionStyle = {
   headerLeft: false,
   headerRight: () => <DrawerToggleButton />,
   drawerStyle: {
-    backgroundColor: '#0D0D0D',
+    backgroundColor:  '#0d0d0d',
     width: '90%'
   },
-  drawerType: "front"
+  drawerLabelStyle: {color:'white'},
+  drawerType: "front",
 };
 
 const DrawerNavigator = ({navigation}) => {
   return (
-    <Drawer.Navigator screenOptions={screenOptionStyle}>
-      <Drawer.Screen name="Main Screen" component={TabNavigator} />
-    </Drawer.Navigator>
+      
+      <Drawer.Navigator screenOptions={screenOptionStyle}>
+        <Drawer.Screen name="Main Screen" component={TabNavigator} />
+        <Drawer.Screen name="Log Out" component={LogoutScreen} />
+      </Drawer.Navigator>
+    
   );
 };
 

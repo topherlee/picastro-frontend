@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     StyleSheet,
     Button,
@@ -7,27 +7,39 @@ import {
     Text,
     Alert,
     Image,
+    TouchableOpacity
 } from 'react-native';
 
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
 import AsterismsButtonGreySvg from '../../../assets/buttons/asterisms_button_grey.svg';
+import { AuthContext } from '../../../context/AuthContext';
 
 
 const AsterismsButtonGrey = () => {
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible
+    } = useContext(AuthContext);
 
-    const [modalVisible, setModalVisible] = useState(true);
-
+    
     return (
-        <View style={{
-            width: 100,
-            height: 107,
-            borderColor: 'white',
-            borderWidth: 0,
-            alignItems: 'center',
-            gap: 5,
-            top: 30
-        }}>
+        <TouchableOpacity 
+            style={SortByModalButtonStyling.iconContainer}
+            onPress={() => {
+                setSearchAndFilterUrl('?imageCategory=asterism');
+                console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
+                setSortModalVisible(!isSortModalVisible);
+                loadSortAndFilterScreen()
+            }}
+        >
             <AsterismsButtonGreySvg
                 width={53}
                 height={53}
@@ -35,7 +47,7 @@ const AsterismsButtonGrey = () => {
             <Text style={SortByModalButtonStyling.SortByModalText}>
                 Asterisms/ Constellations
             </Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 

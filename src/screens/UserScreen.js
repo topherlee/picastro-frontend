@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import {
     Button,
@@ -18,310 +18,142 @@ import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
 
-const props = [
-    {
-        "imageURL": "http://127.0.0.1:8000/data/assets/TestAstroImages/Element1.png",
-        "astroNameShort": "IC442",
-        "astroNameShort2": "NGC 1234",
-        "astroNameShort3": "Omega",
-        "astroName": "Star #1",
-        "poster": "Starman",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "bronze",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
-        "starCamp": "Glasgow",
-        "leadingLight": false
-    },
-    {
-        "imageURL": "https://assets3.cbsnewsstatic.com/hub/i/r/2021/08/02/170e414f-dcd6-4f57-b7bd-9f8082b49046/thumbnail/620x349/34fcbaf7845cecb6d5213359c77718db/jupiterjetstreams.jpg",
-        "astroNameShort": "SS234",
-        "astroNameShort2": "NGC 5678",
-        "astroNameShort3": "Omega Nebula",
-        "astroName": "Star #2",
-        "poster": "Moonboy",
-        "userImage": require('../assets/Sample/sampleuser2.png'),
-        "imageIsSaved": false,
-        "award": "none",
-        "exposureTime": "6 hrs",
-        "moonPhase": "50%",
-        "cloudCoverage": "10%",
-        "bortle": "3",
-        "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
-        "starCamp": "Edinburgh",
-        "leadingLight": false
-    },
-    // {
-    //     "imageURL": require('../assets/TestAstroImages/Element6.png'),
-    //     "astroNameShort": "DC420",
-    //     "astroName": "Star #3",
-    //     "poster": "Moongirl",
-    //     "userImage": require('../assets/Sample/sampleuser2.png'),
-    //     "imageIsSaved": false,
-    //     "award": "silver",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Aberdeen",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "testperson",
-    //     "imageURL": require('../assets/TestAstroImages/Element2.png'),
-    //     "award": "bronze",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long",
-    //     "imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "stargirl",
-    //     "imageURL": require('../assets/TestAstroImages/Element5.png'),
-    //     "award": "silver",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "starboy",
-    //     "imageURL": require('../assets/TestAstroImages/Element181.png'),
-    //     "award": "gold",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "Steffen",
-    //     "imageURL": require('../assets/TestAstroImages/Element7.png'),
-    //     "award": "none",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long",
-    //     "imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    
-    // {
-    //     "imageURL": require('../assets/TestAstroImages/Element241.png'),
-    //     "astroNameShort": "IC442",
-    //     "astroNameShort2": "NGC 1234",
-    //     "astroNameShort3": "Omega",
-    //     "astroName": "Star #1",
-    //     "poster": "Starman",
-    //     "userImage": require('../assets/Sample/sampleuser2.png'),
-    //     "imageIsSaved": false,
-    //     "award": "bronze",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "The Omega Nebula, also known as the Swan Nebula, Checkmark Nebula, Lobster Nebula, and the Horseshoe Nebula is an H II region in the constellation Sagittarius. It was discovered by Philippe Loys de Chéseaux in 1745. Charles Messier catalogued it in 1764. ",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "imageURL": require('../assets/TestAstroImages/Element261.png'),
-    //     "astroNameShort": "SS234",
-    //     "astroNameShort2": "NGC 5678",
-    //     "astroNameShort3": "Omega Nebula",
-    //     "astroName": "Star #2",
-    //     "poster": "Moonboy",
-    //     "userImage": require('../assets/Sample/sampleuser2.png'),
-    //     "imageIsSaved": false,
-    //     "award": "none",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "A dark nebula or absorption nebula is a type of interstellar cloud, particularly molecular clouds, that is so dense that it obscures the visible wavelengths of light from objects behind it, such as background stars and emission or reflection nebulae. The extinction of the light is caused by interstellar dust grains located in the coldest, densest parts of molecular clouds. Clusters and large complexes of dark nebulae are associated with Giant Molecular Clouds. Isolated small dark nebulae are called Bok globules. Like other interstellar dust or material, things it obscures are only visible using radio waves in radio astronomy or infrared in infrared astronomy. ",
-    //     "starCamp": "Edinburgh",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "imageURL": require('../assets/TestAstroImages/Element6.png'),
-    //     "astroNameShort": "DC420",
-    //     "astroName": "Star #3",
-    //     "poster": "Moongirl",
-    //     "userImage": require('../assets/Sample/sampleuser2.png'),
-    //     "imageIsSaved": false,
-    //     "award": "silver",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Aberdeen",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "testperson",
-    //     "imageURL": require('../assets/TestAstroImages/Element2.png'),
-    //     "award": "bronze",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long",
-    //     "imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "stargirl",
-    //     "imageURL": require('../assets/TestAstroImages/Element5.png'),
-    //     "award": "silver",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "starboy",
-    //     "imageURL": require('../assets/TestAstroImages/Element181.png'),
-    //     "award": "gold",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long","imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "poster": "Steffen",
-    //     "imageURL": require('../assets/TestAstroImages/Element7.png'),
-    //     "award": "none",
-    //     "astroNameShort": "Test2",
-    //     "astroName": "Test 2 Long",
-    //     "imageCategory":"Nebula",
-    //     "imageIsSaved": false,
-    //     "award": "gold",
-    //     "exposureTime": "6 hrs",
-    //     "moonPhase": "50%",
-    //     "cloudCoverage": "10%",
-    //     "bortle": "3",
-    //     "imageDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //     "starCamp": "Glasgow",
-    //     "leadingLight": false
-    // },
-    // {
-    //     "astroName": "Messier 104, M104, NGC 4594, Sombrero Galaxy",
-    //     "astroName": "Omega Nebula, Messier 17, M17, NGC 6618, Swan Nebula, Horseshoe Nebula, Lobster Nebula"
-    // }
-]
+import StarIconSvg from '../assets/star-icon.svg';
+import AwardGoldSvg from '../assets/buttons/award-gold.svg';
+import AwardSilverSvg from '../assets/buttons/award-silver.svg';
+import AwardBronzeSvg from '../assets/buttons/award-bronze.svg';
 
-//astroName.split(", ").map()
+import { AuthContext } from '../context/AuthContext';
 
 
 const UserScreen = ({ navigation }) => {
+    const [data, setData] = useState([]);
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl
+    } = useContext(AuthContext);
+    const [modalVisible, setModalVisible] = useState(true);
+    
+
+    //setUrlAttachement('?poster=' + currentUser.id);
+
+
+    useEffect(() => {
+        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+        //console.log('AccessToken',jwtDecode(token.access))
+        console.log(currentUser);
+        
+        const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+        console.log("urlForApiCall", urlForApiCall);
+
+        async function loadSortAndFilterScreen() {
+            var {response,data} = await fetchInstance(urlForApiCall, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token.access}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            setData(data);
+        }
+
+        loadSortAndFilterScreen().catch(err => {console.log(err)})
+        // .then(res => {return res.json()})
+        // .then((result) => {
+        //     //console.log("INCOMINGDATA",token,result)
+        //     setData(result);
+        // }).catch (err => {
+        //     console.log(err, "Failed to get data from API.");
+        // })
+    }, [])
+
+
     return (
         <SafeAreaView style={styles.container}>
            
             <ExtendedPicastroBurgerHeader />
-            <Image style={styles.image1} source={require('../assets/Sample/sampleuserwithicon.png')} />
-            
-            <AwardIcon />
+
+            <View style={styles.profilecontainer}>
+                <View style={styles.profile}>
+                    <Image style={styles.image1} source={require('../assets/Sample/sampleuserwithicon.png')} />
+                    <View style={styles.profilecontent}>
+                        <Text style={styles.profileName}>{currentUser.username}</Text>
+                        <Text style={styles.profilePronounce}>he/him</Text>
+                        <View style={styles.starandcount}>
+                            <StarIconSvg style={styles.starcount} height="40" width="40" fill="#F0355B" stroke="#F0355B" strokeWidth="0"> </StarIconSvg>
+                            <Text style={styles.stars}>1,234</Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+
             <View style={styles.textcontainer}>
-            <Text style={styles.text}>   Lawyer By Day, very amateur astrophotographer    </Text>   
-            <Text style={styles.text}>    by night. All Photo by Me. Help Elliot fight                   </Text> 
-            <TouchableOpacity onPress={() => Linking.openURL('http://google.com')}>
-            <Text style={styles.text1}> Picastro link </Text> 
-               
-            </TouchableOpacity>
+                <Text style={styles.profiledesc}>Lawyer By Day, very amateur astrophotographer by night. All Photo by Me. Help Elliot fight</Text>
+                <View style={styles.multiplelink}>
+                    <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
+                    <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text> 
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
+                        <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text>     
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.awardcontainer}>
+                    <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                    <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                    <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
             
+                    <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
+                        <Text style={styles.loginText}>Edit Profile</Text> 
+                    </TouchableOpacity>
             </View>
               
-            <AwardIcon />
+        
             {/* <View style={styles.headerContainer}> */}
-            <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
-                <Text style={styles.loginText}>Edit Profile</Text> 
-            </TouchableOpacity>
+            
             {/* </View> */}
+            
             <ScrollView style={{
-                    backgroundColor: "black",
-                    borderColor:"blue", 
-                    borderWidth: 0,
+                backgroundColor: "black",
+                borderColor: "blue",
+                borderWidth: 0,
             }}
-            contentContainerStyle={{
-                display: "flex",
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: "center",
-                alignContent: 'center'
-            }}>
-                <MasonryList
-                    data={props}
-                    keyExtractor={item => item.id}
-                    numColumns={2}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => <HalfWidthPostsContainer {...item} />}
-                    contentContainerStyle={{
-                        borderColor:"red", 
-                        borderWidth: 0,
-                        paddingTop: "3%",
-                        paddingLeft: "4%"
-                    }}
-                    style={{
-                        flex: 1,
-                        maxWidth: "96%",
-                        columnGap: 10,
-                        borderColor:"yellow", 
-                        borderWidth: 0,
-                    }}
-                >
-                </MasonryList>
+                contentContainerStyle={{
+                    display: "flex",
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: "center",
+                    alignContent: 'center'
+                }}>
+                {data.length > 0 ? 
+                    <MasonryList
+                        data={data}
+                        keyExtractor={item => item.id}
+                        numColumns={2}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+                        contentContainerStyle={{
+                            borderColor: "red",
+                            borderWidth: 0,
+                            paddingTop: "3%",
+                            paddingLeft: "4%"
+                        }}
+                        style={{
+                            flex: 1,
+                            maxWidth: "96%",
+                            columnGap: 10,
+                            borderColor: "yellow",
+                            borderWidth: 0,
+                        }}
+                    />
+                : 
+                    <Text style={{color:'white'}}>Nothing to display here</Text>
+                }
             </ScrollView>
         </SafeAreaView>
     )
@@ -335,6 +167,66 @@ const styles = StyleSheet.create({
         borderColor:"green", 
         borderWidth: 0,
     },
+    profilecontainer:{
+        marginTop: 20,
+        paddingLeft: 20,
+    },
+    profile: {
+        flexDirection: 'row',
+        marginBottom: 0,
+    },
+    profileName: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        color: '#fff',
+        paddingBottom: 0
+    },
+    profilePronounce: {
+        fontSize: 12,
+        color: '#fff',
+    },
+    profilecontent:{
+        justifyContent: 'center',
+        paddingBottom:0,
+        margin:10,
+    },
+    starandcount:{
+        flexDirection: 'row',
+        marginTop: 5,
+    },
+    multiplelink:{
+        flexDirection: 'row',
+        marginTop: 18,
+        marginLeft: '5%',
+        marginRight:'5%',
+        
+    },
+    starcount:{
+        marginLeft:-5,
+        marginTop:5,
+    },
+    stars:{
+        fontSize: 12,
+        color: '#fff',
+        marginLeft: 5,
+        marginTop: 20,
+        fontWeight: '500',
+    },
+    awardcontainer:{
+        marginTop: '5%',
+        flexDirection: 'row',
+        marginLeft: '5%',
+        marginRight:'5%',
+    },
+    awarditem:{
+        
+    },
+    awardcount:{
+        color: '#FFF',
+        marginTop: 5,
+        marginRight:'5%',
+    },
+
     headerContainer: {
         backgroundColor: 'black',
         display: "flex",
@@ -345,26 +237,31 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        // gap: 10,
     },
     textcontainer: {
         marginTop:"5%",
         marginBottom:"5%",
     },
-    text: {
+    profiledesc: {
+        //textAlignments: 'left',
         fontSize: 15,
-        fontWeight: '500',
-        justifyContent: 'center',
+        fontWeight: 500,
         color: 'white',
-        textAlign: 'center'
+        marginLeft: '5%',
+        marginRight:'5%',
+        justifyContent: 'center'
+    },
+    externalprofilelink: {
+        fontSize: 12,
+        color: 'grey',
+        paddingRight:'5%'
         
     },
-    text1: {
-        fontSize: 14,
-        marginTop: 10,
-        justifyContent: 'center',
-        color: 'grey',
-        left: 30,
+    image1: {
+        position: "relative",
+        width: 100,
+        height:100,
+        marginBottom: "5%",
         
     },
     image: {
@@ -375,14 +272,13 @@ const styles = StyleSheet.create({
         
     },
     loginBtn: {
-        width: "30%",
+        marginLeft: 'auto',
+        position: 'relative', 
+        width: 90,
         borderRadius: 25,
-        height: "7%",
-        // minHeight: 50,
+        height: 35,
         alignItems: "center",
         justifyContent: "center",
-        // position: "relative",
-        marginTop: "10%",
         marginBottom: "3%",
         backgroundColor: "#FFC700",
     },

@@ -5,13 +5,14 @@ import HomeScreen from "../../screens/HomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen";
-import SortByScreen from "../../screens/SortByScreen";
-import Coin from "../../screens/Coin";
+import SortAndFilterScreen from "../../screens/SortAndFilterScreen";
+import {LogoutScreen } from "../../screens/SigninScreen";
 import { LoginScreen } from "../../screens/SigninScreen";
 import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
 import UserScreen from "../../screens/UserScreen"
 import EditProfile from "../../screens/EditProfile";
 import YourMainSetup from "../../screens/YourMainSetup";
+import ImageUploadScreen from "../../screens/ImageUploadScreen";
 
 const Stack = createStackNavigator();
 
@@ -46,10 +47,18 @@ const NotificationsStackNavigator = () => {
   );
 }
 
-const SortByStackNavigator = () => {
+const SortFilterStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={UserNameImageBurgerHeader}>
-      <Stack.Screen name="Filter" component={SortByScreen} options={{headerShown: false}} />
+      <Stack.Screen name="Filter" component={SortAndFilterScreen} options={{headerShown: false}} />
+    </Stack.Navigator>
+  )
+}
+
+const ImageUploadStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={PicastroLogoHeader}>
+      <Stack.Screen name="ImageUpload" component={ImageUploadScreen} />
     </Stack.Navigator>
   )
 }
@@ -57,6 +66,7 @@ const SortByStackNavigator = () => {
 export { 
   MainStackNavigator,
   ProfileStackNavigator,
-  SortByStackNavigator,
-  NotificationsStackNavigator
+  SortFilterStackNavigator,
+  NotificationsStackNavigator,
+  ImageUploadStackNavigator
 };

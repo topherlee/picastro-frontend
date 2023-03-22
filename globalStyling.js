@@ -1,17 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    sortByModalSvg: {
+    yellowWideButton: {
       color: 'blue',
       width: 70,
       height: 70
     },
-    SortByModalText: {
-      fontFamily: 'Inter',
-      fontStyle: 'normal',
-      fontWeight: 500,
-      fontSize: 13,
-      textAlign: 'center'
+    yellowNarrowButton: {
+        borderRadius: 25,
+        padding: 8,
+        elevation: 2,
+        width: 90,
+        height: 32,
+        backgroundColor: '#FDD015',
+    },
+    narrowButtonText: {
+      color: 'black',
+      fontWeight: 'bold',
+      fontSize: 11,
+      textAlign: 'center',
+      textAlignVertical: 'center'
     },
     SortByModalTextGrey: {
       color: '#959595',
