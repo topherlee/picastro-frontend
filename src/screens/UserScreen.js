@@ -44,11 +44,25 @@ const UserScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+        //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
         console.log(currentUser);
         
         const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+        console.log("urlForApiCall", urlForApiCall);
+
+        async function loadSortAndFilterScreen() {
+            var {response,data} = await fetchInstance(urlForApiCall, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token.access}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            setData(data);
+        }
+
+        const userForApiCall = '/api/feed/' + searchAndFilterUrl;
         console.log("urlForApiCall", urlForApiCall);
 
         async function loadSortAndFilterScreen() {
