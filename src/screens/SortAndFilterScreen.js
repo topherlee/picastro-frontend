@@ -99,119 +99,123 @@ const SortAndFilterScreen = ({ navigation }) => {
                     onSwipeComplete={() => {
                         setSortModalVisible(false);
                     }}
-                    swipeDirection='down'
+                    swipeDirection={['down']}
                     propagateSwipe={true}
                 >
-                    <View style={styles.modalView }>
-                        <Pressable
-                            style={
-                                (activeSelector == 'randomizer') ? [styles.button, styles.buttonSelected] :
-                                    [styles.button, styles.buttonUnselected]}
-                            onPress={() => {
-                                setSortModalVisible(!isSortModalVisible);
-                                setSearchAndFilterUrl('?ordering=?');
-                                setActiveSelector('randomizer');
-                                setChangeModalVisible(true);
-                                // loadSortAndFilterScreen();
-                            }}
-                        >
-                            <Text style={styles.buttonText}>Randomizer</Text>
-                        </Pressable>
-                        <Pressable
-                            style={
-                                (activeSelector == 'most_recent') ? [styles.button, styles.buttonSelected] :
-                                    [styles.button, styles.buttonUnselected]}
-                            onPress={() => {
-                                setSortModalVisible(!isSortModalVisible);
-                                setSearchAndFilterUrl('?ordering=pub_date');
-                                setActiveSelector('most_recent');
-                                setChangeModalVisible(true);
-                                //loadSortAndFilterScreen();
-                            }}
-                        >
-                            <Text style={styles.buttonText}>Most recent</Text>
-                        </Pressable>
-                        <Pressable
-                            style={
-                                (activeSelector == 'object_type') ? [styles.button, styles.buttonSelected] :
-                                    [styles.button, styles.buttonUnselected]}
-                            onPress={() => {
-                                setActiveSelector('object_type');
-                                //loadSortAndFilterScreen();
-                            }}
-                        >
-                            <Text style={styles.buttonText}>Object Type</Text>
-                        </Pressable>
-                        <ScrollView
-                            horizontal={true}
-                        >
-                            <IssTransitButtonGrey
-                                styles={styles.iconContainer}
+                    <View style={styles.modalView}>
+                        <View style={styles.buttonWrapper}>
+                            <Pressable
+                                style={
+                                    (activeSelector == 'randomizer') ? [styles.button, styles.buttonSelected] :
+                                        [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
                                     setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('iss_transit');
-                                    setSearchAndFilterUrl('?imageCategory=iss_transit');
+                                    setSearchAndFilterUrl('?ordering=?');
+                                    setActiveSelector('randomizer');
                                     setChangeModalVisible(true);
+                                    // loadSortAndFilterScreen();
                                 }}
-                            />
-                            <LunarButtonGrey
-                                styles={styles.iconContainer}
+                            >
+                                <Text style={styles.buttonText}>Randomizer</Text>
+                            </Pressable>
+                            <Pressable
+                                style={
+                                    (activeSelector == 'most_recent') ? [styles.button, styles.buttonSelected] :
+                                        [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
                                     setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('lunar');
-                                    setSearchAndFilterUrl('?imageCategory=lunar');
+                                    setSearchAndFilterUrl('?ordering=pub_date');
+                                    setActiveSelector('most_recent');
+                                    setChangeModalVisible(true);
+                                    //loadSortAndFilterScreen();
                                 }}
-                            />
-                            <SolarButtonGrey
-                                styles={styles.iconContainer}
+                            >
+                                <Text style={styles.buttonText}>Most recent</Text>
+                            </Pressable>
+                            <Pressable
+                                style={
+                                    (activeSelector == 'object_type') ? [styles.button, styles.buttonSelected] :
+                                        [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
-                                    setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('solar');
-                                    setSearchAndFilterUrl('?imageCategory=solar');
+                                    setActiveSelector('object_type');
+                                    //loadSortAndFilterScreen();
                                 }}
-                            />
-                            <PlanetButtonGrey
-                                styles={styles.iconContainer}
-                                onPress={() => {
-                                    setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('planet');
-                                    setSearchAndFilterUrl('?imageCategory=planet');
-                                }}
-                            />
-                            <CometButtonGrey
-                                styles={styles.iconContainer}
-                                onPress={() => {
-                                    setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('comet');
-                                    setSearchAndFilterUrl('?imageCategory=comet');
-                                }}
-                            />
-                            <GalaxyButtonGrey
-                                styles={styles.iconContainer}
-                                onPress={() => {
-                                    setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('galaxy');
-                                    setSearchAndFilterUrl('?imageCategory=galaxy');
-                                }}
-                            />
-                            <AsterismsButtonGrey
-                                styles={styles.iconContainer}
-                                onPress={() => {
-                                    setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('asterism');
-                                    setSearchAndFilterUrl('?imageCategory=asterism');
-                                }}
-                            />
-                            <NebulaButtonGrey
-                                styles={styles.iconContainer}
-                                onPress={() => {
-                                    setSortModalVisible(!isSortModalVisible);
-                                    setActiveObjectSelector('nebula');
-                                    setSearchAndFilterUrl('?imageCategory=nebula');
-                                }}
-                            />
-                            <ClustersButtonGrey />
-                        </ScrollView>
+                            >
+                                <Text style={styles.buttonText}>Object Type</Text>
+                            </Pressable>
+                        </View>
+                        {(activeSelector == 'object_type') ?
+                            <ScrollView
+                                horizontal={true}
+                            >
+                                <IssTransitButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('iss_transit');
+                                        setSearchAndFilterUrl('?imageCategory=iss_transit');
+                                        setChangeModalVisible(true);
+                                    }}
+                                />
+                                <LunarButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('lunar');
+                                        setSearchAndFilterUrl('?imageCategory=lunar');
+                                    }}
+                                />
+                                <SolarButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('solar');
+                                        setSearchAndFilterUrl('?imageCategory=solar');
+                                    }}
+                                />
+                                <PlanetButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('planet');
+                                        setSearchAndFilterUrl('?imageCategory=planet');
+                                    }}
+                                />
+                                <CometButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('comet');
+                                        setSearchAndFilterUrl('?imageCategory=comet');
+                                    }}
+                                />
+                                <GalaxyButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('galaxy');
+                                        setSearchAndFilterUrl('?imageCategory=galaxy');
+                                    }}
+                                />
+                                <AsterismsButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('asterism');
+                                        setSearchAndFilterUrl('?imageCategory=asterism');
+                                    }}
+                                />
+                                <NebulaButtonGrey
+                                    styles={styles.iconContainer}
+                                    onPress={() => {
+                                        setSortModalVisible(!isSortModalVisible);
+                                        setActiveObjectSelector('nebula');
+                                        setSearchAndFilterUrl('?imageCategory=nebula');
+                                    }}
+                                />
+                                <ClustersButtonGrey />
+                            </ScrollView>
+                            : ""}
                     </View>
                 </Modal>
             </View>
@@ -307,13 +311,19 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
         bottom: 0,
         width: '100%',
-        height: 282,
+
         padding: 35,
         alignItems: 'center',
         elevation: 5,
         backgroundColor: "#2F2F2F",
         borderColor: "green",
         borderWidth: 1,
+    },
+    buttonWrapper: {
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     button: {
         borderRadius: 25,
