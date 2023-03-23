@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     StyleSheet,
     Button,
@@ -8,25 +8,55 @@ import {
     Alert,
     Image,
 } from 'react-native';
-
+import { AuthContext } from '../../../context/AuthContext';
 import SortByModalButtonStyling from './SortByModalButtonStyling';
 
 import LunarButtonGreySvg from '../../../assets/buttons/lunar_button_grey.svg';
-
+import LunarButtonYellowSvg from '../../../assets/buttons/lunar_button_yellow.svg';
 
 const LunarButtonGrey = () => {
-
-    const [modalVisible, setModalVisible] = useState(true);
+    const [filterValue, setFilterValue] = React.useState(false);
+    const {
+        domain,
+        setDomain,
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible,
+        activeSelector,
+        setActiveSelector,
+        activeObjectSelector,
+        setActiveObjectSelector
+    } = useContext(AuthContext);
 
     return (
-        <View style={SortByModalButtonStyling.iconContainer}>
-            <LunarButtonGreySvg
-                width={53}
-                height={53}
-            />
-            <Text style={SortByModalButtonStyling.SortByModalText}>
-                Lunar
-            </Text>
+        <View>
+            {(activeObjectSelector == 'lunar') ?
+                <View>
+                    <LunarButtonYellowSvg
+                        style={SortByModalButtonStyling.sortByModalSvg}
+                    />
+                    <Text style={[
+                        SortByModalButtonStyling.SortByModalText,
+                        SortByModalButtonStyling.SortByModalTextYellow]}
+                    >
+                        Lunar
+                    </Text>
+                </View>
+                :
+                <View>
+                    <LunarButtonGreySvg
+                        style={SortByModalButtonStyling.sortByModalSvg} />
+                    <Text style={[
+                        SortByModalButtonStyling.SortByModalText,
+                        SortByModalButtonStyling.SortByModalTextGrey]} >
+                        Lunar
+                    </Text>
+                </View>
+            }
         </View>
     );
 };

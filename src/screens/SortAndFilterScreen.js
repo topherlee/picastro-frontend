@@ -7,6 +7,7 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 import Modal from "react-native-modal";
 
@@ -28,6 +29,8 @@ import {
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
+import SortByModalButtonStyling from '../components/atoms/Buttons/SortByModalButtonStyling';
+
 
 const SortAndFilterScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
@@ -52,24 +55,24 @@ const SortAndFilterScreen = ({ navigation }) => {
     //     setChangeModalVisible(true);
     // };
 
+    const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+    console.log("urlForApiCall", urlForApiCall);
+
+    async function loadSortAndFilterScreen() {
+        var { response, data } = await fetchInstance(urlForApiCall, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token.access}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        setData(data);
+    }
+
 
     useEffect(() => {
         //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
-
-        const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
-        console.log("urlForApiCall", urlForApiCall);
-
-        async function loadSortAndFilterScreen() {
-            var { response, data } = await fetchInstance(urlForApiCall, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Token ${token.access}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            setData(data);
-        }
 
         loadSortAndFilterScreen().catch(err => { console.log(err) })
         // .then(res => {return res.json()})
@@ -148,23 +151,36 @@ const SortAndFilterScreen = ({ navigation }) => {
                             <ScrollView
                                 horizontal={true}
                             >
-                                <IssTransitButtonGrey
-                                    styles={styles.iconContainer}
+                                <TouchableOpacity
+                                    style={SortByModalButtonStyling.iconContainer}
                                     onPress={() => {
-                                        setSortModalVisible(!isSortModalVisible);
                                         setActiveObjectSelector('iss_transit');
                                         setSearchAndFilterUrl('?imageCategory=iss_transit');
-                                        setChangeModalVisible(true);
-                                    }}
-                                />
-                                <LunarButtonGrey
-                                    styles={styles.iconContainer}
-                                    onPress={() => {
+                                        console.log("searchAndFilterUrl iss", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        loadSortAndFilterScreen();
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <IssTransitButtonGrey
+                                        styles={styles.iconContainer}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={SortByModalButtonStyling.iconContainer}
+                                    onPress={() => {
                                         setActiveObjectSelector('lunar');
                                         setSearchAndFilterUrl('?imageCategory=lunar');
+                                        console.log("searchAndFilterUrl iss", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                        loadSortAndFilterScreen();
                                     }}
-                                />
+                                    title="Filter Value"
+                                >
+                                    <LunarButtonGrey
+                                        styles={styles.iconContainer}
+                                    />
+                                </TouchableOpacity>
                                 <SolarButtonGrey
                                     styles={styles.iconContainer}
                                     onPress={() => {
@@ -300,7 +316,7 @@ const styles = StyleSheet.create({
     },
     modalWrapper: {
         borderColor: "red",
-        borderWidth: 1,
+        borderWidth: 0,
         margin: 0,
         display: 'flex',
         justifyContent: 'flex-end',
@@ -317,7 +333,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         backgroundColor: "#2F2F2F",
         borderColor: "green",
-        borderWidth: 1,
+        borderWidth: 0,
     },
     buttonWrapper: {
         width: '90%',
@@ -358,7 +374,7 @@ const styles = StyleSheet.create({
     iconContainer: {
         width: 150,
         borderColor: 'white',
-        borderWidth: 1,
+        borderWidth: 0,
         alignItems: 'center',
         justifyContent: 'center',
         top: 0

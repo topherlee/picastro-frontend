@@ -35,17 +35,7 @@ const IssTransitButtonGrey = () => {
     } = useContext(AuthContext);
 
     return (
-        <TouchableOpacity
-            style={SortByModalButtonStyling.iconContainer}
-            onPress={ () => {
-                setActiveObjectSelector('iss_transit');
-                setSearchAndFilterUrl('?imageCategory=iss_transit');
-                console.log("searchAndFilterUrl iss", searchAndFilterUrl);
-                setSortModalVisible(!isSortModalVisible);
-                //loadSortAndFilterScreen()
-            }}
-            title="Filter Value"
-        >
+        <View>
             {(activeObjectSelector == 'iss_transit') ? 
                 <IssTransitButtonYellowSvg
                     style={SortByModalButtonStyling.sortByModalSvg} /> 
@@ -66,7 +56,7 @@ const IssTransitButtonGrey = () => {
                     ISS Transit
                 </Text>
             }
-        </TouchableOpacity>
+        </View>
     );
 };
 
