@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import * as Keychain from 'react-native-keychain';
 
 export default function SignUpScreen( { navigation } ) {
   const { domain, setToken, setIsSignedIn, setDomain } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -51,8 +52,9 @@ export default function SignUpScreen( { navigation } ) {
               throw res.json();
             }
           })
-          .then(json => {
+          .then(async json => {
             console.log('REGISTRATION SUCCESS',json);
+            await Keychain.setGenericPassword('token',JSON.stringify(json.token));
             setToken(json.token);
             setIsSignedIn(true);
             //navigation.navigate('UserName')
