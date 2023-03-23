@@ -164,6 +164,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 >
                                     <IssTransitButtonGrey
                                         styles={styles.iconContainer}
+                                        selected={activeObjectSelector}
                                     />
                                 </TouchableOpacity>
                                 <TouchableOpacity
@@ -179,6 +180,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 >
                                     <LunarButtonGrey
                                         styles={styles.iconContainer}
+                                        selected={activeObjectSelector}
                                     />
                                 </TouchableOpacity>
                                 <SolarButtonGrey
