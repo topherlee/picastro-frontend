@@ -8,12 +8,12 @@ import {
     Alert,
     Image,
 } from 'react-native';
-import SortByModalButtonStyling from './SortByModalButtonStyling';
+import globalStyling from '../../../../constants/globalStyling';
 
 import LunarButtonGreySvg from '../../../assets/buttons/lunar_button_grey.svg';
 import LunarButtonYellowSvg from '../../../assets/buttons/lunar_button_yellow.svg';
 
-const LunarButtonGrey = ({selected}) => {
+const LunarButton = ({selected}) => {
     const [filterValue, setFilterValue] = React.useState(false);
 
     return (
@@ -21,15 +21,15 @@ const LunarButtonGrey = ({selected}) => {
             
                 <View>
                     {(selected == 'lunar') ?
-                        <LunarButtonYellowSvg style={SortByModalButtonStyling.sortByModalSvg} /> 
+                        <LunarButtonYellowSvg style={globalStyling.sortByModalSvg} /> 
                     :
-                        <LunarButtonGreySvg style={SortByModalButtonStyling.sortByModalSvg} />
+                        <LunarButtonGreySvg style={globalStyling.sortByModalSvg} />
                     }
                     <Text 
                         style={(selected == "lunar") ? 
-                            [SortByModalButtonStyling.SortByModalText, SortByModalButtonStyling.SortByModalTextYellow]
+                            [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
                             :
-                            [SortByModalButtonStyling.SortByModalText, SortByModalButtonStyling.SortByModalTextGrey]
+                            [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
                         }
                     >
                         Lunar
@@ -40,4 +40,4 @@ const LunarButtonGrey = ({selected}) => {
 };
 
 
-export default LunarButtonGrey;
+export default LunarButton;
