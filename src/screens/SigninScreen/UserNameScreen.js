@@ -23,7 +23,7 @@ export default function UserNameScreen( { navigation } ) {
       <Text style={styles.title}>Create a Username</Text>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Enter your Username"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
@@ -31,7 +31,7 @@ export default function UserNameScreen( { navigation } ) {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Confirm Username"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
@@ -62,14 +62,6 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     alignItems: "center",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-    
   },
   bottomText: {
     flexDirection:'row',

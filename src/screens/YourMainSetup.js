@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
+import globalStyling from "../../constants/globalStyling";
 
 
 const YourMainSetup = ({ navigation }) => {
@@ -41,7 +42,7 @@ const YourMainSetup = ({ navigation }) => {
       >            
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Main Telescope Name"
           placeholderTextColor="black"
           
@@ -49,7 +50,7 @@ const YourMainSetup = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Main Mount Name "
           placeholderTextColor="black"
           
@@ -57,7 +58,7 @@ const YourMainSetup = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Guide Camera Name"
           placeholderTextColor="black"
          
@@ -65,7 +66,7 @@ const YourMainSetup = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Off Axis Guide Camera"
           placeholderTextColor="black"
           
@@ -73,7 +74,7 @@ const YourMainSetup = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Filter Wheel Name"
           placeholderTextColor="black"
           
@@ -81,7 +82,7 @@ const YourMainSetup = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Filters"
           placeholderTextColor="black"
           
@@ -89,7 +90,7 @@ const YourMainSetup = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Barlow lense"
           placeholderTextColor="black"
          
@@ -98,7 +99,7 @@ const YourMainSetup = ({ navigation }) => {
       </View>
       <View style={styles.inputView}>
       <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Other Equipment Here"
           placeholderTextColor="black"
         /> 

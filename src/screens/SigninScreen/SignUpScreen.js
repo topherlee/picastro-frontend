@@ -14,6 +14,7 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Keychain from 'react-native-keychain';
+import globalStyling from "../../../constants/globalStyling";
 
 export default function SignUpScreen( { navigation } ) {
   const { domain, setToken, setIsSignedIn, setDomain } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -69,7 +70,7 @@ export default function SignUpScreen( { navigation } ) {
   }
 
   useEffect(() => {
-    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+    //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
   }, [])
 
   return (
@@ -80,7 +81,7 @@ export default function SignUpScreen( { navigation } ) {
       </Text>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="First Name"
           placeholderTextColor="grey"
           autoComplete="off"
@@ -92,7 +93,7 @@ export default function SignUpScreen( { navigation } ) {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Last Name"
           placeholderTextColor="grey"
           autoComplete="off"
@@ -104,7 +105,7 @@ export default function SignUpScreen( { navigation } ) {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Username"
           placeholderTextColor="grey"
           secureTextEntry={false}
@@ -117,7 +118,7 @@ export default function SignUpScreen( { navigation } ) {
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           inputMode="email"
           placeholder="Email"
           placeholderTextColor="grey"
@@ -130,7 +131,7 @@ export default function SignUpScreen( { navigation } ) {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Password"
           placeholderTextColor="grey"
           returnKeyType="next"
@@ -143,7 +144,7 @@ export default function SignUpScreen( { navigation } ) {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Confirm Password"
           placeholderTextColor="grey"
           secureTextEntry={securePassword}
@@ -187,14 +188,6 @@ inputView: {
   alignItems: "center",
   display: "flex",
   flexDirection: "row",
-},
-TextInput: {
-  height: 50,
-  width: "100%",
-  flex: 1,
-  padding: 10,
-  textAlign: "center",
-  
 },
 bottomText: {
   flexDirection:'row',

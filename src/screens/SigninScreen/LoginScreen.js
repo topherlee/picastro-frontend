@@ -14,7 +14,8 @@ import {
 } from "react-native";
 import * as Keychain from 'react-native-keychain';
 import { AuthContext } from "../../context/AuthContext";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import globalStyling from "../../../constants/globalStyling";
 
 export default function LoginScreen( { navigation } ) {
   const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -23,9 +24,9 @@ export default function LoginScreen( { navigation } ) {
   const [error, setError] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);
 
-  useEffect(() => {
-    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-  }, [])
+  // useEffect(() => {
+  //   Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+  // }, [])
 
     async function handleLogin(){
 
@@ -70,7 +71,7 @@ export default function LoginScreen( { navigation } ) {
       {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
       <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
         <TextInput
-          style={styles.TextInput} 
+          style={globalStyling.inputFieldText} 
           textContentType={'username'}
           placeholder="Username"
           placeholderTextColor="grey"
@@ -84,7 +85,7 @@ export default function LoginScreen( { navigation } ) {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           textContentType={'password'}
           autoCapitalize={'none'}
           autoCorrect={false}
@@ -135,14 +136,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-    color: "black",
   },
   bottomText: {
     flexDirection:'row',

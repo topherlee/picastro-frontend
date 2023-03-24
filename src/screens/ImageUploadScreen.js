@@ -20,6 +20,7 @@ import { launchImageLibrary } from "react-native-image-picker";
 import { AutoscaleImage } from "../components/atoms";
 import jwtDecode from "jwt-decode";
 import { SelectList } from "react-native-dropdown-select-list";
+import globalStyling from "../../constants/globalStyling";
 
 
 var userID;
@@ -38,15 +39,23 @@ const ImageUploadScreen = ({ navigation }) => {
   const [bortle, setBortle] = useState('');
 
   const category = [
-    {key:'nebula', value:'Nebula'},
-    {key:'asterism', value:'Asterism'},
+    {key: 'iss_transit', value: 'ISS Transit'},
+    {key: 'lunar', value: 'Lunar'},
+    {key: 'solar', value: 'Solar'},
+    {key: 'planet', value: 'Planet'},
+    {key: 'comet', value: 'Comet'},
+    {key: 'galaxy', value: 'Galaxy'},
+    {key: 'nebula', value: 'Nebula'},
+    {key: 'asterism', value: 'Asterism'},
+    {key: 'cluster', value: 'Cluster'},
     {key: 'other', value: 'Other'},
   ];
 
-  
+  //console.log("image category", imageCategory);
+
 
   useEffect(() => {
-    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+    //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
 
     userID = jwtDecode(token?.access).user_id;
   }, [token])
@@ -90,7 +99,7 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("poster", userID)
       
       formData.append("imageDescription", imageDescription)
-      formData.append("imageCategory", imageCategory)
+      formData.append("imageCategory", selected)
       formData.append("astroNameShort", astroNameShort)
       formData.append("astroName", astroName)
       formData.append("exposureTime", exposureTime)
@@ -98,7 +107,6 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("cloudCoverage", cloudCoverage)
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
-      formData.append("award", "none")
       // formData.append("astroName", "test")
       // formData.append("astroNameShort", "test")
       // formData.append("award", "bronze")
@@ -168,27 +176,31 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Image Description"
               placeholderTextColor="grey"
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={styles.selectListView}>
             <SelectList
-              style={[styles.TextInput, styles.DropdownSelectList]}
+              styles={styles.border}
               placeholder="Object Category"
+              placeholderTextColor="grey"
               data={category}
-              setSelected={setSelected}
-              dropdownStyles={styles.DropdownSelectListBox}
-              zIndex={400}
+              inputStyles={styles.dropdownText} //style for the text of the unselected box
+              boxStyles={styles.DropdownSelectListBox} //style for the unselected box
+              setSelected={[setSelected]}
+              dropdownStyles={styles.dropdownSelectList} //style of the scrollview, when box selected
+              dropdownTextStyles={styles.dropdownText} //style of text of each element inside scrollview
+              dropdownItemStyles={styles.dropdownItemStyles} //style of each element inside scrollview
             />
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
-              placeholder="Messier Object Number (e.g. 'M17')"
+              style={globalStyling.inputFieldText}
+              placeholder="Object Number (e.g. 'M17')"
               placeholderTextColor="grey"
               onChangeText={newAstroNameShort => setAstroNameShort(newAstroNameShort)}
               defaultValue={astroNameShort}
@@ -196,7 +208,7 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Object Common Name (e.g. 'Rosette Nebula')"
               placeholderTextColor="grey"
               onChangeText={newAstroName => setAstroName(newAstroName)}
@@ -205,7 +217,7 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Exposure Time"
               placeholderTextColor="grey"
               onChangeText={newExposureTime => setExposureTime(newExposureTime)}
@@ -214,7 +226,7 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Moon Phase"
               placeholderTextColor="grey"
               onChangeText={newMoonPhase => setMoonPhase(newMoonPhase)}
@@ -223,7 +235,7 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Cloud Coverage"
               placeholderTextColor="grey"
               onChangeText={newCloudCoverage => setCloudCoverage(newCloudCoverage)}
@@ -232,15 +244,16 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Bortle Scale"
               placeholderTextColor="grey"
               onChangeText={newBortle => setBortle(newBortle)}
               defaultValue={bortle}
             />
           </View>
+
           <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(() => {uploadedHandler()})}>
-            <Text style={styles.loginText}>Save</Text>
+            <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -279,21 +292,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-    justifyContent: "center",
-
+  dropdownSelectList: {
+    zIndex: 600,
+    backgroundColor: 'white'
   },
-  DropdownSelectList: {
-    zIndex: 400,
+  dropdownItemStyles: {
+    //gap: 5,
+    zIndex: 600,
+    height: 40,
+    
+    textAlign: "center",
+    color: "black",
+  },
+  dropdownText: {
+    textAlign: "center",
+    color: "grey",
   },
   DropdownSelectListBox: {
     zIndex: 500,
-    backgroundColor: 'red'
+    height: 40,
+    marginBottom: "5%",
+    backgroundColor: 'white',
+    borderColor: 'green',
+    borderWidth: 0,
+    color: 'black'
   },
   bottomText: {
     flexDirection: 'row',
@@ -320,6 +342,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     marginBottom: "5%",
     backgroundColor: "#FFC700",
+    zIndex: 1
   },
   loginBtn2: {
     width: "100%",
@@ -343,6 +366,17 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontWeight: "bold",
+  },
+  border: {
+    borderColor: 'green',
+    borderWidth: 2,
+    
+  },
+  selectListView: {
+   zIndex: 500,
+   borderColor: 'blue',
+   borderWidth: 0,
+   width: "80%",
   }
 });
 export default ImageUploadScreen;

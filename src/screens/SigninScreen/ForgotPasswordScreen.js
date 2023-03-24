@@ -27,7 +27,7 @@ export default function ForgotPasswordScreen( { navigation } ) {
       <Text style={styles.title}>Reset Password</Text>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput} 
+          style={globalStyling.inputFieldText} 
           inputMode="email"
           placeholder="Enter your email Address"
           placeholderTextColor="grey"

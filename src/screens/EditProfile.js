@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
 
-
-
 import {
   StyleSheet,
   Text,
@@ -22,6 +20,7 @@ import {
   
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
+import globalStyling from "../../constants/globalStyling";
 
 
 const EditProfile = ({ navigation }) => {
@@ -73,7 +72,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView1}>
         <TextInput
-          style={styles.TextInput1}
+          style={globalStyling.inputFieldText}
           placeholder="DropDown?"
           placeholderTextColor="black"
          
@@ -83,7 +82,7 @@ const EditProfile = ({ navigation }) => {
 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Name"
           placeholderTextColor="black"
           
@@ -91,7 +90,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Username"
           placeholderTextColor="black"
           
@@ -99,7 +98,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Pronouns"
           placeholderTextColor="black"
          
@@ -107,7 +106,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Bio"
           placeholderTextColor="black"
           
@@ -115,7 +114,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Website One"
           placeholderTextColor="black"
           
@@ -123,21 +122,21 @@ const EditProfile = ({ navigation }) => {
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Website Two"
           placeholderTextColor="black"
         /> 
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Shop Web Link (Optional)"
           placeholderTextColor="black"
         /> 
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Dropbox Link or Google Drive Link(-Optional)"
           placeholderTextColor="black"
         /> 
@@ -200,29 +199,8 @@ inputView1: {
   alignItems: "center",
   
 },
-
-TextInput: {
-  height: 50,
-  width: "100%",
-  flex: 1,
-  padding: 10,
-  textAlign: "center",
-  fontWeight: "bold",
-  
-},
-TextInput1: {
-  // height: 10,
-  width: "100%",
-  flex: 1,
-  // padding: 10,
-  textAlign: "center",
-  fontSize:12,
-    
-},
-
 text: {
-  color: "black",
-    
+  color: "black",  
 },
 forgot_button: {
   height: 30,

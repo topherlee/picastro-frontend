@@ -1,6 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+    inputFieldText: {   // styling for the <TextInput> component
+      height: 50,
+      width: "100%",
+      flex: 1,
+      padding: 10,
+      textAlign: "center",
+      color: "black",
+    },
     yellowWideButton: {
       color: 'blue',
       width: 70,
@@ -63,4 +71,4 @@ export default StyleSheet.create({
         gap: 5,
         top: 30
     }
-  });
+});

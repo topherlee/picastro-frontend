@@ -262,9 +262,9 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 <TouchableOpacity
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
-                                        setActiveObjectSelector('asterisms');
-                                        setSearchAndFilterUrl('?imageCategory=asterisms');
-                                        console.log("searchAndFilterUrl asterisms", searchAndFilterUrl);
+                                        setActiveObjectSelector('asterism');
+                                        setSearchAndFilterUrl('?imageCategory=asterism');
+                                        console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         loadSortAndFilterScreen();
                                     }}
@@ -296,9 +296,9 @@ const SortAndFilterScreen = ({ navigation }) => {
                                 <TouchableOpacity
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
-                                        setActiveObjectSelector('clusters');
-                                        setSearchAndFilterUrl('?imageCategory=clusters');
-                                        console.log("searchAndFilterUrl clusters", searchAndFilterUrl);
+                                        setActiveObjectSelector('cluster');
+                                        setSearchAndFilterUrl('?imageCategory=cluster');
+                                        console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         loadSortAndFilterScreen();
                                     }}

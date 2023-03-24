@@ -24,9 +24,9 @@ export default function LogoutScreen( { navigation } )
   const [securePassword, setSecurePassword] = useState(true);
 
   
-  useEffect(() => {
-    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-  }, [])
+  // useEffect(() => {
+  //   Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+  // }, [])
 
 
   function handleLogout(){

@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(true);
 
     async function loadHomescreen() {
-        var {response,data} = await fetchInstance('/api/feed/home/', {
+        var {response,data} = await fetchInstance('/api/feed/', {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token.access}`,
@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
-        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+        //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
 
         loadHomescreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})
