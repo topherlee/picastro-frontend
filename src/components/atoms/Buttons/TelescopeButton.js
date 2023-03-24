@@ -35,17 +35,10 @@ const TelescopeButton = () => {
             justifyContent: 'center',
             top: 0
         }}>
-            <TouchableOpacity
-                onPress={() => {
-                    setSortModalVisible(!isSortModalVisible);
-                }}
-            >
-                <TelescopeButtonSvg
-                    width={40}
-                    height={40}
-
-                />
-            </TouchableOpacity>
+            <TelescopeButtonSvg
+                width={40}
+                height={40}
+            />
         </View>
     );
 };

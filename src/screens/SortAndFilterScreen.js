@@ -82,7 +82,7 @@ const SortAndFilterScreen = ({ navigation }) => {
         // }).catch (err => {
         //     console.log(err, "Failed to get data from API.");
         // })
-    }, [])
+    }, [activeObjectSelector, activeSelector])
 
     const toggleModal = () => {
         setSortModalVisible(!isSortModalVisible);
@@ -164,7 +164,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=iss_transit');
                                         console.log("searchAndFilterUrl iss", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -181,7 +181,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=lunar');
                                         console.log("searchAndFilterUrl lunar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -198,7 +198,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=solar');
                                         console.log("searchAndFilterUrl solar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -215,7 +215,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=planet');
                                         console.log("searchAndFilterUrl planet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -232,7 +232,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=comet');
                                         console.log("searchAndFilterUrl comet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -249,7 +249,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=galaxy');
                                         console.log("searchAndFilterUrl galaxy", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -266,7 +266,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=asterism');
                                         console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -283,7 +283,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=nebula');
                                         console.log("searchAndFilterUrl nebula", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -300,7 +300,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=cluster');
                                         console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        loadSortAndFilterScreen();
+                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >

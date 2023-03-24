@@ -87,9 +87,13 @@ const BottomTabNavigator = () => {
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ focused }) => (
-                        <TelescopeButton
-                            onPress={() => setSortModalVisible(true)} />
+                        <TelescopeButton />
                     ),
+                }}
+                listeners={{
+                    tabPress: e => {
+                        setSortModalVisible(true)
+                    },
                 }}
             />
         </Tab.Navigator>
