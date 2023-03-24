@@ -191,10 +191,11 @@ const ImageUploadScreen = ({ navigation }) => {
               data={category}
               inputStyles={styles.dropdownText} //style for the text of the unselected box
               boxStyles={styles.DropdownSelectListBox} //style for the unselected box
-              setSelected={[setSelected]}
               dropdownStyles={styles.dropdownSelectList} //style of the scrollview, when box selected
               dropdownTextStyles={styles.dropdownText} //style of text of each element inside scrollview
               dropdownItemStyles={styles.dropdownItemStyles} //style of each element inside scrollview
+              setSelected={setSelected}
+              onSelect={() => setImageCategory(selected)}
             />
           </View>
           <View style={styles.inputView}>
