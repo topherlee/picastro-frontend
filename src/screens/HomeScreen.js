@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(true);
 
     async function loadHomescreen() {
-        var {response,data} = await fetchInstance('/api/feed/', {
+        var {response,data} = await fetchInstance('/api/feed/?ordering=-pub_date', {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token.access}`,
