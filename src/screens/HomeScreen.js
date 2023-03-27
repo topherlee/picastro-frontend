@@ -324,51 +324,36 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                 </Modal>
             </View>
-            <ScrollView 
-                refreshControl={
-                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={refreshPage} />
-                }
-                style={{
-                    backgroundColor: "black",
-                    borderColor: "blue",
-                    borderWidth: 0,
-                }}
-                contentContainerStyle={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: "center",
-                    alignContent: 'center'
-                }}
-                showsVerticalScrollIndicator={false}
-            >
-                {data.length > 0 ?
-                    <MasonryList
-                        data={data}
-                        keyExtractor={item => item.id}
-                        numColumns={2}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
-                        contentContainerStyle={{
-                            borderColor: "red",
-                            borderWidth: 0,
-                            paddingTop: "3%",
-                            paddingLeft: "4%"
-                        }}
-                        style={{
-                            flex: 1,
-                            maxWidth: "96%",
-                            columnGap: 10,
-                            borderColor: "yellow",
-                            borderWidth: 0,
-                        }}
-                        onEndReached={fetchMore}
-                        onEndReachedThreshold={0.5}
-                    />
-                    :
-                    <Text style={{ color: 'white' }}>Nothing to display here</Text>
-                }
-            </ScrollView>
+            {data.length > 0 ?
+                <MasonryList
+                    data={data}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    onRefresh={refreshPage}
+                    refreshing={refreshing}
+                    showsVerticalScrollIndicator={true}
+                    indicatorStyle={"white"}
+                    renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+                    contentContainerStyle={{
+                        borderColor: "red",
+                        borderWidth: 0,
+                        paddingTop: "3%",
+                        paddingLeft: "4%",
+                        backgroundColor: "black"
+                    }}
+                    style={{
+                        flex: 1,
+                        maxWidth: "96%",
+                        columnGap: 10,
+                        borderColor: "yellow",
+                        borderWidth: 0,
+                    }}
+                    onEndReached={fetchMore}
+                    onEndReachedThreshold={0.1}
+                />
+                :
+                <Text style={{ color: 'white' }}>Nothing to display here</Text>
+            }
         </SafeAreaView>
     )
 };
