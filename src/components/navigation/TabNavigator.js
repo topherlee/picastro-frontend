@@ -32,7 +32,7 @@ const screenOptionStyle = {
     tabBarInactiveTintColor: "white",
 }
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({ navigation }) => {
     const {
         isSortModalVisible,
         setSortModalVisible
@@ -92,6 +92,7 @@ const BottomTabNavigator = () => {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
+                        navigation.navigate('Home')
                         setSortModalVisible(!isSortModalVisible)
                     },
                 }}
