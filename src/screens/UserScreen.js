@@ -34,8 +34,7 @@ const UserScreen = ({ navigation }) => {
         token,
         fetchInstance,
         currentUser,
-        searchAndFilterUrl,
-        setSearchAndFilterUrl
+        userScreenUrl
     } = useContext(AuthContext);
     const [modalVisible, setModalVisible] = useState(true);
     
@@ -48,7 +47,7 @@ const UserScreen = ({ navigation }) => {
         //console.log('AccessToken',jwtDecode(token.access))
         console.log(currentUser);
         
-        const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+        const urlForApiCall = '/api/feed/' + userScreenUrl;
         console.log("urlForApiCall", urlForApiCall);
 
         async function loadSortAndFilterScreen() {
@@ -59,21 +58,7 @@ const UserScreen = ({ navigation }) => {
                     'Content-Type': 'application/json'
                 }
             })
-            setData(data);
-        }
-
-        const userForApiCall = '/api/feed/' + searchAndFilterUrl;
-        console.log("urlForApiCall", urlForApiCall);
-
-        async function loadSortAndFilterScreen() {
-            var {response,data} = await fetchInstance(urlForApiCall, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Token ${token.access}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            setData(data);
+            setData(data.results);
         }
 
         loadSortAndFilterScreen().catch(err => {console.log(err)})

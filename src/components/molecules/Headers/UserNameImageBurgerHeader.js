@@ -24,8 +24,7 @@ const UserNameImageBurgerHeader = () => {
         token,
         currentUser,
         setCurrentUser,
-        searchAndFilterUrl,
-        setSearchAndFilterUrl
+        setUserScreenUrl
     } = useContext(AuthContext);
     
     // useEffect(() => {
@@ -57,7 +56,7 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setSearchAndFilterUrl('?poster=' + currentUser.id);
+                        setUserScreenUrl('?ordering=-pub_date&poster=' + currentUser.id);
                         navigation.navigate('UserScreen');
                      }}
                 >
@@ -66,11 +65,6 @@ const UserNameImageBurgerHeader = () => {
             </View>
             <HeaderUserName 
                 style={styles.textContainer}
-                onPress={function () {
-                    setSearchAndFilterUrl(currentUser.id);
-                    navigation.navigate('UserScreen');
-                    console.log(searchAndFilterUrl);
-                }}
             />
             <View>
                 <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
