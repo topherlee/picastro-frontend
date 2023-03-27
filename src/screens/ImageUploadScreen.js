@@ -162,7 +162,7 @@ const ImageUploadScreen = ({ navigation }) => {
             <Text style={styles.title}>Upload Image</Text>
             <TouchableOpacity onPress={pickImage}>
               {photo ?
-                <AutoscaleImage key={photo.uri} uri={photo.uri} width={Dimensions.get('window').width} />
+                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height/3} />
                 :
                 <Icon name="file-image-plus" size={100} color={'#FFC700'} />
               }
@@ -189,6 +189,7 @@ const ImageUploadScreen = ({ navigation }) => {
               styles={styles.border}
               placeholder="Object Category"
               placeholderTextColor="grey"
+              search={false}
               data={category}
               inputStyles={styles.dropdownText} //style for the text of the unselected box
               boxStyles={styles.DropdownSelectListBox} //style for the unselected box
