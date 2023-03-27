@@ -22,19 +22,19 @@ const ClustersButton = ({selected}) => {
         <View>
             
                 <View>
-                    {(selected == 'clusters') ?
+                    {(selected == 'cluster') ?
                         <ClustersButtonYellowSvg style={globalStyling.sortByModalSvg} /> 
                     :
                         <ClustersButtonGreySvg style={globalStyling.sortByModalSvg} />
                     }
                     <Text 
-                        style={(selected == "clusters") ? 
+                        style={(selected == "cluster") ? 
                             [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
                             :
                             [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
                         }
                     >
-                        Stars/ Clusters
+                        Stars
                     </Text>
                 </View>
         </View>

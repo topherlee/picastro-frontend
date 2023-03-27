@@ -60,8 +60,8 @@ const ImageUploadScreen = ({ navigation }) => {
     userID = jwtDecode(token?.access).user_id;
   }, [token])
 
-  const uploadedHandler = () => {
-    Alert.alert("Upload Successful","Your image has been uploaded.",)
+  const uploadedHandler = (err) => {
+    {err ? Alert.alert("Upload Failed",JSON.stringify(err),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
   }
 
   const pickImage = () => {
@@ -142,6 +142,7 @@ const ImageUploadScreen = ({ navigation }) => {
         })
 
       console.log('UPLOAD RESULT', data)
+      return {response, data}
     } catch (err) {
       console.log(err)
     }
@@ -253,7 +254,9 @@ const ImageUploadScreen = ({ navigation }) => {
             />
           </View>
 
-          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(() => {uploadedHandler()})}>
+          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(({response,data}) => {
+            uploadedHandler(response.ok ? '' : data)
+          })}>
             <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>

@@ -1,46 +1,76 @@
-import React, { useContext, useEffect, useState } from 'react';
-
 import {
+    Alert,
+    View,
+    Text,
+    Pressable,
     Button,
-    Image,
     SafeAreaView,
     ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     TouchableOpacity,
-    RefreshControl,
-    View,
-    Platform
+    RefreshControl
 } from 'react-native';
+import Modal from "react-native-modal";
 
+import React, { useContext, useEffect, useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
-import { HalfWidthPostsContainer } from '../components/organisms';
+import {
+    NebulaButton,
+    GalaxyButton,
+    CometButton,
+    PlanetButton,
+    AsterismsButton,
+    ClustersButton,
+    IssTransitButton,
+    LunarButton,
+    SolarButton
+} from '../components/atoms';
+
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
+import { HalfWidthPostsContainer } from '../components/organisms';
+import globalStyling from '../../constants/globalStyling';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const HomeScreen = ({ navigation }) => {
+const SortAndFilterScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
-    const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
     const [refreshing, setRefreshing] = useState(true);
 
-    async function loadHomescreen() {
-        var {response,data} = await fetchInstance('/api/feed/?ordering=-pub_date', {
+    const {
+        token,
+        fetchInstance,
+        currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible,
+        activeSelector,
+        setActiveSelector,
+        activeObjectSelector,
+        setActiveObjectSelector
+    } = useContext(AuthContext);
+
+
+    const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
+    console.log("urlForApiCall", urlForApiCall);
+
+    async function loadSortAndFilterScreen() {
+        var { response, data } = await fetchInstance(urlForApiCall, {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token.access}`,
                 'Content-Type': 'application/json'
             }
         })
+        console.log(data)
         setData(data);
     }
 
+
     useEffect(() => {
-        //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
 
-        loadHomescreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})
+        loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => { console.log(err) })
         // .then(res => {return res.json()})
         // .then((result) => {
         //     //console.log("INCOMINGDATA",token,result)
@@ -48,14 +78,220 @@ const HomeScreen = ({ navigation }) => {
         // }).catch (err => {
         //     console.log(err, "Failed to get data from API.");
         // })
-    }, [])
+    }, [activeObjectSelector, activeSelector])
+
+    const toggleModal = () => {
+        setSortModalVisible(!isSortModalVisible);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
+            <View>
+                <Modal
+                    backdropOpacity={0.5}
+                    isVisible={isSortModalVisible}
+                    onBackdropPress={() => {
+                        setSortModalVisible(false);
+                    }}
+                    style={styles.modalWrapper}
+                    onSwipeComplete={() => {
+                        setSortModalVisible(false);
+                    }}
+                    swipeDirection={['down']}
+                    propagateSwipe={true}
+                >
+                    <View style={styles.modalView}>
+                    <Icon name="minus" size={50} color="lightgray"/>
+                        <Text
+                            style={styles.modalText}
+                        >
+                            Sort or Filter by:
+                        </Text>
+                        <View style={styles.buttonWrapper}>
+                            <Pressable
+                                style={
+                                    (activeSelector == 'most_recent') ? [styles.button, styles.buttonSelected] :
+                                        [styles.button, styles.buttonUnselected]}
+                                onPress={() => {
+                                    setSortModalVisible(!isSortModalVisible);
+                                    setSearchAndFilterUrl('?ordering=-pub_date');
+                                    setActiveSelector('most_recent');
+                                }}
+                            >
+                                <Text style={styles.buttonText}>Most recent</Text>
+                            </Pressable>
+                            <Pressable
+                                style={
+                                    (activeSelector == 'object_type') ? [styles.button, styles.buttonSelected] :
+                                        [styles.button, styles.buttonUnselected]}
+                                onPress={() => {
+                                    setActiveSelector('object_type');
+                                }}
+                            >
+                                <Text style={styles.buttonText}>Object Type</Text>
+                            </Pressable>
+                            <Pressable
+                                style={
+                                    (activeSelector == 'randomizer') ? [styles.button, styles.buttonSelected] :
+                                        [styles.button, styles.buttonUnselected]}
+                                onPress={() => {
+                                    setSortModalVisible(!isSortModalVisible);
+                                    setSearchAndFilterUrl('?ordering=?');
+                                    setActiveSelector('randomizer');
+                                }}
+                            >
+                                <Text style={styles.buttonText}>Randomizer</Text>
+                            </Pressable>
+                        </View>
+                        {(activeSelector == 'object_type') ?
+                            <ScrollView
+                                horizontal={true}
+                                style={styles.horizontalScrollview}
+                            >
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('iss_transit');
+                                        setSearchAndFilterUrl('?imageCategory=iss_transit');
+                                        console.log("searchAndFilterUrl iss", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <IssTransitButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('lunar');
+                                        setSearchAndFilterUrl('?imageCategory=lunar');
+                                        console.log("searchAndFilterUrl lunar", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <LunarButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('solar');
+                                        setSearchAndFilterUrl('?imageCategory=solar');
+                                        console.log("searchAndFilterUrl solar", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <SolarButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('planet');
+                                        setSearchAndFilterUrl('?imageCategory=planet');
+                                        console.log("searchAndFilterUrl planet", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <PlanetButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('comet');
+                                        setSearchAndFilterUrl('?imageCategory=comet');
+                                        console.log("searchAndFilterUrl comet", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <CometButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('galaxy');
+                                        setSearchAndFilterUrl('?imageCategory=galaxy');
+                                        console.log("searchAndFilterUrl galaxy", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <GalaxyButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('asterism');
+                                        setSearchAndFilterUrl('?imageCategory=asterism');
+                                        console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <AsterismsButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('nebula');
+                                        setSearchAndFilterUrl('?imageCategory=nebula');
+                                        console.log("searchAndFilterUrl nebula", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <NebulaButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={globalStyling.iconContainer}
+                                    onPress={() => {
+                                        setActiveObjectSelector('cluster');
+                                        setSearchAndFilterUrl('?imageCategory=cluster');
+                                        console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
+                                        setSortModalVisible(!isSortModalVisible);
+                                    }}
+                                    title="Filter Value"
+                                >
+                                    <ClustersButton
+                                        selected={activeObjectSelector}
+                                    />
+                                </TouchableOpacity>
+                                
+                            </ScrollView>
+                            : ""}
+                    </View>
+                </Modal>
+            </View>
             <ScrollView 
                 refreshControl={
-                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={() => {loadHomescreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})}} />
+                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={() => {loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})}} />
                 }
                 style={{
                     backgroundColor: "black",
@@ -71,7 +307,7 @@ const HomeScreen = ({ navigation }) => {
                 }}
                 showsVerticalScrollIndicator={false}
             >
-                {data.length > 0 ? 
+                {data.length > 0 ?
                     <MasonryList
                         data={data}
                         keyExtractor={item => item.id}
@@ -92,34 +328,112 @@ const HomeScreen = ({ navigation }) => {
                             borderWidth: 0,
                         }}
                     />
-                : 
-                    <Text style={{color:'white'}}>Nothing to display here</Text>
+                    :
+                    <Text style={{ color: 'white' }}>Nothing to display here</Text>
                 }
             </ScrollView>
         </SafeAreaView>
     )
-}
-
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         display: 'flex',
         backgroundColor: "#2F2F2F",
-        borderColor: "green",
+        borderColor: "yellow",
         borderWidth: 0,
     },
     text: {
         fontSize: 25,
         fontWeight: '500',
         color: 'red',
-        textAlign: 'center',
-        zIndex: 500
+        textAlign: 'center'
     },
     image: {
         width: "100%",
         height: 200
+    },
+    modalWrapper: {
+        borderColor: "red",
+        borderWidth: 0,
+        margin: 0,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'baseline',
+    },
+    modalView: {
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        bottom: 0,
+        width: '100%',
+
+        paddingBottom: 30,
+        paddingLeft: 30,
+        paddingRight: 30,
+        alignItems: 'center',
+        elevation: 10,
+        backgroundColor: "#2F2F2F",
+        borderColor: "green",
+        borderWidth: 0,
+    },
+    buttonWrapper: {
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    button: {
+        borderRadius: 25,
+        padding: 8,
+        elevation: 2,
+        width: 90,
+        height: 32,
+        gap: 5
+    },
+    buttonUnselected: {
+        backgroundColor: '#DDD7D7',
+    },
+    buttonSelected: {
+        backgroundColor: '#FDD015',
+    },
+    buttonText: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 11,
+        textAlign: 'center',
+        textAlignVertical: 'center'
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        borderColor: 'red',
+        borderWidth: 0,
+        gap: 20
+    },
+    horizontalScrollview: {
+        marginBottom: 10,
+    },
+    iconContainer: {
+        width: 150,
+        borderColor: 'yellow',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+        top: 0
     }
+
 });
 
-export default HomeScreen;
+export default SortAndFilterScreen;

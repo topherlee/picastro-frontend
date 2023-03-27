@@ -22,19 +22,19 @@ const AsterismsButton = ({selected}) => {
         <View>
             
                 <View>
-                    {(selected == 'asterisms') ?
+                    {(selected == 'asterism') ?
                         <AsterismsButtonYellowSvg style={globalStyling.sortByModalSvg} /> 
                     :
                         <AsterismsButtonGreySvg style={globalStyling.sortByModalSvg} />
                     }
                     <Text 
-                        style={(selected == "asterisms") ? 
+                        style={(selected == "asterism") ? 
                             [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
                             :
                             [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
                         }
                     >
-                        Asterisms/ Constellations
+                        Asterisms
                     </Text>
                 </View>
         </View>
