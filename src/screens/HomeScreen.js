@@ -179,7 +179,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('iss_transit');
-                                        setSearchAndFilterUrl('?imageCategory=iss_transit');
+                                        setSearchAndFilterUrl('?imageCategory=iss_transit&ordering=-pub_date');
                                         console.log("searchAndFilterUrl iss", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -195,7 +195,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('lunar');
-                                        setSearchAndFilterUrl('?imageCategory=lunar');
+                                        setSearchAndFilterUrl('?imageCategory=lunar&ordering=-pub_date');
                                         console.log("searchAndFilterUrl lunar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -211,7 +211,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('solar');
-                                        setSearchAndFilterUrl('?imageCategory=solar');
+                                        setSearchAndFilterUrl('?imageCategory=solar&ordering=-pub_date');
                                         console.log("searchAndFilterUrl solar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -227,7 +227,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('planet');
-                                        setSearchAndFilterUrl('?imageCategory=planet');
+                                        setSearchAndFilterUrl('?imageCategory=planet&ordering=-pub_date');
                                         console.log("searchAndFilterUrl planet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -243,7 +243,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('comet');
-                                        setSearchAndFilterUrl('?imageCategory=comet');
+                                        setSearchAndFilterUrl('?imageCategory=comet&ordering=-pub_date');
                                         console.log("searchAndFilterUrl comet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -259,7 +259,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('galaxy');
-                                        setSearchAndFilterUrl('?imageCategory=galaxy');
+                                        setSearchAndFilterUrl('?imageCategory=galaxy&ordering=-pub_date');
                                         console.log("searchAndFilterUrl galaxy", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -275,7 +275,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('asterism');
-                                        setSearchAndFilterUrl('?imageCategory=asterism');
+                                        setSearchAndFilterUrl('?imageCategory=asterism&ordering=-pub_date');
                                         console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -291,7 +291,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('nebula');
-                                        setSearchAndFilterUrl('?imageCategory=nebula');
+                                        setSearchAndFilterUrl('?imageCategory=nebula&ordering=-pub_date');
                                         console.log("searchAndFilterUrl nebula", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -307,7 +307,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('cluster');
-                                        setSearchAndFilterUrl('?imageCategory=cluster');
+                                        setSearchAndFilterUrl('?imageCategory=cluster&ordering=-pub_date');
                                         console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                         setCurrentPage(1)
@@ -324,6 +324,13 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                 </Modal>
             </View>
+            <View 
+                style={{
+                    backgroundColor: "white", 
+                    borderWidth: 0, 
+                    borderColor: "white", 
+                    flex: 1
+            }}>
             {data.length > 0 ?
                 <MasonryList
                     data={data}
@@ -354,6 +361,7 @@ const HomeScreen = ({ navigation }) => {
                 :
                 <Text style={{ color: 'white' }}>Nothing to display here</Text>
             }
+            </View>
         </SafeAreaView>
     )
 };
