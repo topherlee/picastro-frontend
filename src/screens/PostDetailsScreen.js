@@ -5,10 +5,12 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    Image
+    Image,
+    Alert
 } from 'react-native'
-
-import React from 'react'
+import { disallowScreenshot } from 'react-native-screen-capture';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { FullWidthPostsContainer } from '../components/organisms';
@@ -70,6 +72,13 @@ import { FullWidthPostsContainer } from '../components/organisms';
 var ratio;
 
 const PostDetailsScreen = ({ route, navigation }) => {
+    useFocusEffect(React.useCallback(()=>{
+        disallowScreenshot(true);
+        return () => {
+            // reenable screenshots upon leaving screen
+            disallowScreenshot(false);
+        }
+    }))
     const props = route.params;
     const headerHeight = useHeaderHeight();
   return (
