@@ -32,9 +32,12 @@ import { HalfWidthPostsContainer } from '../components/organisms';
 import globalStyling from '../../constants/globalStyling';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const SortAndFilterScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [next, setNext] = useState(null);
 
     const {
         token,
@@ -54,30 +57,52 @@ const SortAndFilterScreen = ({ navigation }) => {
     const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
     console.log("urlForApiCall", urlForApiCall);
 
-    async function loadSortAndFilterScreen() {
-        var { response, data } = await fetchInstance(urlForApiCall, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Token ${token.access}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        console.log(data)
-        setData(data);
+    async function loadHomescreen(pageNum) {
+        try {
+            var pageUrl = pageNum ? `&page=${pageNum}` : '';
+            var { response, data } = await fetchInstance(urlForApiCall + pageUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token.access}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            
+            setNext(data.next)
+            return data.results
+        } catch (error) {
+            console.error(error);
+            return [];
+            
+        }
     }
 
+    const fetchMore = async () => {
+        if (isLoading) return;
+        if (!next) return;
+        setIsLoading(true);
+        
+        const nextPage = currentPage + 1;
+        const newData = await loadHomescreen(nextPage);
+        setCurrentPage(nextPage);
+        setIsLoading(false);
+        setData(prevData => [...prevData, ...newData]);
+    };
+
+    const refreshPage = async () => {
+        setCurrentPage(1)
+        const newData = await loadHomescreen(1)
+        setData(newData)
+        setRefreshing(false)
+    }
 
     useEffect(() => {
         //console.log('AccessToken',jwtDecode(token.access))
 
-        loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => { console.log(err) })
-        // .then(res => {return res.json()})
-        // .then((result) => {
-        //     //console.log("INCOMINGDATA",token,result)
-        //     setData(result);
-        // }).catch (err => {
-        //     console.log(err, "Failed to get data from API.");
-        // })
+        loadHomescreen(currentPage).then((data)=>{
+            setData(data);
+            setRefreshing(false);
+        })
     }, [activeObjectSelector, activeSelector])
 
     const toggleModal = () => {
@@ -139,6 +164,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     setSortModalVisible(!isSortModalVisible);
                                     setSearchAndFilterUrl('?ordering=?');
                                     setActiveSelector('randomizer');
+                                    setCurrentPage(1)
                                 }}
                             >
                                 <Text style={styles.buttonText}>Randomizer</Text>
@@ -156,6 +182,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=iss_transit');
                                         console.log("searchAndFilterUrl iss", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -171,6 +198,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=lunar');
                                         console.log("searchAndFilterUrl lunar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -186,6 +214,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=solar');
                                         console.log("searchAndFilterUrl solar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -201,6 +230,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=planet');
                                         console.log("searchAndFilterUrl planet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -216,6 +246,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=comet');
                                         console.log("searchAndFilterUrl comet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -231,6 +262,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=galaxy');
                                         console.log("searchAndFilterUrl galaxy", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -246,6 +278,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=asterism');
                                         console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -261,6 +294,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=nebula');
                                         console.log("searchAndFilterUrl nebula", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -276,6 +310,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=cluster');
                                         console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
+                                        setCurrentPage(1)
                                     }}
                                     title="Filter Value"
                                 >
@@ -291,7 +326,7 @@ const SortAndFilterScreen = ({ navigation }) => {
             </View>
             <ScrollView 
                 refreshControl={
-                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={() => {loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})}} />
+                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={refreshPage} />
                 }
                 style={{
                     backgroundColor: "black",
@@ -327,6 +362,8 @@ const SortAndFilterScreen = ({ navigation }) => {
                             borderColor: "yellow",
                             borderWidth: 0,
                         }}
+                        onEndReached={fetchMore}
+                        onEndReachedThreshold={0.5}
                     />
                     :
                     <Text style={{ color: 'white' }}>Nothing to display here</Text>
@@ -436,4 +473,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default SortAndFilterScreen;
+export default HomeScreen;
