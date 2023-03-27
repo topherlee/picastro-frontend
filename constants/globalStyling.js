@@ -67,8 +67,10 @@ export default StyleSheet.create({
         height: 107,
         borderColor: 'white',
         borderWidth: 0,
+        display:'flex',
+        justifyContent:'center',
         alignItems: 'center',
+        alignContent:'center',
         gap: 5,
-        top: 30
     }
 });

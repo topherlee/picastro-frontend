@@ -83,7 +83,6 @@ const BottomTabNavigator = () => {
         /> */}
             <Tab.Screen
                 name="SortAndFilterTab"
-                component={SortFilterStackNavigator}
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ focused }) => (
@@ -91,11 +90,14 @@ const BottomTabNavigator = () => {
                     ),
                 }}
                 listeners={{
-                    tabPress: e => {
-                        setSortModalVisible(true)
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        setSortModalVisible(!isSortModalVisible)
                     },
                 }}
-            />
+            >
+                {() => null}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 };

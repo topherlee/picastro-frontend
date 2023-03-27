@@ -7,13 +7,13 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    RefreshControl
 } from 'react-native';
 import Modal from "react-native-modal";
 
 import React, { useContext, useEffect, useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
-import { DualColumnMasonryList } from '../components/templates';
 import {
     NebulaButton,
     GalaxyButton,
@@ -34,9 +34,9 @@ import globalStyling from '../../constants/globalStyling';
 
 const SortAndFilterScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
+    const [refreshing, setRefreshing] = useState(true);
+
     const {
-        domain,
-        setDomain,
         token,
         fetchInstance,
         currentUser,
@@ -49,11 +49,7 @@ const SortAndFilterScreen = ({ navigation }) => {
         activeObjectSelector,
         setActiveObjectSelector
     } = useContext(AuthContext);
-    const [changeModalVisible, setChangeModalVisible] = useState(false);
 
-    // if (activeSelector != "" || activeObjectSelector != "") {
-    //     setChangeModalVisible(true);
-    // };
 
     const urlForApiCall = '/api/feed/' + searchAndFilterUrl;
     console.log("urlForApiCall", urlForApiCall);
@@ -71,10 +67,9 @@ const SortAndFilterScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-        //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
         //console.log('AccessToken',jwtDecode(token.access))
 
-        loadSortAndFilterScreen().catch(err => { console.log(err) })
+        loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => { console.log(err) })
         // .then(res => {return res.json()})
         // .then((result) => {
         //     //console.log("INCOMINGDATA",token,result)
@@ -120,8 +115,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     setSortModalVisible(!isSortModalVisible);
                                     setSearchAndFilterUrl('?ordering=?');
                                     setActiveSelector('randomizer');
-                                    setChangeModalVisible(true);
-                                    // loadSortAndFilterScreen();
                                 }}
                             >
                                 <Text style={styles.buttonText}>Randomizer</Text>
@@ -134,8 +127,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     setSortModalVisible(!isSortModalVisible);
                                     setSearchAndFilterUrl('?ordering=pub_date');
                                     setActiveSelector('most_recent');
-                                    setChangeModalVisible(true);
-                                    //loadSortAndFilterScreen();
                                 }}
                             >
                                 <Text style={styles.buttonText}>Most recent</Text>
@@ -146,7 +137,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
                                     setActiveSelector('object_type');
-                                    //loadSortAndFilterScreen();
                                 }}
                             >
                                 <Text style={styles.buttonText}>Object Type</Text>
@@ -164,7 +154,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=iss_transit');
                                         console.log("searchAndFilterUrl iss", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -181,7 +170,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=lunar');
                                         console.log("searchAndFilterUrl lunar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -198,7 +186,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=solar');
                                         console.log("searchAndFilterUrl solar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -215,7 +202,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=planet');
                                         console.log("searchAndFilterUrl planet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -232,7 +218,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=comet');
                                         console.log("searchAndFilterUrl comet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -249,7 +234,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=galaxy');
                                         console.log("searchAndFilterUrl galaxy", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -266,7 +250,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=asterism');
                                         console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -283,7 +266,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=nebula');
                                         console.log("searchAndFilterUrl nebula", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -300,7 +282,6 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         setSearchAndFilterUrl('?imageCategory=cluster');
                                         console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
-                                        //loadSortAndFilterScreen();
                                     }}
                                     title="Filter Value"
                                 >
@@ -315,18 +296,24 @@ const SortAndFilterScreen = ({ navigation }) => {
                     </View>
                 </Modal>
             </View>
-            <ScrollView style={{
-                backgroundColor: "black",
-                borderColor: "blue",
-                borderWidth: 0,
-            }}
+            <ScrollView 
+                refreshControl={
+                    <RefreshControl tintColor={'grey'} refreshing={refreshing} onRefresh={() => {loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => {console.log(err)})}} />
+                }
+                style={{
+                    backgroundColor: "black",
+                    borderColor: "blue",
+                    borderWidth: 0,
+                }}
                 contentContainerStyle={{
                     display: "flex",
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: "center",
                     alignContent: 'center'
-                }}>
+                }}
+                showsVerticalScrollIndicator={false}
+            >
                 {data.length > 0 ?
                     <MasonryList
                         data={data}
