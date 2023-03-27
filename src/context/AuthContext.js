@@ -10,7 +10,7 @@ export const AuthContext = React.createContext({});
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         "id": null,
@@ -119,6 +119,9 @@ export const AuthProvider = ({children, contextValue}) => {
     const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("?ordering=-pub_date");
     const [isSortModalVisible, setSortModalVisible] = useState(false);
     const [activeSelector, setActiveSelector] = useState("most_recent");
+    const [user, setUser] = useState("");
+    const [userUrl, setUserUrl] = useState("");
+    const [userFilterUrl, setUserFilterUrl] = useState("");
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
 
     const globalContext = {
@@ -128,6 +131,8 @@ export const AuthProvider = ({children, contextValue}) => {
         setIsSignedIn,
         token,
         setToken,
+        user,
+        setUser,
         currentUser,
         setCurrentUser,
         fetchInstance, 
@@ -135,13 +140,17 @@ export const AuthProvider = ({children, contextValue}) => {
         setSavedTokens,
         searchAndFilterUrl,
         setSearchAndFilterUrl,
+        userUrl,
+        setUserUrl,
+        userFilterUrl,
+        setUserFilterUrl,
         isSortModalVisible,
         setSortModalVisible,
         activeSelector,
         setActiveSelector,
         activeObjectSelector,
-        setActiveObjectSelector,
-    }
+        setActiveObjectSelector
+    };
 
      useEffect(() => {
     //     let interval = setInterval(() => {

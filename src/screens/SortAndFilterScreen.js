@@ -67,16 +67,7 @@ const SortAndFilterScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-        //console.log('AccessToken',jwtDecode(token.access))
-
         loadSortAndFilterScreen().then(()=>{setRefreshing(false)}).catch(err => { console.log(err) })
-        // .then(res => {return res.json()})
-        // .then((result) => {
-        //     //console.log("INCOMINGDATA",token,result)
-        //     setData(result);
-        // }).catch (err => {
-        //     console.log(err, "Failed to get data from API.");
-        // })
     }, [activeObjectSelector, activeSelector])
 
     const toggleModal = () => {
