@@ -326,7 +326,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <View 
                 style={{
-                    backgroundColor: "white", 
+                    backgroundColor: "black", 
                     borderWidth: 0, 
                     borderColor: "white", 
                     flex: 1
