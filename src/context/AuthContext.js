@@ -117,6 +117,7 @@ export const AuthProvider = ({children, contextValue}) => {
     //but more related to Screens
     const [loading, setLoading] = useState(false);
     const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("?ordering=-pub_date");
+    const [userScreenUrl, setUserScreenUrl] = useState("");
     const [isSortModalVisible, setSortModalVisible] = useState(false);
     const [activeSelector, setActiveSelector] = useState("most_recent");
     const [user, setUser] = useState("");
@@ -138,6 +139,8 @@ export const AuthProvider = ({children, contextValue}) => {
         fetchInstance, 
         getSavedTokens, 
         setSavedTokens,
+        userScreenUrl,
+        setUserScreenUrl,
         searchAndFilterUrl,
         setSearchAndFilterUrl,
         userUrl,

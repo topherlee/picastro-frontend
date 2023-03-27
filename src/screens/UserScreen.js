@@ -42,7 +42,8 @@ const UserScreen = ({ navigation }) => {
         userUrl,
         setUserUrl,
         searchAndFilterUrl,
-        setSearchAndFilterUrl
+        setSearchAndFilterUrl,
+        userScreenUrl
     } = useContext(AuthContext);
     const [refreshing, setRefreshing] = useState(true);
     const [userFeedUrl, setUserFeedUrl] = useState("");
