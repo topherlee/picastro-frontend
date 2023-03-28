@@ -84,6 +84,7 @@ export const AuthProvider = ({children, contextValue}) => {
             return {response, data}
         } catch (err) {
             console.log(err)
+            return {response, err}
         }
     }
 
