@@ -104,7 +104,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
                                     setSortModalVisible(!isSortModalVisible);
-                                    setSearchAndFilterUrl('?ordering=?');
+                                    setSearchAndFilterUrl('ordering=?');
                                     setActiveSelector('randomizer');
                                 }}
                             >
@@ -116,7 +116,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                         [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
                                     setSortModalVisible(!isSortModalVisible);
-                                    setSearchAndFilterUrl('?ordering=pub_date');
+                                    setSearchAndFilterUrl('ordering=pub_date');
                                     setActiveSelector('most_recent');
                                 }}
                             >
@@ -142,7 +142,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('iss_transit');
-                                        setSearchAndFilterUrl('?imageCategory=iss_transit');
+                                        setSearchAndFilterUrl('imageCategory=iss_transit');
                                         console.log("searchAndFilterUrl iss", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -158,7 +158,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('lunar');
-                                        setSearchAndFilterUrl('?imageCategory=lunar');
+                                        setSearchAndFilterUrl('imageCategory=lunar');
                                         console.log("searchAndFilterUrl lunar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -174,7 +174,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('solar');
-                                        setSearchAndFilterUrl('?imageCategory=solar');
+                                        setSearchAndFilterUrl('imageCategory=solar');
                                         console.log("searchAndFilterUrl solar", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -190,7 +190,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('planet');
-                                        setSearchAndFilterUrl('?imageCategory=planet');
+                                        setSearchAndFilterUrl('imageCategory=planet');
                                         console.log("searchAndFilterUrl planet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -206,7 +206,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('comet');
-                                        setSearchAndFilterUrl('?imageCategory=comet');
+                                        setSearchAndFilterUrl('imageCategory=comet');
                                         console.log("searchAndFilterUrl comet", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -222,7 +222,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('galaxy');
-                                        setSearchAndFilterUrl('?imageCategory=galaxy');
+                                        setSearchAndFilterUrl('imageCategory=galaxy');
                                         console.log("searchAndFilterUrl galaxy", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -238,7 +238,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('asterism');
-                                        setSearchAndFilterUrl('?imageCategory=asterism');
+                                        setSearchAndFilterUrl('imageCategory=asterism');
                                         console.log("searchAndFilterUrl asterism", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -254,7 +254,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('nebula');
-                                        setSearchAndFilterUrl('?imageCategory=nebula');
+                                        setSearchAndFilterUrl('imageCategory=nebula');
                                         console.log("searchAndFilterUrl nebula", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
@@ -270,7 +270,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                                     style={globalStyling.iconContainer}
                                     onPress={() => {
                                         setActiveObjectSelector('cluster');
-                                        setSearchAndFilterUrl('?imageCategory=cluster');
+                                        setSearchAndFilterUrl('imageCategory=cluster');
                                         console.log("searchAndFilterUrl cluster", searchAndFilterUrl);
                                         setSortModalVisible(!isSortModalVisible);
                                     }}
