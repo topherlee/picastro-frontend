@@ -29,13 +29,13 @@ import {
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
+import {BottomFilterModal} from '../components/molecules';
 import globalStyling from '../../constants/globalStyling';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
 
@@ -50,12 +50,15 @@ const HomeScreen = ({ navigation }) => {
         activeSelector,
         setActiveSelector,
         activeObjectSelector,
-        setActiveObjectSelector
+        setActiveObjectSelector,
+        currentPage,
+        setCurrentPage,
+        setUserCurrentPage
     } = useContext(AuthContext);
 
 
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
-    console.log("urlForApiCall", urlForApiCall);
+    // console.log("urlForApiCall", urlForApiCall);
 
     async function loadHomescreen(pageNum) {
         try {
@@ -112,7 +115,7 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <View>
+            {/* <View>
                 <Modal
                     backdropOpacity={0.5}
                     isVisible={isSortModalVisible}
@@ -326,7 +329,8 @@ const HomeScreen = ({ navigation }) => {
                             : ""}
                     </View>
                 </Modal>
-            </View>
+            </View> */}
+            <BottomFilterModal />
             <View 
                 style={{
                     backgroundColor: "black", 

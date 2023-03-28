@@ -92,7 +92,7 @@ const BottomTabNavigator = ({ navigation }) => {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
-                        navigation.navigate('Home')
+                        //navigation.navigate('Home')
                         setSortModalVisible(!isSortModalVisible)
                     },
                 }}

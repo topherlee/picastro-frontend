@@ -17,7 +17,7 @@ import { ExtendedPicastroBurgerHeader, UserNameImageBurgerHeader,UserNameImageWi
 import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
-
+import {BottomFilterModal} from '../components/molecules';
 import StarIconSvg from '../assets/star-icon.svg';
 import AwardGoldSvg from '../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../assets/buttons/award-silver.svg';
@@ -29,7 +29,6 @@ import { AuthContext } from '../context/AuthContext';
 const UserScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
 
@@ -39,14 +38,20 @@ const UserScreen = ({ navigation }) => {
         token,
         fetchInstance,
         currentUser,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        activeObjectSelector,
+        activeSelector,
+        userCurrentPage,
+        setUserCurrentPage,
+        setCurrentPage,
         userScreenUrl
     } = useContext(AuthContext);
     
 
     //setUrlAttachement('?poster=' + currentUser.id);
-    const urlForApiCall = '/api/feed/?' + userScreenUrl;
-    console.log("urlForApiCall", urlForApiCall);
-
+    const urlForApiCall = `/api/feed/?${userScreenUrl}&${searchAndFilterUrl}`;
+    
     async function loadUserFeed(pageNum) {
         try {
             var pageUrl = pageNum ? `&page=${pageNum}` : '';
@@ -70,15 +75,15 @@ const UserScreen = ({ navigation }) => {
         if (!next) return;
         setIsLoading(true);
         
-        const nextPage = currentPage + 1;
+        const nextPage = userCurrentPage + 1;
         const newData = await loadUserFeed(nextPage);
-        setCurrentPage(nextPage);
+        setUserCurrentPage(nextPage);
         setIsLoading(false);
         setData(prevData => [...prevData, ...newData]);
     };
 
     const refreshPage = async () => {
-        setCurrentPage(1)
+        setUserCurrentPage(1)
         const newData = await loadUserFeed(1)
         setData(newData)
         setRefreshing(false)
@@ -88,11 +93,11 @@ const UserScreen = ({ navigation }) => {
         //console.log('AccessToken',jwtDecode(token.access))
         console.log(currentUser);
         
-        loadUserFeed().then((data)=> {
+        loadUserFeed(userCurrentPage).then((data)=> {
             setData(data);
             setRefreshing(false);
         })
-    }, [])
+    }, [activeObjectSelector, activeSelector])
 
 
     return (
@@ -139,7 +144,7 @@ const UserScreen = ({ navigation }) => {
             {/* <View style={styles.headerContainer}> */}
             
             {/* </View> */}
-            
+            <BottomFilterModal />
             <View 
                 style={{
                     backgroundColor: "black", 

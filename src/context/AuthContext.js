@@ -126,6 +126,8 @@ export const AuthProvider = ({children, contextValue}) => {
     const [userUrl, setUserUrl] = useState("");
     const [userFilterUrl, setUserFilterUrl] = useState("");
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [userCurrentPage, setUserCurrentPage] = useState(1);
 
     const globalContext = {
         domain,
@@ -154,7 +156,11 @@ export const AuthProvider = ({children, contextValue}) => {
         activeSelector,
         setActiveSelector,
         activeObjectSelector,
-        setActiveObjectSelector
+        setActiveObjectSelector,
+        currentPage,
+        setCurrentPage,
+        userCurrentPage,
+        setUserCurrentPage
     };
 
      useEffect(() => {
