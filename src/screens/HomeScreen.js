@@ -142,6 +142,7 @@ const HomeScreen = ({ navigation }) => {
                                     setSortModalVisible(!isSortModalVisible);
                                     setSearchAndFilterUrl('');
                                     setActiveSelector('most_recent');
+                                    setActiveObjectSelector('');
                                 }}
                             >
                                 <Text style={styles.buttonText}>Most recent</Text>
@@ -152,6 +153,8 @@ const HomeScreen = ({ navigation }) => {
                                         [styles.button, styles.buttonUnselected]}
                                 onPress={() => {
                                     setActiveSelector('object_type');
+                                    setActiveObjectSelector('iss_transit');
+                                    setSearchAndFilterUrl('imageCategory=iss_transit');
                                 }}
                             >
                                 <Text style={styles.buttonText}>Object Type</Text>
