@@ -56,7 +56,7 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setUserScreenUrl('?poster=' + currentUser.id);
+                        setUserScreenUrl('poster=' + currentUser.id);
                         navigation.navigate('UserScreen');
                      }}
                 >

@@ -28,6 +28,11 @@ import { AuthContext } from '../context/AuthContext';
 
 const UserScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
+    const [refreshing, setRefreshing] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [next, setNext] = useState(null);
+
     const {
         domain,
         setDomain,
@@ -36,39 +41,57 @@ const UserScreen = ({ navigation }) => {
         currentUser,
         userScreenUrl
     } = useContext(AuthContext);
-    const [modalVisible, setModalVisible] = useState(true);
     
 
     //setUrlAttachement('?poster=' + currentUser.id);
+    const urlForApiCall = '/api/feed/?' + userScreenUrl;
+    console.log("urlForApiCall", urlForApiCall);
 
-
-    useEffect(() => {
-        //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-        //console.log('AccessToken',jwtDecode(token.access))
-        console.log(currentUser);
-        
-        const urlForApiCall = '/api/feed/' + userScreenUrl;
-        console.log("urlForApiCall", urlForApiCall);
-
-        async function loadSortAndFilterScreen() {
-            var {response,data} = await fetchInstance(urlForApiCall, {
+    async function loadUserFeed(pageNum) {
+        try {
+            var pageUrl = pageNum ? `&page=${pageNum}` : '';
+            var {response,data} = await fetchInstance(urlForApiCall + pageUrl, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${token.access}`,
                     'Content-Type': 'application/json'
                 }
             })
-            setData(data.results);
+            setNext(data.next);
+            return data.results
+        } catch (error) {
+            console.error(error);
+            return [];
         }
+    }
 
-        loadSortAndFilterScreen().catch(err => {console.log(err)})
-        // .then(res => {return res.json()})
-        // .then((result) => {
-        //     //console.log("INCOMINGDATA",token,result)
-        //     setData(result);
-        // }).catch (err => {
-        //     console.log(err, "Failed to get data from API.");
-        // })
+    const fetchMore = async () => {
+        if (isLoading) return;
+        if (!next) return;
+        setIsLoading(true);
+        
+        const nextPage = currentPage + 1;
+        const newData = await loadUserFeed(nextPage);
+        setCurrentPage(nextPage);
+        setIsLoading(false);
+        setData(prevData => [...prevData, ...newData]);
+    };
+
+    const refreshPage = async () => {
+        setCurrentPage(1)
+        const newData = await loadUserFeed(1)
+        setData(newData)
+        setRefreshing(false)
+    }
+
+    useEffect(() => {
+        //console.log('AccessToken',jwtDecode(token.access))
+        console.log(currentUser);
+        
+        loadUserFeed().then((data)=> {
+            setData(data);
+            setRefreshing(false);
+        })
     }, [])
 
 
@@ -117,23 +140,20 @@ const UserScreen = ({ navigation }) => {
             
             {/* </View> */}
             
-            <ScrollView style={{
-                backgroundColor: "black",
-                borderColor: "blue",
-                borderWidth: 0,
-            }}
-                contentContainerStyle={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: "center",
-                    alignContent: 'center'
-                }}>
+            <View 
+                style={{
+                    backgroundColor: "black", 
+                    borderWidth: 0, 
+                    borderColor: "white", 
+                    flex: 1
+            }}>
                 {data.length > 0 ? 
                     <MasonryList
                         data={data}
                         keyExtractor={item => item.id}
                         numColumns={2}
+                        onRefresh={refreshPage}
+                        refreshing={refreshing}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
                         contentContainerStyle={{
@@ -149,11 +169,13 @@ const UserScreen = ({ navigation }) => {
                             borderColor: "yellow",
                             borderWidth: 0,
                         }}
+                        onEndReached={fetchMore}
+                        onEndReachedThreshold={0.1}
                     />
                 : 
                     <Text style={{color:'white'}}>Nothing to display here</Text>
                 }
-            </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }
