@@ -17,7 +17,7 @@ import { ExtendedPicastroBurgerHeader, UserNameImageBurgerHeader,UserNameImageWi
 import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
-import {BottomFilterModal} from '../components/molecules';
+import {UserBottomFilterModal} from '../components/molecules';
 import StarIconSvg from '../assets/star-icon.svg';
 import AwardGoldSvg from '../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../assets/buttons/award-silver.svg';
@@ -31,26 +31,26 @@ const UserScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
-
+    
     const {
         domain,
         setDomain,
         token,
         fetchInstance,
         currentUser,
-        searchAndFilterUrl,
-        setSearchAndFilterUrl,
-        activeObjectSelector,
-        activeSelector,
+        userSearchAndFilterUrl,
+        setUserSearchAndFilterUrl,
+        userActiveObjectSelector,
+        userActiveSelector,
+        setUserActiveSelector,
         userCurrentPage,
         setUserCurrentPage,
         setCurrentPage,
         userScreenUrl
     } = useContext(AuthContext);
     
-
     //setUrlAttachement('?poster=' + currentUser.id);
-    const urlForApiCall = `/api/feed/?${userScreenUrl}&${searchAndFilterUrl}`;
+    const urlForApiCall = `/api/feed/?${userScreenUrl}&${userSearchAndFilterUrl}`;
     
     async function loadUserFeed(pageNum) {
         try {
@@ -97,7 +97,7 @@ const UserScreen = ({ navigation }) => {
             setData(data);
             setRefreshing(false);
         })
-    }, [activeObjectSelector, activeSelector])
+    }, [userActiveObjectSelector, userActiveSelector])
 
 
     return (
@@ -144,7 +144,7 @@ const UserScreen = ({ navigation }) => {
             {/* <View style={styles.headerContainer}> */}
             
             {/* </View> */}
-            <BottomFilterModal />
+            <UserBottomFilterModal />
             <View 
                 style={{
                     backgroundColor: "black", 

@@ -120,12 +120,15 @@ export const AuthProvider = ({children, contextValue}) => {
     //but more related to Screens
     const [loading, setLoading] = useState(false);
     const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
+    const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState("");
     const [userScreenUrl, setUserScreenUrl] = useState("");
     const [isSortModalVisible, setSortModalVisible] = useState(false);
-    const [activeSelector, setActiveSelector] = useState("most_recent");
     const [user, setUser] = useState("");
     const [userUrl, setUserUrl] = useState("");
     const [userFilterUrl, setUserFilterUrl] = useState("");
+    const [userActiveSelector, setUserActiveSelector] = useState("most_recent");
+    const [userActiveObjectSelector, setUserActiveObjectSelector] = useState("");
+    const [activeSelector, setActiveSelector] = useState("most_recent");
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [userCurrentPage, setUserCurrentPage] = useState(1);
@@ -148,6 +151,8 @@ export const AuthProvider = ({children, contextValue}) => {
         setUserScreenUrl,
         searchAndFilterUrl,
         setSearchAndFilterUrl,
+        userSearchAndFilterUrl,
+        setUserSearchAndFilterUrl,
         userUrl,
         setUserUrl,
         userFilterUrl,
@@ -158,6 +163,10 @@ export const AuthProvider = ({children, contextValue}) => {
         setActiveSelector,
         activeObjectSelector,
         setActiveObjectSelector,
+        userActiveSelector,
+        setUserActiveSelector,
+        userActiveObjectSelector,
+        setUserActiveObjectSelector,
         currentPage,
         setCurrentPage,
         userCurrentPage,

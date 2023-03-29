@@ -19,6 +19,9 @@ const ExtendedPicastroBurgerHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon name={"chevron-left"} size={45} color="lightgray" />
+        </TouchableOpacity>
         <View style={styles.picastroLogo}>
             <ExtendedPicastroLogo />
         </View>
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         alignContent: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         paddingRight: 10,
         flexDirection: 'row',
         gap: 10,    
@@ -44,19 +47,15 @@ const styles = StyleSheet.create({
         borderColor:"white" 
                
     },
-    BurgerButton: {
-        width: 30,
-        height: 2,
-        right: 5,
-    },
     picastroLogo: {
         position: "relative",
-        marginBottom: "5%",   
+        marginBottom: "0%",   
         borderWidth: 0,
         borderColor:"white",
         width: "60%",
         height: 45,
-        right: 20,
+        right: 0,
+        top: 5,
         marginBottom: "5%",  
     },
     });

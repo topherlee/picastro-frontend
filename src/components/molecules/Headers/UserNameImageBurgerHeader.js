@@ -24,7 +24,9 @@ const UserNameImageBurgerHeader = () => {
         token,
         currentUser,
         setCurrentUser,
-        setUserScreenUrl
+        setUserScreenUrl,
+        setUserActiveSelector,
+        setUserSearchAndFilterUrl
     } = useContext(AuthContext);
     
     // useEffect(() => {
@@ -57,6 +59,8 @@ const UserNameImageBurgerHeader = () => {
                     style={styles.userImage}
                     onPress={function () {
                         setUserScreenUrl('poster=' + currentUser.id);
+                        setUserActiveSelector('most_recent'); 
+                        setUserSearchAndFilterUrl('')
                         navigation.navigate('UserScreen');
                      }}
                 >
