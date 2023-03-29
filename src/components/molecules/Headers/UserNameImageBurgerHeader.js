@@ -26,7 +26,8 @@ const UserNameImageBurgerHeader = () => {
         setCurrentUser,
         setUserScreenUrl,
         setUserActiveSelector,
-        setUserSearchAndFilterUrl
+        setUserSearchAndFilterUrl,
+        setUserCurrentPage
     } = useContext(AuthContext);
     
     // useEffect(() => {
@@ -59,8 +60,10 @@ const UserNameImageBurgerHeader = () => {
                     style={styles.userImage}
                     onPress={function () {
                         setUserScreenUrl('poster=' + currentUser.id);
+                        //resets the modal and url to default upon loading userscreen
                         setUserActiveSelector('most_recent'); 
                         setUserSearchAndFilterUrl('')
+                        setUserCurrentPage(1)
                         navigation.navigate('UserScreen');
                      }}
                 >
