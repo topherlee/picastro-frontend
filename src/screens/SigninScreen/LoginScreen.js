@@ -18,15 +18,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
 
 export default function LoginScreen( { navigation } ) {
-  const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn, domain, resetStates, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);
 
-  // useEffect(() => {
-  //   Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-  // }, [])
+  useEffect(() => {
+    resetStates()
+  }, [])
 
     async function handleLogin(){
 

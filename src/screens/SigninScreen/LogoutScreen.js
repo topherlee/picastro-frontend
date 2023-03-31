@@ -17,7 +17,7 @@ export default function LogoutScreen( { navigation } )
 {
   
   
-  const { setIsSignedIn, domain, setDomain, setToken, token} = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn, domain, resetStates, setToken, token} = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -47,19 +47,15 @@ export default function LogoutScreen( { navigation } )
   .then(res => {
     console.log('STATUS',res.status);
     if (res.ok) {
-      return res.json();
+      resetStates()
     } else {
       setError(true)
       throw res.json();
     }
   })
-  .then(json => {
-    console.log('JSON',json);
-    setToken(json);
-    setIsSignedIn(false);
-  })
   .catch(e => {
-    setIsSignedIn(false);
+    console.error(e)
+    resetStates()
   });
 
 }
