@@ -12,6 +12,7 @@ import {
   Alert,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import globalStyling from "../../../constants/globalStyling";
 
 export default function ForgotPasswordScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context

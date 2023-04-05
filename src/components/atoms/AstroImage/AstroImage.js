@@ -19,7 +19,13 @@ const AstroImageWrapper = (props) => {
     //console.log(props);
 
     return (
-      <AutoscaleImage uri={props.image} width={(0.96*Dimensions.get('window').width-33)/2} />
+      props.thumbnail == "" ?
+        <AutoscaleImage uri={props.thumbnail} width={(0.96*Dimensions.get('window').width-33)/2} />
+      :
+        <AutoscaleImage uri={props.image} width={(0.96*Dimensions.get('window').width-33)/2} />
+
+      // <AutoscaleImage uri={ props.thumbnail != "" ? props.thumbnail : props.image } width={(0.96*Dimensions.get('window').width-33)/2} />
+    
     );
 };
 
