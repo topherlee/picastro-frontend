@@ -1,17 +1,13 @@
 import { 
     View, 
     KeyboardAvoidingView,
-    Text,
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    Image,
-    Alert
 } from 'react-native'
 import { disallowScreenshot } from 'react-native-screen-capture';
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useEffect } from 'react'
-import styled from 'styled-components';
+import React from 'react'
 import { useHeaderHeight } from '@react-navigation/elements';
 import { FullWidthPostsContainer } from '../components/organisms';
 
@@ -36,7 +32,10 @@ const PostDetailsScreen = ({ route, navigation }) => {
             }}
             keyboardVerticalOffset={headerHeight}
         >
-            <ScrollView contentContainerStyle={containerstyle}>
+            <ScrollView
+                contentContainerStyle={containerstyle}
+                showsVerticalScrollIndicator={false}
+            >
                 <View style={styles.feedView}>
                     <FullWidthPostsContainer props={props}  />
                 </View>

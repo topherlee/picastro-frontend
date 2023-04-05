@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    StyleSheet,
-    Button,
     View,
-    SafeAreaView,
     Text,
-    Alert,
-    Image,
 } from 'react-native';
 
 import globalStyling from '../../../../constants/globalStyling';
@@ -16,7 +11,6 @@ import CometButtonYellowSvg from '../../../assets/buttons/comet_button_yellow.sv
 
 
 const CometButton = ({selected}) => {
-    const [filterValue, setFilterValue] = React.useState(false);
 
     return (
         <View>

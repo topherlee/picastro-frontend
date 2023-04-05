@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './DrawerNavigator';
 import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, LogoutScreen} from '../../screens/SigninScreen';
 import { AuthContext } from '../../context/AuthContext';
+
 
 const Stack = createStackNavigator();
 

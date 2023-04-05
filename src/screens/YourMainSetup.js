@@ -1,27 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
-  Alert,
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
-import { AuthContext } from "../context/AuthContext";
 import globalStyling from "../../constants/globalStyling";
 
 
 const YourMainSetup = ({ navigation }) => {
-  const { setIsSignedIn } = useContext(AuthContext);
-     
 
   return (
-    
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
       

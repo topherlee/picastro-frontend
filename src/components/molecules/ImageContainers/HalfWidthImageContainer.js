@@ -1,28 +1,10 @@
-import React, {useState} from 'react';
-import {
-    Button,
-    Image,
-    ImageBackground,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-    ImageResolvedAssetSource
-} from 'react-native';
+import React from 'react';
+import styled from 'styled-components';
 
 import { AstroImageWrapper, AwardIcon } from '../../atoms';
 
-import styled from 'styled-components';
-
 
 export const HalfWidthImageContainer = (props) => {
-    //console.log("HalfWidthImageContainer", props);
-  
-    // const [contWidth, setContWidth] = useState(0);
-    // const [contHeight, setContHeight] = useState(0);
 
     return (
       <View2>

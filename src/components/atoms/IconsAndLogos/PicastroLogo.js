@@ -2,13 +2,12 @@ import React from 'react';
 import {
     Image,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 
+
 const PicastroLogo = () => {
     return(
-        // <View style={styles.container}>
         <View>
             <Image 
                 style={styles.logo}

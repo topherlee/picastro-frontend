@@ -1,9 +1,7 @@
 import {
-    Alert,
     View,
     Text,
     Pressable,
-    Button,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -39,7 +37,6 @@ const SortAndFilterScreen = ({ navigation }) => {
     const {
         token,
         fetchInstance,
-        currentUser,
         searchAndFilterUrl,
         setSearchAndFilterUrl,
         isSortModalVisible,
@@ -137,6 +134,7 @@ const SortAndFilterScreen = ({ navigation }) => {
                             <ScrollView
                                 horizontal={true}
                                 style={styles.horizontalScrollview}
+                                
                             >
                                 <TouchableOpacity
                                     style={globalStyling.iconContainer}

@@ -1,22 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AuthContext } from '../../context/AuthContext';
 
 import {
     MainStackNavigator,
-    ProfileStackNavigator,
-    SortFilterStackNavigator,
-    NotificationsStackNavigator,
     ImageUploadStackNavigator
 } from "./StackNavigator";
 
-import { Image, Text, View } from 'react-native';
 
 import {
     HomeButton,
-    StarCampsButton,
     TelescopeButton,
-    NotificationsButton,
     ImageUploadButton
 } from "../atoms";
 

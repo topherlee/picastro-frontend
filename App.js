@@ -8,15 +8,7 @@
 import React, { useEffect } from 'react';
 
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
     StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-    Alert,
 } from 'react-native';
 
 import {

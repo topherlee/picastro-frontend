@@ -1,14 +1,4 @@
 import React from "react";
-import {
-    StyleSheet,
-    Button,
-    View,
-    SafeAreaView,
-    Text,
-    Alert,
-    Image,
-  } from 'react-native';
-
 import styled from 'styled-components';
 
 import { StarIcon } from "../../atoms";
@@ -35,8 +25,6 @@ const View3 = styled.View`
   border-bottom-left-radius: 5px;
   background-color: #2e2e2e;
 `;
-//
-//border: 1px solid grey;
 
 const TextStarNameShort = styled.Text`
   position: absolute;
@@ -52,16 +40,6 @@ const TextStarNameShort = styled.Text`
   color: #7A7A7A;
   
 `;
-//box-sizing: border-box;
-//background-color: white;
-// width: 111.85%;
-// height: 71.6%;
-// margin: 15.3px 0px 0px 0px;
-// color: #7a7a7a;
-// font-size: 11px;
-// font-weight: 700;
-// font-family: Inter;
-// border: 1px solid green;
 
 const TextStarName = styled.Text`
 position: absolute;
@@ -76,8 +54,6 @@ line-height: 13px;
 
 color: #7A7A7A;
 `;
-//background-color: red;
-//border: 1px solid red;
 
 const StarIconView = styled.View`
   display: flex;

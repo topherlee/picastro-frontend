@@ -1,15 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {
-    StyleSheet,
-    Button,
-    View,
-    SafeAreaView,
-    Text,
-    Alert,
-    Image,
-    TouchableOpacity,
     Dimensions
-  } from 'react-native';
+} from 'react-native';
 
 import styled from 'styled-components';
 import AutoscaleImage from "../AutoscaleImage/AutoscaleImage";

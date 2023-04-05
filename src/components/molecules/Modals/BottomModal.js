@@ -1,15 +1,11 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext } from 'react';
 import {
-  Alert,
   View,
   Text,
   Pressable,
-  Button,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  RefreshControl,
 } from 'react-native';
 import Modal from "react-native-modal";
 import {
@@ -32,9 +28,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 export default function BottomFilterModal() {
 
   const {
-    token,
-    fetchInstance,
-    currentUser,
     searchAndFilterUrl,
     setSearchAndFilterUrl,
     isSortModalVisible,

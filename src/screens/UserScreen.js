@@ -1,22 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import {
-    Button,
     Image,
     SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
-    useColorScheme,
     View,
     Linking,
 } from 'react-native';
-import { ExtendedPicastroBurgerHeader, UserNameImageBurgerHeader,UserNameImageWithoutBurger } from '../components/molecules';
+import { ExtendedPicastroBurgerHeader } from '../components/molecules';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
-import { AwardIcon, ExtendedPicastroLogo } from '../components/atoms';
 import {UserBottomFilterModal} from '../components/molecules';
 import StarIconSvg from '../assets/star-icon.svg';
 import AwardGoldSvg from '../assets/buttons/award-gold.svg';
@@ -33,19 +28,14 @@ const UserScreen = ({ navigation }) => {
     const [next, setNext] = useState(null);
     
     const {
-        domain,
-        setDomain,
         token,
         fetchInstance,
         currentUser,
         userSearchAndFilterUrl,
-        setUserSearchAndFilterUrl,
         userActiveObjectSelector,
         userActiveSelector,
-        setUserActiveSelector,
         userCurrentPage,
         setUserCurrentPage,
-        setCurrentPage,
         userScreenUrl
     } = useContext(AuthContext);
     

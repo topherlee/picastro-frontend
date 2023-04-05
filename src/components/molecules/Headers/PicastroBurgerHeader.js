@@ -1,19 +1,13 @@
 import React from 'react';
 import {
-    Button,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PicastroLogo } from '../../atoms';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 const PicastroBurgerHeader = () => {
   const navigation = useNavigation();

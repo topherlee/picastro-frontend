@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    StyleSheet,
-    Button,
     View,
-    SafeAreaView,
-    Text,
-    Alert,
-    Image,
 } from 'react-native';
 
 import ImageUploadButtonSvg from '../../../assets/buttons/image-upload-button.svg';
 
 
 const ImageUploadButton = () => {
-
-    const [modalVisible, setModalVisible] = useState(true);
 
     return (
         <View style={{

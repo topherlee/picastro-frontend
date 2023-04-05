@@ -1,13 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
-    Button,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -19,11 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
     const {
-        domain,
-        setDomain,
-        token,
         currentUser,
-        setCurrentUser,
         setUserScreenUrl,
         setUserActiveSelector,
         setUserSearchAndFilterUrl,

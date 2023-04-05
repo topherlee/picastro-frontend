@@ -1,11 +1,7 @@
-import React, {useState, useRef} from 'react';
+import React, {useState } from 'react';
 import {
-  StyleSheet,
-  Button,
   View,
   Text,
-  Alert,
-  Image,
   TextInput,
   KeyboardAvoidingView,
   Modal,
@@ -20,6 +16,7 @@ import {StarIcon, AwardIcon} from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
+
 
 const FullWidthBelowImage = ({props}) => {
   const [modalVisible, setModalVisible] = useState(false);

@@ -1,14 +1,4 @@
 import React from "react";
-import {
-    StyleSheet,
-    Button,
-    View,
-    SafeAreaView,
-    Text,
-    Alert,
-    Image,
-    TouchableOpacity
-  } from 'react-native';
 
 import styled from 'styled-components';
 
@@ -32,7 +22,6 @@ const StarIconWrapper = styled.TouchableOpacity`
   width: 24.55px;
   height: 24.55px;
 `;
-//box-sizing: border-box;
 
 
 export default StarIcon;

@@ -3,11 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
   Alert,
   ScrollView,
   KeyboardAvoidingView,
@@ -150,7 +147,10 @@ const ImageUploadScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingVertical: "3%", }}>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: "3%", }}
+        showsVerticalScrollIndicator={false}
+      >
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{
           display: "flex",

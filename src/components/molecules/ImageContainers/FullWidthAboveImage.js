@@ -1,10 +1,6 @@
 import React, {useContext} from 'react';
 import {
-  StyleSheet,
-  Button,
   View,
-  SafeAreaView,
-  Text,
   Alert,
   Image,
   ActionSheetIOS
@@ -14,7 +10,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
-import {StarIcon} from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
 
 
@@ -140,7 +135,5 @@ const UserImage = styled.Image`
   width: 100%;
   max-height: 100%;
 `;
-//
-//border: 1px solid grey;
 
 export default FullWidthAboveImage;

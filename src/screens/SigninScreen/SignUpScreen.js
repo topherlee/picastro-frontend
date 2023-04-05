@@ -5,10 +5,7 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
-  Alert,
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";

@@ -5,16 +5,14 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function UserNameScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
-  const [email, setEmail] = useState(null);
+  const [setEmail] = useState(null);
   // const [password, setPassword] = useState(null);
 
   return (

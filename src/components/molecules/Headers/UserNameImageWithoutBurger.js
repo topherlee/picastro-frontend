@@ -1,18 +1,11 @@
 import React from 'react';
 import {
-    Button,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BurgerButton, UserImage, HeaderUserName } from '../../atoms';
+import { UserImage, HeaderUserName } from '../../atoms';
 
 const UserNameImageWithoutBurger = () => {
   const navigation = useNavigation();

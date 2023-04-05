@@ -1,37 +1,19 @@
 import {
-    Alert,
     View,
     Text,
-    Pressable,
-    Button,
     SafeAreaView,
-    ScrollView,
     StyleSheet,
-    TouchableOpacity,
-    RefreshControl
 } from 'react-native';
 import Modal from "react-native-modal";
 
 import React, { useContext, useEffect, useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
-import {
-    NebulaButton,
-    GalaxyButton,
-    CometButton,
-    PlanetButton,
-    AsterismsButton,
-    ClustersButton,
-    IssTransitButton,
-    LunarButton,
-    SolarButton
-} from '../components/atoms';
 
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
 import globalStyling from '../../constants/globalStyling';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
@@ -42,18 +24,13 @@ const HomeScreen = ({ navigation }) => {
     const {
         token,
         fetchInstance,
-        currentUser,
         searchAndFilterUrl,
-        setSearchAndFilterUrl,
         isSortModalVisible,
         setSortModalVisible,
         activeSelector,
-        setActiveSelector,
         activeObjectSelector,
-        setActiveObjectSelector,
         currentPage,
         setCurrentPage,
-        setUserCurrentPage
     } = useContext(AuthContext);
 
 
@@ -180,6 +157,7 @@ const HomeScreen = ({ navigation }) => {
                             <ScrollView
                                 horizontal={true}
                                 style={styles.horizontalScrollview}
+                                showsVerticalScrollIndicator={false}
                             >
                                 <TouchableOpacity
                                     style={globalStyling.iconContainer}
@@ -345,7 +323,7 @@ const HomeScreen = ({ navigation }) => {
                     numColumns={2}
                     onRefresh={refreshPage}
                     refreshing={refreshing}
-                    showsVerticalScrollIndicator={true}
+                    showsVerticalScrollIndicator={false}
                     indicatorStyle={"white"}
                     renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
                     contentContainerStyle={{

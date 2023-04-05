@@ -156,7 +156,9 @@ const UserScreen = ({ navigation }) => {
                     flexDirection: 'row',
                     justifyContent: "center",
                     alignContent: 'center'
-                }}>
+                }}
+                showsVerticalScrollIndicator={false}
+            >
                 {data.length > 0 ?
                     <MasonryList
                         data={data}
