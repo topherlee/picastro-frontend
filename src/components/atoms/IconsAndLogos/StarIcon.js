@@ -10,10 +10,10 @@ const StarIcon = () => {
     const [imageIsSaved, setImageIsSaved] = React.useState(false);
     return (
         <StarIconWrapper
-            onPress={ () => {setImageIsSaved(!imageIsSaved)}}
+            onPress={() => { setImageIsSaved(!imageIsSaved) }}
             title="Save Image"
         >
-            {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg /> }
+            {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg />}
         </StarIconWrapper>
     );
 };

@@ -59,7 +59,7 @@ const EditProfile = ({ navigation }) => {
               placeholder="Level of Experience"
             />
           </View>
-          <View style={styles.inputView1}>
+          <View style={globalStyling.inputView1}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="DropDown?"
@@ -69,7 +69,7 @@ const EditProfile = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Name"
@@ -77,7 +77,7 @@ const EditProfile = ({ navigation }) => {
 
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Username"
@@ -85,7 +85,7 @@ const EditProfile = ({ navigation }) => {
 
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Pronouns"
@@ -93,7 +93,7 @@ const EditProfile = ({ navigation }) => {
 
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Bio"
@@ -101,7 +101,7 @@ const EditProfile = ({ navigation }) => {
 
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Website One"
@@ -109,21 +109,21 @@ const EditProfile = ({ navigation }) => {
 
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Website Two"
             placeholderTextColor="black"
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Shop Web Link (Optional)"
             placeholderTextColor="black"
           />
         </View>
-        <View style={styles.inputView}>
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
             placeholder="Dropbox Link or Google Drive Link(-Optional)"
@@ -171,14 +171,6 @@ const styles = StyleSheet.create({
     height: 85,
     // marginTop: "2%",
   },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "100%",
-    height: 40,
-    marginBottom: 7,
-    alignItems: "center",
-  },
   inputView1: {
     backgroundColor: "white",
     borderRadius: 10,
@@ -187,7 +179,6 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginBottom: 20,
     alignItems: "center",
-
   },
   text: {
     color: "black",

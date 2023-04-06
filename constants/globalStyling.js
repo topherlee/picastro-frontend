@@ -1,6 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+    inputView: {
+      backgroundColor: "white",
+      borderRadius: 10,
+      width: "80%",
+      height: 45,
+      marginBottom: 20,
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "row",
+    },
     inputFieldText: {   // styling for the <TextInput> component
       height: 50,
       width: "100%",

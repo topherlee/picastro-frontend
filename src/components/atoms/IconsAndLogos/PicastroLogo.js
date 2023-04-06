@@ -10,7 +10,7 @@ const PicastroLogo = () => {
     return(
         <View>
             <Image 
-                style={styles.logo}
+                style={styles.picastroLogo}
                 source={require('../../../assets/logo.png')}   
             />
         </View>
@@ -18,7 +18,7 @@ const PicastroLogo = () => {
 }
 
 const styles = StyleSheet.create({
-    logo: {
+    picastroLogo: {
         width: 75,
         height: 35,
         resizeMode: 'contain',

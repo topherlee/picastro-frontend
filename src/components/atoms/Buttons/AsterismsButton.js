@@ -9,30 +9,28 @@ import AsterismsButtonGreySvg from '../../../assets/buttons/asterisms_button_gre
 import AsterismsButtonYellowSvg from '../../../assets/buttons/asterisms_button_yellow.svg';
 
 
-const AsterismsButton = ({selected}) => {
-    
+const AsterismsButton = ({ selected }) => {
+
     return (
         <View>
-            
-                <View>
-                    {(selected == 'asterism') ?
-                        <AsterismsButtonYellowSvg style={globalStyling.sortByModalSvg} /> 
+            <View>
+                {(selected == 'asterism') ?
+                    <AsterismsButtonYellowSvg style={globalStyling.sortByModalSvg} />
                     :
-                        <AsterismsButtonGreySvg style={globalStyling.sortByModalSvg} />
+                    <AsterismsButtonGreySvg style={globalStyling.sortByModalSvg} />
+                }
+                <Text
+                    style={(selected == "asterism") ?
+                        [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
+                        :
+                        [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
                     }
-                    <Text 
-                        style={(selected == "asterism") ? 
-                            [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
-                            :
-                            [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
-                        }
-                    >
-                        Asterisms
-                    </Text>
-                </View>
+                >
+                    Asterisms
+                </Text>
+            </View>
         </View>
     );
 };
-
 
 export default AsterismsButton;

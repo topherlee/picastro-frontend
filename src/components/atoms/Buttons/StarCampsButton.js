@@ -12,8 +12,8 @@ const StarCampsButton = () => (
         alignItems: 'center',
         justifyContent: 'center',
         top: 0
-        }}>
-        <StarCampsIcon2 width={40} height={40} /> 
+    }}>
+        <StarCampsIcon2 width={40} height={40} />
     </View>
 );
 

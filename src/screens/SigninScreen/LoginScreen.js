@@ -66,7 +66,7 @@ export default function LoginScreen( { navigation } ) {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
-      <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
+      <View keyboardShouldPersistTaps='handled' style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText} 
           textContentType={'username'}
@@ -80,7 +80,7 @@ export default function LoginScreen( { navigation } ) {
           onBlur={() => setError(false)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           textContentType={'password'}
@@ -123,16 +123,6 @@ const styles = StyleSheet.create({
   image: {
     position: "relative",
     marginBottom: "20%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
   },
   bottomText: {
     flexDirection:'row',

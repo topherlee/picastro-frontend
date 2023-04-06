@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { AuthContext } from '../../../context/AuthContext';
 
-//console.log(localCurrentUser);
 
 const HeaderUserName = ({style},props) => {
     const {domain, token, setCurrentUser, currentUser} = useContext(AuthContext);

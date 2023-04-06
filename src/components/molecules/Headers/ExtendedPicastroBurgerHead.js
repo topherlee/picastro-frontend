@@ -10,20 +10,20 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 const ExtendedPicastroBurgerHeader = () => {
-  const navigation = useNavigation();
-  return (
-    <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name={"chevron-left"} size={45} color="lightgray" />
-        </TouchableOpacity>
-        <View style={styles.picastroLogo}>
-            <ExtendedPicastroLogo />
+    const navigation = useNavigation();
+    return (
+        <View style={styles.headerContainer}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Icon name={"chevron-left"} size={45} color="lightgray" />
+            </TouchableOpacity>
+            <View style={styles.picastroLogo}>
+                <ExtendedPicastroLogo />
+            </View>
+            <TouchableOpacity onPress={function () { navigation.openDrawer() }} >
+                <Icon name={"menu"} size={40} color="lightgray" />
+            </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
-            <Icon name={"menu"} size={40} color="lightgray" />
-        </TouchableOpacity>
-    </View>
-  )
+    )
 }
 
 const styles = StyleSheet.create({
@@ -36,25 +36,25 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingRight: 10,
         flexDirection: 'row',
-        gap: 10,    
+        gap: 10,
         borderWidth: 0,
-        borderColor:"white" 
-               
+        borderColor: "white"
+
     },
     picastroLogo: {
         position: "relative",
-        marginBottom: "0%",   
+        marginBottom: "0%",
         borderWidth: 0,
-        borderColor:"white",
+        borderColor: "white",
         width: "60%",
         height: 45,
         right: 0,
         top: 5,
-        marginBottom: "5%",  
+        marginBottom: "5%",
     },
-    });
-    
+});
 
-    
+
+
 
 export default ExtendedPicastroBurgerHeader;

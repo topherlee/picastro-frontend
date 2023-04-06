@@ -5,13 +5,14 @@ import {
 
 import NotificationsIconSvg from '../../../assets/buttons/notifications-button.svg';
 
+
 const NotificationsButton = () => (
     <View style={{
         alignItems: 'center',
         justifyContent: 'center',
         top: 0
-        }}>
-        <NotificationsIconSvg width={40} height={40} /> 
+    }}>
+        <NotificationsIconSvg width={40} height={40} />
     </View>
 );
 

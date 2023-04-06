@@ -1,7 +1,4 @@
 import React from "react";
-import {
-    StyleSheet,
-  } from 'react-native';
 
 import AwardGoldSvg from '../../../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../../../assets/buttons/award-silver.svg';
@@ -17,11 +14,6 @@ const AwardIcon = (props) => {
         return <AwardBronzeSvg resizeMode="contain" />;
     };
 };
-
-const styles = StyleSheet.create({
-    awardIcon: {
-    },
-});
 
 
 export default AwardIcon;

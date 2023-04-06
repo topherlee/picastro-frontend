@@ -7,29 +7,24 @@ import {
 
 
 const ExtendedPicastroLogo = () => {
-    return(
+    return (
         <View>
-            <Image 
-                style={styles.logo}
-                source={require('../../../assets/logo-text-gray.png')}   
+            <Image
+                style={styles.extendedPicastroLogo}
+                source={require('../../../assets/logo-text-gray.png')}
             />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    logo: {
+    extendedPicastroLogo: {
         position: "relative",
-        // marginBottom: "5%",
-        // width: 200,
-        // height: 75,
         alignSelf: 'center',
         width: 117.53,
-        height:34.2,
+        height: 34.2,
         marginTop: "5%",
     }
-    
-   
 })
 
 export default ExtendedPicastroLogo;

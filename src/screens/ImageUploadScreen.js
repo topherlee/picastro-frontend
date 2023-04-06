@@ -175,7 +175,7 @@ const ImageUploadScreen = ({ navigation }) => {
               null
             }
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Image Description"
@@ -200,7 +200,7 @@ const ImageUploadScreen = ({ navigation }) => {
               onSelect={() => setImageCategory(selected)}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Object Number (e.g. 'M17')"
@@ -209,7 +209,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={astroNameShort}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Object Common Name (e.g. 'Rosette Nebula')"
@@ -218,7 +218,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={astroName}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Exposure Time"
@@ -227,7 +227,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={exposureTime}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Moon Phase"
@@ -236,7 +236,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={moonPhase}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Cloud Coverage"
@@ -245,7 +245,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={cloudCoverage}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Bortle Scale"
@@ -278,17 +278,6 @@ const styles = StyleSheet.create({
     width: 155,
     height: 45,
     marginBottom: "5%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 40,
-    marginBottom: 10,
-    // alignItems: "center",
-    justifyContent: "center",
-    // borderWidth: 5,
-    // borderColor:"yellow" 
   },
   textcontainer: {
     // marginTop:"5%",

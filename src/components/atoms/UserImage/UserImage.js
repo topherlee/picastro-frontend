@@ -6,21 +6,13 @@ import {
 
 
 const UserImage = () => {
-    return(
+    return (
         <Image
-                source={require('../../../assets/Sample/sampleuser.png')}
-                resizeMode="contain"
+            source={require('../../../assets/Sample/sampleuser.png')}
+            resizeMode="contain"
         />
     )
 }
 
-const styles = StyleSheet.create({
-    userImage: {
-        width: 40,
-        height: 40,
-        left: 5,
-        //flex: 1,
-    },
-}); 
 
 export default UserImage;

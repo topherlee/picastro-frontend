@@ -7,7 +7,7 @@ import TelescopeButtonSvg from '../../../assets/buttons/telescope-button.svg';
 
 
 const TelescopeButton = () => {
-    
+
     return (
         <View style={{
             alignItems: 'center',

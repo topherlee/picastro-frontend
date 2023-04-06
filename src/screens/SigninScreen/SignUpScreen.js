@@ -76,7 +76,7 @@ export default function SignUpScreen( { navigation } ) {
       <Text style={!error ? styles.title : styles.titleRed}>
         {!error ? "Register for an account" : "Unable to register, please check your details and try again"}
       </Text>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="First Name"
@@ -88,7 +88,7 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(firstName) => setFirstName(firstName)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Last Name"
@@ -100,7 +100,7 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(lastName) => setLastName(lastName)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Username"
@@ -113,7 +113,7 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(username) => setUsername(username)}
         /> 
       </View>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           inputMode="email"
@@ -126,7 +126,7 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Password"
@@ -139,7 +139,7 @@ export default function SignUpScreen( { navigation } ) {
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
         </TouchableOpacity>
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Confirm Password"
@@ -175,16 +175,6 @@ const styles = StyleSheet.create({container: {
 image: {
   position: "relative",
   marginBottom: "20%",
-},
-inputView: {
-  backgroundColor: "white",
-  borderRadius: 10,
-  width: "80%",
-  height: 45,
-  marginBottom: 20,
-  alignItems: "center",
-  display: "flex",
-  flexDirection: "row",
 },
 bottomText: {
   flexDirection:'row',

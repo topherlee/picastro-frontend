@@ -72,22 +72,6 @@ const styles = StyleSheet.create({
     position: "relative",
     marginBottom: "20%",
   },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-
-  },
   bottomText: {
     flexDirection: 'row',
     position: "relative",
