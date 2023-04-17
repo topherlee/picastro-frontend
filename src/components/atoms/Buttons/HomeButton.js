@@ -4,6 +4,8 @@ import {
     Image,
 } from 'react-native';
 
+import globalStyling from "../../../../constants/globalStyling";
+
 
 const HomeButton = () => (
     <View style={{
@@ -14,10 +16,7 @@ const HomeButton = () => (
         <Image
             source={require('../../../assets/buttons/home-button.png')}
             resizeMode="contain"
-            style={{
-                width: 40,
-                height: 40,
-            }}
+            style={globalStyling.NavBarButton}
         />
     </View>
 );

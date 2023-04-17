@@ -47,21 +47,21 @@ export default function UserBottomFilterModal() {
         onBackdropPress={() => {
           setSortModalVisible(false);
         }}
-        style={styles.modalWrapper}
+        style={globalStyling.bottomModalWrapper}
         onSwipeComplete={() => {
           setSortModalVisible(false);
         }}
         swipeDirection={['down']}
         propagateSwipe={true}>
-        <View style={styles.modalView}>
-          <Icon name="minus" size={50} color="lightgray" />
-          <Text style={styles.modalText}>Sort or Filter by:</Text>
-          <View style={styles.buttonWrapper}>
+        <View style={globalStyling.bottomModalView}>
+          <Icon name="minus" size={50} color="lightgrey" />
+          <Text style={globalStyling.bottomModalText}>Sort or Filter by:</Text>
+          <View style={globalStyling.bottomModalButtonWrapper}>
             <Pressable
               style={
                 userActiveSelector == 'most_recent'
-                  ? [styles.button, styles.buttonSelected]
-                  : [styles.button, styles.buttonUnselected]
+                  ? [globalStyling.bottomModalButton, globalStyling.bottomModalButtonSelected]
+                  : [globalStyling.bottomModalButton, globalStyling.bottomModalButtonUnselected]
               }
               onPress={() => {
                 setSortModalVisible(!isSortModalVisible);
@@ -69,26 +69,26 @@ export default function UserBottomFilterModal() {
                 setUserActiveSelector('most_recent');
                 setUserCurrentPage(1);
               }}>
-              <Text style={styles.buttonText}>Most recent</Text>
+              <Text style={globalStyling.bottomModalButtonText}>Most recent</Text>
             </Pressable>
             <Pressable
               style={
                 userActiveSelector == 'object_type'
-                  ? [styles.button, styles.buttonSelected]
-                  : [styles.button, styles.buttonUnselected]
+                  ? [globalStyling.bottomModalButton, globalStyling.bottomModalButtonSelected]
+                  : [globalStyling.bottomModalButton, globalStyling.bottomModalButtonUnselected]
               }
               onPress={() => {
                 setUserActiveSelector('object_type');
                 userActiveObjectSelector !== "" ? setUserSearchAndFilterUrl(`imageCategory=${userActiveObjectSelector}`) : setUserSearchAndFilterUrl('')
                 setUserCurrentPage(1);
               }}>
-              <Text style={styles.buttonText}>Object Type</Text>
+              <Text style={globalStyling.bottomModalButtonText}>Object Type</Text>
             </Pressable>
             <Pressable
               style={
                 userActiveSelector == 'randomizer'
-                  ? [styles.button, styles.buttonSelected]
-                  : [styles.button, styles.buttonUnselected]
+                  ? [globalStyling.bottomModalButton, globalStyling.bottomModalButtonSelected]
+                  : [globalStyling.bottomModalButton, globalStyling.bottomModalButtonUnselected]
               }
               onPress={() => {
                 setSortModalVisible(!isSortModalVisible);
@@ -96,11 +96,11 @@ export default function UserBottomFilterModal() {
                 setUserActiveSelector('randomizer');
                 setUserCurrentPage(1);
               }}>
-              <Text style={styles.buttonText}>Randomizer</Text>
+              <Text style={globalStyling.bottomModalButtonText}>Randomizer</Text>
             </Pressable>
           </View>
           {userActiveSelector == 'object_type' ? (
-            <ScrollView horizontal={true} style={styles.horizontalScrollview}>
+            <ScrollView horizontal={true} style={globalStyling.horizontalScrollview}>
               <TouchableOpacity
                 style={globalStyling.iconContainer}
                 onPress={() => {
@@ -229,102 +229,3 @@ export default function UserBottomFilterModal() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    display: 'flex',
-    backgroundColor: '#000000',//'#2F2F2F',
-    borderColor: 'yellow',
-    borderWidth: 0,
-  },
-  text: {
-    fontSize: 25,
-    fontWeight: '500',
-    color: 'red',
-    textAlign: 'center',
-  },
-  image: {
-    width: '100%',
-    height: 200,
-  },
-  modalWrapper: {
-    borderColor: 'red',
-    borderWidth: 0,
-    margin: 0,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'baseline',
-  },
-  modalView: {
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    bottom: 0,
-    width: '100%',
-
-    paddingBottom: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
-    alignItems: 'center',
-    elevation: 10,
-    backgroundColor: '#2F2F2F',
-    borderColor: 'green',
-    borderWidth: 0,
-  },
-  buttonWrapper: {
-    width: '90%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  button: {
-    borderRadius: 25,
-    padding: 8,
-    elevation: 2,
-    width: 90,
-    height: 32,
-    gap: 5,
-  },
-  buttonUnselected: {
-    backgroundColor: '#DDD7D7',
-  },
-  buttonSelected: {
-    backgroundColor: '#FDD015',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 11,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    borderColor: 'red',
-    borderWidth: 0,
-    gap: 20,
-  },
-  horizontalScrollview: {
-    marginBottom: 10,
-  },
-  iconContainer: {
-    width: 150,
-    borderColor: 'yellow',
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    top: 0,
-  },
-});

@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import TelescopeButtonSvg from '../../../assets/buttons/telescope-button.svg';
-
+import globalStyling from '../../../../constants/globalStyling';
 
 const TelescopeButton = () => {
 
@@ -15,8 +15,7 @@ const TelescopeButton = () => {
             top: 0
         }}>
             <TelescopeButtonSvg
-                width={40}
-                height={40}
+                style={globalStyling.NavBarButton}
             />
         </View>
     );

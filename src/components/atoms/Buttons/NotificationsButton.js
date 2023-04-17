@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import NotificationsIconSvg from '../../../assets/buttons/notifications-button.svg';
-
+import globalStyling from '../../../../constants/globalStyling';
 
 const NotificationsButton = () => (
     <View style={{
@@ -12,7 +12,7 @@ const NotificationsButton = () => (
         justifyContent: 'center',
         top: 0
     }}>
-        <NotificationsIconSvg width={40} height={40} />
+        <NotificationsIconSvg style={globalStyling.NavBarButton} />
     </View>
 );
 

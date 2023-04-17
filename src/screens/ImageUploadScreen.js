@@ -44,7 +44,8 @@ const ImageUploadScreen = ({ navigation }) => {
     {key: 'galaxy', value: 'Galaxy'},
     {key: 'nebula', value: 'Nebula'},
     {key: 'asterism', value: 'Asterism'},
-    {key: 'cluster', value: 'Cluster'},
+    {key: 'cluster', value: 'Star/Cluster'},
+    {key: 'mcloud', value: 'Molecular cloud'},
     {key: 'other', value: 'Other'},
   ];
 
@@ -104,33 +105,8 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("cloudCoverage", cloudCoverage)
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
-      // formData.append("astroName", "test")
-      // formData.append("astroNameShort", "test")
-      // formData.append("award", "bronze")
-      // formData.append("exposureTime", "3h")
-      // formData.append("moonPhase", "50%")
-      // formData.append("cloudCoverage", "10%")
-      // formData.append("bortle", "5")
-      // formData.append("starCamp", "Aberdeen")
-      // formData.append("imageDescription", "lorem ipsum dolor sit amet")
-
-      // fetch(`${domain}/posts/`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Authorization': `Token ${token.access}`,
-      //     'Content-Type': 'multipart/form-data'
-      //   },
-      //   body: formData
-      // }).then(res => {
-      //   return res.json()
-      // }).then((result) => {
-      //   console.log('UPLOAD SUCCESSFUL', result)
-      //   uploadedHandler();
-      // }).catch(err => {
-      //   console.log(err);
-      // })
-
-      var {response,data} = await fetchInstance('/posts/', {
+      
+      var {response,data} = await fetchInstance('/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'

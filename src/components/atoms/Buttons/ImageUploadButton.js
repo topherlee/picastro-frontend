@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import ImageUploadButtonSvg from '../../../assets/buttons/image-upload-button.svg';
-
+import globalStyling from '../../../../constants/globalStyling';
 
 const ImageUploadButton = () => {
 
@@ -15,9 +15,7 @@ const ImageUploadButton = () => {
             top: 0
         }}>
             <ImageUploadButtonSvg
-                width={40}
-                height={40}
-
+                style={globalStyling.NavBarButton}
             />
         </View>
     );
