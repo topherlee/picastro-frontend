@@ -83,7 +83,7 @@ export const AuthProvider = ({children, contextValue}) => {
             var data = await response.json()
             return {response, data}
         } catch (err) {
-            console.log(err)
+            console.log('ERROR IN ORIGINAL REQUEST', err)
             return {response, err}
         }
     }
