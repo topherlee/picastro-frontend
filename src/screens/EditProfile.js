@@ -10,6 +10,7 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
+  SafeAreaView
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import globalStyling from "../../constants/globalStyling";
@@ -27,116 +28,144 @@ const EditProfile = ({ navigation }) => {
   ]);
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+    <SafeAreaView style={globalStyling.safeAreaViewContainer}>
 
-      <Image style={styles.image} source={require('../assets/logo-text-gray.png')} />
-      <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
-      <TouchableOpacity style={styles.loginBtn1} onPress={function () { navigation.navigate('YourMainSetup') }}>
-        <Text style={styles.loginText}>Change Image</Text>
-      </TouchableOpacity>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: "3%", }}
+        showsVerticalScrollIndicator={false}
+      >
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            borderWidth: 0,
+            borderColor: "yellow"
+          }}
+        >
+          <View style={styles.textcontainer}></View>
+          {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}> */}
 
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={{
+          <Image style={styles.image} source={require('../assets/logo-text-gray.png')} />
+          <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
+          <TouchableOpacity style={styles.loginBtn1} onPress={function () { navigation.navigate('YourMainSetup') }}>
+            <Text style={styles.loginText}>Change Image</Text>
+          </TouchableOpacity>
+
+          {/* <ScrollView
+            contentContainerStyle={{
+              addingVertical: "3%",
+              display: "flex",
+              alignItems: "center",
+              borderWidth: 1,
+              borderColor: "yellow"
+            }}
+            showsVerticalScrollIndicator={false}
+          > */}
+
+            {/* <ScrollView contentInsetAdjustmentBehavior="automatic" style={{
         height: 45,
         backgroundColor: "black",
         borderColor: "blue",
         borderWidth: 0,
-        width: "80%",
+        width: "100%",
         flex: 1
         // <Footer />
       }}
         showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.headerContainer}>
-          <View style={styles.inputView1}>
+      > */}
+            <View style={styles.headerContainer}>
+              <View style={styles.inputView1}>
 
-            <DropDownPicker
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              placeholder="Level of Experience"
-            />
-          </View>
-          <View style={globalStyling.inputView1}>
-            <TextInput
-              style={globalStyling.inputFieldText}
-              placeholder="DropDown?"
-              placeholderTextColor="black"
+                <DropDownPicker
+                  open={open}
+                  value={value}
+                  items={items}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={setItems}
+                  placeholder="Level of Experience"
+                />
+              </View>
+              <View style={globalStyling.inputView1}>
+                <TextInput
+                  style={globalStyling.inputFieldText}
+                  placeholder="DropDown?"
+                  placeholderTextColor="black"
 
-            />
-          </View>
-        </View>
+                />
+              </View>
+            </View>
 
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Name"
-            placeholderTextColor="black"
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Name"
+                placeholderTextColor="black"
 
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Username"
-            placeholderTextColor="black"
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Username"
+                placeholderTextColor="black"
 
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Pronouns"
-            placeholderTextColor="black"
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Pronouns"
+                placeholderTextColor="black"
 
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Bio"
-            placeholderTextColor="black"
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Bio"
+                placeholderTextColor="black"
 
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Website One"
-            placeholderTextColor="black"
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Website One"
+                placeholderTextColor="black"
 
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Website Two"
-            placeholderTextColor="black"
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Shop Web Link (Optional)"
-            placeholderTextColor="black"
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Dropbox Link or Google Drive Link(-Optional)"
-            placeholderTextColor="black"
-          />
-        </View>
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Website Two"
+                placeholderTextColor="black"
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Shop Web Link (Optional)"
+                placeholderTextColor="black"
+              />
+            </View>
+            <View style={globalStyling.inputView}>
+              <TextInput
+                style={globalStyling.inputFieldText}
+                placeholder="Dropbox Link or Google Drive Link(-Optional)"
+                placeholderTextColor="black"
+              />
+            </View>
 
+
+            <TouchableOpacity style={styles.loginBtn} onPress={function () { navigation.navigate('YourMainSetup') }}>
+              <Text style={styles.loginText}>Next</Text>
+            </TouchableOpacity>
+
+        </KeyboardAvoidingView>
       </ScrollView>
-      <TouchableOpacity style={styles.loginBtn} onPress={function () { navigation.navigate('YourMainSetup') }}>
-        <Text style={styles.loginText}>Next</Text>
-      </TouchableOpacity>
-
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -158,6 +187,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     gap: 10,
+    borderColor: 'red',
+    borderWidth: 0,
   },
   image: {
     position: "relative",

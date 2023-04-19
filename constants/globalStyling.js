@@ -154,4 +154,10 @@ export default StyleSheet.create({
   horizontalScrollview: {
     marginBottom: 10,
   },
+  safeAreaViewContainer: {
+    flex: 1,
+    backgroundColor: "black",
+    borderWidth: 0,
+    borderColor: "yellow"
+  },
 });

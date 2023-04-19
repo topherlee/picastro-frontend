@@ -124,10 +124,11 @@ const UserScreen = ({ navigation }) => {
                     <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                     <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                     <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
-            
+
+                    {/* disabled, since EditProfile.js needs styling and functionality corrected
                     <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
                         <Text style={styles.loginText}>Edit Profile</Text> 
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
             </View>
               
         
