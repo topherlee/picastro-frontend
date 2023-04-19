@@ -11,6 +11,7 @@ import {
   Dimensions,
   SafeAreaView
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
@@ -117,23 +118,27 @@ const ImageUploadScreen = ({ navigation }) => {
       console.log('UPLOAD RESULT', data)
       return {response, data}
     } catch (err) {
-      console.log(err)
+      console.log('ERROR',err)
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: "3%", }}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ 
+          paddingVertical: "3%",
+          display: "flex",
+          alignItems: "center", }}
         showsVerticalScrollIndicator={false}
       >
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+        {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{
           display: "flex",
+          flex: 1,
           alignItems: "center",
           borderWidth: 0,
           borderColor:"yellow" }}
-        >
+        > */}
           <View style={styles.textcontainer}>
             <Text style={styles.title}>Upload Image</Text>
             <TouchableOpacity onPress={pickImage}>
@@ -236,8 +241,8 @@ const ImageUploadScreen = ({ navigation }) => {
           })}>
             <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        {/* </KeyboardAvoidingView> */}
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
