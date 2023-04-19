@@ -24,9 +24,6 @@ const ProfileScreen = () => {
 
 
   useEffect(() => {
-    //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-    //console.log('AccessToken',jwtDecode(token.access))
-
     async function loadSortAndFilterScreen() {
       var { response, data } = await fetchInstance('/api/feed/' + currentUser.userName, {
         method: 'GET',
