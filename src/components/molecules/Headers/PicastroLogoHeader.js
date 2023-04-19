@@ -1,5 +1,6 @@
 import { PicastroLogo } from "../../atoms";
 
+
 const PicastroLogoHeader = { 
     headerTitle: (props) => <PicastroLogo {...props} />,
     headerStyle: {

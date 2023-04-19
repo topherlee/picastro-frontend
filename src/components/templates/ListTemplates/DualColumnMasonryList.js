@@ -1,16 +1,7 @@
 import React from 'react';
 import {
-  Button,
-  Image,
-  ImageBackground,
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TouchableOpacity,
 } from 'react-native';
 
 import MasonryList from 'reanimated-masonry-list';
@@ -31,7 +22,9 @@ const DualColumnMasonryList = ({props}) => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'center',
-      }}>
+      }}
+      showsVerticalScrollIndicator={false}
+      >
       <MasonryList
         data={props}
         keyExtractor={item => item.id}

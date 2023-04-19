@@ -5,10 +5,7 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
-  Alert,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
@@ -18,15 +15,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
 
 export default function LoginScreen( { navigation } ) {
-  const { setIsSignedIn, domain, setDomain, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const { setIsSignedIn, domain, resetStates, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);
 
-  // useEffect(() => {
-  //   Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-  // }, [])
+  useEffect(() => {
+    resetStates()
+  }, [])
 
     async function handleLogin(){
 
@@ -69,7 +66,7 @@ export default function LoginScreen( { navigation } ) {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
-      <View keyboardShouldPersistTaps='handled' style={styles.inputView}>
+      <View keyboardShouldPersistTaps='handled' style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText} 
           textContentType={'username'}
@@ -83,7 +80,7 @@ export default function LoginScreen( { navigation } ) {
           onBlur={() => setError(false)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           textContentType={'password'}
@@ -126,16 +123,6 @@ const styles = StyleSheet.create({
   image: {
     position: "relative",
     marginBottom: "20%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
   },
   bottomText: {
     flexDirection:'row',

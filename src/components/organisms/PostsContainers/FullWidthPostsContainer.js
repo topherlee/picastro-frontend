@@ -1,20 +1,11 @@
 import React, {useState} from 'react';
 import {
-    Pressable,
-    Image,
-    ImageBackground,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     View,
     TouchableOpacity,
     Dimensions
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
 import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
 import Modal from "react-native-modal";
 import styled from 'styled-components';
@@ -25,10 +16,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 export const FullWidthPostsContainer = ({props}) => {
   //console.log("DFC",props);
 
-    const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
-    const [contWidth, setContWidth] = useState(0);
-    const [contHeight, setContHeight] = useState(0);
+    const [contWidth ] = useState(0);
+    const [contHeight ] = useState(0);
     return (
         <View style={styles.container}>
             <Modal

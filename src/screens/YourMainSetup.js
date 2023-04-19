@@ -1,27 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
-  Alert,
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
-import { AuthContext } from "../context/AuthContext";
 import globalStyling from "../../constants/globalStyling";
 
 
 const YourMainSetup = ({ navigation }) => {
-  const { setIsSignedIn } = useContext(AuthContext);
-     
 
   return (
-    
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
       
@@ -40,7 +33,7 @@ const YourMainSetup = ({ navigation }) => {
         
       }}
       >            
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Main Telescope Name"
@@ -48,7 +41,7 @@ const YourMainSetup = ({ navigation }) => {
           
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Main Mount Name "
@@ -56,7 +49,7 @@ const YourMainSetup = ({ navigation }) => {
           
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Guide Camera Name"
@@ -64,7 +57,7 @@ const YourMainSetup = ({ navigation }) => {
          
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Off Axis Guide Camera"
@@ -72,7 +65,7 @@ const YourMainSetup = ({ navigation }) => {
           
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Filter Wheel Name"
@@ -80,7 +73,7 @@ const YourMainSetup = ({ navigation }) => {
           
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Filters"
@@ -88,7 +81,7 @@ const YourMainSetup = ({ navigation }) => {
           
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Barlow lense"
@@ -97,7 +90,7 @@ const YourMainSetup = ({ navigation }) => {
         /> 
         
       </View>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
       <TextInput
           style={globalStyling.inputFieldText}
           placeholder="Other Equipment Here"
@@ -127,34 +120,12 @@ image: {
   height:45,
   marginBottom: "5%",
 },
-
-inputView: {
-  backgroundColor: "white",
-  borderRadius: 10,
-  width: "100%",
-  height: 40,
-  marginBottom: 10,
-  // alignItems: "center",
-  justifyContent: "center",
-  // borderWidth: 5,
-  // borderColor:"yellow" 
-},
 textcontainer:{
   // marginTop:"5%",
   marginBottom:"5%",
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-},
-
-TextInput: {
-  height: 50,
-  width: "100%",
-  flex: 1,
-  padding: 10,
-  textAlign: "center",
-  justifyContent: "center",
-  
 },
 bottomText: {
   flexDirection:'row',

@@ -3,17 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
   Alert,
   ScrollView,
   KeyboardAvoidingView,
   Dimensions,
   SafeAreaView
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
@@ -47,7 +45,8 @@ const ImageUploadScreen = ({ navigation }) => {
     {key: 'galaxy', value: 'Galaxy'},
     {key: 'nebula', value: 'Nebula'},
     {key: 'asterism', value: 'Asterism'},
-    {key: 'cluster', value: 'Cluster'},
+    {key: 'cluster', value: 'Star/Cluster'},
+    {key: 'mcloud', value: 'Molecular cloud'},
     {key: 'other', value: 'Other'},
   ];
 
@@ -107,33 +106,8 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("cloudCoverage", cloudCoverage)
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
-      // formData.append("astroName", "test")
-      // formData.append("astroNameShort", "test")
-      // formData.append("award", "bronze")
-      // formData.append("exposureTime", "3h")
-      // formData.append("moonPhase", "50%")
-      // formData.append("cloudCoverage", "10%")
-      // formData.append("bortle", "5")
-      // formData.append("starCamp", "Aberdeen")
-      // formData.append("imageDescription", "lorem ipsum dolor sit amet")
-
-      // fetch(`${domain}/posts/`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Authorization': `Token ${token.access}`,
-      //     'Content-Type': 'multipart/form-data'
-      //   },
-      //   body: formData
-      // }).then(res => {
-      //   return res.json()
-      // }).then((result) => {
-      //   console.log('UPLOAD SUCCESSFUL', result)
-      //   uploadedHandler();
-      // }).catch(err => {
-      //   console.log(err);
-      // })
-
-      var {response,data} = await fetchInstance('/posts/', {
+      
+      var {response,data} = await fetchInstance('/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -144,25 +118,32 @@ const ImageUploadScreen = ({ navigation }) => {
       console.log('UPLOAD RESULT', data)
       return {response, data}
     } catch (err) {
-      console.log(err)
+      console.log('ERROR',err)
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingVertical: "3%", }}>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ 
+          paddingVertical: "3%",
+          display: "flex",
+          alignItems: "center", }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{
           display: "flex",
+          flex: 1,
           alignItems: "center",
           borderWidth: 0,
           borderColor:"yellow" }}
-        >
+        > */}
           <View style={styles.textcontainer}>
             <Text style={styles.title}>Upload Image</Text>
             <TouchableOpacity onPress={pickImage}>
               {photo ?
-                <AutoscaleImage key={photo.uri} uri={photo.uri} width={Dimensions.get('window').width} />
+                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height/3} />
                 :
                 <Icon name="file-image-plus" size={100} color={'#FFC700'} />
               }
@@ -175,7 +156,7 @@ const ImageUploadScreen = ({ navigation }) => {
               null
             }
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Image Description"
@@ -189,6 +170,7 @@ const ImageUploadScreen = ({ navigation }) => {
               styles={styles.border}
               placeholder="Object Category"
               placeholderTextColor="grey"
+              search={false}
               data={category}
               inputStyles={styles.dropdownText} //style for the text of the unselected box
               boxStyles={styles.DropdownSelectListBox} //style for the unselected box
@@ -199,7 +181,7 @@ const ImageUploadScreen = ({ navigation }) => {
               onSelect={() => setImageCategory(selected)}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Object Number (e.g. 'M17')"
@@ -208,7 +190,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={astroNameShort}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Object Common Name (e.g. 'Rosette Nebula')"
@@ -217,7 +199,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={astroName}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Exposure Time"
@@ -226,7 +208,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={exposureTime}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Moon Phase"
@@ -235,7 +217,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={moonPhase}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Cloud Coverage"
@@ -244,7 +226,7 @@ const ImageUploadScreen = ({ navigation }) => {
               defaultValue={cloudCoverage}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
               style={globalStyling.inputFieldText}
               placeholder="Bortle Scale"
@@ -259,8 +241,8 @@ const ImageUploadScreen = ({ navigation }) => {
           })}>
             <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        {/* </KeyboardAvoidingView> */}
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -277,17 +259,6 @@ const styles = StyleSheet.create({
     width: 155,
     height: 45,
     marginBottom: "5%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 40,
-    marginBottom: 10,
-    // alignItems: "center",
-    justifyContent: "center",
-    // borderWidth: 5,
-    // borderColor:"yellow" 
   },
   textcontainer: {
     // marginTop:"5%",

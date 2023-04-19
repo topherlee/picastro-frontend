@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    StyleSheet,
-    Button,
     View,
-    SafeAreaView,
     Text,
-    Alert,
-    Image,
 } from 'react-native';
 
 import globalStyling from '../../../../constants/globalStyling';
@@ -15,28 +10,26 @@ import NebulaButtonGreySvg from '../../../assets/buttons/nebula_button_grey.svg'
 import NebulaButtonYellowSvg from '../../../assets/buttons/nebula_button_yellow.svg';
 
 
-const NebulaButton = ({selected}) => {
-    const [filterValue, setFilterValue] = React.useState(false);
+const NebulaButton = ({ selected }) => {
 
     return (
         <View>
-            
-                <View>
-                    {(selected == 'nebula') ?
-                        <NebulaButtonYellowSvg style={globalStyling.sortByModalSvg} /> 
+            <View>
+                {(selected == 'nebula') ?
+                    <NebulaButtonYellowSvg style={globalStyling.sortByModalSvg} />
                     :
-                        <NebulaButtonGreySvg style={globalStyling.sortByModalSvg} />
+                    <NebulaButtonGreySvg style={globalStyling.sortByModalSvg} />
+                }
+                <Text
+                    style={(selected == "nebula") ?
+                        [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
+                        :
+                        [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
                     }
-                    <Text 
-                        style={(selected == "nebula") ? 
-                            [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
-                            :
-                            [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
-                        }
-                    >
-                        Nebula
-                    </Text>
-                </View>
+                >
+                    Nebula
+                </Text>
+            </View>
         </View>
     );
 };

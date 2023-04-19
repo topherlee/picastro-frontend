@@ -1,5 +1,4 @@
 import { 
-    View, 
     Text,
     Button,
     SafeAreaView,
@@ -29,7 +28,9 @@ const NotificationsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
             {/* <Header /> */}
-            <ScrollView>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 <Text style={styles.text}>
                     Still in progress... check back later
                 </Text>

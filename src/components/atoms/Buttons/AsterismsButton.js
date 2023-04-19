@@ -1,13 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import {
-    StyleSheet,
-    Button,
     View,
-    SafeAreaView,
     Text,
-    Alert,
-    Image,
-    TouchableOpacity
 } from 'react-native';
 
 import globalStyling from '../../../../constants/globalStyling';
@@ -15,31 +9,28 @@ import AsterismsButtonGreySvg from '../../../assets/buttons/asterisms_button_gre
 import AsterismsButtonYellowSvg from '../../../assets/buttons/asterisms_button_yellow.svg';
 
 
-const AsterismsButton = ({selected}) => {
-    const [filterValue, setFilterValue] = React.useState(false);
+const AsterismsButton = ({ selected }) => {
 
     return (
         <View>
-            
-                <View>
-                    {(selected == 'asterism') ?
-                        <AsterismsButtonYellowSvg style={globalStyling.sortByModalSvg} /> 
+            <View>
+                {(selected == 'asterism') ?
+                    <AsterismsButtonYellowSvg style={globalStyling.sortByModalSvg} />
                     :
-                        <AsterismsButtonGreySvg style={globalStyling.sortByModalSvg} />
+                    <AsterismsButtonGreySvg style={globalStyling.sortByModalSvg} />
+                }
+                <Text
+                    style={(selected == "asterism") ?
+                        [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
+                        :
+                        [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
                     }
-                    <Text 
-                        style={(selected == "asterism") ? 
-                            [globalStyling.SortByModalText, globalStyling.SortByModalTextYellow]
-                            :
-                            [globalStyling.SortByModalText, globalStyling.SortByModalTextGrey]
-                        }
-                    >
-                        Asterisms
-                    </Text>
-                </View>
+                >
+                    Asterisms
+                </Text>
+            </View>
         </View>
     );
 };
-
 
 export default AsterismsButton;

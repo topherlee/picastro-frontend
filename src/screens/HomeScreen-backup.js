@@ -1,18 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import {
-    Button,
-    Image,
     SafeAreaView,
     ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
-    TouchableOpacity,
     RefreshControl,
-    View,
-    Platform
 } from 'react-native';
 
 import { UserNameImageBurgerHeader } from '../components/molecules';
@@ -22,11 +15,11 @@ import MasonryList from 'reanimated-masonry-list';
 
 const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
-    const {domain, setDomain, token, fetchInstance, currentUser} = useContext(AuthContext);
+    const {token, fetchInstance} = useContext(AuthContext);
     const [refreshing, setRefreshing] = useState(true);
 
     async function loadHomescreen() {
-        var {response,data} = await fetchInstance('/api/feed/?ordering=-pub_date', {
+        var {response,data} = await fetchInstance('/api/feed/ordering=pub_date', {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token.access}`,

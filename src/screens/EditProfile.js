@@ -8,7 +8,6 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   ScrollView,
   TouchableOpacity,
   ImageComponent,
@@ -152,11 +151,7 @@ const EditProfile = ({ navigation }) => {
       </View>
       
       </ScrollView>
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
-        <Text style={styles.loginText}>Next</Text> 
-      </TouchableOpacity>          
-    
-    </KeyboardAvoidingView> 
+    </SafeAreaView>
   );
 }
 
