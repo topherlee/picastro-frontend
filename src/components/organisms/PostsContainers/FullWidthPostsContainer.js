@@ -36,7 +36,7 @@ export const FullWidthPostsContainer = ({props}) => {
                     <Icon name='window-close' size={30} color="lightgray"/>
                 </TouchableOpacity>
                 <ReactNativeZoomableView
-                    maxZoom={10}
+                    maxZoom={6}
                     minZoom={1}
                     zoomStep={0.5}
                     initialZoom={1}
