@@ -8,7 +8,7 @@ const FullWidthImage = ({props}) => {
 
   return (
     <View>
-      <AutoscaleImage uri={props.image} width={0.93*Dimensions.get('window').width} />
+      <AutoscaleImage uri={props.thumbnail} width={0.93*Dimensions.get('window').width} />
     </View>
   );
 };
