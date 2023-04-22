@@ -14,9 +14,12 @@ import { FullWidthAboveImage, FullWidthImage, FullWidthBelowImage } from '../../
 import { AutoscaleImage } from '../../atoms';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+
+var windowWidth = Math.ceil(Dimensions.get('window').width);
+console.log(windowWidth)
+
 export const FullWidthPostsContainer = ({ props }) => {
     //console.log("DFC",props);
-
     const [modalVisible, setModalVisible] = useState(false);
     const [contWidth] = useState(0);
     const [contHeight] = useState(0);
@@ -45,12 +48,14 @@ export const FullWidthPostsContainer = ({ props }) => {
                     visualTouchFeedbackEnabled={false}
                     onZoomAfter={this.logOutZoomState}
                     disablePanOnInitialZoom={true}
+                    style={{width: windowWidth, borderColor: "yellow", borderWidth: 0}}
                 >
                     {/* <AutoscaleImage uri={props.image} width={Dimensions.get('window').width}/> */}
                     <Image
                         source={{
                             uri: props.image,
                         }}
+                        resizeMode="contain"
                         style={styles.fullResImage}
                     />
                 </ReactNativeZoomableView>
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
         zIndex: 400
     },
     fullResImage: {
-        width: '100%',
+        width: windowWidth,
         height: undefined,
         aspectRatio: 1,
     }
