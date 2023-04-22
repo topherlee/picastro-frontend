@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
+import { Dropdown } from 'react-native-element-dropdown';
 
 import {
   StyleSheet,
@@ -9,247 +10,280 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  ImageComponent,
+  Alert,
+  FlatList,
+  Footer,
+  SafeAreaView,
   KeyboardAvoidingView,
-  SafeAreaView
 } from "react-native";
+
 import { AuthContext } from "../context/AuthContext";
 import globalStyling from "../../constants/globalStyling";
 
-
 const EditProfile = ({ navigation }) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: '0-1 year', value: '0-1 year' },
-    { label: '2-5 years', value: '2-5 yearsa' },
-    { label: '5-10 years', value: '5-10 years' },
-    { label: '10 years -above', value: '10 years -above' },
 
-  ]);
+  const data = [
+    { label: '0-1 years', value: '1' },
+    { label: '2-5 years', value: '2' },
+    { label: '5-10 years', value: '3' },
+    { label: '10 years plus', value: '4' },
+  ];
+
+  const { setIsSignedIn } = useContext(AuthContext); 
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
 
   return (
-    <SafeAreaView style={globalStyling.safeAreaViewContainer}>
-
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: "3%", }}
-        showsVerticalScrollIndicator={false}
-      >
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            borderWidth: 0,
-            borderColor: "yellow"
+    
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
+    
+      <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
+      <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
+      <TouchableOpacity style={styles.loginBtn1} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
+        <Text style={styles.loginText}>Change Image</Text> 
+      </TouchableOpacity>
+      
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style ={{
+          height: 40,
+          backgroundColor: "black",
+          borderColor:"blue", 
+          borderWidth: 0,
+          width: "85%",
+          flex: 1,
+       }}
+      >            
+    
+      <View style={styles.headerContainer}>
+      <View style={styles.dropdowninputview}>
+        
+        <Dropdown
+          style={[styles.dropdown, isFocus ]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={data}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Level of experience' : ''}
+          value={value}
+          maxHeight={300}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
           }}
-        >
-          <View style={styles.textcontainer}></View>
-          {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}> */}
+          
+        />
+      </View>
+      <View style={styles.DropDownView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="DropDown?"
+          placeholderTextColor="black"
+         
+        /> 
+      </View> 
+      </View> 
 
-          <Image style={styles.image} source={require('../assets/logo-text-gray.png')} />
-          <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
-          <TouchableOpacity style={styles.loginBtn1} onPress={function () { navigation.navigate('YourMainSetup') }}>
-            <Text style={styles.loginText}>Change Image</Text>
-          </TouchableOpacity>
-
-          {/* <ScrollView
-            contentContainerStyle={{
-              addingVertical: "3%",
-              display: "flex",
-              alignItems: "center",
-              borderWidth: 1,
-              borderColor: "yellow"
-            }}
-            showsVerticalScrollIndicator={false}
-          > */}
-
-            {/* <ScrollView contentInsetAdjustmentBehavior="automatic" style={{
-        height: 45,
-        backgroundColor: "black",
-        borderColor: "blue",
-        borderWidth: 0,
-        width: "100%",
-        flex: 1
-        // <Footer />
-      }}
-        showsVerticalScrollIndicator={false}
-      > */}
-            <View style={styles.headerContainer}>
-              <View style={styles.inputView1}>
-
-                <DropDownPicker
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                  placeholder="Level of Experience"
-                />
-              </View>
-              <View style={globalStyling.inputView1}>
-                <TextInput
-                  style={globalStyling.inputFieldText}
-                  placeholder="DropDown?"
-                  placeholderTextColor="black"
-
-                />
-              </View>
-            </View>
-
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Name"
-                placeholderTextColor="black"
-
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Username"
-                placeholderTextColor="black"
-
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Pronouns"
-                placeholderTextColor="black"
-
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Bio"
-                placeholderTextColor="black"
-
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Website One"
-                placeholderTextColor="black"
-
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Website Two"
-                placeholderTextColor="black"
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Shop Web Link (Optional)"
-                placeholderTextColor="black"
-              />
-            </View>
-            <View style={globalStyling.inputView}>
-              <TextInput
-                style={globalStyling.inputFieldText}
-                placeholder="Dropbox Link or Google Drive Link(-Optional)"
-                placeholderTextColor="black"
-              />
-            </View>
-
-
-            <TouchableOpacity style={styles.loginBtn} onPress={function () { navigation.navigate('YourMainSetup') }}>
-              <Text style={styles.loginText}>Next</Text>
-            </TouchableOpacity>
-
-        </KeyboardAvoidingView>
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Name"
+          placeholderTextColor="black"
+          
+        /> 
+      </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Username"
+          placeholderTextColor="black"
+          
+        /> 
+      </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Pronouns"
+          placeholderTextColor="black"
+         
+        /> 
+      </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Bio"
+          placeholderTextColor="black"
+          
+        /> 
+      </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Website One"
+          placeholderTextColor="black"
+          
+        /> 
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Website Two"
+          placeholderTextColor="black"
+        /> 
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Shop Web Link (Optional)"
+          placeholderTextColor="black"
+        /> 
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          placeholder="Dropbox Link or Google Drive Link(-Optional)"
+          placeholderTextColor="black"
+        /> 
+      </View>
+      
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerContainer: {
-    backgroundColor: 'black',
-    display: "flex",
-    top: 0,
-    width: '100%',
-    height: 60,
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 10,
-    borderColor: 'red',
-    borderWidth: 0,
-  },
-  image: {
-    position: "relative",
-    width: 155,
-    height: 45,
-    marginBottom: "5%",
-  },
-  image1: {
-    position: "relative",
-    width: 84.54,
-    height: 85,
-    // marginTop: "2%",
-  },
-  inputView1: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "45%",
-    height: 35,
-    marginTop: 3,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  text: {
-    color: "black",
-  },
-  forgot_button: {
-    height: 30,
-    color: "#FFC700",
-  },
-  loginBtn: {
-    width: "35%",
-    borderRadius: 25,
-    height: "7%",
-    // minHeight: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    marginTop: "0%",
-    marginBottom: "0%",
-    backgroundColor: "#FFC700",
-  },
-  loginBtn1: {
-    width: "35%",
-    borderRadius: 25,
-    height: "5%",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    marginTop: "3%",
-    marginBottom: "0%",
-    backgroundColor: "#FFC700",
-  },
-  title: {
-    color: "#FFC700",
-    fontWeight: "bold",
-    fontSize: 20,
-    position: "relative",
-    top: "-5%"
-  },
-  loginText: {
-    fontWeight: "bold",
-  }
+const styles = StyleSheet.create({container: {
+  flex: 1,
+  backgroundColor: "black",
+  alignItems: "center",
+  justifyContent: "center",
+},
+dropdowninputview: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "40%",
+  marginTop: 2,
+  marginBottom: 20,
+  alignItems: "center",
+  marginRight:"8%"
+},
+dropdown: {
+  backgroundColor: "white",
+  height: 28,
+  alignItems: "center",
+  borderRadius: 10,
+  paddingHorizontal: 8,
+},
+
+label: {
+  position: 'absolute',
+  backgroundColor: 'white',
+  zIndex: 999,
+  paddingHorizontal: 8,
+  fontSize: 14,
+},
+placeholderStyle: {
+  fontSize: 10,
+  color: "black",
+},
+selectedTextStyle: {
+  fontSize: 14,
+},
+
+headerContainer: {
+  backgroundColor: 'black',
+  display: "flex",
+  top: 0,
+  width: '100%',
+  height: 60,
+  alignItems: 'center',
+  alignContent: 'center',
+  justifyContent: 'center',
+  flexDirection: 'row',
+  gap: 10,
+},
+image: {
+  marginTop: "14%",
+  position: "relative",
+  width: 117.53,
+  height:34.2,
+  marginBottom: "5%",
+},
+image1: {
+  position: "relative",
+  width: 80,
+  height: 80,
+  marginBottom: "2%",
+},
+inputView: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "100%",
+  height: 40,
+  marginBottom: 7,
+  alignItems: "center",
+},
+inputView1: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "45%",
+  height: 35,
+  marginTop: 3,
+  marginBottom: 20,
+  alignItems: "center",
+  
+},
+DropDownView: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "35%",
+  height: 28,
+  marginRight: "10%",
+  marginTop: 3,
+  marginBottom: 20,
+  alignItems: "center",
+},
+text: {
+  color: "black",  
+},
+forgot_button: {
+  height: 30,
+  color: "#FFC700",
+},
+loginBtn: {
+  position: 'relative', 
+  width: 120,
+  borderRadius: 25,
+  height: 35,
+  alignItems: "center",
+  justifyContent: "center",
+  marginBottom: "5%",
+  backgroundColor: "#FFC700",
+},
+loginBtn1: {
+  margin: "2%",
+  position: 'relative', 
+  width: 120,
+  borderRadius: 25,
+  height: 35,
+  alignItems: "center",
+  justifyContent: "center",
+  marginBottom: "3%",
+  backgroundColor: "#FFC700",
+},
+title: {
+  color: "#FFC700",
+  fontWeight: "bold",
+  fontSize: 20,
+  position: "relative",
+  top: "-5%"
+},
+loginText: {
+  fontWeight: "bold",
+}
 });
+
 export default EditProfile;
