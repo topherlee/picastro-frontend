@@ -151,7 +151,7 @@ const EditProfile = ({ navigation }) => {
       </View>
       
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
