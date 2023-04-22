@@ -5,15 +5,13 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
-  Alert,
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Keychain from 'react-native-keychain';
+import globalStyling from "../../../constants/globalStyling";
 
 export default function SignUpScreen( { navigation } ) {
   const { domain, setToken, setIsSignedIn, setDomain } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -69,7 +67,7 @@ export default function SignUpScreen( { navigation } ) {
   }
 
   useEffect(() => {
-    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+    //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
   }, [])
 
   return (
@@ -78,9 +76,9 @@ export default function SignUpScreen( { navigation } ) {
       <Text style={!error ? styles.title : styles.titleRed}>
         {!error ? "Register for an account" : "Unable to register, please check your details and try again"}
       </Text>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="First Name"
           placeholderTextColor="grey"
           autoComplete="off"
@@ -90,9 +88,9 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(firstName) => setFirstName(firstName)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Last Name"
           placeholderTextColor="grey"
           autoComplete="off"
@@ -102,9 +100,9 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(lastName) => setLastName(lastName)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Username"
           placeholderTextColor="grey"
           secureTextEntry={false}
@@ -115,9 +113,9 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(username) => setUsername(username)}
         /> 
       </View>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           inputMode="email"
           placeholder="Email"
           placeholderTextColor="grey"
@@ -128,9 +126,9 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Password"
           placeholderTextColor="grey"
           returnKeyType="next"
@@ -141,9 +139,9 @@ export default function SignUpScreen( { navigation } ) {
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
         </TouchableOpacity>
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Confirm Password"
           placeholderTextColor="grey"
           secureTextEntry={securePassword}
@@ -177,24 +175,6 @@ const styles = StyleSheet.create({container: {
 image: {
   position: "relative",
   marginBottom: "20%",
-},
-inputView: {
-  backgroundColor: "white",
-  borderRadius: 10,
-  width: "80%",
-  height: 45,
-  marginBottom: 20,
-  alignItems: "center",
-  display: "flex",
-  flexDirection: "row",
-},
-TextInput: {
-  height: 50,
-  width: "100%",
-  flex: 1,
-  padding: 10,
-  textAlign: "center",
-  
 },
 bottomText: {
   flexDirection:'row',

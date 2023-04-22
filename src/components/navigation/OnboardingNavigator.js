@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, } from 'react-native'
 import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './DrawerNavigator';
 import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, LogoutScreen} from '../../screens/SigninScreen';
 import { AuthContext } from '../../context/AuthContext';
+
 
 const Stack = createStackNavigator();
 
@@ -21,7 +21,6 @@ const OnboardingNavigator = () => {
               <Stack.Screen name="SignUp" component={SignUpScreen}  /> 
               <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}  /> 
               <Stack.Screen name="UserName" component={UserNameScreen} />
-              <Stack.Screen name="Logout"   component={LogoutScreen} /> 
               
             </Stack.Group>
           )}

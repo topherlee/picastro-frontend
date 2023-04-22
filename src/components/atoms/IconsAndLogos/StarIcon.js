@@ -1,14 +1,4 @@
 import React from "react";
-import {
-    StyleSheet,
-    Button,
-    View,
-    SafeAreaView,
-    Text,
-    Alert,
-    Image,
-    TouchableOpacity
-  } from 'react-native';
 
 import styled from 'styled-components';
 
@@ -20,10 +10,10 @@ const StarIcon = () => {
     const [imageIsSaved, setImageIsSaved] = React.useState(false);
     return (
         <StarIconWrapper
-            onPress={ () => {setImageIsSaved(!imageIsSaved)}}
+            onPress={() => { setImageIsSaved(!imageIsSaved) }}
             title="Save Image"
         >
-            {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg /> }
+            {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg />}
         </StarIconWrapper>
     );
 };
@@ -32,7 +22,6 @@ const StarIconWrapper = styled.TouchableOpacity`
   width: 24.55px;
   height: 24.55px;
 `;
-//box-sizing: border-box;
 
 
 export default StarIcon;

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
-
-
+import { Dropdown } from 'react-native-element-dropdown';
 
 import {
   StyleSheet,
@@ -9,7 +8,6 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   ScrollView,
   TouchableOpacity,
   ImageComponent,
@@ -17,31 +15,29 @@ import {
   FlatList,
   Footer,
   SafeAreaView,
- 
   KeyboardAvoidingView,
-  
 } from "react-native";
-import { AuthContext } from "../context/AuthContext";
 
+import { AuthContext } from "../context/AuthContext";
+import globalStyling from "../../constants/globalStyling";
 
 const EditProfile = ({ navigation }) => {
+
+  const data = [
+    { label: '0-1 years', value: '1' },
+    { label: '2-5 years', value: '2' },
+    { label: '5-10 years', value: '3' },
+    { label: '10 years plus', value: '4' },
+  ];
+
   const { setIsSignedIn } = useContext(AuthContext); 
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: '0-1 year', value: '0-1 year'},
-    {label: '2-5 years', value: '2-5 yearsa'},
-    {label: '5-10 years', value: '5-10 years'},
-    {label: '10 years -above', value: '10 years -above'},
-
-  ]);   
-
+  const [isFocus, setIsFocus] = useState(false);
 
   return (
     
-    
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>      
-      
+    
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} /> 
       <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
       <TouchableOpacity style={styles.loginBtn1} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
@@ -49,31 +45,42 @@ const EditProfile = ({ navigation }) => {
       </TouchableOpacity>
       
       <ScrollView contentInsetAdjustmentBehavior="automatic" style ={{
-          height: 45,
+          height: 40,
           backgroundColor: "black",
           borderColor:"blue", 
           borderWidth: 0,
-          width: "80%",
-          flex: 1
-        // <Footer />
+          width: "85%",
+          flex: 1,
        }}
       >            
+    
       <View style={styles.headerContainer}>
-      <View style={styles.inputView1}>
+      <View style={styles.dropdowninputview}>
         
-        <DropDownPicker
-          open={open}
+        <Dropdown
+          style={[styles.dropdown, isFocus ]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={data}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Level of experience' : ''}
           value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          placeholder="Level of Experience"
+          maxHeight={300}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
+          }}
+          
         />
-      </View> 
-      <View style={styles.inputView1}>
+      </View>
+      <View style={styles.DropDownView}>
         <TextInput
-          style={styles.TextInput1}
+          style={globalStyling.inputFieldText}
           placeholder="DropDown?"
           placeholderTextColor="black"
          
@@ -83,7 +90,7 @@ const EditProfile = ({ navigation }) => {
 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Name"
           placeholderTextColor="black"
           
@@ -91,7 +98,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Username"
           placeholderTextColor="black"
           
@@ -99,7 +106,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Pronouns"
           placeholderTextColor="black"
          
@@ -107,7 +114,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Bio"
           placeholderTextColor="black"
           
@@ -115,7 +122,7 @@ const EditProfile = ({ navigation }) => {
       </View> 
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Website One"
           placeholderTextColor="black"
           
@@ -123,32 +130,28 @@ const EditProfile = ({ navigation }) => {
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Website Two"
           placeholderTextColor="black"
         /> 
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Shop Web Link (Optional)"
           placeholderTextColor="black"
         /> 
       </View>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Dropbox Link or Google Drive Link(-Optional)"
           placeholderTextColor="black"
         /> 
       </View>
       
       </ScrollView>
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('YourMainSetup') }}>
-        <Text style={styles.loginText}>Next</Text> 
-      </TouchableOpacity>          
-    
-    </KeyboardAvoidingView> 
+    </KeyboardAvoidingView>
   );
 }
 
@@ -158,6 +161,38 @@ const styles = StyleSheet.create({container: {
   alignItems: "center",
   justifyContent: "center",
 },
+dropdowninputview: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "40%",
+  marginTop: 2,
+  marginBottom: 20,
+  alignItems: "center",
+  marginRight:"8%"
+},
+dropdown: {
+  backgroundColor: "white",
+  height: 28,
+  alignItems: "center",
+  borderRadius: 10,
+  paddingHorizontal: 8,
+},
+
+label: {
+  position: 'absolute',
+  backgroundColor: 'white',
+  zIndex: 999,
+  paddingHorizontal: 8,
+  fontSize: 14,
+},
+placeholderStyle: {
+  fontSize: 10,
+  color: "black",
+},
+selectedTextStyle: {
+  fontSize: 14,
+},
+
 headerContainer: {
   backgroundColor: 'black',
   display: "flex",
@@ -171,16 +206,17 @@ headerContainer: {
   gap: 10,
 },
 image: {
+  marginTop: "14%",
   position: "relative",
-  width: 155,
-  height:45,
+  width: 117.53,
+  height:34.2,
   marginBottom: "5%",
 },
 image1: {
   position: "relative",
-  width: 84.54,
-  height: 85,
-  // marginTop: "2%",
+  width: 80,
+  height: 80,
+  marginBottom: "2%",
 },
 inputView: {
   backgroundColor: "white",
@@ -200,55 +236,42 @@ inputView1: {
   alignItems: "center",
   
 },
-
-TextInput: {
-  height: 50,
-  width: "100%",
-  flex: 1,
-  padding: 10,
-  textAlign: "center",
-  fontWeight: "bold",
-  
+DropDownView: {
+  backgroundColor: "white",
+  borderRadius: 10,
+  width: "35%",
+  height: 28,
+  marginRight: "10%",
+  marginTop: 3,
+  marginBottom: 20,
+  alignItems: "center",
 },
-TextInput1: {
-  // height: 10,
-  width: "100%",
-  flex: 1,
-  // padding: 10,
-  textAlign: "center",
-  fontSize:12,
-    
-},
-
 text: {
-  color: "black",
-    
+  color: "black",  
 },
 forgot_button: {
   height: 30,
   color: "#FFC700",
 },
 loginBtn: {
-  width: "35%",
+  position: 'relative', 
+  width: 120,
   borderRadius: 25,
-  height: "7%",
-  // minHeight: 50,
+  height: 35,
   alignItems: "center",
   justifyContent: "center",
-  position: "relative",
-  marginTop: "0%",
-  marginBottom: "0%",
+  marginBottom: "5%",
   backgroundColor: "#FFC700",
 },
 loginBtn1: {
-  width: "35%",
+  margin: "2%",
+  position: 'relative', 
+  width: 120,
   borderRadius: 25,
-  height: "5%",
+  height: 35,
   alignItems: "center",
   justifyContent: "center",
-  position: "relative",
-  marginTop: "3%",
-  marginBottom: "0%",
+  marginBottom: "3%",
   backgroundColor: "#FFC700",
 },
 title: {
@@ -262,4 +285,5 @@ loginText: {
   fontWeight: "bold",
 }
 });
+
 export default EditProfile;

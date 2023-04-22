@@ -1,28 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
-    Button,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     View,
-    Platform
 } from 'react-native';
-import { AuthContext, setCurrentUser, currentUser } from '../../../context/AuthContext';
+import { AuthContext } from '../../../context/AuthContext';
 
-//console.log(localCurrentUser);
 
 const HeaderUserName = ({style},props) => {
-    const [data, setData] = useState([]);
-    const {domain, setDomain, token, setCurrentUser, currentUser} = useContext(AuthContext);
+    const {domain, token, setCurrentUser, currentUser} = useContext(AuthContext);
 
     useEffect(() => {
-        Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-        //console.log(`Token ${token}`)
-
+        
         fetch(`${domain}/api/current_user/`, {
             method: 'GET',
             headers: {

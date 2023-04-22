@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import jwtDecode from "jwt-decode";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {Platform} from "react-native";
 
 import * as Keychain from 'react-native-keychain';
@@ -10,7 +10,8 @@ export const AuthContext = React.createContext({});
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
+    //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         "id": null,
@@ -82,12 +83,14 @@ export const AuthProvider = ({children, contextValue}) => {
             var data = await response.json()
             return {response, data}
         } catch (err) {
-            console.log(err)
+            console.log('ERROR IN ORIGINAL REQUEST', err)
+            return {response, err}
         }
     }
 
     let fetchInstance = async (url, config={}) => {
         try {
+            console.log(url)
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access)
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
@@ -117,34 +120,72 @@ export const AuthProvider = ({children, contextValue}) => {
     //but more related to Screens
     const [loading, setLoading] = useState(false);
     const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
-    const [isSortModalVisible, setSortModalVisible] = useState(true);
-    const [activeSelector, setActiveSelector] = useState("");
+    const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState("");
+    const [userScreenUrl, setUserScreenUrl] = useState("");
+    const [isSortModalVisible, setSortModalVisible] = useState(false);
+    const [user, setUser] = useState("");
+    const [userUrl, setUserUrl] = useState("");
+    const [userFilterUrl, setUserFilterUrl] = useState("");
+    const [userActiveSelector, setUserActiveSelector] = useState("most_recent");
+    const [userActiveObjectSelector, setUserActiveObjectSelector] = useState("");
+    const [activeSelector, setActiveSelector] = useState("most_recent");
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [userCurrentPage, setUserCurrentPage] = useState(1);
 
     const globalContext = {
-        domain,
-        setDomain,
-        isSignedIn,
-        setIsSignedIn,
-        token,
-        setToken,
-        currentUser,
-        setCurrentUser,
         fetchInstance, 
         getSavedTokens, 
         setSavedTokens,
-        searchAndFilterUrl,
-        setSearchAndFilterUrl,
-        isSortModalVisible,
-        setSortModalVisible,
-        activeSelector,
-        setActiveSelector,
-        activeObjectSelector,
-        setActiveObjectSelector
+        resetStates,
+        domain, setDomain,
+        isSignedIn, setIsSignedIn,
+        token, setToken,
+        user, setUser,
+        currentUser, setCurrentUser,
+        userScreenUrl, setUserScreenUrl,
+        searchAndFilterUrl, setSearchAndFilterUrl,
+        userSearchAndFilterUrl, setUserSearchAndFilterUrl,
+        userUrl, setUserUrl,
+        userFilterUrl, setUserFilterUrl,
+        isSortModalVisible, setSortModalVisible,
+        activeSelector, setActiveSelector,
+        activeObjectSelector, setActiveObjectSelector,
+        userActiveSelector, setUserActiveSelector,
+        userActiveObjectSelector, setUserActiveObjectSelector,
+        currentPage, setCurrentPage,
+        userCurrentPage, setUserCurrentPage
+    };
+
+    //HACK: function to reset all states manually on logout
+    function resetStates(){
+        setUser("");
+        setCurrentUser({
+            "id": null,
+            "username": null,
+            "first_name": null,
+            "last_name": null,
+            "email": null,
+            "last_login": null,
+            "date_joined": null
+        });
+        setUserScreenUrl("");
+        setSearchAndFilterUrl("");
+        setUserSearchAndFilterUrl("");
+        setUserUrl("");
+        setUserFilterUrl("");
+        setSortModalVisible(false);
+        setActiveSelector("most_recent");
+        setActiveObjectSelector("");
+        setUserActiveSelector("most_recent");
+        setUserActiveObjectSelector("");
+        setCurrentPage(1);
+        setUserCurrentPage(1);
+        setToken(null);
+        setIsSignedIn(false);
     }
 
-     useEffect(() => {
+    useEffect(() => {
     //     let interval = setInterval(() => {
     //         if (token) {
     //             refreshAllTokens();
@@ -153,7 +194,7 @@ export const AuthProvider = ({children, contextValue}) => {
     //     return () => clearInterval(interval)
 
         setLoading(false);
-     }, [token, loading, isSignedIn])
+    }, [token, loading, isSignedIn])
 
     return (
         <AuthContext.Provider value={globalContext}>

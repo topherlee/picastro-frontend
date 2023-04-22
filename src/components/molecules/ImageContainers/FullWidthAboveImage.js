@@ -1,19 +1,77 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
-  StyleSheet,
-  Button,
   View,
-  SafeAreaView,
-  Text,
   Alert,
   Image,
+  ActionSheetIOS
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../../context/AuthContext';
 
-import {StarIcon} from '../../atoms';
 
 const FullWidthAboveImage = ({props}) => {
+  const navigation = useNavigation();
+  const { fetchInstance, token, currentUser } = useContext(AuthContext);
+  
+  const deletePost = async (id)=> {
+    try {
+      var {response, data} = await fetchInstance(`/api/feed/${props.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Token ${token.access}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      return {response, data}
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const onPress = ()=> {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: currentUser.username === props.poster.username ? ['Cancel', 'Edit Post', 'Delete Post'] : ['Cancel', 'Placeholder'],
+        destructiveButtonIndex: 2,
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'dark',
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          // cancel action
+        } else if (buttonIndex === 1) {
+          Alert.alert('Oops not working yet! Check back later...')
+        } else if (buttonIndex === 2) {   //delete post button
+          Alert.alert('Delete Post?', 'This post will be permanently deleted.', [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Delete Cancelled'),
+              style: 'cancel',
+            },
+            {
+              text: 'Delete', 
+              onPress: () => {
+                deletePost(props.id).then(({response,data}) => {
+                  if (response.ok) {
+                    Alert.alert("Delete Successful", "This post has been successfully deleted.", 
+                    [{text: 'OK', onPress: () => navigation.goBack()}])
+                  } else {
+                    Alert.alert("Delete Failed", "Please try again later.",)
+                  }
+                })
+                console.log('OK Pressed')
+              }
+            },
+          ]);
+        }
+      },
+    );
+  }
+
   var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
   ratio = (source.width / source.height);
   return (
@@ -35,6 +93,9 @@ const FullWidthAboveImage = ({props}) => {
           <LocationText>{props.starCamp}</LocationText>
         </View>
       </NameBanner>
+      <TouchableOpacity onPress={onPress}>
+        <Icon name="dots-horizontal" size={40} color="lightgray" />
+      </TouchableOpacity>
     </Banner>
 )};
 
@@ -42,6 +103,7 @@ const Banner = styled.View`
   display: flex;
   flex: 1;
   flex-direction: row;
+  align-items: center;
   width: 100%;
   height: 60px;
   border-top-left-radius: 10px;
@@ -73,7 +135,5 @@ const UserImage = styled.Image`
   width: 100%;
   max-height: 100%;
 `;
-//
-//border: 1px solid grey;
 
 export default FullWidthAboveImage;

@@ -1,16 +1,14 @@
-import {View, Text, Image, Dimensions} from 'react-native';
-import React, {useState} from 'react';
-import styled from 'styled-components';
+import {View, Dimensions} from 'react-native';
+import React from 'react';
 import { AutoscaleImage } from '../../atoms';
 
-var ratio;
 
 const FullWidthImage = ({props}) => {
   //console.log("DFI", props)
 
   return (
     <View>
-      <AutoscaleImage uri={props.image} width={0.93*Dimensions.get('window').width} />
+      <AutoscaleImage uri={props.thumbnail} width={0.93*Dimensions.get('window').width} />
     </View>
   );
 };

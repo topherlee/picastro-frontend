@@ -5,33 +5,33 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
   KeyboardAvoidingView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import globalStyling from "../../../constants/globalStyling";
+
 
 export default function UserNameScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
-  const [email, setEmail] = useState(null);
+  const [setEmail] = useState(null);
   // const [password, setPassword] = useState(null);
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       <Text style={styles.title}>Create a Username</Text>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Enter your Username"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={globalStyling.inputFieldText}
           placeholder="Confirm Username"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
@@ -54,22 +54,6 @@ const styles = StyleSheet.create({
   image: {
     position: "relative",
     marginBottom: "20%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-    
   },
   bottomText: {
     flexDirection:'row',

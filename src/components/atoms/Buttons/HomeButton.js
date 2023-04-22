@@ -1,13 +1,10 @@
 import React from "react";
 import {
-    StyleSheet,
-    Button,
     View,
-    SafeAreaView,
-    Text,
-    Alert,
     Image,
-  } from 'react-native';
+} from 'react-native';
+
+import globalStyling from "../../../../constants/globalStyling";
 
 
 const HomeButton = () => (
@@ -15,18 +12,11 @@ const HomeButton = () => (
         alignItems: 'center',
         justifyContent: 'center',
         top: 0
-        }}>
+    }}>
         <Image
             source={require('../../../assets/buttons/home-button.png')}
             resizeMode="contain"
-            style={{
-                width: 40,
-                height:40,
-                //min-width: 0px,
-                //min-height: 0px,
-                //margin: 0px 4.78vw 1.35vw 0px,
-                //tintColor: focused ? '#FFC700' : '#000000',
-            }}
+            style={globalStyling.NavBarButton}
         />
     </View>
 );

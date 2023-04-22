@@ -3,23 +3,22 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
   Alert,
   ScrollView,
   KeyboardAvoidingView,
   Dimensions,
   SafeAreaView
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { AuthContext } from "../context/AuthContext";
 import { launchImageLibrary } from "react-native-image-picker";
 import { AutoscaleImage } from "../components/atoms";
 import jwtDecode from "jwt-decode";
 import { SelectList } from "react-native-dropdown-select-list";
+import globalStyling from "../../constants/globalStyling";
 
 
 var userID;
@@ -38,21 +37,30 @@ const ImageUploadScreen = ({ navigation }) => {
   const [bortle, setBortle] = useState('');
 
   const category = [
-    {key:'nebula', value:'Nebula'},
-    {key:'asterism', value:'Asterism'},
+    {key: 'iss_transit', value: 'ISS Transit'},
+    {key: 'lunar', value: 'Lunar'},
+    {key: 'solar', value: 'Solar'},
+    {key: 'planet', value: 'Planet'},
+    {key: 'comet', value: 'Comet'},
+    {key: 'galaxy', value: 'Galaxy'},
+    {key: 'nebula', value: 'Nebula'},
+    {key: 'asterism', value: 'Asterism'},
+    {key: 'cluster', value: 'Star/Cluster'},
+    {key: 'mcloud', value: 'Molecular cloud'},
     {key: 'other', value: 'Other'},
   ];
 
-  
+  //console.log("image category", imageCategory);
+
 
   useEffect(() => {
-    Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
+    //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
 
     userID = jwtDecode(token?.access).user_id;
   }, [token])
 
-  const uploadedHandler = () => {
-    Alert.alert("Upload Successful","Your image has been uploaded.",)
+  const uploadedHandler = (err) => {
+    {err ? Alert.alert("Upload Failed",JSON.stringify(err),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
   }
 
   const pickImage = () => {
@@ -90,7 +98,7 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("poster", userID)
       
       formData.append("imageDescription", imageDescription)
-      formData.append("imageCategory", imageCategory)
+      formData.append("imageCategory", selected)
       formData.append("astroNameShort", astroNameShort)
       formData.append("astroName", astroName)
       formData.append("exposureTime", exposureTime)
@@ -98,34 +106,8 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("cloudCoverage", cloudCoverage)
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
-      formData.append("award", "none")
-      // formData.append("astroName", "test")
-      // formData.append("astroNameShort", "test")
-      // formData.append("award", "bronze")
-      // formData.append("exposureTime", "3h")
-      // formData.append("moonPhase", "50%")
-      // formData.append("cloudCoverage", "10%")
-      // formData.append("bortle", "5")
-      // formData.append("starCamp", "Aberdeen")
-      // formData.append("imageDescription", "lorem ipsum dolor sit amet")
-
-      // fetch(`${domain}/posts/`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Authorization': `Token ${token.access}`,
-      //     'Content-Type': 'multipart/form-data'
-      //   },
-      //   body: formData
-      // }).then(res => {
-      //   return res.json()
-      // }).then((result) => {
-      //   console.log('UPLOAD SUCCESSFUL', result)
-      //   uploadedHandler();
-      // }).catch(err => {
-      //   console.log(err);
-      // })
-
-      var {response,data} = await fetchInstance('/posts/', {
+      
+      var {response,data} = await fetchInstance('/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -134,26 +116,34 @@ const ImageUploadScreen = ({ navigation }) => {
         })
 
       console.log('UPLOAD RESULT', data)
+      return {response, data}
     } catch (err) {
-      console.log(err)
+      console.log('ERROR',err)
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingVertical: "3%", }}>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ 
+          paddingVertical: "3%",
+          display: "flex",
+          alignItems: "center", }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{
           display: "flex",
+          flex: 1,
           alignItems: "center",
           borderWidth: 0,
           borderColor:"yellow" }}
-        >
+        > */}
           <View style={styles.textcontainer}>
             <Text style={styles.title}>Upload Image</Text>
             <TouchableOpacity onPress={pickImage}>
               {photo ?
-                <AutoscaleImage key={photo.uri} uri={photo.uri} width={Dimensions.get('window').width} />
+                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height/3} />
                 :
                 <Icon name="file-image-plus" size={100} color={'#FFC700'} />
               }
@@ -166,84 +156,93 @@ const ImageUploadScreen = ({ navigation }) => {
               null
             }
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Image Description"
               placeholderTextColor="grey"
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={styles.selectListView}>
             <SelectList
-              style={[styles.TextInput, styles.DropdownSelectList]}
+              styles={styles.border}
               placeholder="Object Category"
+              placeholderTextColor="grey"
+              search={false}
               data={category}
+              inputStyles={styles.dropdownText} //style for the text of the unselected box
+              boxStyles={styles.DropdownSelectListBox} //style for the unselected box
+              dropdownStyles={styles.dropdownSelectList} //style of the scrollview, when box selected
+              dropdownTextStyles={styles.dropdownText} //style of text of each element inside scrollview
+              dropdownItemStyles={styles.dropdownItemStyles} //style of each element inside scrollview
               setSelected={setSelected}
-              dropdownStyles={styles.DropdownSelectListBox}
-              zIndex={400}
+              onSelect={() => setImageCategory(selected)}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
-              placeholder="Messier Object Number (e.g. 'M17')"
+              style={globalStyling.inputFieldText}
+              placeholder="Object Number (e.g. 'M17')"
               placeholderTextColor="grey"
               onChangeText={newAstroNameShort => setAstroNameShort(newAstroNameShort)}
               defaultValue={astroNameShort}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Object Common Name (e.g. 'Rosette Nebula')"
               placeholderTextColor="grey"
               onChangeText={newAstroName => setAstroName(newAstroName)}
               defaultValue={astroName}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Exposure Time"
               placeholderTextColor="grey"
               onChangeText={newExposureTime => setExposureTime(newExposureTime)}
               defaultValue={exposureTime}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Moon Phase"
               placeholderTextColor="grey"
               onChangeText={newMoonPhase => setMoonPhase(newMoonPhase)}
               defaultValue={moonPhase}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Cloud Coverage"
               placeholderTextColor="grey"
               onChangeText={newCloudCoverage => setCloudCoverage(newCloudCoverage)}
               defaultValue={cloudCoverage}
             />
           </View>
-          <View style={styles.inputView}>
+          <View style={globalStyling.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={globalStyling.inputFieldText}
               placeholder="Bortle Scale"
               placeholderTextColor="grey"
               onChangeText={newBortle => setBortle(newBortle)}
               defaultValue={bortle}
             />
           </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(() => {uploadedHandler()})}>
-            <Text style={styles.loginText}>Save</Text>
+
+          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(({response,data}) => {
+            uploadedHandler(response.ok ? '' : data)
+          })}>
+            <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        {/* </KeyboardAvoidingView> */}
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -261,17 +260,6 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: "5%",
   },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 40,
-    marginBottom: 10,
-    // alignItems: "center",
-    justifyContent: "center",
-    // borderWidth: 5,
-    // borderColor:"yellow" 
-  },
   textcontainer: {
     // marginTop:"5%",
     display: "flex",
@@ -279,21 +267,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-    justifyContent: "center",
-
+  dropdownSelectList: {
+    zIndex: 600,
+    backgroundColor: 'white'
   },
-  DropdownSelectList: {
-    zIndex: 400,
+  dropdownItemStyles: {
+    //gap: 5,
+    zIndex: 600,
+    height: 40,
+    
+    textAlign: "center",
+    color: "black",
+  },
+  dropdownText: {
+    textAlign: "center",
+    color: "grey",
   },
   DropdownSelectListBox: {
     zIndex: 500,
-    backgroundColor: 'red'
+    height: 40,
+    marginBottom: "5%",
+    backgroundColor: 'white',
+    borderColor: 'green',
+    borderWidth: 0,
+    color: 'black'
   },
   bottomText: {
     flexDirection: 'row',
@@ -320,6 +317,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     marginBottom: "5%",
     backgroundColor: "#FFC700",
+    zIndex: 1
   },
   loginBtn2: {
     width: "100%",
@@ -343,6 +341,17 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontWeight: "bold",
+  },
+  border: {
+    borderColor: 'green',
+    borderWidth: 2,
+    
+  },
+  selectListView: {
+   zIndex: 500,
+   borderColor: 'blue',
+   borderWidth: 0,
+   width: "80%",
   }
 });
 export default ImageUploadScreen;

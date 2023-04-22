@@ -1,22 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AuthContext } from '../../context/AuthContext';
 
 import {
     MainStackNavigator,
-    ProfileStackNavigator,
-    SortFilterStackNavigator,
-    NotificationsStackNavigator,
     ImageUploadStackNavigator
 } from "./StackNavigator";
 
-import { Image, Text, View } from 'react-native';
 
 import {
     HomeButton,
-    StarCampsButton,
     TelescopeButton,
-    NotificationsButton,
     ImageUploadButton
 } from "../atoms";
 
@@ -32,7 +26,7 @@ const screenOptionStyle = {
     tabBarInactiveTintColor: "white",
 }
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({ navigation }) => {
     const {
         isSortModalVisible,
         setSortModalVisible
@@ -83,15 +77,22 @@ const BottomTabNavigator = () => {
         /> */}
             <Tab.Screen
                 name="SortAndFilterTab"
-                component={SortFilterStackNavigator}
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ focused }) => (
-                        <TelescopeButton
-                            onPress={() => setSortModalVisible(true)} />
+                        <TelescopeButton />
                     ),
                 }}
-            />
+                listeners={{
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        //navigation.navigate('Home')
+                        setSortModalVisible(!isSortModalVisible)
+                    },
+                }}
+            >
+                {() => null}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 };

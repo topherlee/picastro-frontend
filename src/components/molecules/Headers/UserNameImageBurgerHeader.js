@@ -1,13 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
-    Button,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -19,13 +12,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
     const {
-        domain,
-        setDomain,
-        token,
         currentUser,
-        setCurrentUser,
-        searchAndFilterUrl,
-        setSearchAndFilterUrl
+        setUserScreenUrl,
+        setUserActiveSelector,
+        setUserSearchAndFilterUrl,
+        setUserCurrentPage
     } = useContext(AuthContext);
     
     // useEffect(() => {
@@ -57,7 +48,11 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setSearchAndFilterUrl('?poster=' + currentUser.id);
+                        setUserScreenUrl('poster=' + currentUser.id);
+                        //resets the modal and url to default upon loading userscreen
+                        setUserActiveSelector('most_recent'); 
+                        setUserSearchAndFilterUrl('')
+                        setUserCurrentPage(1)
                         navigation.navigate('UserScreen');
                      }}
                 >
@@ -66,11 +61,6 @@ const UserNameImageBurgerHeader = () => {
             </View>
             <HeaderUserName 
                 style={styles.textContainer}
-                onPress={function () {
-                    setSearchAndFilterUrl(currentUser.id);
-                    navigation.navigate('UserScreen');
-                    console.log(searchAndFilterUrl);
-                }}
             />
             <View>
                 <TouchableOpacity onPress={function() {navigation.openDrawer()}} >

@@ -1,25 +1,19 @@
 import React from "react";
 import {
-    StyleSheet,
-    Button,
     View,
-    SafeAreaView,
-    Text,
-    Alert,
-    Image,
-  } from 'react-native';
+} from 'react-native';
 
 import StarCampsIcon from '../../../assets/buttons/star-camps-button.svg';
 import StarCampsIcon2 from '../../../assets/buttons/star-camps-button2.svg';
-
+import globalStyling from "../../../../constants/globalStyling";
 
 const StarCampsButton = () => (
     <View style={{
         alignItems: 'center',
         justifyContent: 'center',
         top: 0
-        }}>
-        <StarCampsIcon2 width={40} height={40} /> 
+    }}>
+        <StarCampsIcon2 style={globalStyling.NavBarButton} />
     </View>
 );
 

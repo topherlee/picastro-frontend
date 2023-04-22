@@ -5,13 +5,12 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageComponent,
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import globalStyling from "../../../constants/globalStyling";
 
 export default function ForgotPasswordScreen( { navigation } ) {
   const { setIsSignedIn } = useContext(AuthContext);     //get setIsSignedIn function from global context
@@ -25,9 +24,9 @@ export default function ForgotPasswordScreen( { navigation } ) {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
       <Text style={styles.title}>Reset Password</Text>
-      <View style={styles.inputView}>
+      <View style={globalStyling.inputView}>
         <TextInput
-          style={styles.TextInput} 
+          style={globalStyling.inputFieldText} 
           inputMode="email"
           placeholder="Enter your email Address"
           placeholderTextColor="grey"
@@ -61,22 +60,6 @@ const styles = StyleSheet.create({
   image: {
     position: "relative",
     marginBottom: "20%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    textAlign: "center",
-    
   },
   bottomText: {
     flexDirection:'row',
