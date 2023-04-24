@@ -50,14 +50,14 @@ export const FullWidthPostsContainer = ({ props }) => {
                     disablePanOnInitialZoom={true}
                     style={{width: windowWidth, borderColor: "yellow", borderWidth: 0}}
                 >
-                    {/* <AutoscaleImage uri={props.image} width={Dimensions.get('window').width}/> */}
-                    <Image
+                    <AutoscaleImage uri={props.image} width={Dimensions.get('window').width}/>
+                    {/* <Image
                         source={{
                             uri: props.image,
                         }}
                         resizeMode="contain"
                         style={styles.fullResImage}
-                    />
+                    /> */}
                 </ReactNativeZoomableView>
             </Modal>
 

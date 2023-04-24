@@ -149,10 +149,8 @@ const EditProfile = ({ navigation }) => {
             placeholderTextColor="black"
           />
         </View>
-
       </ScrollView>
-    
-  </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   );
 }
 
