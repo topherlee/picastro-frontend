@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     profiledesc: {
         //textAlignments: 'left',
         fontSize: 15,
-        fontWeight: 500,
+        fontWeight: '500',
         color: 'white',
         marginLeft: '5%',
         marginRight:'5%',

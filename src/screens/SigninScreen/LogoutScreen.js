@@ -103,5 +103,8 @@ const styles = StyleSheet.create({
     position: "relative",
     top: "-5%"
   },
+  logoutText: {
+    fontWeight: "bold"
+  }
 
 });

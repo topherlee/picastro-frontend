@@ -17,7 +17,7 @@ const ExtendedPicastroBurgerHeader = () => {
                 <ExtendedPicastroLogo />
             </View>
             <TouchableOpacity onPress={function () { navigation.openDrawer() }} >
-                <Icon name={"menu"} size={40} color="lightgray" style={{right: -40}} />
+                <Icon name={"menu"} size={40} color="lightgray" />
             </TouchableOpacity>
         </View>
     )
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingRight: 10,
         flexDirection: 'row',
-        gap: 10,
+        gap: 70,
         borderWidth: 0,
         borderColor: "white"
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         borderColor: "white",
         width: "60%",
         height: 45,
-        right: -20,
+        right: -50,
         top: 5,
         marginBottom: "5%",
     },
