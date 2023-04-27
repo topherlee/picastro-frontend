@@ -1,4 +1,4 @@
-15.0 User Manual and Maintenance of the Application (Mohtalifa)
+User Manual and Maintenance of the Application
 In this chapter, we will discuss the user manual and maintenance of our app. We have provided a README.md file on GitHub that explains the required steps to properly run the frontend and backend server on a local machine.
 15.1 User Manual
 There are two types of user in our mobile application. One is admin and another one is app user. We describe below each user manual.
