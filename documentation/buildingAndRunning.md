@@ -39,5 +39,6 @@ To build and run using Xcode, [follow the steps here.](https://reactnative.dev/d
 
 ### Run on Android
 [Follow these steps](https://reactnative.dev/docs/running-on-device?os=windows&platform=android) to build and run the application directly for Android devices.
+
 ---
 [Back to README](../README.md)
