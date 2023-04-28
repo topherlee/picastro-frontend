@@ -2,11 +2,11 @@
 
 In this chapter, we will discuss the user manual and maintenance of our app. We have provided a **README.md** file on GitHub that explains the required steps to properly run the frontend and backend server on a local machine.
 
-#### 15.1 User Manual
+## User Manual
 
 There are two types of user in our mobile application. One is admin and another one is app user. We describe below each user manual.
 
-#### 15.1.1 User Manual for an Admin User
+### User Manual for an Admin User
 In the Django framework, the admin panel is one of the most amazing features we use as the default interface for administrators. A trusted administrator may manage content on an application using a perfect interface that is model-based once it receives information from the app's models. To maintain our app, we created a 
 superuser for the admin panel so that admin can login.
 
@@ -15,7 +15,7 @@ superuser for the admin panel so that admin can login.
 After the super user inputs the credentials (admin **username = "admin"** and **password = "picastro"**) into the admin login screen, the admin has access to control the
 app's contents for various models. This admin panel is only accessible to the admin user.
 
-#### 15.1.2 User Manual for an App User
+### User Manual for an App User
 
 We have created an astrophotography image-sharing application that is built using React Native and can run on iOS and Android. When a new user wants to use the application, they will need to provide their credentials to sign up for a new account. After this is done, the user will  then be taken into the home feed, where
 they can browse through images that have been uploaded by another users in the Picastro community.<br> 
@@ -26,8 +26,7 @@ can also choose different type of objects like, ISS Transit,Lunar, Solar, Comet,
  
 
 
-
-#### 15.2 Maintenance Manual – Installation Requirements and Procedure to Run the App Backend:
+## Maintenance Manual – Installation Requirements and Procedure to Run the App Backend:
 **Backend:** For our mobile app backend, we used Django for our backend API. That means we took the data from our database and will serve it in an adjacent format to our frontend. Our team used the Django rest framework which is another library on top of Django. Django Rest framework helped us build our API. The combination of Django and Django Rest framework is so powerful. However, we have a GitHub repository for the backend which is necessary to clone the code onto a local machine for maintenance purposes. After cloning our local machine, we need to install some packages to run the app backend. In this GitHub **(https://github.com/UoA-CS551R/Team-Bravo-2023-backend.git),** there is a **README.md** file that gave instructions for package installation..But most important one command, you can install all  requirements at once with the command **pip install -r requirements.txt**.
 In our **Team-Bravo-2023-backend** have one folder **documentation**, here we created three files **running.md, structure.md, and testing.md.** 
 We also linked  three files with **README.md**. <br>
