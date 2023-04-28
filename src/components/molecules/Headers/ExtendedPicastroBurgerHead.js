@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         flexDirection: 'row',
         gap: 90,
+        gap: 85,
         borderWidth: 0,
         borderColor: "white"
 

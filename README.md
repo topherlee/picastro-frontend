@@ -1,4 +1,4 @@
-# Picastro
+# <p align="center">![alt text](https://static.wixstatic.com/media/94fbe1_a5740370fb53401f99b50302f265d668~mv2.gif)</p>
 A dedicated astrophotography image-sharing application and platform built on Django and React Native. 
 
 
