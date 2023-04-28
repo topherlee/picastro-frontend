@@ -33,6 +33,6 @@ In our **Team-Bravo-2023-backend** have one folder **documentation**, here we cr
 We also linked  three files with **README.md**. <br>
 **running.md** for the first time, the detailed discussion on  building and running the Picastro Django-Rest-Backend has been provided. We also described future development.<br>
 **structure.md** for details about the structure of the Picastro Django-Rest-Backend.<br>
-**testing.md** for details about testing testing the Picastro Django-Rest-Backend.<br>
-
+**testing.md** for details about testing the Picastro Django-Rest-Backend.<br>
+If anyone follows this **documentation** folder they can easily maintenance our project.<br>
 **Frontend:** Our team members used react-native for mobile applications. It’s the version of react. Building a mobile app, we wrote JavaScript, and it compiled into react. When we will start working with react then we will be able to see our application running on your mobile device or in an emulator. But, First, we should set up all dependencies. We need to use this link **(https://reactnative.dev/docs/environment-setup)** to set up the app environment. For the frontend, we have also another GitHub repository **(https://github.com/UoA-CS551R/Team-Bravo-2023.git)**. There is a **README.md** file that helps us install all requirements. In this file, our team members describe both android and iOS building and running applications.
