@@ -13,14 +13,16 @@ All libraries needed to build this application can be found in package.json. In 
 
 
 ## Building and Running the Application
-For details about building and running the application, please read and follow the steps [here](./documentation/buildingAndRunning.md).
-
-## User Manual of the Application
-For details on how to use the application and its features, please read the [user manual](./documentation/user_manual.md).
+For details on building and running the application, please read and follow the steps [here](./documentation/buildingAndRunning.md).
 
 ## Deployment of the App
 For details on how to deploy the application and beta testing, please read the steps [here](./documentation/DEPLOYMENT.md).
 
+## User Manual of the Application
+For details on how to use the application and its features, please read the [user manual](./documentation/user_manual.md).
+
+## Structure of the Frontend
+For details on the structure of the frontend code, please read the documentation [here](./documentation/STRUCTURE.md).
   
 ## Team Members
  Who's working on this application?
