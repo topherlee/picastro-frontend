@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingRight: 10,
         flexDirection: 'row',
-        gap: 70,
+        gap: 90,
         borderWidth: 0,
         borderColor: "white"
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         borderColor: "white",
         width: "60%",
         height: 45,
-        right: -50,
+        right: -65,
         top: 5,
         marginBottom: "5%",
     },

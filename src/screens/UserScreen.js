@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginLeft: '5%',
         marginRight:'5%',
+        marginBottom: '5%'
     },
     awarditem:{
         
