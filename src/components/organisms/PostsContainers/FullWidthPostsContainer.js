@@ -16,7 +16,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 var windowWidth = Math.ceil(Dimensions.get('window').width);
-console.log(windowWidth)
 
 export const FullWidthPostsContainer = ({ props }) => {
     //console.log("DFC",props);

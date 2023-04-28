@@ -62,7 +62,7 @@ export default StyleSheet.create({
   SortByModalText: {
     fontFamily: 'Inter',
     fontStyle: 'normal',
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 13,
     textAlign: 'center'
   },
@@ -100,6 +100,7 @@ export default StyleSheet.create({
     borderTopRightRadius: 10,
     bottom: 0,
     width: '100%',
+    height: 270,
     paddingBottom: 30,
     paddingLeft: 30,
     paddingRight: 30,
@@ -152,6 +153,7 @@ export default StyleSheet.create({
     textAlignVertical: 'center',
   },
   horizontalScrollview: {
+    marginTop: 10,
     marginBottom: 10,
   },
   safeAreaViewContainer: {

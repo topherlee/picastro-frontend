@@ -57,7 +57,7 @@ const ImageUploadScreen = ({ navigation }) => {
     //Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
 
     userID = jwtDecode(token?.access).user_id;
-  }, [token])
+  }, [])
 
   const uploadedHandler = (err) => {
     {err ? Alert.alert("Upload Failed",JSON.stringify(err),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
