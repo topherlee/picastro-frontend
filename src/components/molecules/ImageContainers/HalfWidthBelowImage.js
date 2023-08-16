@@ -13,7 +13,7 @@ const HalfWidthBelowImage = (props) => (
         {props.astroName}
       </TextStarName>
       <StarIconView>
-        <StarIcon />
+        <StarIcon {...props} />
       </StarIconView>
     </View3>
 );

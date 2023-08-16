@@ -5,38 +5,44 @@ import {
     View,
 } from 'react-native';
 import { AuthContext } from '../../../context/AuthContext';
+import { loadUserProfile, loadCurrentUser } from '../../../utils';
 
+
+let retryCount = 0;
+const MAX_RETRIES = 3;
+const RETRY_DELAY_MS = 1000;
+
+const saveUserProfile = async () => {
+    loadCurrentUser();
+    loadUserProfile();
+}
 
 const HeaderUserName = ({style},props) => {
-    const {domain, token, setCurrentUser, currentUser} = useContext(AuthContext);
+    const {
+        domain,
+        token,
+        currentUser,
+        setCurrentUser,
+        currentUserProfile,
+        setCurrentUserProfile
+    } = useContext(AuthContext);
 
-    useEffect(() => {
-        
-        fetch(`${domain}/api/current_user/`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Token ${token.access}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {return res.json()})
-        .then((result) => {
-            //console.log("INCOMINGDATA",result.username)
-            setCurrentUser(result);
-        }).catch (err => {
-            console.log(err);
-            //setData(existingData);
-        })
-    }, [])
+    saveUserProfile();
 
     return(
         <View style={style}>
-            <Text style={styles.textUserName}>
-                {currentUser.username}
-            </Text>
-            <Text style={styles.textGenderIdentifier}>
-                {currentUser.first_name} {currentUser.last_name} 
-            </Text>
+            {currentUserProfile.user?.username ?
+                <View>
+                    <Text style={styles.textUserName}>
+                        {currentUserProfile.user.username}
+                    </Text>
+                    <Text style={styles.textGenderIdentifier}>
+                        {currentUser.first_name} {currentUser.last_name} 
+                    </Text>
+                </View>
+                :
+                <Text style={{ color: 'white' }}>Nothing to display here</Text>
+            }
         </View>
     )
 }

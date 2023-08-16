@@ -10,8 +10,8 @@ export const AuthContext = React.createContext({});
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
-    //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
+    //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         "id": null,
@@ -21,6 +21,14 @@ export const AuthProvider = ({children, contextValue}) => {
         "email": null,
         "last_login": null,
         "date_joined": null
+    });
+    const [currentUserProfile, setCurrentUserProfile] = useState({
+        "user": null,
+        "location": null,
+        "userDescription": null,
+        "genderIdentifier": null,
+        "profileImage": null,
+        "total_likes": null
     });
     
 
@@ -92,7 +100,7 @@ export const AuthProvider = ({children, contextValue}) => {
         try {
             console.log(url)
             var credentials = await getSavedTokens();
-            const user = jwtDecode(credentials.access)
+            const user = jwtDecode(credentials.access);
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
             if (isExpired) {
@@ -143,6 +151,7 @@ export const AuthProvider = ({children, contextValue}) => {
         token, setToken,
         user, setUser,
         currentUser, setCurrentUser,
+        currentUserProfile, setCurrentUserProfile,
         userScreenUrl, setUserScreenUrl,
         searchAndFilterUrl, setSearchAndFilterUrl,
         userSearchAndFilterUrl, setUserSearchAndFilterUrl,
@@ -169,6 +178,14 @@ export const AuthProvider = ({children, contextValue}) => {
             "last_login": null,
             "date_joined": null
         });
+        setCurrentUserProfile({
+            "user": null,
+            "location": null,
+            "userDescription": null,
+            "genderIdentifier": null,
+            "profileImage": null,
+            "total_likes": null
+        })
         setUserScreenUrl("");
         setSearchAndFilterUrl("");
         setUserSearchAndFilterUrl("");

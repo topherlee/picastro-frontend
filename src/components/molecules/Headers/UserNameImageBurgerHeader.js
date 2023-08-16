@@ -9,6 +9,7 @@ import { UserImage, HeaderUserName } from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
     const {

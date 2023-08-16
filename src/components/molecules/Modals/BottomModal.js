@@ -92,7 +92,7 @@ export default function BottomFilterModal() {
               }
               onPress={() => {
                 setSortModalVisible(!isSortModalVisible);
-                setSearchAndFilterUrl('ordering=?');
+                setSearchAndFilterUrl('ordering="?"');
                 setActiveSelector('randomizer');
                 setCurrentPage(1);
               }}>
