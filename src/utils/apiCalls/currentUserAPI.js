@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
+import { loadUserProfile } from '../../utils';
 
 
 const loadCurrentUser = async () => {
@@ -10,19 +11,24 @@ const loadCurrentUser = async () => {
         fetchInstance,
         currentUser,
         setCurrentUser,
+        currentUserProfile,
+        setCurrentUserProfile,
         userSearchAndFilterUrl,
         userActiveObjectSelector,
         userActiveSelector,
         userCurrentPage,
         setUserCurrentPage,
-        userScreenUrl
+        userScreenUrl,
+        domain
     } = useContext(AuthContext);
 
-    const urlForApiCall = `/api/user/${currentUser.id}`;
-    console.log(urlForApiCall);
+    let temp_user;
+    // const urlForApiCall = `/api/user/${currentUser.id}`;
+    // console.log(urlForApiCall);
 
     useEffect(() => {
-        
+        console.log("loadCurrentUser() to be executed.");
+
         fetch(`${domain}/api/current_user/`, {
             method: 'GET',
             headers: {
@@ -32,10 +38,28 @@ const loadCurrentUser = async () => {
         })
         .then(res => {return res.json()})
         .then((result) => {
+            console.log("loadCurrentUser() executed. Result:", result);
+            temp_user = result;
+            console.log("temp_user", temp_user);
             //console.log("INCOMINGDATA",result.username)
+            setCurrentUser({
+                id: "5",
+                username: "Tom",
+                first_name: "Tom",
+                last_name: "Tom",
+                email: "Tom",
+                last_login: "tom",
+                date_joined: "tom",
+            });
             setCurrentUser(result);
-            setCurrentUserProfile(loadUserProfile());
-            console.log(currentUserProfile.user)
+            console.log(currentUser.id);
+            console.log(temp_user.id);
+        })
+        .then((result) => {
+            console.log("result", result);
+            console.log("currentUser", currentUser);
+            // setCurrentUserProfile(loadUserProfile());
+            // console.log("currentUserProfile.user", currentUserProfile.user);
         })
         .catch (err => {
             console.log(err);
@@ -51,6 +75,8 @@ const loadCurrentUser = async () => {
             }
           });
     }, [])
+
+    console.log("another temp_user", temp_user);
 }
 
 

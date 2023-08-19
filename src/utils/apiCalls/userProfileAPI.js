@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 
-const loadUserProfile = async () => {
+const loadUserProfile = async (user_id) => {
 
     const {
         token,
@@ -14,10 +14,17 @@ const loadUserProfile = async () => {
         userActiveSelector,
         userCurrentPage,
         setUserCurrentPage,
-        userScreenUrl
+        userScreenUrl,
+        user
     } = useContext(AuthContext);
 
-    const urlForApiCall = `/api/user/${currentUser.id}`;
+    if (!user_id && !user) {
+        user_id = "1";
+    } else if (!user_id) {
+        user_id = user.user_id;
+    }
+
+    const urlForApiCall = `/api/user/${user_id}`;
     console.log(urlForApiCall);
 
     try {
