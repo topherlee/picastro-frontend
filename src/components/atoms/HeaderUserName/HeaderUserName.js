@@ -8,13 +8,10 @@ import { AuthContext } from '../../../context/AuthContext';
 import { loadUserProfile, loadCurrentUser } from '../../../utils';
 
 
-let retryCount = 0;
-const MAX_RETRIES = 1;
-const RETRY_DELAY_MS = 1000;
-
-const saveUserProfile = async () => {
-    loadCurrentUser();
-    loadUserProfile();
+const saveUserProfile = async (domain, token, currentUser) => {
+    loadUser = await loadCurrentUser();
+    console.log("HeaderUserName", currentUser);
+    loadUserProfile(currentUser);
 }
 
 const HeaderUserName = ({style},props) => {
@@ -27,7 +24,7 @@ const HeaderUserName = ({style},props) => {
         setCurrentUserProfile
     } = useContext(AuthContext);
 
-    saveUserProfile();
+    saveUserProfile(domain, token, currentUser);
 
     return(
         <View style={style}>

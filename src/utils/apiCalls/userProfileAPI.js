@@ -15,11 +15,12 @@ const loadUserProfile = async (user_id) => {
         userCurrentPage,
         setUserCurrentPage,
         userScreenUrl,
+        setCurrentUserProfile,
         user
     } = useContext(AuthContext);
 
     if (!user_id && !user) {
-        user_id = "1";
+        user_id = "3";
     } else if (!user_id) {
         user_id = user.user_id;
     }
@@ -35,8 +36,10 @@ const loadUserProfile = async (user_id) => {
                 'Content-Type': 'application/json'
             }
         })
-        // setNext(data.next);
-        return data.results
+        .then(res => {return res.json()})
+        .then((result) => {
+            setCurrentUserProfile(result);
+        })
     } catch (error) {
         console.error(error);
         return [];

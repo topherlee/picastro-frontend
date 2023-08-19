@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
-import { loadUserProfile } from '../../utils';
+//import { loadUserProfile } from '../../utils';
 
 
 const loadCurrentUser = async () => {
@@ -39,28 +39,16 @@ const loadCurrentUser = async () => {
         .then(res => {return res.json()})
         .then((result) => {
             console.log("loadCurrentUser() executed. Result:", result);
-            temp_user = result;
-            console.log("temp_user", temp_user);
-            //console.log("INCOMINGDATA",result.username)
-            setCurrentUser({
-                id: "5",
-                username: "Tom",
-                first_name: "Tom",
-                last_name: "Tom",
-                email: "Tom",
-                last_login: "tom",
-                date_joined: "tom",
-            });
             setCurrentUser(result);
-            console.log(currentUser.id);
-            console.log(temp_user.id);
+            console.log("currentUser.id", currentUser.id);
+            return result
         })
-        .then((result) => {
-            console.log("result", result);
-            console.log("currentUser", currentUser);
+        // .then((result) => {
+        //     console.log("result", result);
+        //     console.log("currentUser", currentUser);
             // setCurrentUserProfile(loadUserProfile());
             // console.log("currentUserProfile.user", currentUserProfile.user);
-        })
+        // })
         .catch (err => {
             console.log(err);
             //setData(existingData);
