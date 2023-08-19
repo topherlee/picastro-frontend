@@ -9,7 +9,7 @@ import { loadUserProfile, loadCurrentUser } from '../../../utils';
 
 
 let retryCount = 0;
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 1;
 const RETRY_DELAY_MS = 1000;
 
 const saveUserProfile = async () => {

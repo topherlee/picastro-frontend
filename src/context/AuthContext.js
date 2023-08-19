@@ -14,17 +14,17 @@ export const AuthProvider = ({children, contextValue}) => {
     const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
-        "id": null,
-        "username": null,
-        "first_name": null,
-        "last_name": null,
-        "email": null,
-        "last_login": null,
-        "date_joined": null
+        id: null,
+        username: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        last_login: null,
+        date_joined: null
     });
     const [currentUserProfile, setCurrentUserProfile] = useState({
-        "user": null,
-        "location": null,
+        user: null,
+        location: null,
         "userDescription": null,
         "genderIdentifier": null,
         "profileImage": null,
@@ -101,14 +101,15 @@ export const AuthProvider = ({children, contextValue}) => {
             console.log(url)
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access);
+            console.log("auth user", user);
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
             if (isExpired) {
-                console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE')
+                console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
                 credentials = await refreshAllTokens();
-                setToken(credentials)
+                setToken(credentials);
             } else {
-                console.log('TOKEN VALID')
+                console.log('TOKEN VALID');
             }
 
             //proceed with request

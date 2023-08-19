@@ -6,6 +6,8 @@ import { AuthContext } from '../../../context/AuthContext';
 import StarIconSvg from '../../../assets/star-icon.svg';
 import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
+import { imageLike, imageDislike } from '../../../utils';
+
 
 let userID;
 
@@ -13,99 +15,53 @@ const StarIcon = (props) => {
     const {
         token,
         fetchInstance,
-        searchAndFilterUrl,
-        isSortModalVisible,
-        setSortModalVisible,
-        activeSelector,
-        activeObjectSelector,
-        currentPage,
-        setCurrentPage,
         user
     } = useContext(AuthContext);
     const [imageIsSaved, setImageIsSaved] = React.useState(false);
 
-    useEffect(() => {
-        userID = jwtDecode(token?.access).user_id;
-      }, [])
-
-    // let userID = jwtDecode(token?.access).user_id;
-
     const likeUrl = '/api/like/';
-
-    let requestData = [];
 
     const saveImage = async () => {
         try {
-            let requestData = [];
-            requestData.append("user", userID);
-            requestData.append("post", props.id);
-            console.log("requestData", requestData);
+            userID = jwtDecode(token?.access).user_id;
+            console.log (userID);
 
-            var {response,data} = await fetchInstance(likeUrl, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Token ${token.access}`,
-                    'Content-Type': 'application/json'
-                },
-                body: requestData
-            })
+            var requestData = JSON.stringify({
+                'user': userID,
+                'post': props.id
+              })
+            console.log("StarIcon requestData", requestData);
+
+            const imageLikeResponse = await imageLike(requestData, fetchInstance, token);
+
+            console.log("imageLikeResponse", imageLikeResponse);
+
+            if (imageLikeResponse.response.status === 201) {
+                setImageIsSaved(!imageIsSaved);
+            } else {
+                // change this later on to a meaningful action. Currently it is only doing the
+                // same as the if statement, because the imageLike() is not working correctly.
+                setImageIsSaved(!imageIsSaved);
+            }
             
-            setImageIsSaved(!imageIsSaved);
-            console.log('UPLOAD RESULT', data)
-            return {response, data}
         } catch (err) {
             console.log('ERROR',err)
         }
     }
     
-    // async function saveImage() {
-    //     console.log("saveImage");
-    //     const urlForApiCall = likeUrl;
-
-    //     // let requestData = {};
-    //     // requestData.append("user", userID);
-    //     // requestData.append("post", props.id);
-        
-    //     console.log("requestData", requestData);
-    //     try {
-    //         var { response, data } = await fetchInstance(urlForApiCall, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Authorization': `Token ${token.access}`,
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: requestData
-    //         })
-            
-    //         setImageIsSaved(!imageIsSaved);
-    //         //return data.results
-    //     } catch (error) {
-    //         console.error(error);
-    //         return [];
-    //     }
-    // }
-
-    async function unsaveImage(props) {
+    async function unsaveImage() {
         console.log("unsaveImage");
-        setImageIsSaved(!imageIsSaved);
-    //     const urlForApiCall = '/api/dislike/' + props.id;
-    //     try {
-    //         var { response, data } = await fetchInstance(urlForApiCall, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'Authorization': `Token ${token.access}`,
-    //                 'Content-Type': 'application/json'
-    //             },
-    //         })
-            
-    //         setImageIsSaved(!imageIsSaved)
-    //         return data.results
-    //     } catch (error) {
-    //         console.error(error);
-    //         return [];
-    //     }
-    }
+        const imageDislikeResponse = await imageDislike(props.id, fetchInstance, token);
+        console.log("props.id", props.id, imageDislikeResponse);
 
+        if (imageDislikeResponse.response.status === 200) {
+            setImageIsSaved(!imageIsSaved);
+        } else {
+            // change this later on to a meaningful action. Currently it is only doing the
+            // same as the if statement, because the imageLike() is not working correctly.
+            setImageIsSaved(!imageIsSaved);
+        }
+    }
 
     return (
         <StarIconWrapper
