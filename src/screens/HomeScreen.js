@@ -21,6 +21,7 @@ const HomeScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
+    const [retry, setRetry] = useState(0);
 
     const {
         token,
@@ -83,7 +84,7 @@ const HomeScreen = ({ navigation }) => {
             setData(data);
             setRefreshing(false);
         })
-    }, [activeObjectSelector, activeSelector])
+    }, [activeObjectSelector, activeSelector, retry])
 
     const toggleModal = () => {
         setSortModalVisible(!isSortModalVisible);
@@ -128,7 +129,7 @@ const HomeScreen = ({ navigation }) => {
                     onEndReachedThreshold={0.1}
                 />
                 :
-                <Text style={{ color: 'white' }}>Nothing to display here</Text>
+                <Text style={{color:'white'}} onPress={function() {setRetry(retry + 1)}}>Nothing to display here, touch to refresh page.</Text>
             }
             </View>
         </SafeAreaView>
