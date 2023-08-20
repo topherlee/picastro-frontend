@@ -8,11 +8,11 @@ import { AuthContext } from '../../../context/AuthContext';
 import { loadUserProfile, loadCurrentUser } from '../../../utils';
 
 
-const saveUserProfile = async (domain, token, currentUser) => {
-    loadUser = await loadCurrentUser();
-    console.log("HeaderUserName", currentUser);
-    loadUserProfile(currentUser);
-}
+// const saveUserProfile = async (domain, token, currentUser) => {
+//     loadUser = await loadCurrentUser();
+//     console.log("HeaderUserName", currentUser);
+//     loadUserProfile(currentUser);
+// }
 
 const HeaderUserName = ({style},props) => {
     const {
@@ -24,23 +24,26 @@ const HeaderUserName = ({style},props) => {
         setCurrentUserProfile
     } = useContext(AuthContext);
 
-    saveUserProfile(domain, token, currentUser);
+    const saveUserProfile = async () => {
+        loadCurrentUser();
+        loadUserProfile();
+    }
+
+    saveUserProfile();
+
+    // saveUserProfile(domain, token, currentUser);
 
     return(
         <View style={style}>
-            {currentUserProfile.user?.username ?
-                <View>
-                    <Text style={styles.textUserName}>
-                        {currentUserProfile.user.username}
-                    </Text>
-                    <Text style={styles.textGenderIdentifier}>
-                        {currentUser.first_name} {currentUser.last_name} 
-                    </Text>
-                </View>
-                :
-                <Text style={{ color: 'white' }}>Nothing to display here</Text>
-            }
-        </View>
+            <View>
+                <Text style={styles.textUserName}>
+                    {currentUser.username}
+                </Text>
+                <Text style={styles.textGenderIdentifier}>
+                    {currentUser.first_name} {currentUser.last_name} 
+                </Text>
+            </View>
+    </View>
     )
 }
 

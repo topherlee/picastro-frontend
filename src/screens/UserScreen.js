@@ -55,7 +55,7 @@ const UserScreen = ({ navigation }) => {
             setNext(data.next);
             return data.results
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return [];
         }
     }

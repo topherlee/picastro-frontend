@@ -28,7 +28,7 @@ const FullWidthAboveImage = ({props}) => {
       })
       return {response, data}
     } catch (err) {
-      console.error(err)
+      console.log(err)
     }
   }
 

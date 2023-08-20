@@ -48,11 +48,10 @@ const HomeScreen = ({ navigation }) => {
                     'Content-Type': 'application/json'
                 }
             })
-            
             setNext(data.next)
             return data.results
         } catch (error) {
-            console.error(error);
+            console.log("ERROR HS",error);
             return [];
             
         }

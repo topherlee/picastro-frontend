@@ -26,8 +26,7 @@ const loadUserProfile = async (user_id) => {
     }
 
     const urlForApiCall = `/api/user/${user_id}`;
-    console.log(urlForApiCall);
-
+    
     try {
         var {response,data} = await fetchInstance(urlForApiCall, {
             method: 'GET',
@@ -36,12 +35,11 @@ const loadUserProfile = async (user_id) => {
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => {return res.json()})
-        .then((result) => {
-            setCurrentUserProfile(result);
-        })
+        console.log("DATA", data)
+
+        //setCurrentUserProfile(data);  <-- causing loop
     } catch (error) {
-        console.error(error);
+        console.log("userprofileapi",error);
         return [];
     }
 }

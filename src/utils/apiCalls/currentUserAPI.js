@@ -3,8 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 //import { loadUserProfile } from '../../utils';
 
-
-const loadCurrentUser = async () => {
+const loadCurrentUser = () => {
 
     const {
         token,
@@ -22,10 +21,6 @@ const loadCurrentUser = async () => {
         domain
     } = useContext(AuthContext);
 
-    let temp_user;
-    // const urlForApiCall = `/api/user/${currentUser.id}`;
-    // console.log(urlForApiCall);
-
     useEffect(() => {
         console.log("loadCurrentUser() to be executed.");
 
@@ -40,20 +35,10 @@ const loadCurrentUser = async () => {
         .then((result) => {
             console.log("loadCurrentUser() executed. Result:", result);
             setCurrentUser(result);
-            console.log("currentUser.id", currentUser.id);
-            return result
-        })
-        // .then((result) => {
-        //     console.log("result", result);
-        //     console.log("currentUser", currentUser);
-            // setCurrentUserProfile(loadUserProfile());
-            // console.log("currentUserProfile.user", currentUserProfile.user);
-        // })
-        .catch (err => {
-            console.log(err);
-            //setData(existingData);
         })
         .catch((error) => {
+            console.log("currentuserapi",error);
+
             // If the error is temporary, retry the call after a delay
             if (isTemporaryError(error) && retryCount < MAX_RETRIES) {
               retryCount += 1;
@@ -63,8 +48,6 @@ const loadCurrentUser = async () => {
             }
           });
     }, [])
-
-    console.log("another temp_user", temp_user);
 }
 
 

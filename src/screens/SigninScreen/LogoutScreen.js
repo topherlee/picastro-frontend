@@ -40,7 +40,7 @@ export default function LogoutScreen({ navigation }) {
         }
       })
       .catch(e => {
-        console.error(e)
+        console.log(e)
         resetStates()
       });
 

@@ -34,7 +34,7 @@ export const AuthProvider = ({children, contextValue}) => {
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
-        console.log('GETTING SAVED TOKENS')
+        //console.log('GETTING SAVED TOKENS')
         var credentials = await Keychain.getGenericPassword();
         if (credentials) {
             credentials = JSON.parse(credentials.password);
@@ -101,9 +101,7 @@ export const AuthProvider = ({children, contextValue}) => {
             console.log(url)
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access);
-            console.log("auth user", user);
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-
             if (isExpired) {
                 console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
                 credentials = await refreshAllTokens();
