@@ -26,7 +26,8 @@ const HeaderUserName = ({style},props) => {
 
     const saveUserProfile = async () => {
         loadCurrentUser();
-        loadUserProfile();
+        const userPro = await loadUserProfile();
+        console.log("userPro", userPro)
     }
 
     saveUserProfile();

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
+import { getUserID } from '../../context/UserContext';
 
 
 const loadUserProfile = async (user_id) => {
@@ -20,10 +21,13 @@ const loadUserProfile = async (user_id) => {
     } = useContext(AuthContext);
 
     if (!user_id && !user) {
-        user_id = "3";
+        user_id = getUserID(token);
+        console.log("userProfileAPI", user_id)
     } else if (!user_id) {
         user_id = user.user_id;
     }
+
+
 
     const urlForApiCall = `/api/user/${user_id}`;
     
@@ -36,6 +40,7 @@ const loadUserProfile = async (user_id) => {
             }
         })
         console.log("DATA", data)
+        return data
 
         //setCurrentUserProfile(data);  <-- causing loop
     } catch (error) {
