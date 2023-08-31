@@ -4,30 +4,26 @@ import { AuthContext } from '../../context/AuthContext';
 import { getUserID } from '../../context/UserContext';
 
 
-const loadUserProfile = async (user_id) => {
+const loadUserProfile = async (token, fetchInstance, user_id) => {
 
-    const {
-        token,
-        fetchInstance,
-        currentUser,
-        userSearchAndFilterUrl,
-        userActiveObjectSelector,
-        userActiveSelector,
-        userCurrentPage,
-        setUserCurrentPage,
-        userScreenUrl,
-        setCurrentUserProfile,
-        user
-    } = useContext(AuthContext);
+    // const {
+    //     token,
+    //     fetchInstance,
+    //     currentUser,
+    //     userSearchAndFilterUrl,
+    //     userActiveObjectSelector,
+    //     userActiveSelector,
+    //     userCurrentPage,
+    //     setUserCurrentPage,
+    //     userScreenUrl,
+    //     setCurrentUserProfile,
+    //     user
+    // } = useContext(AuthContext);
 
-    if (!user_id && !user) {
+    if (!user_id) {
         user_id = getUserID(token);
         console.log("userProfileAPI", user_id)
-    } else if (!user_id) {
-        user_id = user.user_id;
     }
-
-
 
     const urlForApiCall = `/api/user/${user_id}`;
     
@@ -40,9 +36,8 @@ const loadUserProfile = async (user_id) => {
             }
         })
         console.log("DATA", data)
-        return data
+        return JSON.stringify(data)
 
-        //setCurrentUserProfile(data);  <-- causing loop
     } catch (error) {
         console.log("userprofileapi",error);
         return [];

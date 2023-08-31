@@ -14,7 +14,7 @@ import { loadUserProfile, loadCurrentUser } from '../../../utils';
 //     loadUserProfile(currentUser);
 // }
 
-const HeaderUserName = ({style},props) => {
+const HeaderUserName = ({style, userProfile}) => {
     const {
         domain,
         token,
@@ -24,13 +24,15 @@ const HeaderUserName = ({style},props) => {
         setCurrentUserProfile
     } = useContext(AuthContext);
 
-    const saveUserProfile = async () => {
-        loadCurrentUser();
-        const userPro = await loadUserProfile();
-        console.log("userPro", userPro)
-    }
+    console.log("props", userProfile?.username)
 
-    saveUserProfile();
+    // const saveUserProfile = async () => {
+    //     loadCurrentUser();
+    //     const userPro = await loadUserProfile();
+    //     console.log("userPro", userPro)
+    // }
+
+    // saveUserProfile();
 
     // saveUserProfile(domain, token, currentUser);
 
@@ -41,7 +43,7 @@ const HeaderUserName = ({style},props) => {
                     {currentUser.username}
                 </Text>
                 <Text style={styles.textGenderIdentifier}>
-                    {currentUser.first_name} {currentUser.last_name} 
+                    {userProfile?.genderIdentifier} {currentUser.last_name} 
                 </Text>
             </View>
     </View>

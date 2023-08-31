@@ -141,7 +141,7 @@ const UserScreen = ({ navigation }) => {
                     borderColor: "white", 
                     flex: 1
             }}>
-                {data.length > 0 ? 
+                {data?.length > 0 ? 
                     <MasonryList
                         data={data}
                         keyExtractor={item => item.id}

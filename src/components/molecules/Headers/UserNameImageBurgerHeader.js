@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import { UserImage, HeaderUserName } from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { loadUserProfile } from '../../../utils';
 
 
 const UserNameImageBurgerHeader = () => {
@@ -17,31 +19,29 @@ const UserNameImageBurgerHeader = () => {
         setUserScreenUrl,
         setUserActiveSelector,
         setUserSearchAndFilterUrl,
-        setUserCurrentPage
+        setUserCurrentPage,
+        token,
+        fetchInstance,
+        user
     } = useContext(AuthContext);
-    
-    // useEffect(() => {
-    //     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-    //     //console.log(`Token ${token}`)
 
-    //     fetch(`${domain}/api/current_user/`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': `Token ${token}`,
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //     .then(res => {return res.json()})
-    //     .then((result) => {
-    //         //console.log("INCOMINGDATA",token,result)
-    //         setCurrentUser(result);
-    //         console.log("currentuser",currentUser)
-    //         console.log('result',result)
-    //     }).catch (err => {
-    //         console.log(err);
-    //         //setData(existingData);
-    //     })
-    // }, [])
+    const [userProfile, setUserProfile] = useState()
+    
+    useEffect(() => {
+        // const userPro = loadUserProfile(token, fetchInstance, user);
+        // console.log("userPro", userPro)
+        // setUserProfile(userPro)
+        setUserProfile(() => {
+            console.log("inner test run")
+            userPro2 = loadUserProfile(token, fetchInstance, user)
+            return userPro2
+        })
+        console.log("test run")
+    }, [])
+
+    useEffect(() => {
+        console.log("userProfile User", userProfile)
+    }, [userProfile])
     
     return (
         <View style={styles.headerContainer}>
@@ -57,11 +57,14 @@ const UserNameImageBurgerHeader = () => {
                         navigation.navigate('UserScreen');
                      }}
                 >
-                    <UserImage />
+                    <UserImage 
+                        userImageURL={userProfile}
+                    />
                 </TouchableOpacity>
             </View>
             <HeaderUserName 
                 style={styles.textContainer}
+                userProfile={userProfile}
             />
             <View>
                 <TouchableOpacity onPress={function() {navigation.openDrawer()}} >

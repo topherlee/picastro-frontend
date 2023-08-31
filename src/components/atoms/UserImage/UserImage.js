@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Image,
     StyleSheet,
 } from 'react-native';
 
 
-const UserImage = () => {
+const UserImage = (userImageURL) => {
+
+    useEffect(() => {
+        console.log("imageURL", userImageURL.genderIdentifier)
+    }, [userImageURL])
+
     return (
         <Image
-            source={require('../../../assets/Sample/sampleuser.png')}
+            uri={userImageURL.userImageURL}
             resizeMode="contain"
         />
     )
