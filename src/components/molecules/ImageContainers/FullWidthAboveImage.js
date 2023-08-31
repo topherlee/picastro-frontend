@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
 import {
   View,
   Alert,
   Image,
-  ActionSheetIOS
+  ActionSheetIOS,
+  Platform,
+  Text
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/AuthContext';
@@ -32,44 +32,72 @@ const FullWidthAboveImage = ({props}) => {
     }
   }
 
-  const onPress = ()=> {
-    ActionSheetIOS.showActionSheetWithOptions(
+  function DeleteAlert() {
+    Alert.alert('Delete Post?', 'This post will be permanently deleted.', [
       {
-        options: currentUser.username === props.poster.username ? ['Cancel', 'Edit Post', 'Delete Post'] : ['Cancel', 'Placeholder'],
-        destructiveButtonIndex: 2,
-        cancelButtonIndex: 0,
-        userInterfaceStyle: 'dark',
+        text: 'Cancel',
+        onPress: () => console.log('Delete Cancelled'),
+        style: 'cancel',
       },
-      buttonIndex => {
-        if (buttonIndex === 0) {
-          // cancel action
-        } else if (buttonIndex === 1) {
-          Alert.alert('Oops not working yet! Check back later...')
-        } else if (buttonIndex === 2) {   //delete post button
-          Alert.alert('Delete Post?', 'This post will be permanently deleted.', [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Delete Cancelled'),
-              style: 'cancel',
-            },
-            {
-              text: 'Delete', 
-              onPress: () => {
-                deletePost(props.id).then(({response,data}) => {
-                  if (response.ok) {
-                    Alert.alert("Delete Successful", "This post has been successfully deleted.", 
-                    [{text: 'OK', onPress: () => navigation.goBack()}])
-                  } else {
-                    Alert.alert("Delete Failed", "Please try again later.",)
-                  }
-                })
-                console.log('OK Pressed')
-              }
-            },
-          ]);
+      {
+        text: 'Delete', 
+        onPress: () => {
+          deletePost(props.id).then(({response,data}) => {
+            if (response.ok) {
+              Alert.alert("Delete Successful", "This post has been successfully deleted.", 
+              [{text: 'OK', onPress: () => navigation.goBack()}])
+            } else {
+              Alert.alert("Delete Failed", "Please try again later.",)
+            }
+          })
+          console.log('OK Pressed')
         }
       },
-    );
+    ]);
+  }
+
+  const onPress = ()=> {
+    if (Platform.OS === "ios") {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options: currentUser.username === props.poster.username ? ['Cancel', 'Edit Post', 'Delete Post'] : ['Cancel', 'Placeholder'],
+          destructiveButtonIndex: 2,
+          cancelButtonIndex: 0,
+          userInterfaceStyle: 'dark',
+        },
+        buttonIndex => {
+          if (buttonIndex === 0) {
+            // cancel action
+          } else if (buttonIndex === 1) {
+            Alert.alert('Oops not working yet! Check back later...')
+          } else if (buttonIndex === 2) {   //delete post button
+            DeleteAlert()
+          }
+        },
+      );
+    } else {
+      Alert.alert('Image Options', '', 
+        currentUser.username === props.poster.username ? [
+        {
+          text: 'Delete Post',
+          onPress: () => {
+            DeleteAlert()
+          },
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Delete Cancelled'),
+          style: 'cancel',
+        },
+      ] : [{
+          text: 'Add options here'
+        },
+        {
+        text: 'Cancel',
+        onPress: () => console.log('Delete Cancelled'),
+        style: 'cancel',
+      },]);
+    }
   }
 
   var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);

@@ -26,6 +26,7 @@ const UserScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
+    const [retry, setRetry] = useState(0);
     
     const {
         token,
@@ -87,7 +88,7 @@ const UserScreen = ({ navigation }) => {
             setData(data);
             setRefreshing(false);
         })
-    }, [userActiveObjectSelector, userActiveSelector])
+    }, [userActiveObjectSelector, userActiveSelector, retry])
 
 
     return (
@@ -167,7 +168,7 @@ const UserScreen = ({ navigation }) => {
                         onEndReachedThreshold={0.1}
                     />
                 : 
-                    <Text style={{color:'white'}}>Nothing to display here</Text>
+                    <Text style={{color:'white'}} onPress={function() {setRetry(retry + 1)}}>Nothing to display here, touch to refresh page.</Text>
                 }
             </View>
         </SafeAreaView>
