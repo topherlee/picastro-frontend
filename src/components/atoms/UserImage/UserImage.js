@@ -4,26 +4,21 @@ import {
     StyleSheet,
 } from 'react-native';
 
-
 const UserImage = ({userImageURL}) => {
 
-    useEffect(() => {
-        console.log("imageURL", userImageURL.profileImage)
-    }, [userImageURL])
-
-    const imageURL = userImageURL.profileImage
-
-    console.log("test")
-
-    return (
-        <Image
-            source={{
-                uri: imageURL,
-            }}
-            // source={userImageURL.profileImage}
-            resizeMode="contain"
-        />
-    )
+    if (!userImageURL) {
+        return <React.Fragment></React.Fragment>;
+    } else {
+        return (
+            <Image
+                source={{
+                    uri: userImageURL.profileImage,
+                }}
+                style={{width: 50, height: 40}}
+                resizeMode="contain"
+            />
+        )
+    }
 }
 
 export default UserImage;

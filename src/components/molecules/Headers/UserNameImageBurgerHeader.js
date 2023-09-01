@@ -28,12 +28,12 @@ const UserNameImageBurgerHeader = () => {
     const [userProfile, setUserProfile] = useState()
     
     useEffect(() => {
-        (async () => {
+        const fetchData = async () => {
             const userPro = await loadUserProfile(token, fetchInstance, user);
             setUserProfile(userPro)
-        })();
-        
-        console.log("test run")
+        };
+
+        fetchData();
     }, [])
 
     useEffect(() => {
