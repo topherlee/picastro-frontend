@@ -40,7 +40,7 @@ const HeaderUserName = ({style, userProfile}) => {
         <View style={style}>
             <View>
                 <Text style={styles.textUserName}>
-                    {currentUser.username}
+                    {userProfile?.user.username}
                 </Text>
                 <Text style={styles.textGenderIdentifier}>
                     {userProfile?.genderIdentifier} {currentUser.last_name} 

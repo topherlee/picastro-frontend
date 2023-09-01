@@ -28,14 +28,11 @@ const UserNameImageBurgerHeader = () => {
     const [userProfile, setUserProfile] = useState()
     
     useEffect(() => {
-        // const userPro = loadUserProfile(token, fetchInstance, user);
-        // console.log("userPro", userPro)
-        // setUserProfile(userPro)
-        setUserProfile(() => {
-            console.log("inner test run")
-            userPro2 = loadUserProfile(token, fetchInstance, user)
-            return userPro2
-        })
+        (async () => {
+            const userPro = await loadUserProfile(token, fetchInstance, user);
+            setUserProfile(userPro)
+        })();
+        
         console.log("test run")
     }, [])
 

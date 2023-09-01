@@ -36,7 +36,7 @@ const loadUserProfile = async (token, fetchInstance, user_id) => {
             }
         })
         console.log("DATA", data)
-        return JSON.stringify(data)
+        return data
 
     } catch (error) {
         console.log("userprofileapi",error);

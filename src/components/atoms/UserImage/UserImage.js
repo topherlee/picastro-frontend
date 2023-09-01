@@ -5,19 +5,25 @@ import {
 } from 'react-native';
 
 
-const UserImage = (userImageURL) => {
+const UserImage = ({userImageURL}) => {
 
     useEffect(() => {
-        console.log("imageURL", userImageURL.genderIdentifier)
+        console.log("imageURL", userImageURL.profileImage)
     }, [userImageURL])
+
+    const imageURL = userImageURL.profileImage
+
+    console.log("test")
 
     return (
         <Image
-            uri={userImageURL.userImageURL}
+            source={{
+                uri: imageURL,
+            }}
+            // source={userImageURL.profileImage}
             resizeMode="contain"
         />
     )
 }
-
 
 export default UserImage;
