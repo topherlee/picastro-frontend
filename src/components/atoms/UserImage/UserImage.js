@@ -4,6 +4,9 @@ import {
     StyleSheet,
 } from 'react-native';
 
+import globalStyling from '../../../../constants/globalStyling';
+
+
 const UserImage = ({userImageURL}) => {
 
     if (!userImageURL) {
@@ -14,7 +17,7 @@ const UserImage = ({userImageURL}) => {
                 source={{
                     uri: userImageURL.profileImage,
                 }}
-                style={{width: 50, height: 40}}
+                style={globalStyling.userImage}
                 resizeMode="contain"
             />
         )

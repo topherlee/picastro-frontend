@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  // defaultColours: {
+  //   'black',
+
+  // },
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,
@@ -162,4 +166,11 @@ export default StyleSheet.create({
     borderWidth: 0,
     borderColor: "yellow"
   },
+  userImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+    borderColor: '#FDD015',
+    borderWidth: 3
+  }
 });
