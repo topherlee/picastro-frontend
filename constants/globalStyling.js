@@ -166,10 +166,19 @@ export default StyleSheet.create({
     borderWidth: 0,
     borderColor: "yellow"
   },
-  userImage: {
+  headerUserImage: {
     width: 40,
     height: 40,
     borderRadius: 40,
+    borderColor: '#FDD015',
+    borderWidth: 3
+  },
+  profileUserImage: {
+    position: "relative",
+    marginBottom: "5%",
+    width: 100,
+    height: 100,
+    borderRadius: 100,
     borderColor: '#FDD015',
     borderWidth: 3
   }

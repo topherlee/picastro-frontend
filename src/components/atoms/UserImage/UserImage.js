@@ -17,7 +17,7 @@ const UserImage = ({userImageURL}) => {
                 source={{
                     uri: userImageURL.profileImage,
                 }}
-                style={globalStyling.userImage}
+                style={globalStyling.headerUserImage}
                 resizeMode="contain"
             />
         )

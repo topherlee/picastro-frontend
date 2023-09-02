@@ -30,7 +30,7 @@ const EditProfile = ({ navigation }) => {
     { label: '10 years plus', value: '4' },
   ];
 
-  const { setIsSignedIn } = useContext(AuthContext);
+  const { setIsSignedIn, currentUser } = useContext(AuthContext);
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -39,7 +39,9 @@ const EditProfile = ({ navigation }) => {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
 
       <Image style={styles.image} source={require('../assets/logo-text-gray.png')} />
-      <Image style={styles.image1} source={require('../assets/Sample/sampleuser.png')} />
+      <Image style={globalStyling.profileUserImage} source={{
+                            uri: currentUser.profileImage}} 
+                        />
       <TouchableOpacity style={styles.loginBtn1} onPress={function () { navigation.navigate('YourMainSetup') }}>
         <Text style={styles.loginText}>Change Image</Text>
       </TouchableOpacity>

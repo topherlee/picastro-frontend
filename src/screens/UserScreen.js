@@ -17,6 +17,7 @@ import StarIconSvg from '../assets/star-icon.svg';
 import AwardGoldSvg from '../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../assets/buttons/award-silver.svg';
 import AwardBronzeSvg from '../assets/buttons/award-bronze.svg';
+import globalStyling from '../../constants/globalStyling';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -105,7 +106,7 @@ const UserScreen = ({ navigation }) => {
 
                 <View style={styles.profilecontainer}>
                     <View style={styles.profile}>
-                        <Image style={styles.image1} source={{
+                        <Image style={globalStyling.profileUserImage} source={{
                             uri: currentUser.profileImage}} 
                         />
                         <View style={styles.profilecontent}>
@@ -113,7 +114,7 @@ const UserScreen = ({ navigation }) => {
                             <Text style={styles.profilePronounce}>{currentUser.genderIdentifier}</Text>
                             <View style={styles.starandcount}>
                                 <StarIconSvg style={styles.starcount} height="40" width="40" fill="#F0355B" stroke="#F0355B" strokeWidth="0"> </StarIconSvg>
-                                <Text style={styles.stars}>1,234</Text>
+                                <Text style={styles.stars}>{currentUser.total_likes}</Text>
                             </View>
                         </View>
                     </View>
@@ -121,19 +122,19 @@ const UserScreen = ({ navigation }) => {
 
                 <View style={styles.textcontainer}>
                     <Text style={styles.profiledesc}>{currentUser.userDescription}</Text>
-                    <View style={styles.multiplelink}>
+                    {/* <View style={styles.multiplelink}>
                         <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
                         <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text> 
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
                             <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text>     
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
                 <View style={styles.awardcontainer}>
-                        <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                        {/* <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                         <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
-                        <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                        <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text> */}
                         <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
                             <Text style={styles.loginText}>Edit Profile</Text> 
                         </TouchableOpacity>
