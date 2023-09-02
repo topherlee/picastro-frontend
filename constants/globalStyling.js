@@ -114,6 +114,17 @@ export default StyleSheet.create({
     borderColor: 'green',
     borderWidth: 0,
   },
+  bottomModalFilterContainer: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    bottom: 0,
+    width: '100%',
+    height: 270,
+    alignItems: 'center',
+    backgroundColor: '#2F2F2F',
+    borderColor: 'yellow',
+    borderWidth: 0,
+  },
   bottomModalButton: {
     borderRadius: 25,
     padding: 8,

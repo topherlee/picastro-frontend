@@ -28,8 +28,8 @@ const screenOptionStyle = {
 
 const BottomTabNavigator = ({ navigation }) => {
     const {
-        isSortModalVisible,
-        setSortModalVisible
+        isModalVisible,
+        setModalVisible
     } = useContext(AuthContext);
 
 
@@ -87,7 +87,7 @@ const BottomTabNavigator = ({ navigation }) => {
                     tabPress: (e) => {
                         e.preventDefault();
                         //navigation.navigate('Home')
-                        setSortModalVisible(!isSortModalVisible)
+                        setModalVisible(!isModalVisible)
                     },
                 }}
             >

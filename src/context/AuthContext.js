@@ -115,6 +115,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState("");
     const [userScreenUrl, setUserScreenUrl] = useState("");
     const [isSortModalVisible, setSortModalVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false);
     const [user, setUser] = useState("");
     const [userUrl, setUserUrl] = useState("");
     const [userFilterUrl, setUserFilterUrl] = useState("");
@@ -147,7 +148,8 @@ export const AuthProvider = ({children, contextValue}) => {
         userActiveSelector, setUserActiveSelector,
         userActiveObjectSelector, setUserActiveObjectSelector,
         currentPage, setCurrentPage,
-        userCurrentPage, setUserCurrentPage
+        userCurrentPage, setUserCurrentPage,
+        isModalVisible, setModalVisible,
     };
 
     //HACK: function to reset all states manually on logout

@@ -1,5 +1,4 @@
-export {default as BottomFilterModal} from './Modals/BottomModal';
-export {default as UserBottomFilterModal} from './Modals/UserBottomModal';
+export {default as BottomFilterModal} from './Modals/BottomModalFilterFeed';
 export {default as PicastroLogoHeader} from './Headers/PicastroLogoHeader';
 export {default as UserNameImageBurgerHeader} from './Headers/UserNameImageBurgerHeader';
 export {default as FullWidthAboveImage} from './ImageContainers/FullWidthAboveImage';

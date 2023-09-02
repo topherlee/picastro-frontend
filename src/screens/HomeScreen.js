@@ -86,14 +86,10 @@ const HomeScreen = ({ navigation }) => {
         })
     }, [activeObjectSelector, activeSelector, retry])
 
-    const toggleModal = () => {
-        setSortModalVisible(!isSortModalVisible);
-    };
-
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <BottomFilterModal />
+            <BottomFilterModal screen={"Home"} />
             <View 
                 style={{
                     backgroundColor: "black", 
