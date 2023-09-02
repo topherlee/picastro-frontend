@@ -8,7 +8,7 @@ const UserImage = ({userImageURL}) => {
 
     if (!userImageURL) {
         return <React.Fragment></React.Fragment>;
-    } else {
+    } else { 
         return (
             <Image
                 source={{

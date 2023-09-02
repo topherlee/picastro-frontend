@@ -23,6 +23,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const UserScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
+    const [user, setUser] = useState();
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
@@ -61,6 +62,11 @@ const UserScreen = ({ navigation }) => {
         }
     }
 
+    // const fetchUser = async () => {
+    //     const userPro = await loadUserProfile(token, fetchInstance, user);
+    //     setUserProfile(userPro)
+    // };
+
     const fetchMore = async () => {
         if (isLoading) return;
         if (!next) return;
@@ -82,97 +88,97 @@ const UserScreen = ({ navigation }) => {
 
     useEffect(() => {
         //console.log('AccessToken',jwtDecode(token.access))
-        console.log(currentUser);
-        
+        // fetchUser();
         loadUserFeed(userCurrentPage).then((data)=> {
             setData(data);
             setRefreshing(false);
         })
     }, [userActiveObjectSelector, userActiveSelector, retry])
 
+    if (!currentUser) { 
+        return <></>
+    } else {
+        return (
+            <SafeAreaView style={styles.container}>
+            
+                <ExtendedPicastroBurgerHeader />
 
-    return (
-        <SafeAreaView style={styles.container}>
-           
-            <ExtendedPicastroBurgerHeader />
-
-            <View style={styles.profilecontainer}>
-                <View style={styles.profile}>
-                    <Image style={styles.image1} source={require('../assets/Sample/sampleuserwithicon.png')} />
-                    <View style={styles.profilecontent}>
-                        <Text style={styles.profileName}>{currentUser.username}</Text>
-                        <Text style={styles.profilePronounce}>he/him</Text>
-                        <View style={styles.starandcount}>
-                            <StarIconSvg style={styles.starcount} height="40" width="40" fill="#F0355B" stroke="#F0355B" strokeWidth="0"> </StarIconSvg>
-                            <Text style={styles.stars}>1,234</Text>
+                <View style={styles.profilecontainer}>
+                    <View style={styles.profile}>
+                        <Image style={styles.image1} source={{
+                            uri: currentUser.profileImage}} 
+                        />
+                        <View style={styles.profilecontent}>
+                            <Text style={styles.profileName}>{currentUser.user.username}</Text>
+                            <Text style={styles.profilePronounce}>{currentUser.genderIdentifier}</Text>
+                            <View style={styles.starandcount}>
+                                <StarIconSvg style={styles.starcount} height="40" width="40" fill="#F0355B" stroke="#F0355B" strokeWidth="0"> </StarIconSvg>
+                                <Text style={styles.stars}>1,234</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
 
-            <View style={styles.textcontainer}>
-                <Text style={styles.profiledesc}>Lawyer By Day, very amateur astrophotographer by night. All Photo by Me. Help Elliot fight</Text>
-                <View style={styles.multiplelink}>
-                    <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
-                    <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text> 
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
-                        <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text>     
-                    </TouchableOpacity>
+                <View style={styles.textcontainer}>
+                    <Text style={styles.profiledesc}>{currentUser.userDescription}</Text>
+                    <View style={styles.multiplelink}>
+                        <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
+                        <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text> 
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
+                            <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text>     
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.awardcontainer}>
-                    <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
-                    <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
-                    <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
-                    <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
-                        <Text style={styles.loginText}>Edit Profile</Text> 
-                    </TouchableOpacity>
-            </View>
-              
-        
-            {/* <View style={styles.headerContainer}> */}
-            
-            {/* </View> */}
-            <UserBottomFilterModal />
-            <View 
-                style={{
-                    backgroundColor: "black", 
-                    borderWidth: 0, 
-                    borderColor: "white", 
-                    flex: 1
-            }}>
-                {data?.length > 0 ? 
-                    <MasonryList
-                        data={data}
-                        keyExtractor={item => item.id}
-                        numColumns={2}
-                        onRefresh={refreshPage}
-                        refreshing={refreshing}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
-                        contentContainerStyle={{
-                            borderColor: "red",
-                            borderWidth: 0,
-                            paddingTop: "3%",
-                            paddingLeft: "4%"
-                        }}
-                        style={{
-                            flex: 1,
-                            maxWidth: "96%",
-                            columnGap: 10,
-                            borderColor: "yellow",
-                            borderWidth: 0,
-                        }}
-                        onEndReached={fetchMore}
-                        onEndReachedThreshold={0.1}
-                    />
-                : 
-                    <Text style={{color:'white'}} onPress={function() {setRetry(retry + 1)}}>Nothing to display here, touch to refresh page.</Text>
-                }
-            </View>
-        </SafeAreaView>
-    )
+                <View style={styles.awardcontainer}>
+                        <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                        <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                        <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                        <TouchableOpacity style={styles.loginBtn} onPress= {function(){ navigation.navigate('EditProfile') }}>
+                            <Text style={styles.loginText}>Edit Profile</Text> 
+                        </TouchableOpacity>
+                </View>
+                
+                <UserBottomFilterModal />
+                <View 
+                    style={{
+                        backgroundColor: "black", 
+                        borderWidth: 0, 
+                        borderColor: "white", 
+                        flex: 1
+                }}>
+                    {data?.length > 0 ? 
+                        <MasonryList
+                            data={data}
+                            keyExtractor={item => item.id}
+                            numColumns={2}
+                            onRefresh={refreshPage}
+                            refreshing={refreshing}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+                            contentContainerStyle={{
+                                borderColor: "red",
+                                borderWidth: 0,
+                                paddingTop: "3%",
+                                paddingLeft: "4%"
+                            }}
+                            style={{
+                                flex: 1,
+                                maxWidth: "96%",
+                                columnGap: 10,
+                                borderColor: "yellow",
+                                borderWidth: 0,
+                            }}
+                            onEndReached={fetchMore}
+                            onEndReachedThreshold={0.1}
+                        />
+                    : 
+                        <Text style={{color:'white'}} onPress={function() {setRetry(retry + 1)}}>Nothing to display here, touch to refresh page.</Text>
+                    }
+                </View>
+            </SafeAreaView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

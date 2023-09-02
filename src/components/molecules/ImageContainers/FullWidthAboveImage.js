@@ -1,3 +1,4 @@
+import React, {useContext, useState} from 'react';
 import {
   View,
   Alert,
@@ -60,7 +61,7 @@ const FullWidthAboveImage = ({props}) => {
     if (Platform.OS === "ios") {
       ActionSheetIOS.showActionSheetWithOptions(
         {
-          options: currentUser.username === props.poster.username ? ['Cancel', 'Edit Post', 'Delete Post'] : ['Cancel', 'Placeholder'],
+          options: currentUser.user.username === props.poster.username ? ['Cancel', 'Edit Post', 'Delete Post'] : ['Cancel', 'Placeholder'],
           destructiveButtonIndex: 2,
           cancelButtonIndex: 0,
           userInterfaceStyle: 'dark',
@@ -77,7 +78,7 @@ const FullWidthAboveImage = ({props}) => {
       );
     } else {
       Alert.alert('Image Options', '', 
-        currentUser.username === props.poster.username ? [
+        currentUser.user.username === props.poster.username ? [
         {
           text: 'Delete Post',
           onPress: () => {

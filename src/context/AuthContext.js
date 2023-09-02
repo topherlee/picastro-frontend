@@ -13,23 +13,8 @@ export const AuthProvider = ({children, contextValue}) => {
     //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
     const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
     const [token, setToken] = useState(null);
-    const [currentUser, setCurrentUser] = useState({
-        id: null,
-        username: null,
-        first_name: null,
-        last_name: null,
-        email: null,
-        last_login: null,
-        date_joined: null
-    });
-    const [currentUserProfile, setCurrentUserProfile] = useState({
-        user: null,
-        location: null,
-        "userDescription": null,
-        "genderIdentifier": null,
-        "profileImage": null,
-        "total_likes": null
-    });
+    const [currentUser, setCurrentUser] = useState();
+    const [currentUserProfile, setCurrentUserProfile] = useState();
     
 
     //gets access and refresh token from keychain in JSON object format
@@ -168,23 +153,8 @@ export const AuthProvider = ({children, contextValue}) => {
     //HACK: function to reset all states manually on logout
     function resetStates(){
         setUser("");
-        setCurrentUser({
-            "id": null,
-            "username": null,
-            "first_name": null,
-            "last_name": null,
-            "email": null,
-            "last_login": null,
-            "date_joined": null
-        });
-        setCurrentUserProfile({
-            "user": null,
-            "location": null,
-            "userDescription": null,
-            "genderIdentifier": null,
-            "profileImage": null,
-            "total_likes": null
-        })
+        setCurrentUser();
+        setCurrentUserProfile()
         setUserScreenUrl("");
         setSearchAndFilterUrl("");
         setUserSearchAndFilterUrl("");

@@ -16,6 +16,7 @@ const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
     const {
         currentUser,
+        setCurrentUser,
         setUserScreenUrl,
         setUserActiveSelector,
         setUserSearchAndFilterUrl,
@@ -24,21 +25,19 @@ const UserNameImageBurgerHeader = () => {
         fetchInstance,
         user
     } = useContext(AuthContext);
-
-    const [userProfile, setUserProfile] = useState()
     
     useEffect(() => {
         const fetchData = async () => {
             const userPro = await loadUserProfile(token, fetchInstance, user);
-            setUserProfile(userPro)
+            setCurrentUser(userPro)
         };
 
         fetchData();
     }, [])
 
     useEffect(() => {
-        console.log("userProfile User", userProfile)
-    }, [userProfile])
+        console.log("userProfile User", currentUser)
+    }, [currentUser])
     
     return (
         <View style={styles.headerContainer}>
@@ -46,7 +45,7 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setUserScreenUrl('poster=' + currentUser.id);
+                        setUserScreenUrl('poster=' + currentUser.user.id);
                         //resets the modal and url to default upon loading userscreen
                         setUserActiveSelector('most_recent'); 
                         setUserSearchAndFilterUrl('')
@@ -55,13 +54,12 @@ const UserNameImageBurgerHeader = () => {
                      }}
                 >
                     <UserImage 
-                        userImageURL={userProfile}
+                        userImageURL={currentUser}
                     />
                 </TouchableOpacity>
             </View>
             <HeaderUserName 
                 style={styles.textContainer}
-                userProfile={userProfile}
             />
             <View>
                 <TouchableOpacity onPress={function() {navigation.openDrawer()}} >
