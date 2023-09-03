@@ -103,7 +103,7 @@ const UserScreen = ({ navigation }) => {
             <SafeAreaView style={styles.container}>
             
                 <ExtendedPicastroBurgerHeader />
-
+                
                 <View style={styles.profilecontainer}>
                     <View style={styles.profile}>
                         <Image style={globalStyling.profileUserImage} source={{

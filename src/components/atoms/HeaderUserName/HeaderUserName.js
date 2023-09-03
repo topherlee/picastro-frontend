@@ -12,7 +12,7 @@ const HeaderUserName = ({style}) => {
         currentUser,
     } = useContext(AuthContext);
 
-    console.log("props", currentUser)
+    // console.log("props", currentUser)
 
     return(
         <View style={style}>

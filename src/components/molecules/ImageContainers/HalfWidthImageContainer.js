@@ -5,7 +5,7 @@ import { AstroImageWrapper, AwardIcon } from '../../atoms';
 
 
 export const HalfWidthImageContainer = (props) => {
-    console.log("poster", props)
+    // console.log("poster", props)
     return (
       <View2>
         <AstroImageWrapper 

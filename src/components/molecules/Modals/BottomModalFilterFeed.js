@@ -11,17 +11,19 @@ import {
 import {AuthContext} from '../../../context/AuthContext';
 import globalStyling from '../../../../constants/globalStyling';
 import {BottomModal} from '../../common';
-import {
-    BottomModalFilterHomeFeedView,
-    BottomModalFilterUserFeedView,
-} from '../../atoms';
+// import {
+//     BottomModalFilterHomeFeedView,
+//     BottomModalFilterUserFeedView,
+// } from '../../atoms';
+import BottomModalFilterHomeView from '../../atoms/ModalViews/BottomModalFilterHomeFeedView';
+import BottomModalFilterUserView from '../../atoms/ModalViews/BottomModalFilterUserFeedView';
 
 export default function BottomFilterModal({screen}) {
-    console.log(screen)
+
     return (
         <BottomModal
             childrenText={'Sort or Filter By:'}
-            children={screen==="Home" ? <BottomModalFilterHomeFeedView /> : <BottomModalFilterUserFeedView />}
+            children={screen==="Home" ? <BottomModalFilterHomeView /> : <BottomModalFilterUserView />}
         />
     );
 }

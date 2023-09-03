@@ -22,7 +22,7 @@ import {
 import {AuthContext} from '../../../context/AuthContext';
 import globalStyling from '../../../../constants/globalStyling';
 
-export default function BottomModalFilterView() {
+export default function BottomModalFilterHomeView() {
     const {
         searchAndFilterUrl,
         setSearchAndFilterUrl,
