@@ -111,7 +111,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     elevation: 10,
     backgroundColor: '#2F2F2F',
-    borderColor: 'green',
+    borderColor: 'red',
+    borderWidth: 0,
+  },
+  bottomModalChildView: {
+    marginTop: 5,
+    width: '100%',
+    borderColor: 'yellow',
     borderWidth: 0,
   },
   bottomModalFilterContainer: {

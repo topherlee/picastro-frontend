@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function BottomModal({childrenText, children}) {
     const {isModalVisible, setModalVisible} = useContext(AuthContext);
-
+    console.log(children)
     return (
         <View>
             <Modal
@@ -31,7 +31,9 @@ export default function BottomModal({childrenText, children}) {
                     <Text style={globalStyling.bottomModalText}>
                         {childrenText}
                     </Text>
-                    {children}
+                    <View style={globalStyling.bottomModalChildView}>
+                        {children}
+                    </View>
                 </View>
             </Modal>
         </View>

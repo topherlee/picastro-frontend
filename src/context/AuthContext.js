@@ -10,7 +10,7 @@ export const AuthContext = React.createContext({});
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
+    // const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
     const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState();
@@ -70,13 +70,18 @@ export const AuthProvider = ({children, contextValue}) => {
     }
 
     let originalRequest = async (url, config) => {
+        var data;
         try{
             url = `${domain}${url}`
             var response = await fetch(url, config)
-            var data = await response.json()
+            if (response.status === 204) {  //successful delete
+                data = ""
+            } else {
+                data = await response.json()
+            }
             return {response, data}
         } catch (err) {
-            console.log('ERROR IN ORIGINAL REQUEST', err)
+            console.log('ERROR IN ORIGINAL REQUEST', err), response
             return {response, err}
         }
     }
