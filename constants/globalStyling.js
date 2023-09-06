@@ -192,5 +192,40 @@ export default StyleSheet.create({
     borderRadius: 100,
     borderColor: '#FDD015',
     borderWidth: 3
+  },
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: "4%",
+    minHeight: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "5%",
+    marginBottom: "5%",
+    backgroundColor: "#FFC700",
+    zIndex: 1
+  },
+  loginBtn2: {
+    width: "100%",
+    borderRadius: 25,
+    height: "4%",
+    minHeight: 50,
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "5%",
+    marginBottom: "5%",
+    paddingHorizontal: '10%',
+    backgroundColor: "#FFC700",
+  },
+  loginText: {
+    fontWeight: "bold",
+  },
+  title: {
+    color: "#FFC700",
+    fontWeight: "bold",
+    fontSize: 20,
+    position: "relative",
+    marginBottom: "5%",
   }
 });

@@ -24,7 +24,11 @@ import globalStyling from "../../constants/globalStyling";
 var userID;
 
 const ImageUploadScreen = ({ navigation }) => {
-  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken, fetchInstance } = useContext(AuthContext);
+  const {
+    domain,
+    token,
+    fetchInstance
+  } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
   const [selected, setSelected] = useState('')

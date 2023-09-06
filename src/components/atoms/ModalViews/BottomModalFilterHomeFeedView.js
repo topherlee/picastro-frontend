@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
     View,
     Text,
@@ -35,6 +35,10 @@ export default function BottomModalFilterHomeView() {
         setCurrentPage,
     } = useContext(AuthContext);
 
+    useEffect(() => {
+        console.log(searchAndFilterUrl)
+    }, [searchAndFilterUrl])
+
     return (
         <View style={globalStyling.bottomModalFilterContainer}>
             <View style={globalStyling.bottomModalButtonWrapper}>
@@ -52,7 +56,7 @@ export default function BottomModalFilterHomeView() {
                     }
                     onPress={() => {
                         setModalVisible(!isModalVisible);
-                        setSearchAndFilterUrl('');
+                        setSearchAndFilterUrl('ordering="-pub_date"');
                         setActiveSelector('most_recent');
                         setCurrentPage(1);
                     }}>
@@ -99,7 +103,8 @@ export default function BottomModalFilterHomeView() {
                     }
                     onPress={() => {
                         setModalVisible(!isModalVisible);
-                        setSearchAndFilterUrl('ordering="?"');
+                        // setSearchAndFilterUrl('ordering="?"');
+                        setSearchAndFilterUrl(''); 
                         setActiveSelector('randomizer');
                         setCurrentPage(1);
                     }}>

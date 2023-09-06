@@ -1,158 +1,211 @@
-import React, { useState, useContext } from "react";
-import DropDownPicker from 'react-native-dropdown-picker';
-import { Dropdown } from 'react-native-element-dropdown';
-
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  ScrollView,
   TouchableOpacity,
-  ImageComponent,
   Alert,
-  FlatList,
-  Footer,
-  SafeAreaView,
+  Image,
+  ScrollView,
   KeyboardAvoidingView,
+  Dimensions,
+  SafeAreaView
 } from "react-native";
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { AuthContext } from "../context/AuthContext";
+import { launchImageLibrary } from "react-native-image-picker";
+import { AutoscaleImage } from "../components/atoms";
+import { SelectList } from "react-native-dropdown-select-list";
 import globalStyling from "../../constants/globalStyling";
 
-const EditProfile = ({ navigation }) => {
 
-  const data = [
+var userID;
+
+const EditProfile = ({ navigation }) => {
+  const {
+    token,
+    fetchInstance,
+    currentUser
+  } = useContext(AuthContext);
+  const [photo, setPhoto] = useState(null);
+  const [selected, setSelected] = useState('')
+  const [experienceLevel, setExperienceLevel] = useState('');
+  const [firstName, setFirstName] = useState(currentUser.user.first_name);
+  const [lastName, setLastName] = useState(currentUser.user.last_name);
+  const [genderIdentifier, setGenderIdentifier] = useState(currentUser.genderIdentifier);
+  const [location, setLocation] = useState(currentUser.location);
+  const [userDescription, setUserDescription] = useState(currentUser.userDescription);
+  
+  const experienceCategory = [
     { label: '0-1 years', value: '1' },
     { label: '2-5 years', value: '2' },
     { label: '5-10 years', value: '3' },
     { label: '10 years plus', value: '4' },
   ];
 
-  const { setIsSignedIn, currentUser } = useContext(AuthContext);
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
+  const uploadedHandler = (err) => {
+    { err ? Alert.alert("Upload Failed", JSON.stringify(err),) : Alert.alert("Upload Successful", "Your image has been uploaded.",) }
+  }
+
+  const pickImage = () => {
+
+    launchImageLibrary({ mediaType: "photo", presentationStyle: "popover", includeExtra: true }, (response) => {
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+        setPhoto(response.assets[0])
+      }
+    });
+  }
+
+  const uploadImage = async () => {
+    try {
+      var formData = new FormData();
+      // formData.append("image", {
+      //   'uri': photo.uri,
+      //   'name': photo.fileName,
+      //   'type': photo.type
+      // })
+
+      formData.append("id", currentUser?.user?.id)
+      // formData.append("experienceLevel", experienceLevel)
+      formData.append("firstName", firstName)
+      formData.append("lastName", lastName)
+      formData.append("genderIdentifier", genderIdentifier)
+      formData.append("location", location)
+      formData.append("userDescription", userDescription)
+      
+      var { response, data } = await fetchInstance(`/user/${currentUser.user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        body: formData
+      })
+
+      console.log('UPLOAD RESULT', data)
+      return { response, data }
+    } catch (err) {
+      console.log('ERROR', err)
+    }
+  }
+
+  const placeholderTextColor = "grey";
 
   return (
-
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-
-      <Image style={styles.image} source={require('../assets/logo-text-gray.png')} />
-      <Image style={globalStyling.profileUserImage} source={{
-                            uri: currentUser.profileImage}} 
-                        />
-      <TouchableOpacity style={styles.loginBtn1} onPress={function () { navigation.navigate('YourMainSetup') }}>
-        <Text style={styles.loginText}>Change Image</Text>
-      </TouchableOpacity>
-
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={{
-        height: 40,
-        backgroundColor: "black",
-        borderColor: "blue",
-        borderWidth: 0,
-        width: "85%",
-        flex: 1,
-      }}
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          paddingVertical: "3%",
+          display: "flex",
+          alignItems: "center",
+        }}
+        showsVerticalScrollIndicator={false}
       >
-
-        <View style={styles.headerContainer}>
-          <View style={styles.dropdowninputview}>
-
-            <Dropdown
-              style={[styles.dropdown, isFocus]}
-              placeholderStyle={styles.placeholderStyle}
-              selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={styles.inputSearchStyle}
-              iconStyle={styles.iconStyle}
-              data={data}
-              labelField="label"
-              valueField="value"
-              placeholder={!isFocus ? 'Level of experience' : ''}
-              value={value}
-              maxHeight={300}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
-              onChange={item => {
-                setValue(item.value);
-                setIsFocus(false);
-              }}
-
-            />
-          </View>
-          <View style={styles.DropDownView}>
-            <TextInput
-              style={globalStyling.inputFieldText}
-              placeholder="DropDown?"
-              placeholderTextColor="black"
-
-            />
-          </View>
+        <View style={styles.textcontainer}>
+          <Text style={globalStyling.title}>Edit your Profile</Text>
+          <TouchableOpacity onPress={pickImage}>
+            {photo ?
+              <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height / 3} />
+              :
+              currentUser ?
+                <Image style={globalStyling.profileUserImage} source={{
+                  uri: currentUser.profileImage}} 
+                />
+                :
+              <Icon name="file-image-plus" size={100} color={'#FFC700'} />
+            }
+          </TouchableOpacity>
+            <TouchableOpacity style={globalStyling.loginBtn2} onPress={pickImage}>
+              <Text style={globalStyling.loginText}>Pick another image</Text>
+            </TouchableOpacity>
         </View>
 
-        <View style={styles.inputView}>
+        {/* this is not yet implemented on the backend
+        <View style={styles.selectListView}>
+          <SelectList
+            styles={styles.border}
+            placeholder="Experience level"
+            placeholderTextColor={placeholderTextColor}
+            search={false}
+            data={experienceCategory}
+            inputStyles={styles.dropdownText} //style for the text of the unselected box
+            boxStyles={styles.DropdownSelectListBox} //style for the unselected box
+            dropdownStyles={styles.dropdownSelectList} //style of the scrollview, when box selected
+            dropdownTextStyles={styles.dropdownText} //style of text of each element inside scrollview
+            dropdownItemStyles={styles.dropdownItemStyles} //style of each element inside scrollview
+            setSelected={setSelected}
+            onSelect={() => setExperienceLevel(selected)}
+          />
+        </View> */}
+        <View style={globalStyling.inputView}>
           <TextInput
             style={globalStyling.inputFieldText}
-            placeholder="Name"
-            placeholderTextColor="black"
+            placeholder="First Name"
+            placeholderTextColor={placeholderTextColor}
+            onChangeText={newFirstName => setFirstName(newFirstName)}
+            // defaultValue={currentUser.user.first_name}
+            value={firstName}
+          />
+        </View>
+        <View style={globalStyling.inputView}>
+          <TextInput
+            style={globalStyling.inputFieldText}
+            placeholder="Last Name"
+            placeholderTextColor={placeholderTextColor}
+            onChangeText={newLastName => setLastName(newLastName)}
+            // defaultValue={currentUser.user.last_name}
+            value={lastName}
+          />
+        </View>
+        <View style={globalStyling.inputView}>
+          <TextInput
+            style={globalStyling.inputFieldText}
+            placeholder="Gender Identifier"
+            placeholderTextColor={placeholderTextColor}
+            onChangeText={newGenderIdentifier => setGenderIdentifier(newGenderIdentifier)}
+            // defaultValue={currentUser.genderIdentifier}
+            value={genderIdentifier}
+          />
+        </View>
+        <View style={globalStyling.inputView}>
+          <TextInput
+            style={globalStyling.inputFieldText}
+            placeholder="Location"
+            placeholderTextColor={placeholderTextColor}
+            onChangeText={newLocation => setLocation(newLocation)}
+            defaultValue={currentUser.location}
+            value={location}
+          />
+        </View>
+        <View style={globalStyling.inputView}>
+          <TextInput
+            style={globalStyling.inputFieldText}
+            placeholder="Key Info about you"
+            placeholderTextColor={placeholderTextColor}
+            onChangeText={newUserDescription => setUserDescription(newUserDescription)}
+            defaultValue={currentUser.userDescription}
+            value={userDescription}
+            multiline={true}
+          />
+        </View>
 
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Username"
-            placeholderTextColor="black"
-
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Pronouns"
-            placeholderTextColor="black"
-
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Bio"
-            placeholderTextColor="black"
-
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Website One"
-            placeholderTextColor="black"
-
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Website Two"
-            placeholderTextColor="black"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Shop Web Link (Optional)"
-            placeholderTextColor="black"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Dropbox Link or Google Drive Link(-Optional)"
-            placeholderTextColor="black"
-          />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <TouchableOpacity style={globalStyling.loginBtn} onPress={() => uploadImage().then(({ response, data }) => {
+          uploadedHandler(response.ok ? '' : data)
+        })}>
+          <Text style={globalStyling.loginText}>Save Changes</Text>
+        </TouchableOpacity>
+        {/* </KeyboardAvoidingView> */}
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -160,132 +213,71 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+    borderWidth: 0,
+    borderColor: "yellow"
+  },
+  image: {
+    position: "relative",
+    width: 155,
+    height: 45,
+    marginBottom: "5%",
+  },
+  textcontainer: {
+    // marginTop:"5%",
+    display: "flex",
+    marginBottom: "5%",
     alignItems: "center",
     justifyContent: "center",
   },
-  dropdowninputview: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "40%",
-    marginTop: 2,
-    marginBottom: 20,
-    alignItems: "center",
-    marginRight: "8%"
+  dropdownSelectList: {
+    zIndex: 600,
+    backgroundColor: 'white'
   },
-  dropdown: {
-    backgroundColor: "white",
-    height: 28,
-    alignItems: "center",
-    borderRadius: 10,
-    paddingHorizontal: 8,
-  },
+  dropdownItemStyles: {
+    //gap: 5,
+    zIndex: 600,
+    height: 40,
 
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
-  placeholderStyle: {
-    fontSize: 10,
+    textAlign: "center",
     color: "black",
   },
-  selectedTextStyle: {
-    fontSize: 14,
+  dropdownText: {
+    textAlign: "center",
+    color: "grey",
   },
-
-  headerContainer: {
-    backgroundColor: 'black',
-    display: "flex",
-    top: 0,
-    width: '100%',
-    height: 60,
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 10,
-  },
-  image: {
-    marginTop: "14%",
-    position: "relative",
-    width: 117.53,
-    height: 34.2,
-    marginBottom: "5%",
-  },
-  image1: {
-    position: "relative",
-    width: 80,
-    height: 80,
-    marginBottom: "2%",
-  },
-  inputView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "100%",
+  DropdownSelectListBox: {
+    zIndex: 500,
     height: 40,
-    marginBottom: 7,
-    alignItems: "center",
+    marginBottom: "5%",
+    backgroundColor: 'white',
+    borderColor: 'green',
+    borderWidth: 0,
+    color: 'black'
   },
-  inputView1: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "45%",
-    height: 35,
-    marginTop: 3,
-    marginBottom: 20,
-    alignItems: "center",
-
-  },
-  DropDownView: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "35%",
-    height: 28,
-    marginRight: "10%",
-    marginTop: 3,
-    marginBottom: 20,
-    alignItems: "center",
+  bottomText: {
+    flexDirection: 'row',
+    position: "relative",
+    marginBottom: "2%"
   },
   text: {
-    color: "black",
+    color: "white",
+    justifyContent: "center",
+    // marginTop:'10%'
   },
   forgot_button: {
     height: 30,
     color: "#FFC700",
   },
-  loginBtn: {
-    position: 'relative',
-    width: 120,
-    borderRadius: 25,
-    height: 35,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "5%",
-    backgroundColor: "#FFC700",
+  border: {
+    borderColor: 'green',
+    borderWidth: 2,
+
   },
-  loginBtn1: {
-    margin: "2%",
-    position: 'relative',
-    width: 120,
-    borderRadius: 25,
-    height: 35,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "3%",
-    backgroundColor: "#FFC700",
-  },
-  title: {
-    color: "#FFC700",
-    fontWeight: "bold",
-    fontSize: 20,
-    position: "relative",
-    top: "-5%"
-  },
-  loginText: {
-    fontWeight: "bold",
+  selectListView: {
+    zIndex: 500,
+    borderColor: 'blue',
+    borderWidth: 0,
+    width: "80%",
   }
 });
-
 export default EditProfile;
