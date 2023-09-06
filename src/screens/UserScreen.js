@@ -39,6 +39,7 @@ const UserScreen = ({navigation}) => {
         userCurrentPage,
         setUserCurrentPage,
         userScreenUrl,
+        isModalVisible
     } = useContext(AuthContext);
 
     //setUrlAttachement('?poster=' + currentUser.id);
@@ -105,7 +106,7 @@ const UserScreen = ({navigation}) => {
             <SafeAreaView style={styles.container}>
                 <ExtendedPicastroBurgerHeader />
 
-                <BottomFilterModal screen={'User'} />
+                {isModalVisible ? <BottomFilterModal screen={'User'} /> : <></>}
                 <View
                     style={{
                         backgroundColor: 'black',

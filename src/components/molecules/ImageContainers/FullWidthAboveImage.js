@@ -5,104 +5,24 @@ import {
   Image,
   ActionSheetIOS,
   Platform,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/AuthContext';
+import { BottomModal } from '../../common';
+import { ImageOptionsView } from '../../atoms';
 
 
 const FullWidthAboveImage = ({props}) => {
   const navigation = useNavigation();
-  const { fetchInstance, token, currentUser } = useContext(AuthContext);
+  const { fetchInstance, token, setModalVisible, isModalVisible } = useContext(AuthContext);
   
-  const deletePost = async (id)=> {
-    try {
-      var {response, data} = await fetchInstance(`/api/feed/${props.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Token ${token.access}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      return {response, data}
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  function DeleteAlert() {
-    Alert.alert('Delete Post?', 'This post will be permanently deleted.', [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Delete Cancelled'),
-        style: 'cancel',
-      },
-      {
-        text: 'Delete', 
-        onPress: () => {
-          deletePost(props.id).then(({response,data}) => {
-            if (response.ok) {
-              Alert.alert("Delete Successful", "This post has been successfully deleted.", 
-              [{text: 'OK', onPress: () => navigation.goBack()}])
-            } else {
-              Alert.alert("Delete Failed", "Please try again later.",)
-            }
-          })
-          console.log('OK Pressed')
-        }
-      },
-    ]);
-  }
-
-  const onPress = ()=> {
-    if (Platform.OS === "ios") {
-      ActionSheetIOS.showActionSheetWithOptions(
-        {
-          options: currentUser.user.username === props.poster.username ? ['Cancel', 'Edit Post', 'Delete Post'] : ['Cancel', 'Placeholder'],
-          destructiveButtonIndex: 2,
-          cancelButtonIndex: 0,
-          userInterfaceStyle: 'dark',
-        },
-        buttonIndex => {
-          if (buttonIndex === 0) {
-            // cancel action
-          } else if (buttonIndex === 1) {
-            Alert.alert('Oops not working yet! Check back later...')
-          } else if (buttonIndex === 2) {   //delete post button
-            DeleteAlert()
-          }
-        },
-      );
-    } else {
-      Alert.alert('Image Options', '', 
-        currentUser.user.username === props.poster.username ? [
-        {
-          text: 'Delete Post',
-          onPress: () => {
-            DeleteAlert()
-          },
-        },
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Delete Cancelled'),
-          style: 'cancel',
-        },
-      ] : [{
-          text: 'Add options here'
-        },
-        {
-        text: 'Cancel',
-        onPress: () => console.log('Delete Cancelled'),
-        style: 'cancel',
-      },]);
-    }
-  }
-
   var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
   ratio = (source.width / source.height);
+
   return (
     <Banner>
       <UserImage
@@ -122,9 +42,11 @@ const FullWidthAboveImage = ({props}) => {
           <LocationText>{props.starCamp}</LocationText>
         </View>
       </NameBanner>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Icon name="dots-horizontal" size={40} color="lightgray" />
       </TouchableOpacity>
+      
+      {isModalVisible ? <BottomModal childrenText={"Image Options"} children={<ImageOptionsView props={props}/>} /> : <></>}
     </Banner>
 )};
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AuthContext } from '../../context/AuthContext';
-
+import { useNavigationState, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {
     MainStackNavigator,
     ImageUploadStackNavigator
@@ -32,11 +32,18 @@ const BottomTabNavigator = ({ navigation }) => {
         setModalVisible
     } = useContext(AuthContext);
 
+    var subRoute;
 
     return (
         <Tab.Navigator screenOptions={screenOptionStyle}>
             <Tab.Screen
                 name="HomeTab"
+                //check for focused screen name
+                listeners={({ route }) => ({
+                    state: () => {
+                       subRoute = getFocusedRouteNameFromRoute(route)
+                      }
+                    })}
                 component={MainStackNavigator}
                 options={{
                     tabBarShowLabel: false,
@@ -87,7 +94,9 @@ const BottomTabNavigator = ({ navigation }) => {
                     tabPress: (e) => {
                         e.preventDefault();
                         //navigation.navigate('Home')
-                        setModalVisible(!isModalVisible)
+                        if (subRoute !== "PostDetails") {
+                            setModalVisible(!isModalVisible)
+                        }
                     },
                 }}
             >

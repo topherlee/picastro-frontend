@@ -27,8 +27,7 @@ const HomeScreen = ({ navigation }) => {
         token,
         fetchInstance,
         searchAndFilterUrl,
-        isSortModalVisible,
-        setSortModalVisible,
+        isModalVisible,
         activeSelector,
         activeObjectSelector,
         currentPage,
@@ -89,7 +88,7 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            <BottomFilterModal screen={"Home"} />
+            {isModalVisible ? <BottomFilterModal screen={"Home"} /> : <></>}
             <View 
                 style={{
                     backgroundColor: "black", 
