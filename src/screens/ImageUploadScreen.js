@@ -165,6 +165,7 @@ const ImageUploadScreen = ({ navigation }) => {
               style={globalStyling.inputFieldTextLarge}
               placeholder="Image Description"
               placeholderTextColor="grey"
+              multiline={true}
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
             />
