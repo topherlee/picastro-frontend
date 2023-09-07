@@ -12,38 +12,33 @@ import { AuthContext } from '../../context/AuthContext';
 
 export default function LogoutScreen({ navigation }) {
 
-  const { domain, resetStates, token } = useContext(AuthContext);     //get setIsSignedIn function from global context
-  const [ setError] = useState(false);
+  const { domain, resetStates, token, fetchInstance } = useContext(AuthContext);     //get setIsSignedIn function from global context
 
-  function handleLogout() {
+  async function handleLogout() {
 
     console.log("REFRESHTOKEN", token.refresh);
-    var body = JSON.stringify({
-      'refresh': `${token.refresh}`
-    })
+    var body = new FormData();
+    body.append("refresh", token.refresh);
+    
+    try {
+        var {response, data} = await fetchInstance(`/api/auth/logout/`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Token ${token.access}`,
+                'Content-Type': 'application/json',
+            },
+            body: body
+        })
+        console.log('STATUS', response.status);
 
-    fetch(`${domain}/api/auth/logout/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${token.access}`
-      },
-      body: body
-    })
-      .then(res => {
-        console.log('STATUS', res.status);
-        if (res.ok) {
-          resetStates()
+        if (response.ok) {
+            resetStates()
         } else {
-          setError(true)
-          throw res.json();
+            throw response.status;
         }
-      })
-      .catch(e => {
-        console.log(e)
-        resetStates()
-      });
-
+    } catch (error) {
+        console.log(error);
+    }
   }
 
   return (

@@ -74,8 +74,8 @@ export const AuthProvider = ({children, contextValue}) => {
         try{
             url = `${domain}${url}`
             var response = await fetch(url, config)
-            if (response.status === 204) {  //successful delete or error don't parse json
-                data = "Delete Successful";
+            if (response.status === 204 || response.status === 205) {  //successful delete or error don't parse json
+                data = "Successful";
             } else if (response.ok) {
                 data = await response.json();
             } else {
@@ -105,7 +105,7 @@ export const AuthProvider = ({children, contextValue}) => {
             //proceed with request
 
             config['headers'] = {
-                Authorization: `Token ${credentials?.access}`
+                'Authorization': `Token ${credentials?.access}`
             }
 
             var {response, data} = await originalRequest(url, config)

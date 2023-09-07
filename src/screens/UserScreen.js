@@ -53,7 +53,7 @@ const UserScreen = ({navigation}) => {
                 {
                     method: 'GET',
                     headers: {
-                        Authorization: `Token ${token.access}`,
+                        'Authorization': `Token ${token.access}`,
                         'Content-Type': 'application/json',
                     },
                 },
