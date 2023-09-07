@@ -154,15 +154,15 @@ const ImageUploadScreen = ({ navigation }) => {
             </TouchableOpacity>
             {photo ?
               <TouchableOpacity style={styles.loginBtn2} onPress={pickImage}>
-                <Text style={styles.loginText}>Pick another image</Text>
+                <Text style={styles.loginText}>Pick Another Image</Text>
               </TouchableOpacity>
               :
               null
             }
           </View>
-          <View style={globalStyling.inputView}>
+          <View style={globalStyling.inputViewLarge}>
             <TextInput
-              style={globalStyling.inputFieldText}
+              style={globalStyling.inputFieldTextLarge}
               placeholder="Image Description"
               placeholderTextColor="grey"
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
@@ -171,7 +171,6 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
           <View style={styles.selectListView}>
             <SelectList
-              styles={styles.border}
               placeholder="Object Category"
               placeholderTextColor="grey"
               search={false}
@@ -272,25 +271,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dropdownSelectList: {
+    marginTop: 1,
     zIndex: 600,
     backgroundColor: 'white'
   },
   dropdownItemStyles: {
-    //gap: 5,
     zIndex: 600,
     height: 40,
-    
     textAlign: "center",
     color: "black",
   },
   dropdownText: {
     textAlign: "center",
     color: "grey",
+    width: "100%",
   },
   DropdownSelectListBox: {
     zIndex: 500,
-    height: 40,
-    marginBottom: "5%",
+    height: 45,
     backgroundColor: 'white',
     borderColor: 'green',
     borderWidth: 0,
@@ -355,6 +353,7 @@ const styles = StyleSheet.create({
    zIndex: 500,
    borderColor: 'blue',
    borderWidth: 0,
+   marginBottom: "5%",
    width: "80%",
   }
 });

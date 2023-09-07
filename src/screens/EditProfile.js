@@ -20,14 +20,14 @@ import { AutoscaleImage } from "../components/atoms";
 import { SelectList } from "react-native-dropdown-select-list";
 import globalStyling from "../../constants/globalStyling";
 
-
 var userID;
 
 const EditProfile = ({ navigation }) => {
   const {
     token,
     fetchInstance,
-    currentUser
+    currentUser, 
+    setCurrentUser
   } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [selected, setSelected] = useState('')
@@ -45,8 +45,16 @@ const EditProfile = ({ navigation }) => {
     { label: '10 years plus', value: '4' },
   ];
 
-  const uploadedHandler = (err) => {
-    { err ? Alert.alert("Upload Failed", JSON.stringify(err),) : Alert.alert("Upload Successful", "Your image has been uploaded.",) }
+  const uploadedHandler = (res, data) => {
+    if (!res.ok) { 
+        Alert.alert("Profile Update Failed", data); 
+    } else {
+        setCurrentUser(data)
+        Alert.alert("Profile Updated", "Your profile has been successfully updated.",[{
+            text: "Ok",
+            onPress: () => navigation.goBack()
+        }]);
+    }
   }
 
   const pickImage = () => {
@@ -125,7 +133,7 @@ const EditProfile = ({ navigation }) => {
             }
           </TouchableOpacity>
             <TouchableOpacity style={globalStyling.loginBtn2} onPress={pickImage}>
-              <Text style={globalStyling.loginText}>Pick another image</Text>
+              <Text style={globalStyling.loginText}>Pick Another Image</Text>
             </TouchableOpacity>
         </View>
 
@@ -186,10 +194,10 @@ const EditProfile = ({ navigation }) => {
             value={location}
           />
         </View>
-        <View style={globalStyling.inputView}>
+        <View style={globalStyling.inputViewLarge}>
           <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Key Info about you"
+            style={globalStyling.inputFieldTextLarge}
+            placeholder="Key Info About You"
             placeholderTextColor={placeholderTextColor}
             onChangeText={newUserDescription => setUserDescription(newUserDescription)}
             defaultValue={currentUser.userDescription}
@@ -199,7 +207,7 @@ const EditProfile = ({ navigation }) => {
         </View>
 
         <TouchableOpacity style={globalStyling.loginBtn} onPress={() => uploadImage().then(({ response, data }) => {
-          uploadedHandler(response.ok ? '' : data)
+          uploadedHandler(response, data)
         })}>
           <Text style={globalStyling.loginText}>Save Changes</Text>
         </TouchableOpacity>
