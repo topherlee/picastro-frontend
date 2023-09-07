@@ -79,8 +79,12 @@ export default function ImageOptionsView({props}) {
             flexDirection: 'row',
             justifyContent: 'center'
             }}>
-            <TouchableIcon name="pencil-outline" size={60} label="Edit" />
-            <TouchableIcon name="delete-outline" size={60} color="red" label="Delete" onPress={handleDelete} />
+            {currentUser.username === props.username ? <>
+                <TouchableIcon name="pencil-outline" size={60} label="Edit" />
+                <TouchableIcon name="delete-outline" size={60} color="red" label="Delete" onPress={handleDelete} />
+            </> : 
+                <TouchableIcon name="cancel" size={60} label="Cancel" onPress={() => setModalVisible(false)} />
+            }
         </View>
     );
 }
