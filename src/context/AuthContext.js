@@ -74,14 +74,16 @@ export const AuthProvider = ({children, contextValue}) => {
         try{
             url = `${domain}${url}`
             var response = await fetch(url, config)
-            if (response.status === 204) {  //successful delete
-                data = ""
+            if (response.status === 204) {  //successful delete or error don't parse json
+                data = "Delete Successful";
+            } else if (response.ok) {
+                data = await response.json();
             } else {
-                data = await response.json()
+                data = await response.status.toString();
             }
             return {response, data}
         } catch (err) {
-            console.log('ERROR IN ORIGINAL REQUEST', err), response
+            console.log('ERROR IN ORIGINAL REQUEST', err)
             return {response, err}
         }
     }
