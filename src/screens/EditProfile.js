@@ -77,11 +77,13 @@ const EditProfile = ({ navigation }) => {
   const uploadImage = async () => {
     try {
       var formData = new FormData();
-      // formData.append("image", {
-      //   'uri': photo.uri,
-      //   'name': photo.fileName,
-      //   'type': photo.type
-      // })
+      if (photo?.uri && photo?.fileName && photo?.type) {
+          formData.append("image", {
+            'uri': photo.uri,
+            'name': photo.fileName,
+            'type': photo.type
+          })
+      }
 
       formData.append("id", currentUser?.user?.id)
       // formData.append("experienceLevel", experienceLevel)
@@ -91,7 +93,7 @@ const EditProfile = ({ navigation }) => {
       formData.append("location", location)
       formData.append("userDescription", userDescription)
       
-      var { response, data } = await fetchInstance(`/user/${currentUser.user.id}`, {
+      var { response, data } = await fetchInstance(`/api/user/${currentUser.user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data'
