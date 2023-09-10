@@ -56,7 +56,7 @@ export default function LoginScreen( { navigation } ) {
           setIsSignedIn(true);
         })
         .catch(error => { 
-          console.log("error",error.data);
+          console.log("error",error);
           setError(true)
         })
     
