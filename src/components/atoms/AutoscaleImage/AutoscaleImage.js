@@ -32,6 +32,7 @@ export default class ScaledImage extends Component {
             <Image
                 source={this.state.source}
                 style={{ height: this.state.height, width: this.state.width }}
+                resizeMethod="scale"
             />
         );
     }
