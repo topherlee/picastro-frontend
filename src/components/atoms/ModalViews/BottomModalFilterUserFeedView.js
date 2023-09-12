@@ -99,7 +99,7 @@ export default function BottomModalFilterUserView() {
                     }
                     onPress={() => {
                         setModalVisible(!isModalVisible);
-                        setUserSearchAndFilterUrl('ordering=?');
+                        setUserSearchAndFilterUrl('order=random');
                         setUserActiveSelector('randomizer');
                         setUserCurrentPage(1);
                     }}>
