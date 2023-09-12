@@ -164,6 +164,7 @@ const EditProfile = ({ navigation }) => {
             onChangeText={newFirstName => setFirstName(newFirstName)}
             // defaultValue={currentUser.user.first_name}
             value={firstName}
+            maxLength={20}
           />
         </View>
         <View style={globalStyling.inputView}>
@@ -174,6 +175,7 @@ const EditProfile = ({ navigation }) => {
             onChangeText={newLastName => setLastName(newLastName)}
             // defaultValue={currentUser.user.last_name}
             value={lastName}
+            maxLength={20}
           />
         </View>
         <View style={globalStyling.inputView}>
@@ -184,6 +186,7 @@ const EditProfile = ({ navigation }) => {
             onChangeText={newGenderIdentifier => setGenderIdentifier(newGenderIdentifier)}
             // defaultValue={currentUser.genderIdentifier}
             value={genderIdentifier}
+            maxLength={10}
           />
         </View>
         <View style={globalStyling.inputView}>
@@ -194,6 +197,7 @@ const EditProfile = ({ navigation }) => {
             onChangeText={newLocation => setLocation(newLocation)}
             defaultValue={currentUser.location}
             value={location}
+            maxLength={50}
           />
         </View>
         <View style={globalStyling.inputViewLarge}>
@@ -205,6 +209,8 @@ const EditProfile = ({ navigation }) => {
             defaultValue={currentUser.userDescription}
             value={userDescription}
             multiline={true}
+            numberOfLines={4}
+            maxLength={200}
           />
         </View>
 

@@ -86,6 +86,7 @@ export default function SignUpScreen( { navigation } ) {
           clearButtonMode="while-editing"
           returnKeyType="next"
           onChangeText={(firstName) => setFirstName(firstName)}
+          maxLength={20}
         /> 
       </View> 
       <View style={globalStyling.inputView}>
@@ -98,6 +99,7 @@ export default function SignUpScreen( { navigation } ) {
           clearButtonMode="while-editing"
           returnKeyType="next"
           onChangeText={(lastName) => setLastName(lastName)}
+          maxLength={20}
         /> 
       </View> 
       <View style={globalStyling.inputView}>
@@ -111,6 +113,7 @@ export default function SignUpScreen( { navigation } ) {
           clearButtonMode="while-editing"
           returnKeyType="next"
           onChangeText={(username) => setUsername(username)}
+          maxLength={20}
         /> 
       </View>
       <View style={globalStyling.inputView}>
@@ -124,6 +127,7 @@ export default function SignUpScreen( { navigation } ) {
           clearButtonMode="while-editing"
           returnKeyType="next"
           onChangeText={(email) => setEmail(email)}
+          maxLength={50}
         /> 
       </View> 
       <View style={globalStyling.inputView}>

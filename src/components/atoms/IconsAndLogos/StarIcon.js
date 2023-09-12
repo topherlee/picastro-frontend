@@ -15,33 +15,47 @@ const StarIcon = (props) => {
     const {
         token,
         fetchInstance,
+        currentUser,
         user
     } = useContext(AuthContext);
     const [imageIsSaved, setImageIsSaved] = React.useState(false);
 
     const likeUrl = '/api/like/';
+    const dislikeUrl = '/api/dislike/';
+
+    const apiCallLikeDislike = async (urlForApiCall, requestMethod) => {
+        try {
+            var {response,data} = await fetchInstance(urlForApiCall, {
+                method: requestMethod,
+                headers: {
+                    'Authorization': `Token ${token.access}`
+                }
+            })
+            console.log("DATA", response, data)
+            return {response, data}
+    
+        } catch (error) {
+            console.log("starIconAPI",error);
+            return [];
+        }
+    }
 
     const saveImage = async () => {
         try {
-            userID = jwtDecode(token?.access).user_id;
-            console.log (userID);
+            urlForApiCall = likeUrl + props.id;
+            let requestMethod = 'POST';
+            console.log("StarIcon like urlForApiCall", urlForApiCall);
 
-            var requestData = JSON.stringify({
-                'user': userID,
-                'post': props.id
-              })
-            console.log("StarIcon requestData", requestData);
-
-            const imageLikeResponse = await imageLike(requestData, fetchInstance, token);
-
-            console.log("imageLikeResponse", imageLikeResponse);
+            imageLikeResponse = apiCallLikeDislike(urlForApiCall, requestMethod)
 
             if (imageLikeResponse.response.status === 201) {
                 setImageIsSaved(!imageIsSaved);
+            } else if (imageLikeResponse.response.status === 403) {
+                pass
             } else {
                 // change this later on to a meaningful action. Currently it is only doing the
                 // same as the if statement, because the imageLike() is not working correctly.
-                setImageIsSaved(!imageIsSaved);
+                console.log("else path in StarIcon.js")
             }
             
         } catch (err) {
