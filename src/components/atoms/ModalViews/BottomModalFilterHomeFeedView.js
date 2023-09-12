@@ -103,8 +103,7 @@ export default function BottomModalFilterHomeView() {
                     }
                     onPress={() => {
                         setModalVisible(!isModalVisible);
-                        // setSearchAndFilterUrl('ordering="?"');
-                        setSearchAndFilterUrl(''); 
+                        setSearchAndFilterUrl('order=random');
                         setActiveSelector('randomizer');
                         setCurrentPage(1);
                     }}>

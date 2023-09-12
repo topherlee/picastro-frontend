@@ -78,21 +78,21 @@ const EditProfile = ({ navigation }) => {
     try {
       var formData = new FormData();
       if (photo?.uri && photo?.fileName && photo?.type) {
-          formData.append("image", {
+          formData.append("profileImage", {
             'uri': photo.uri,
             'name': photo.fileName,
             'type': photo.type
           })
       }
 
-      formData.append("id", currentUser?.user?.id)
+      formData.append("id", currentUser.user.id)
       // formData.append("experienceLevel", experienceLevel)
       formData.append("firstName", firstName)
       formData.append("lastName", lastName)
       formData.append("genderIdentifier", genderIdentifier)
       formData.append("location", location)
       formData.append("userDescription", userDescription)
-      
+
       var { response, data } = await fetchInstance(`/api/user/${currentUser.user.id}`, {
         method: 'PUT',
         headers: {
@@ -104,7 +104,7 @@ const EditProfile = ({ navigation }) => {
       console.log('UPLOAD RESULT', data)
       return { response, data }
     } catch (err) {
-      console.log('ERROR', err)
+      console.log('ERROR EDIT PROFILE', err)
     }
   }
 
@@ -214,8 +214,12 @@ const EditProfile = ({ navigation }) => {
           />
         </View>
 
-        <TouchableOpacity style={globalStyling.loginBtn} onPress={() => uploadImage().then(({ response, data }) => {
+        <TouchableOpacity style={globalStyling.loginBtn} onPress={() => uploadImage()
+        .then(({ response, data }) => {
           uploadedHandler(response, data)
+        })
+        .catch(function(err){
+            console.log("ERROR EDIT PROFILE", err)
         })}>
           <Text style={globalStyling.loginText}>Save Changes</Text>
         </TouchableOpacity>

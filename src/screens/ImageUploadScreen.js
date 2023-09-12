@@ -111,7 +111,7 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
       
-      var {response,data} = await fetchInstance('/feed/', {
+      var {response,data} = await fetchInstance('/api/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -122,7 +122,7 @@ const ImageUploadScreen = ({ navigation }) => {
       console.log('UPLOAD RESULT', data)
       return {response, data}
     } catch (err) {
-      console.log('ERROR',err)
+      console.log('ERROR UPLOAD',err)
     }
   }
 
@@ -240,8 +240,12 @@ const ImageUploadScreen = ({ navigation }) => {
             />
           </View>
 
-          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(({response,data}) => {
+          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage()
+          .then(({response,data}) => {
             uploadedHandler(response.ok ? '' : data)
+          })
+          .catch(function(err){
+            console.log(err)
           })}>
             <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
