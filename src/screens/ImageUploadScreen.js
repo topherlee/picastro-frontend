@@ -111,7 +111,7 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
       
-      var {response,data} = await fetchInstance('/feed/', {
+      var {response,data} = await fetchInstance('/api/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'
