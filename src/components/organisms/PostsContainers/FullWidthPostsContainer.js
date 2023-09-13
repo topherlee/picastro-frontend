@@ -6,12 +6,10 @@ import {
     Dimensions,
     Image
 } from 'react-native';
-
 import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
 import Modal from "react-native-modal";
 import styled from 'styled-components';
 import { FullWidthAboveImage, FullWidthImage, FullWidthBelowImage } from '../../molecules';
-import { AutoscaleImage } from '../../atoms';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
@@ -26,17 +24,15 @@ export const FullWidthPostsContainer = ({ props }) => {
         <View style={styles.container}>
             <Modal
                 isVisible={modalVisible}
-                style={{ margin: 0 }}
+                style={{margin: 0}}
                 animationIn="fadeIn"
                 animationOut="fadeOut"
                 backdropOpacity={0.8}
-                propagateSwipe
-            >
+                propagateSwipe>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => setModalVisible(!modalVisible)}
-                >
-                    <Icon name='window-close' size={30} color="lightgray" />
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Icon name="window-close" size={30} color="lightgray" />
                 </TouchableOpacity>
                 <ReactNativeZoomableView
                     maxZoom={6}
@@ -47,24 +43,24 @@ export const FullWidthPostsContainer = ({ props }) => {
                     visualTouchFeedbackEnabled={false}
                     onZoomAfter={this.logOutZoomState}
                     disablePanOnInitialZoom={true}
-                    style={{width: windowWidth, borderColor: "yellow", borderWidth: 0}}
-                >
-                    <AutoscaleImage uri={props.image} width={Dimensions.get('window').width}/>
-                    {/* <Image
+                    style={{
+                        width: windowWidth,
+                        borderColor: 'yellow',
+                        borderWidth: 0,
+                    }}>
+                    <Image
                         source={{
                             uri: props.image,
                         }}
-                        resizeMode="contain"
-                        style={styles.fullResImage}
-                    /> */}
+                        resizeMethod='scale'
+                        style={{width: Dimensions.get('window').width, aspectRatio: props.aspectRatio ? props.aspectRatio : 1}}
+                    />
                 </ReactNativeZoomableView>
             </Modal>
 
             <FullWidthAboveImage props={props} />
 
-            <TouchableOpacity
-                onPress={() => setModalVisible(true)}
-            >
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <FullWidthImage
                     props={props}
                     contHeight={contHeight}
@@ -74,7 +70,7 @@ export const FullWidthPostsContainer = ({ props }) => {
 
             <FullWidthBelowImage props={props} />
         </View>
-    )
+    );
 }
 
 const View1 = styled.TouchableOpacity`

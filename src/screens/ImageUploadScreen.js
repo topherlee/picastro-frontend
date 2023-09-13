@@ -79,7 +79,6 @@ const ImageUploadScreen = ({ navigation }) => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = { uri: response.uri };
-
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
@@ -147,7 +146,7 @@ const ImageUploadScreen = ({ navigation }) => {
             <Text style={styles.title}>Upload Image</Text>
             <TouchableOpacity onPress={pickImage}>
               {photo ?
-                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height/3} />
+                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height / 3} aspectRatio={photo.width / photo.height } />
                 :
                 <Icon name="file-image-plus" size={100} color={'#FFC700'} />
               }

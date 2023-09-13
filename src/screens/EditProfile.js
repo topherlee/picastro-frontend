@@ -111,35 +111,49 @@ const EditProfile = ({ navigation }) => {
   const placeholderTextColor = "grey";
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView
-        contentContainerStyle={{
-          paddingVertical: "3%",
-          display: "flex",
-          alignItems: "center",
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.textcontainer}>
-          <Text style={globalStyling.title}>Edit your Profile</Text>
-          <TouchableOpacity onPress={pickImage}>
-            {photo ?
-              <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height / 3} />
-              :
-              currentUser ?
-                <Image style={globalStyling.profileUserImage} source={{
-                  uri: currentUser.profileImage}} 
-                />
-                :
-              <Icon name="file-image-plus" size={100} color={'#FFC700'} />
-            }
-          </TouchableOpacity>
-            <TouchableOpacity style={globalStyling.loginBtn2} onPress={pickImage}>
-              <Text style={globalStyling.loginText}>Pick Another Image</Text>
-            </TouchableOpacity>
-        </View>
+      <SafeAreaView style={styles.container}>
+          <KeyboardAwareScrollView
+              contentContainerStyle={{
+                  paddingVertical: '3%',
+                  display: 'flex',
+                  alignItems: 'center',
+              }}
+              showsVerticalScrollIndicator={false}>
+              <View style={styles.textcontainer}>
+                  <Text style={globalStyling.title}>Edit your Profile</Text>
+                  <TouchableOpacity onPress={pickImage}>
+                      {photo ? (
+                          <AutoscaleImage
+                              key={photo.uri}
+                              uri={photo.uri}
+                              height={Dimensions.get('window').height / 3}
+                              aspectRatio={photo.width / photo.height}
+                          />
+                      ) : currentUser ? (
+                          <Image
+                              style={globalStyling.profileUserImage}
+                              source={{
+                                  uri: currentUser.profileImage,
+                              }}
+                          />
+                      ) : (
+                          <Icon
+                              name="file-image-plus"
+                              size={100}
+                              color={'#FFC700'}
+                          />
+                      )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      style={globalStyling.loginBtn2}
+                      onPress={pickImage}>
+                      <Text style={globalStyling.loginText}>
+                          Pick Another Image
+                      </Text>
+                  </TouchableOpacity>
+              </View>
 
-        {/* this is not yet implemented on the backend
+              {/* this is not yet implemented on the backend
         <View style={styles.selectListView}>
           <SelectList
             styles={styles.border}
@@ -156,76 +170,84 @@ const EditProfile = ({ navigation }) => {
             onSelect={() => setExperienceLevel(selected)}
           />
         </View> */}
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="First Name"
-            placeholderTextColor={placeholderTextColor}
-            onChangeText={newFirstName => setFirstName(newFirstName)}
-            // defaultValue={currentUser.user.first_name}
-            value={firstName}
-            maxLength={20}
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Last Name"
-            placeholderTextColor={placeholderTextColor}
-            onChangeText={newLastName => setLastName(newLastName)}
-            // defaultValue={currentUser.user.last_name}
-            value={lastName}
-            maxLength={20}
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Gender Identifier"
-            placeholderTextColor={placeholderTextColor}
-            onChangeText={newGenderIdentifier => setGenderIdentifier(newGenderIdentifier)}
-            // defaultValue={currentUser.genderIdentifier}
-            value={genderIdentifier}
-            maxLength={10}
-          />
-        </View>
-        <View style={globalStyling.inputView}>
-          <TextInput
-            style={globalStyling.inputFieldText}
-            placeholder="Location"
-            placeholderTextColor={placeholderTextColor}
-            onChangeText={newLocation => setLocation(newLocation)}
-            defaultValue={currentUser.location}
-            value={location}
-            maxLength={50}
-          />
-        </View>
-        <View style={globalStyling.inputViewLarge}>
-          <TextInput
-            style={globalStyling.inputFieldTextLarge}
-            placeholder="Key Info About You"
-            placeholderTextColor={placeholderTextColor}
-            onChangeText={newUserDescription => setUserDescription(newUserDescription)}
-            defaultValue={currentUser.userDescription}
-            value={userDescription}
-            multiline={true}
-            numberOfLines={4}
-            maxLength={200}
-          />
-        </View>
+              <View style={globalStyling.inputView}>
+                  <TextInput
+                      style={globalStyling.inputFieldText}
+                      placeholder="First Name"
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={newFirstName => setFirstName(newFirstName)}
+                      // defaultValue={currentUser.user.first_name}
+                      value={firstName}
+                      maxLength={20}
+                  />
+              </View>
+              <View style={globalStyling.inputView}>
+                  <TextInput
+                      style={globalStyling.inputFieldText}
+                      placeholder="Last Name"
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={newLastName => setLastName(newLastName)}
+                      // defaultValue={currentUser.user.last_name}
+                      value={lastName}
+                      maxLength={20}
+                  />
+              </View>
+              <View style={globalStyling.inputView}>
+                  <TextInput
+                      style={globalStyling.inputFieldText}
+                      placeholder="Gender Identifier"
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={newGenderIdentifier =>
+                          setGenderIdentifier(newGenderIdentifier)
+                      }
+                      // defaultValue={currentUser.genderIdentifier}
+                      value={genderIdentifier}
+                      maxLength={10}
+                  />
+              </View>
+              <View style={globalStyling.inputView}>
+                  <TextInput
+                      style={globalStyling.inputFieldText}
+                      placeholder="Location"
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={newLocation => setLocation(newLocation)}
+                      defaultValue={currentUser.location}
+                      value={location}
+                      maxLength={50}
+                  />
+              </View>
+              <View style={globalStyling.inputViewLarge}>
+                  <TextInput
+                      style={globalStyling.inputFieldTextLarge}
+                      placeholder="Key Info About You"
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={newUserDescription =>
+                          setUserDescription(newUserDescription)
+                      }
+                      defaultValue={currentUser.userDescription}
+                      value={userDescription}
+                      multiline={true}
+                      numberOfLines={4}
+                      maxLength={200}
+                  />
+              </View>
 
-        <TouchableOpacity style={globalStyling.loginBtn} onPress={() => uploadImage()
-        .then(({ response, data }) => {
-          uploadedHandler(response, data)
-        })
-        .catch(function(err){
-            console.log("ERROR EDIT PROFILE", err)
-        })}>
-          <Text style={globalStyling.loginText}>Save Changes</Text>
-        </TouchableOpacity>
-        {/* </KeyboardAvoidingView> */}
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+              <TouchableOpacity
+                  style={globalStyling.loginBtn}
+                  onPress={() =>
+                      uploadImage()
+                          .then(({response, data}) => {
+                              uploadedHandler(response, data);
+                          })
+                          .catch(function (err) {
+                              console.log('ERROR EDIT PROFILE', err);
+                          })
+                  }>
+                  <Text style={globalStyling.loginText}>Save Changes</Text>
+              </TouchableOpacity>
+              {/* </KeyboardAvoidingView> */}
+          </KeyboardAwareScrollView>
+      </SafeAreaView>
   );
 }
 
