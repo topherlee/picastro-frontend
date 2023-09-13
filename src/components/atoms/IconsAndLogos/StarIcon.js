@@ -46,7 +46,8 @@ const StarIcon = (props) => {
             let requestMethod = 'POST';
             console.log("StarIcon like urlForApiCall", urlForApiCall);
 
-            imageLikeResponse = apiCallLikeDislike(urlForApiCall, requestMethod)
+            imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
+            console.log("imageLikeResponse", imageLikeResponse.response)
 
             if (imageLikeResponse.response.status === 201) {
                 setImageIsSaved(!imageIsSaved);
@@ -63,17 +64,27 @@ const StarIcon = (props) => {
         }
     }
     
-    async function unsaveImage() {
-        console.log("unsaveImage");
-        const imageDislikeResponse = await imageDislike(props.id, fetchInstance, token);
-        console.log("props.id", props.id, imageDislikeResponse);
+    const unsaveImage = async () => {
+        try {
+            urlForApiCall = dislikeUrl + props.id;
+            let requestMethod = 'DELETE';
+            console.log("StarIcon dislike urlForApiCall", urlForApiCall);
 
-        if (imageDislikeResponse.response.status === 200) {
-            setImageIsSaved(!imageIsSaved);
-        } else {
-            // change this later on to a meaningful action. Currently it is only doing the
-            // same as the if statement, because the imageLike() is not working correctly.
-            setImageIsSaved(!imageIsSaved);
+            imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
+            console.log("imageLikeResponse", imageLikeResponse.response)
+
+            if (imageLikeResponse.response.status === 204) {
+                setImageIsSaved(!imageIsSaved);
+            } else if (imageLikeResponse.response.status === 403) {
+                pass
+            } else {
+                // change this later on to a meaningful action. Currently it is only doing the
+                // same as the if statement, because the imageLike() is not working correctly.
+                console.log("else path in StarIcon.js")
+            }
+            
+        } catch (err) {
+            console.log('ERROR',err)
         }
     }
 
