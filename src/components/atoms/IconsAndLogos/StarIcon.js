@@ -31,7 +31,7 @@ const StarIcon = (props) => {
                     'Authorization': `Token ${token.access}`
                 }
             })
-            console.log("DATA", response, data)
+            // console.log("DATA", response, data)
             return {response, data}
     
         } catch (error) {
@@ -47,8 +47,7 @@ const StarIcon = (props) => {
             console.log("StarIcon like urlForApiCall", urlForApiCall);
 
             imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
-            console.log("imageLikeResponse", imageLikeResponse.response)
-
+            
             if (imageLikeResponse.response.status === 201) {
                 setImageIsSaved(!imageIsSaved);
             } else if (imageLikeResponse.response.status === 403) {
@@ -71,8 +70,7 @@ const StarIcon = (props) => {
             console.log("StarIcon dislike urlForApiCall", urlForApiCall);
 
             imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
-            console.log("imageLikeResponse", imageLikeResponse.response)
-
+            
             if (imageLikeResponse.response.status === 204) {
                 setImageIsSaved(!imageIsSaved);
             } else if (imageLikeResponse.response.status === 403) {
