@@ -36,7 +36,7 @@ const FullWidthBelowImage = ({props}) => {
           </StarAliasWrapper>
         </StarNameWrapper>
         <IconView>
-            <StarIcon />
+            <StarIcon {...props} />
         </IconView>
       </Row1>
 

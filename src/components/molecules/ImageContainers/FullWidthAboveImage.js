@@ -32,8 +32,7 @@ const FullWidthAboveImage = ({props}) => {
           aspectRatio: ratio,
           width: "15%",
           height: 'auto',
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
+          borderRadius:10,
         }}
       />
       <NameBanner>

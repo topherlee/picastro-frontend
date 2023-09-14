@@ -14,6 +14,7 @@ import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
 import globalStyling from '../../constants/globalStyling';
+import {apiCallLikeDislike} from '../utils';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -22,6 +23,7 @@ const HomeScreen = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
     const [retry, setRetry] = useState(0);
+    const [listOfLikes, setListOfLikes] = useState([])
 
     const {
         token,
@@ -37,6 +39,20 @@ const HomeScreen = ({ navigation }) => {
 
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
     // console.log("urlForApiCall", urlForApiCall);
+
+    async function loadLikedPostList() {
+        const url = '/api/like/1';
+        let requestMethod = 'GET';
+        try {
+            const listOfLikes2 = await apiCallLikeDislike(url, requestMethod, fetchInstance, token)
+            setListOfLikes(listOfLikes2.data.results)
+            console.log("listOfLikes", listOfLikes2.data.results)
+            console.log(listOfLikes)
+        } catch (error) {
+            console.log("ERROR",error);
+            return [];   
+        }
+    }
 
     async function loadHomescreen(pageNum) {
         try {
@@ -83,6 +99,7 @@ const HomeScreen = ({ navigation }) => {
             setData(data);
             setRefreshing(false);
         })
+        loadLikedPostList()
     }, [activeObjectSelector, activeSelector, retry])
 
     return (
