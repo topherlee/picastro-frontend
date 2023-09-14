@@ -8,11 +8,13 @@ const AstroImageWrapper = props => {
     //console.log(props);
 
     return (
-        <AutoscaleImage
-            uri={props.thumbnail}
-            width={(0.96 * Dimensions.get('window').width - 33) / 2}
-            aspectRatio={props.aspectRatio}
-        />
+        <Pinchable maximumZoomScale={2}>
+            <AutoscaleImage
+                uri={props.thumbnail}
+                width={(0.96 * Dimensions.get('window').width - 33) / 2}
+                aspectRatio={props.aspectRatio}
+            />
+        </Pinchable>
     );
 };
 
