@@ -16,9 +16,20 @@ const StarIcon = (props) => {
         token,
         fetchInstance,
         currentUser,
-        user
+        user,
+        listOfLikes
     } = useContext(AuthContext);
     const [imageIsSaved, setImageIsSaved] = React.useState(false);
+
+    useEffect(() => {
+        const inListOfLikesCheck = (element) => element.post === props.id
+        const postInListOfLikes = listOfLikes.some(inListOfLikesCheck)
+
+        if (postInListOfLikes) {
+            setImageIsSaved(true)
+        }
+
+    }, [])
 
     const likeUrl = '/api/like/';
     const dislikeUrl = '/api/dislike/';
@@ -44,8 +55,7 @@ const StarIcon = (props) => {
         try {
             urlForApiCall = likeUrl + props.id;
             let requestMethod = 'POST';
-            console.log("StarIcon like urlForApiCall", urlForApiCall);
-
+            
             imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
             
             if (imageLikeResponse.response.status === 201) {
@@ -67,8 +77,7 @@ const StarIcon = (props) => {
         try {
             urlForApiCall = dislikeUrl + props.id;
             let requestMethod = 'DELETE';
-            console.log("StarIcon dislike urlForApiCall", urlForApiCall);
-
+            
             imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
             
             if (imageLikeResponse.response.status === 204) {

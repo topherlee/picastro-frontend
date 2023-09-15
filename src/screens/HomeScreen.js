@@ -23,8 +23,7 @@ const HomeScreen = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
     const [retry, setRetry] = useState(0);
-    const [listOfLikes, setListOfLikes] = useState([])
-
+    
     const {
         token,
         fetchInstance,
@@ -34,6 +33,8 @@ const HomeScreen = ({ navigation }) => {
         activeObjectSelector,
         currentPage,
         setCurrentPage,
+        listOfLikes,
+        setListOfLikes
     } = useContext(AuthContext);
 
 
@@ -46,8 +47,8 @@ const HomeScreen = ({ navigation }) => {
         try {
             const listOfLikes2 = await apiCallLikeDislike(url, requestMethod, fetchInstance, token)
             setListOfLikes(listOfLikes2.data.results)
-            console.log("listOfLikes", listOfLikes2.data.results)
-            console.log(listOfLikes)
+            console.log("listOfLikes", listOfLikes)
+            
         } catch (error) {
             console.log("ERROR",error);
             return [];   
@@ -91,6 +92,8 @@ const HomeScreen = ({ navigation }) => {
         setData(newData)
         setRefreshing(false)
     }
+
+    let shortList = []
 
     useEffect(() => {
         //console.log('AccessToken',jwtDecode(token.access))

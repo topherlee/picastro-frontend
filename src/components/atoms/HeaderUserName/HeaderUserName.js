@@ -5,7 +5,6 @@ import {
     View,
 } from 'react-native';
 import { AuthContext } from '../../../context/AuthContext';
-import { loadUserProfile, loadCurrentUser } from '../../../utils';
 
 const HeaderUserName = ({style}) => {
     const {

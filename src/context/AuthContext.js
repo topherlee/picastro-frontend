@@ -132,6 +132,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [userCurrentPage, setUserCurrentPage] = useState(1);
+    const [listOfLikes, setListOfLikes] = useState([]);
 
     const globalContext = {
         fetchInstance, 
@@ -157,6 +158,7 @@ export const AuthProvider = ({children, contextValue}) => {
         currentPage, setCurrentPage,
         userCurrentPage, setUserCurrentPage,
         isModalVisible, setModalVisible,
+        listOfLikes, setListOfLikes,
     };
 
     //HACK: function to reset all states manually on logout
@@ -178,6 +180,7 @@ export const AuthProvider = ({children, contextValue}) => {
         setUserCurrentPage(1);
         setToken(null);
         setIsSignedIn(false);
+        setListOfLikes([]);
     }
 
     useEffect(() => {
