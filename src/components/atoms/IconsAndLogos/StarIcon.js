@@ -7,6 +7,7 @@ import StarIconSvg from '../../../assets/star-icon.svg';
 import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
 import { imageLike, imageDislike } from '../../../utils';
+import { Alert } from "react-native";
 
 
 let userID;
@@ -36,50 +37,57 @@ const StarIcon = (props) => {
 
     const apiCallLikeDislike = async (urlForApiCall, requestMethod) => {
         try {
-            var {response,data} = await fetchInstance(urlForApiCall, {
+            var { response, data } = await fetchInstance(urlForApiCall, {
                 method: requestMethod,
                 headers: {
                     'Authorization': `Token ${token.access}`
                 }
             })
             // console.log("DATA", response, data)
-            return {response, data}
-    
+            return { response, data }
+
         } catch (error) {
-            console.log("starIconAPI",error);
+            console.log("starIconAPI", error);
             return [];
         }
     }
 
+    const raiseAlert = () => Alert.alert("Sorry!", "You cannot like your own posts")
+
     const saveImage = async () => {
-        try {
-            urlForApiCall = likeUrl + props.id;
-            let requestMethod = 'POST';
-            
-            imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
-            
-            if (imageLikeResponse.response.status === 201) {
-                setImageIsSaved(!imageIsSaved);
-            } else if (imageLikeResponse.response.status === 403) {
-                pass
-            } else {
-                // change this later on to a meaningful action. Currently it is only doing the
-                // same as the if statement, because the imageLike() is not working correctly.
-                console.log("else path in StarIcon.js")
+        console.log(props)
+        if (currentUser.user.username === props.poster.username) {
+            raiseAlert()
+        } else {
+            try {
+                urlForApiCall = likeUrl + props.id;
+                let requestMethod = 'POST';
+
+                imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
+
+                if (imageLikeResponse.response.status === 201) {
+                    setImageIsSaved(!imageIsSaved);
+                } else if (imageLikeResponse.response.status === 403) {
+                    pass
+                } else {
+                    // change this later on to a meaningful action. Currently it is only doing the
+                    // same as the if statement, because the imageLike() is not working correctly.
+                    console.log("else path in StarIcon.js")
+                }
+
+            } catch (err) {
+                console.log('ERROR', err)
             }
-            
-        } catch (err) {
-            console.log('ERROR',err)
         }
     }
-    
+
     const unsaveImage = async () => {
         try {
             urlForApiCall = dislikeUrl + props.id;
             let requestMethod = 'DELETE';
-            
+
             imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
-            
+
             if (imageLikeResponse.response.status === 204) {
                 setImageIsSaved(!imageIsSaved);
             } else if (imageLikeResponse.response.status === 403) {
@@ -89,16 +97,19 @@ const StarIcon = (props) => {
                 // same as the if statement, because the imageLike() is not working correctly.
                 console.log("else path in StarIcon.js")
             }
-            
+
         } catch (err) {
-            console.log('ERROR',err)
+            console.log('ERROR', err)
         }
     }
+
+    console.log(listOfLikes)
 
     return (
         <StarIconWrapper
             onPress={() => {
-                !imageIsSaved ? saveImage() : unsaveImage() }}
+                !imageIsSaved ? saveImage() : unsaveImage()
+            }}
             title="Save Image"
         >
             {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg />}
