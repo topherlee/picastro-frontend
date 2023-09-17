@@ -18,7 +18,7 @@ const imageLike = async (requestData, fetchInstance, token) => {
     try {
         console.log("imageLike requestData", requestData);
 
-        var {response,data} = await fetchInstance(likeUrl, {
+        var response = await fetchInstance(likeUrl, {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token.access}`,
@@ -27,10 +27,10 @@ const imageLike = async (requestData, fetchInstance, token) => {
             body: requestData
         })
         
-        return {response, data}
+        return response
     } catch (err) {
         console.log('ERROR',err)
-        return err
+        return response
     }
 }
 

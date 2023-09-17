@@ -63,8 +63,8 @@ const ImageUploadScreen = ({ navigation }) => {
     userID = jwtDecode(token?.access).user_id;
   }, [])
 
-  const uploadedHandler = (err) => {
-    {err ? Alert.alert("Upload Failed",JSON.stringify(err),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
+  const uploadedHandler = (response) => {
+    {!response.ok ? Alert.alert("Upload Failed",JSON.stringify(response.status),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
   }
 
   const pickImage = () => {
@@ -110,18 +110,22 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
       
-      var {response,data} = await fetchInstance('/api/feed/', {
+      var response = await fetchInstance('/api/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'
           },
           body: formData
-        })
-
-      console.log('UPLOAD RESULT', data)
-      return {response, data}
+      })
+      if (response.ok) {
+        console.log('UPLOAD RESULT', await response.json())
+        return response;
+      } else {
+        throw new Error(`HTTP Response Status ${response.status}`);
+      }
     } catch (err) {
-      console.log('ERROR UPLOAD',err)
+      console.log('ERROR UPLOAD', err);
+      return response;
     }
   }
 
@@ -240,9 +244,7 @@ const ImageUploadScreen = ({ navigation }) => {
           </View>
 
           <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage()
-          .then(({response,data}) => {
-            uploadedHandler(response.ok ? '' : data)
-          })
+          .then((response) => uploadedHandler(response))
           .catch(function(err){
             console.log(err)
           })}>

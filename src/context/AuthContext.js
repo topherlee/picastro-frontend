@@ -57,7 +57,7 @@ export const AuthProvider = ({children, contextValue}) => {
                 await setSavedTokens(newToken)
                 setToken(newToken);
                 return newToken;
-            }else {
+            } else {
                 console.log('REFRESH TOKEN EXPIRED')
                 setToken(null);
                 setIsSignedIn(false);
@@ -70,21 +70,24 @@ export const AuthProvider = ({children, contextValue}) => {
     }
 
     let originalRequest = async (url, config) => {
-        var data;
         try{
             url = `${domain}${url}`
             var response = await fetch(url, config)
-            if (response.status === 204 || response.status === 205) {  //successful delete or error don't parse json
-                data = "Successful";
-            } else if (response.ok) {
-                data = await response.json();
+            // if (response.status === 204 || response.status === 205) {  //successful delete or error don't parse json
+            //     data = "Successful";
+            // } else if (response.ok) {
+            //     data = await response.json();
+            // } else {
+            //     data = await response.status.toString();
+            // }
+            if (response.ok) {
+                return response;
             } else {
-                data = await response.status.toString();
+                throw new Error(`HTTP response status ${response.status}`);
             }
-            return {response, data}
         } catch (err) {
             console.log('ERROR IN ORIGINAL REQUEST', err)
-            return {response, err}
+            return response;
         }
     }
 
@@ -108,10 +111,11 @@ export const AuthProvider = ({children, contextValue}) => {
                 'Authorization': `Token ${credentials?.access}`
             }
 
-            var {response, data} = await originalRequest(url, config)
-            return {response, data}
+            var response = await originalRequest(url, config)
+            return response
         } catch (err) {
             console.log('FETCH ERROR', err)
+            return response
         }
     }
 
@@ -181,6 +185,7 @@ export const AuthProvider = ({children, contextValue}) => {
         setToken(null);
         setIsSignedIn(false);
         setListOfLikes([]);
+        setModalVisible(false);
     }
 
     useEffect(() => {

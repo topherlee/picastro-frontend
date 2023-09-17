@@ -45,10 +45,13 @@ const EditProfile = ({ navigation }) => {
     { label: '10 years plus', value: '4' },
   ];
 
-  const uploadedHandler = (res, data) => {
+  const uploadedHandler = async (res) => {
+    console.log(res)
     if (!res.ok) { 
-        Alert.alert("Profile Update Failed", data); 
+        Alert.alert("Profile Update Failed", JSON.stringify(res.status)); 
     } else {
+        var data = await res.json();
+        console.log('UPLOAD RESULT', data);
         setCurrentUser(data)
         Alert.alert("Profile Updated", "Your profile has been successfully updated.",[{
             text: "Ok",
@@ -93,18 +96,21 @@ const EditProfile = ({ navigation }) => {
       formData.append("location", location)
       formData.append("userDescription", userDescription)
 
-      var { response, data } = await fetchInstance(`/api/user/${currentUser.user.id}`, {
+      var response = await fetchInstance(`/api/user/${currentUser.user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data'
         },
         body: formData
       })
-
-      console.log('UPLOAD RESULT', data)
-      return { response, data }
+      if (response.ok) {
+        return response;
+      } else {
+        throw new Error(``)
+      }
     } catch (err) {
-      console.log('ERROR EDIT PROFILE', err)
+      console.log('ERROR EDIT PROFILE', err);
+      return response;
     }
   }
 
@@ -236,8 +242,8 @@ const EditProfile = ({ navigation }) => {
                   style={globalStyling.loginBtn}
                   onPress={() =>
                       uploadImage()
-                          .then(({response, data}) => {
-                              uploadedHandler(response, data);
+                          .then((response) => {
+                              uploadedHandler(response);
                           })
                           .catch(function (err) {
                               console.log('ERROR EDIT PROFILE', err);

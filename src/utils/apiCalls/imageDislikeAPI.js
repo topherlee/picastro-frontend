@@ -12,7 +12,7 @@ const imageDislike = async (postID, fetchInstance, token) => {
     console.log("imageDislike", dislikeUrl);
 
     try {
-        var {response,data} = await fetchInstance(dislikeUrl, {
+        var response = await fetchInstance(dislikeUrl, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Token ${token.access}`,
@@ -20,10 +20,10 @@ const imageDislike = async (postID, fetchInstance, token) => {
             }
         })
         
-        return {response, data}
+        return response
     } catch (err) {
         console.log('ERROR',err)
-        return err
+        return response
     }
 }
 

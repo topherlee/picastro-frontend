@@ -21,7 +21,7 @@ export default function LogoutScreen({ navigation }) {
     body.append("refresh", token.refresh);
     
     try {
-        var {response, data} = await fetchInstance(`/api/auth/logout/`, {
+        var response = await fetchInstance(`/api/auth/logout/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token.access}`,
@@ -34,7 +34,7 @@ export default function LogoutScreen({ navigation }) {
         if (response.ok) {
             resetStates()
         } else {
-            throw response.status;
+            throw new Error(response.status);
         }
     } catch (error) {
         console.log(error);

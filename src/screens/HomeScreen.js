@@ -3,6 +3,7 @@ import {
     Text,
     SafeAreaView,
     StyleSheet,
+    ActivityIndicator,
 } from 'react-native';
 import Modal from "react-native-modal";
 
@@ -45,9 +46,13 @@ const HomeScreen = ({ navigation }) => {
         const url = '/api/like/1';
         let requestMethod = 'GET';
         try {
-            const listOfLikes2 = await apiCallLikeDislike(url, requestMethod, fetchInstance, token)
-            setListOfLikes(listOfLikes2.data.results)
-            console.log("listOfLikes", listOfLikes)
+            var response = await apiCallLikeDislike(url, requestMethod, fetchInstance, token)
+            var listOfLikes2;
+            if (response.ok) {
+                listOfLikes2 = await response.json();
+                setListOfLikes(listOfLikes2.results);
+                console.log('listOfLikes', listOfLikes);
+            }
             
         } catch (error) {
             console.log("ERROR",error);
@@ -58,19 +63,25 @@ const HomeScreen = ({ navigation }) => {
     async function loadHomescreen(pageNum) {
         try {
             var pageUrl = pageNum ? `&page=${pageNum}` : '';
-            var { response, data } = await fetchInstance(urlForApiCall + pageUrl, {
+            var response = await fetchInstance(urlForApiCall + pageUrl, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${token.access}`,
                     'Content-Type': 'application/json'
                 }
             })
-            setNext(data.next)
-            return data.results
+            if (response.ok) {
+                response = await response.json();
+                setNext(response.next)
+                return response.results
+            } else {
+                throw new Error(`HTTP response status ${response.status}`);
+            }
         } catch (error) {
-            console.log("ERROR HS",error);
-            return [];
+            console.log("HOMESCREEN", error);
             
+            Alert.alert('Error Fetching Data', error.toString());
+            return [];
         }
     }
 
@@ -98,57 +109,75 @@ const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         //console.log('AccessToken',jwtDecode(token.access))
 
-        loadHomescreen(currentPage).then((data)=>{
-            setData(data);
-            setRefreshing(false);
-        })
+        loadHomescreen(currentPage)
+            .then((res) => {
+                setData(res);
+                setRefreshing(false);
+            }).catch(err => {
+                console.log("UE ERROR", err)
+            })
         loadLikedPostList()
     }, [activeObjectSelector, activeSelector, retry])
 
     return (
         <SafeAreaView style={styles.container}>
             <UserNameImageBurgerHeader />
-            {isModalVisible ? <BottomFilterModal screen={"Home"} /> : <></>}
-            <View 
+            {isModalVisible ? <BottomFilterModal screen={'Home'} /> : <></>}
+            <View
                 style={{
-                    backgroundColor: "black", 
-                    borderWidth: 0, 
-                    borderColor: "white", 
-                    flex: 1
-            }}>
-            {data?.length > 0 ?
+                    backgroundColor: 'black',
+                    borderWidth: 0,
+                    borderColor: 'white',
+                    flex: 1,
+                }}>
                 <MasonryList
                     data={data}
-                    keyExtractor={item => item.id}
                     numColumns={2}
                     onRefresh={refreshPage}
                     refreshing={refreshing}
                     showsVerticalScrollIndicator={false}
-                    indicatorStyle={"white"}
-                    renderItem={({ item }) => <HalfWidthPostsContainer {...item} />}
+                    indicatorStyle={'white'}
+                    renderItem={({item}) => (
+                        <HalfWidthPostsContainer {...item} />
+                    )}
+                    // LoadingView={<ActivityIndicator size={"large"} />}
+                    ListEmptyComponent={
+                        <View
+                            style={{
+                                maxWidth: '96%',
+                                paddingTop: '3%',
+                                paddingLeft: '4%',
+                            }}>
+                            <Text
+                                style={{color: 'white'}}
+                                onPress={function () {
+                                    setRetry(retry + 1);
+                                }}>
+                                Nothing to display here, touch to refresh
+                                page.
+                            </Text>
+                        </View>
+                    }
                     contentContainerStyle={{
-                        borderColor: "red",
+                        borderColor: 'red',
                         borderWidth: 0,
-                        paddingTop: "3%",
-                        paddingLeft: "4%",
-                        backgroundColor: "black"
+                        paddingTop: '3%',
+                        paddingLeft: '4%',
+                        backgroundColor: 'black',
                     }}
                     style={{
                         flex: 1,
-                        maxWidth: "96%",
+                        maxWidth: '96%',
                         columnGap: 10,
-                        borderColor: "yellow",
+                        borderColor: 'yellow',
                         borderWidth: 0,
                     }}
-                    onEndReached={fetchMore}
+                    onEndReached={() => { if (data.length != 0) fetchMore() }}
                     onEndReachedThreshold={0.1}
                 />
-                :
-                <Text style={{color:'white'}} onPress={function() {setRetry(retry + 1)}}>Nothing to display here, touch to refresh page.</Text>
-            }
             </View>
         </SafeAreaView>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

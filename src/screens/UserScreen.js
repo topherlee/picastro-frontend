@@ -48,7 +48,7 @@ const UserScreen = ({navigation}) => {
     async function loadUserFeed(pageNum) {
         try {
             var pageUrl = pageNum ? `&page=${pageNum}` : '';
-            var {response, data} = await fetchInstance(
+            var response = await fetchInstance(
                 urlForApiCall + pageUrl,
                 {
                     method: 'GET',
@@ -58,10 +58,15 @@ const UserScreen = ({navigation}) => {
                     },
                 },
             );
-            setNext(data.next);
-            return data.results;
+            if (response.ok) {
+                response = await response.json();
+                setNext(response.next);
+                return response.results;
+            } else {
+                throw new Error(`HTTP response status ${response.status}`);
+            }
         } catch (error) {
-            console.log(error);
+            console.log("USERSCREEN", error);
             return [];
         }
     }
@@ -93,10 +98,15 @@ const UserScreen = ({navigation}) => {
     useEffect(() => {
         //console.log('AccessToken',jwtDecode(token.access))
         // fetchUser();
-        loadUserFeed(userCurrentPage).then(data => {
-            setData(data);
-            setRefreshing(false);
-        });
+        console.log(currentUser)
+        loadUserFeed(userCurrentPage)
+            .then(data => {
+                setData(data);
+                setRefreshing(false);
+            })
+            .catch(err => {
+                console.log("USERSCREENEFFECT", err)
+            });
     }, [userActiveObjectSelector, userActiveSelector, retry]);
 
     if (!currentUser) {

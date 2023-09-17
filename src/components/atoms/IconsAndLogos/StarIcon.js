@@ -37,14 +37,14 @@ const StarIcon = (props) => {
 
     const apiCallLikeDislike = async (urlForApiCall, requestMethod) => {
         try {
-            var { response, data } = await fetchInstance(urlForApiCall, {
+            var response = await fetchInstance(urlForApiCall, {
                 method: requestMethod,
                 headers: {
                     'Authorization': `Token ${token.access}`
                 }
             })
             // console.log("DATA", response, data)
-            return { response, data }
+            return response
 
         } catch (error) {
             console.log("starIconAPI", error);
@@ -65,9 +65,9 @@ const StarIcon = (props) => {
 
                 imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
 
-                if (imageLikeResponse.response.status === 201) {
+                if (imageLikeResponse.status === 201) {
                     setImageIsSaved(!imageIsSaved);
-                } else if (imageLikeResponse.response.status === 403) {
+                } else if (imageLikeResponse.status === 403) {
                     pass
                 } else {
                     // change this later on to a meaningful action. Currently it is only doing the
@@ -88,9 +88,9 @@ const StarIcon = (props) => {
 
             imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
 
-            if (imageLikeResponse.response.status === 204) {
+            if (imageLikeResponse.status === 204) {
                 setImageIsSaved(!imageIsSaved);
-            } else if (imageLikeResponse.response.status === 403) {
+            } else if (imageLikeResponse.status === 403) {
                 pass
             } else {
                 // change this later on to a meaningful action. Currently it is only doing the
@@ -102,8 +102,6 @@ const StarIcon = (props) => {
             console.log('ERROR', err)
         }
     }
-
-    console.log(listOfLikes)
 
     return (
         <StarIconWrapper

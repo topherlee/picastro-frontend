@@ -37,7 +37,7 @@ export default function ImageOptionsView({props}) {
 
     const deletePost = async id => {
         try {
-            var {response, data} = await fetchInstance(
+            var response = await fetchInstance(
                 `/api/feed/${id}`,
                 {
                     method: 'DELETE',
@@ -47,14 +47,14 @@ export default function ImageOptionsView({props}) {
                     },
                 },
             );
-            return {response, data};
+            return response;
         } catch (err) {
             console.log('ok error', err);
         }
     };
 
     const onConfirmDelete = () => {
-        deletePost(props.id).then(({response, data}) => {
+        deletePost(props.id).then((response) => {
             if (response.ok) {
                 Alert.alert(
                     'Delete Successful',

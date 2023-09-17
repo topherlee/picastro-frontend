@@ -28,19 +28,23 @@ const loadUserProfile = async (token, fetchInstance, user_id) => {
     const urlForApiCall = `/api/user/${user_id}`;
     
     try {
-        var {response,data} = await fetchInstance(urlForApiCall, {
+        var response = await fetchInstance(urlForApiCall, {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token.access}`,
                 'Content-Type': 'application/json'
             }
         })
-        console.log("DATA", data)
-        return data
+        if (response.ok) {
+            response = await response.json()
+            return response
+        } else {
+            throw new Error(response.status)
+        }
 
     } catch (error) {
         console.log("userprofileapi",error);
-        return [];
+        return response;
     }
 }
 
