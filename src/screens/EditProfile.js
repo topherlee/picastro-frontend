@@ -32,11 +32,11 @@ const EditProfile = ({ navigation }) => {
   const [photo, setPhoto] = useState(null);
   const [selected, setSelected] = useState('')
   const [experienceLevel, setExperienceLevel] = useState('');
-  const [firstName, setFirstName] = useState(currentUser.user.first_name);
-  const [lastName, setLastName] = useState(currentUser.user.last_name);
-  const [genderIdentifier, setGenderIdentifier] = useState(currentUser.genderIdentifier);
-  const [location, setLocation] = useState(currentUser.location);
-  const [userDescription, setUserDescription] = useState(currentUser.userDescription);
+  const [firstName, setFirstName] = useState(currentUser?.user.first_name);
+  const [lastName, setLastName] = useState(currentUser?.user.last_name);
+  const [genderIdentifier, setGenderIdentifier] = useState(currentUser?.genderIdentifier);
+  const [location, setLocation] = useState(currentUser?.location);
+  const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
   
   const experienceCategory = [
     { label: '0-1 years', value: '1' },
@@ -217,7 +217,7 @@ const EditProfile = ({ navigation }) => {
                       placeholder="Location"
                       placeholderTextColor={placeholderTextColor}
                       onChangeText={newLocation => setLocation(newLocation)}
-                      defaultValue={currentUser.location}
+                      defaultValue={currentUser?.location}
                       value={location}
                       maxLength={50}
                   />
@@ -230,7 +230,7 @@ const EditProfile = ({ navigation }) => {
                       onChangeText={newUserDescription =>
                           setUserDescription(newUserDescription)
                       }
-                      defaultValue={currentUser.userDescription}
+                      defaultValue={currentUser?.userDescription}
                       value={userDescription}
                       multiline={true}
                       numberOfLines={4}
