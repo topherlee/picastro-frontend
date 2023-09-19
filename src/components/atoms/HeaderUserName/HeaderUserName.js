@@ -6,38 +6,24 @@ import {
 } from 'react-native';
 import { AuthContext } from '../../../context/AuthContext';
 
+const HeaderUserName = ({style}) => {
+    const {
+        currentUser,
+    } = useContext(AuthContext);
 
-const HeaderUserName = ({style},props) => {
-    const {domain, token, setCurrentUser, currentUser} = useContext(AuthContext);
-
-    useEffect(() => {
-        
-        fetch(`${domain}/api/current_user/`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Token ${token.access}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {return res.json()})
-        .then((result) => {
-            //console.log("INCOMINGDATA",result.username)
-            setCurrentUser(result);
-        }).catch (err => {
-            console.log(err);
-            //setData(existingData);
-        })
-    }, [])
+    // console.log("props", currentUser)
 
     return(
         <View style={style}>
-            <Text style={styles.textUserName}>
-                {currentUser.username}
-            </Text>
-            <Text style={styles.textGenderIdentifier}>
-                {currentUser.first_name} {currentUser.last_name} 
-            </Text>
-        </View>
+            <View>
+                <Text style={styles.textUserName}>
+                    {currentUser?.user?.username}
+                </Text>
+                <Text style={styles.textGenderIdentifier}>
+                    {currentUser?.genderIdentifier}
+                </Text>
+            </View>
+    </View>
     )
 }
 

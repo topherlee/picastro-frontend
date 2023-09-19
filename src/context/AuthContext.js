@@ -10,23 +10,16 @@ export const AuthContext = React.createContext({});
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
-    //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
+    // const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
     const [token, setToken] = useState(null);
-    const [currentUser, setCurrentUser] = useState({
-        "id": null,
-        "username": null,
-        "first_name": null,
-        "last_name": null,
-        "email": null,
-        "last_login": null,
-        "date_joined": null
-    });
+    const [currentUser, setCurrentUser] = useState();
+    const [currentUserProfile, setCurrentUserProfile] = useState();
     
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
-        console.log('GETTING SAVED TOKENS')
+        //console.log('GETTING SAVED TOKENS')
         var credentials = await Keychain.getGenericPassword();
         if (credentials) {
             credentials = JSON.parse(credentials.password);
@@ -64,7 +57,7 @@ export const AuthProvider = ({children, contextValue}) => {
                 await setSavedTokens(newToken)
                 setToken(newToken);
                 return newToken;
-            }else {
+            } else {
                 console.log('REFRESH TOKEN EXPIRED')
                 setToken(null);
                 setIsSignedIn(false);
@@ -80,11 +73,21 @@ export const AuthProvider = ({children, contextValue}) => {
         try{
             url = `${domain}${url}`
             var response = await fetch(url, config)
-            var data = await response.json()
-            return {response, data}
+            // if (response.status === 204 || response.status === 205) {  //successful delete or error don't parse json
+            //     data = "Successful";
+            // } else if (response.ok) {
+            //     data = await response.json();
+            // } else {
+            //     data = await response.status.toString();
+            // }
+            if (response.ok) {
+                return response;
+            } else {
+                throw new Error(`HTTP response status ${response.status}`);
+            }
         } catch (err) {
             console.log('ERROR IN ORIGINAL REQUEST', err)
-            return {response, err}
+            return response;
         }
     }
 
@@ -92,27 +95,27 @@ export const AuthProvider = ({children, contextValue}) => {
         try {
             console.log(url)
             var credentials = await getSavedTokens();
-            const user = jwtDecode(credentials.access)
+            const user = jwtDecode(credentials.access);
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-
             if (isExpired) {
-                console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE')
+                console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
                 credentials = await refreshAllTokens();
-                setToken(credentials)
+                setToken(credentials);
             } else {
-                console.log('TOKEN VALID')
+                console.log('TOKEN VALID');
             }
 
             //proceed with request
 
             config['headers'] = {
-                Authorization: `Token ${credentials?.access}`
+                'Authorization': `Token ${credentials?.access}`
             }
 
-            var {response, data} = await originalRequest(url, config)
-            return {response, data}
+            var response = await originalRequest(url, config)
+            return response
         } catch (err) {
             console.log('FETCH ERROR', err)
+            return response
         }
     }
 
@@ -123,6 +126,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState("");
     const [userScreenUrl, setUserScreenUrl] = useState("");
     const [isSortModalVisible, setSortModalVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false);
     const [user, setUser] = useState("");
     const [userUrl, setUserUrl] = useState("");
     const [userFilterUrl, setUserFilterUrl] = useState("");
@@ -132,6 +136,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [userCurrentPage, setUserCurrentPage] = useState(1);
+    const [listOfLikes, setListOfLikes] = useState([]);
 
     const globalContext = {
         fetchInstance, 
@@ -143,6 +148,7 @@ export const AuthProvider = ({children, contextValue}) => {
         token, setToken,
         user, setUser,
         currentUser, setCurrentUser,
+        currentUserProfile, setCurrentUserProfile,
         userScreenUrl, setUserScreenUrl,
         searchAndFilterUrl, setSearchAndFilterUrl,
         userSearchAndFilterUrl, setUserSearchAndFilterUrl,
@@ -154,21 +160,16 @@ export const AuthProvider = ({children, contextValue}) => {
         userActiveSelector, setUserActiveSelector,
         userActiveObjectSelector, setUserActiveObjectSelector,
         currentPage, setCurrentPage,
-        userCurrentPage, setUserCurrentPage
+        userCurrentPage, setUserCurrentPage,
+        isModalVisible, setModalVisible,
+        listOfLikes, setListOfLikes,
     };
 
     //HACK: function to reset all states manually on logout
     function resetStates(){
         setUser("");
-        setCurrentUser({
-            "id": null,
-            "username": null,
-            "first_name": null,
-            "last_name": null,
-            "email": null,
-            "last_login": null,
-            "date_joined": null
-        });
+        setCurrentUser();
+        setCurrentUserProfile()
         setUserScreenUrl("");
         setSearchAndFilterUrl("");
         setUserSearchAndFilterUrl("");
@@ -183,6 +184,8 @@ export const AuthProvider = ({children, contextValue}) => {
         setUserCurrentPage(1);
         setToken(null);
         setIsSignedIn(false);
+        setListOfLikes([]);
+        setModalVisible(false);
     }
 
     useEffect(() => {

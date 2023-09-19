@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  // defaultColours: {
+  //   'black',
+
+  // },
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,
@@ -13,6 +17,24 @@ export default StyleSheet.create({
   },
   inputFieldText: {   // styling for the <TextInput> component
     height: 50,
+    width: "100%",
+    flex: 1,
+    padding: 10,
+    textAlign: "center",
+    color: "black",
+  },
+  inputViewLarge: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    width: "80%",
+    height: 90,
+    marginBottom: 20,
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+  },
+  inputFieldTextLarge: {   // styling for the <TextInput> component
+    height: 100,
     width: "100%",
     flex: 1,
     padding: 10,
@@ -107,7 +129,24 @@ export default StyleSheet.create({
     alignItems: 'center',
     elevation: 10,
     backgroundColor: '#2F2F2F',
-    borderColor: 'green',
+    borderColor: 'red',
+    borderWidth: 0,
+  },
+  bottomModalChildView: {
+    marginTop: 5,
+    width: '100%',
+    borderColor: 'yellow',
+    borderWidth: 0,
+  },
+  bottomModalFilterContainer: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    bottom: 0,
+    width: '100%',
+    height: 270,
+    alignItems: 'center',
+    backgroundColor: '#2F2F2F',
+    borderColor: 'yellow',
     borderWidth: 0,
   },
   bottomModalButton: {
@@ -162,4 +201,55 @@ export default StyleSheet.create({
     borderWidth: 0,
     borderColor: "yellow"
   },
+  headerUserImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+    borderColor: '#FDD015',
+    borderWidth: 3
+  },
+  profileUserImage: {
+    position: "relative",
+    marginBottom: "5%",
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    borderColor: '#FDD015',
+    borderWidth: 3
+  },
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: "4%",
+    minHeight: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "5%",
+    marginBottom: "5%",
+    backgroundColor: "#FFC700",
+    zIndex: 1
+  },
+  loginBtn2: {
+    width: "100%",
+    borderRadius: 25,
+    height: "4%",
+    minHeight: 50,
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "5%",
+    marginBottom: "5%",
+    paddingHorizontal: '10%',
+    backgroundColor: "#FFC700",
+  },
+  loginText: {
+    fontWeight: "bold",
+  },
+  title: {
+    color: "#FFC700",
+    fontWeight: "bold",
+    fontSize: 20,
+    position: "relative",
+    marginBottom: "5%",
+  }
 });

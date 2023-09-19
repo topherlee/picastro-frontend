@@ -24,7 +24,11 @@ import globalStyling from "../../constants/globalStyling";
 var userID;
 
 const ImageUploadScreen = ({ navigation }) => {
-  const { setIsSignedIn, domain, token, setDomain, refreshAccessToken, fetchInstance } = useContext(AuthContext);
+  const {
+    domain,
+    token,
+    fetchInstance
+  } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
   const [selected, setSelected] = useState('')
@@ -59,8 +63,8 @@ const ImageUploadScreen = ({ navigation }) => {
     userID = jwtDecode(token?.access).user_id;
   }, [])
 
-  const uploadedHandler = (err) => {
-    {err ? Alert.alert("Upload Failed",JSON.stringify(err),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
+  const uploadedHandler = (response) => {
+    {!response.ok ? Alert.alert("Upload Failed",JSON.stringify(response.status),) : Alert.alert("Upload Successful","Your image has been uploaded.",)}
   }
 
   const pickImage = () => {
@@ -75,7 +79,6 @@ const ImageUploadScreen = ({ navigation }) => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = { uri: response.uri };
-
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
@@ -107,18 +110,22 @@ const ImageUploadScreen = ({ navigation }) => {
       formData.append("bortle", bortle)
       formData.append("starCamp", "Aberdeen")
       
-      var {response,data} = await fetchInstance('/feed/', {
+      var response = await fetchInstance('/api/feed/', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data'
           },
           body: formData
-        })
-
-      console.log('UPLOAD RESULT', data)
-      return {response, data}
+      })
+      if (response.ok) {
+        console.log('UPLOAD RESULT', await response.json())
+        return response;
+      } else {
+        throw new Error(`HTTP Response Status ${response.status}`);
+      }
     } catch (err) {
-      console.log('ERROR',err)
+      console.log('ERROR UPLOAD', err);
+      return response;
     }
   }
 
@@ -143,31 +150,31 @@ const ImageUploadScreen = ({ navigation }) => {
             <Text style={styles.title}>Upload Image</Text>
             <TouchableOpacity onPress={pickImage}>
               {photo ?
-                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height/3} />
+                <AutoscaleImage key={photo.uri} uri={photo.uri} height={Dimensions.get('window').height / 3} aspectRatio={photo.width / photo.height } />
                 :
                 <Icon name="file-image-plus" size={100} color={'#FFC700'} />
               }
             </TouchableOpacity>
             {photo ?
               <TouchableOpacity style={styles.loginBtn2} onPress={pickImage}>
-                <Text style={styles.loginText}>Pick another image</Text>
+                <Text style={styles.loginText}>Pick Another Image</Text>
               </TouchableOpacity>
               :
               null
             }
           </View>
-          <View style={globalStyling.inputView}>
+          <View style={globalStyling.inputViewLarge}>
             <TextInput
-              style={globalStyling.inputFieldText}
+              style={globalStyling.inputFieldTextLarge}
               placeholder="Image Description"
               placeholderTextColor="grey"
+              multiline={true}
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
             />
           </View>
           <View style={styles.selectListView}>
             <SelectList
-              styles={styles.border}
               placeholder="Object Category"
               placeholderTextColor="grey"
               search={false}
@@ -236,8 +243,10 @@ const ImageUploadScreen = ({ navigation }) => {
             />
           </View>
 
-          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage().then(({response,data}) => {
-            uploadedHandler(response.ok ? '' : data)
+          <TouchableOpacity style={styles.loginBtn} onPress={() => uploadImage()
+          .then((response) => uploadedHandler(response))
+          .catch(function(err){
+            console.log(err)
           })}>
             <Text style={styles.loginText}>Upload Post</Text>
           </TouchableOpacity>
@@ -268,25 +277,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dropdownSelectList: {
+    marginTop: 1,
     zIndex: 600,
     backgroundColor: 'white'
   },
   dropdownItemStyles: {
-    //gap: 5,
     zIndex: 600,
     height: 40,
-    
     textAlign: "center",
     color: "black",
   },
   dropdownText: {
     textAlign: "center",
     color: "grey",
+    width: "100%",
   },
   DropdownSelectListBox: {
     zIndex: 500,
-    height: 40,
-    marginBottom: "5%",
+    height: 45,
     backgroundColor: 'white',
     borderColor: 'green',
     borderWidth: 0,
@@ -351,6 +359,7 @@ const styles = StyleSheet.create({
    zIndex: 500,
    borderColor: 'blue',
    borderWidth: 0,
+   marginBottom: "5%",
    width: "80%",
   }
 });

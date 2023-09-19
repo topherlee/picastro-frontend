@@ -1,37 +1,24 @@
-import React, { Component } from "react";
-import { Image } from "react-native";
-import { PropTypes } from "prop-types"
-
-
+import React, {Component} from 'react';
+import {PropTypes} from 'prop-types';
+import FastImage from 'react-native-fast-image';
 export default class ScaledImage extends Component {
     constructor(props) {
         super(props);
-        this.state = { source: { uri: this.props.uri } };
-    }
-
-    componentDidMount() {
-        Image.getSize(this.props.uri, (width, height) => {
-            if (this.props.width && !this.props.height) {
-                this.setState({
-                    width: this.props.width,
-                    height: height * (this.props.width / width)
-                });
-            } else if (!this.props.width && this.props.height) {
-                this.setState({
-                    width: width * (this.props.height / height),
-                    height: this.props.height
-                });
-            } else {
-                this.setState({ width: width, height: height });
-            }
-        });
+        this.state = {source: {uri: this.props.uri}};
     }
 
     render() {
         return (
-            <Image
+            <FastImage
                 source={this.state.source}
-                style={{ height: this.state.height, width: this.state.width }}
+                style={{
+                    height: this.props.height,
+                    width: this.props.width,
+                    aspectRatio: this.props.aspectRatio
+                        ? this.props.aspectRatio
+                        : 1,
+                }}
+                resizeMethod="scale"
             />
         );
     }
@@ -40,5 +27,5 @@ export default class ScaledImage extends Component {
 ScaledImage.propTypes = {
     uri: PropTypes.string.isRequired,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
 };

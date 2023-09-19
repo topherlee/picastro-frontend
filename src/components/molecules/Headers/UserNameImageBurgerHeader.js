@@ -1,46 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import { UserImage, HeaderUserName } from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { loadUserProfile } from '../../../utils';
+
 
 const UserNameImageBurgerHeader = () => {
     const navigation = useNavigation();
     const {
         currentUser,
+        setCurrentUser,
         setUserScreenUrl,
         setUserActiveSelector,
         setUserSearchAndFilterUrl,
-        setUserCurrentPage
+        setUserCurrentPage,
+        token,
+        fetchInstance,
+        user
     } = useContext(AuthContext);
     
-    // useEffect(() => {
-    //     Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-    //     //console.log(`Token ${token}`)
+    useEffect(() => {
+        const fetchData = async () => {
+            const userPro = await loadUserProfile(token, fetchInstance, user);
+            setCurrentUser(userPro)
+        };
 
-    //     fetch(`${domain}/api/current_user/`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': `Token ${token}`,
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //     .then(res => {return res.json()})
-    //     .then((result) => {
-    //         //console.log("INCOMINGDATA",token,result)
-    //         setCurrentUser(result);
-    //         console.log("currentuser",currentUser)
-    //         console.log('result',result)
-    //     }).catch (err => {
-    //         console.log(err);
-    //         //setData(existingData);
-    //     })
-    // }, [])
+        fetchData();
+    }, [])
+
+    useEffect(() => {
+        console.log("userProfile User", currentUser)
+    }, [currentUser])
     
     return (
         <View style={styles.headerContainer}>
@@ -48,7 +45,7 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setUserScreenUrl('poster=' + currentUser.id);
+                        setUserScreenUrl('poster=' + currentUser.user.id);
                         //resets the modal and url to default upon loading userscreen
                         setUserActiveSelector('most_recent'); 
                         setUserSearchAndFilterUrl('')
@@ -56,7 +53,9 @@ const UserNameImageBurgerHeader = () => {
                         navigation.navigate('UserScreen');
                      }}
                 >
-                    <UserImage />
+                    <UserImage 
+                        userImageURL={currentUser}
+                    />
                 </TouchableOpacity>
             </View>
             <HeaderUserName 
