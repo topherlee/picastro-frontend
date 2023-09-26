@@ -12,7 +12,8 @@ import {
 import {ExtendedPicastroBurgerHeader} from '../components/molecules';
 import {HalfWidthPostsContainer} from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
-import {BottomFilterModal} from '../components/molecules';
+import { BottomFilterModal } from '../components/molecules';
+import { EmptyFeedMaleFigure } from '../components/atoms';
 import StarIconSvg from '../assets/star-icon.svg';
 import AwardGoldSvg from '../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../assets/buttons/award-silver.svg';
@@ -140,14 +141,9 @@ const UserScreen = ({navigation}) => {
                             <View style={{
                                 maxWidth: '96%',
                                 paddingTop: '3%',
-                                paddingLeft: '4%',}}>
-                            <Text
-                                style={{color: 'white'}}
-                                onPress={function () {
-                                    setRetry(retry + 1);
-                                }}>
-                                Nothing to display here, touch to refresh page.
-                            </Text>
+                                paddingLeft: '4%',
+                            }}>
+                                <EmptyFeedMaleFigure />
                             </View>
                         }
                         ListHeaderComponent={
