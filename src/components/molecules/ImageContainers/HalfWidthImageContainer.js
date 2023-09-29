@@ -12,7 +12,7 @@ export const HalfWidthImageContainer = (props) => {
           {...props}
         />
         <UserImage
-          source={require('../../../assets/Sample/sampleuser2.png')}
+          uri={props.poster.profileImage}
           resizeMode="contain"
         />
         <UserName>{props.poster.username}</UserName>

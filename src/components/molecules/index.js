@@ -8,3 +8,4 @@ export {default as HalfWidthBelowImage} from './ImageContainers/HalfWidthBelowIm
 export {default as HalfWidthImageContainer} from './ImageContainers/HalfWidthImageContainer';
 export {default as UserNameImageWithoutBurger} from './Headers/UserNameImageWithoutBurger';
 export {default as ExtendedPicastroBurgerHeader} from './Headers/ExtendedPicastroBurgerHead';
+export {default as NoImage} from './ImageContainers/NoImageContainer';

@@ -9,7 +9,7 @@ import {
     View,
     Linking,
 } from 'react-native';
-import {ExtendedPicastroBurgerHeader} from '../components/molecules';
+import {ExtendedPicastroBurgerHeader, NoImage} from '../components/molecules';
 import {HalfWidthPostsContainer} from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 import {BottomFilterModal} from '../components/molecules';
@@ -137,18 +137,19 @@ const UserScreen = ({navigation}) => {
                             <HalfWidthPostsContainer {...item} />
                         )}
                         ListEmptyComponent={
-                            <View style={{
-                                maxWidth: '96%',
-                                paddingTop: '3%',
-                                paddingLeft: '4%',}}>
-                            <Text
-                                style={{color: 'white'}}
-                                onPress={function () {
-                                    setRetry(retry + 1);
-                                }}>
-                                Nothing to display here, touch to refresh page.
-                            </Text>
-                            </View>
+                            // <View style={{
+                            //     maxWidth: '96%',
+                            //     paddingTop: '3%',
+                            //     paddingLeft: '4%',}}>
+                            // <Text
+                            //     style={{color: 'white'}}
+                            //     onPress={function () {
+                            //         setRetry(retry + 1);
+                            //     }}>
+                            //     Nothing to display here, touch to refresh page.
+                            // </Text>
+                            // </View>
+                            <NoImage/>
                         }
                         ListHeaderComponent={
                             <View
