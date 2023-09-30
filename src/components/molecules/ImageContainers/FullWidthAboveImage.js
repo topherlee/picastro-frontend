@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Alert,
@@ -14,40 +14,58 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/AuthContext';
 import { BottomModal } from '../../common';
 import { ImageOptionsView } from '../../atoms';
+import { goToUserScreen } from '../../../utils';
 
 
-const FullWidthAboveImage = ({props}) => {
+const FullWidthAboveImage = ({ props }) => {
   const navigation = useNavigation();
   const { fetchInstance, token, setModalVisible, isModalVisible } = useContext(AuthContext);
-  
-  var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
+
+  //var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
+  var source = Image.getSize(
+    props.poster.profileImage,
+    (width, height) => {
+        console.log(`Width: ${width}, Height: ${height}`);
+    },
+    (error) => console.error(error)
+  );
+
+    // getSize(
+    //   uri: string,
+    //   success: (width: number, height: number) => void,
+    //   failure?: (error: any) => void,
+    // ): any;
+
   ratio = (source.width / source.height);
 
   return (
     <Banner>
-      <UserImage
-        source={source}
-        resizeMode="contain"
-        style={{
-          aspectRatio: ratio,
-          width: "15%",
-          height: 'auto',
-          borderRadius:10,
-        }}
-      />
-      <NameBanner>
-        <View>
-          <UsernameText>{props.poster.username}</UsernameText>
-          <LocationText>{props.starCamp}</LocationText>
-        </View>
-      </NameBanner>
+      <TouchableOpacity onPress={goToUserScreen(props.poster.id)}>
+        <UserImage
+          source={source}
+          resizeMode="contain"
+          style={{
+            aspectRatio: ratio,
+            width: "15%",
+            height: 'auto',
+            borderRadius: 10,
+          }}
+        />
+        <NameBanner>
+          <View>
+            <UsernameText>{props.poster.username}</UsernameText>
+            <LocationText>{props.starCamp}</LocationText>
+          </View>
+        </NameBanner>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Icon name="dots-horizontal" size={40} color="lightgray" />
       </TouchableOpacity>
-      
-      {isModalVisible ? <BottomModal childrenText={"Image Options"} children={<ImageOptionsView props={props}/>} /> : <></>}
+
+      {isModalVisible ? <BottomModal childrenText={"Image Options"} children={<ImageOptionsView props={props} />} /> : <></>}
     </Banner>
-)};
+  )
+};
 
 const Banner = styled.View`
   display: flex;

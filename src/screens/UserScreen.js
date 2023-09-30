@@ -9,7 +9,7 @@ import {
     View,
     Linking,
 } from 'react-native';
-import {ExtendedPicastroBurgerHeader} from '../components/molecules';
+import {ExtendedPicastroBurgerHeader, NoImage} from '../components/molecules';
 import {HalfWidthPostsContainer} from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
 import { BottomFilterModal } from '../components/molecules';

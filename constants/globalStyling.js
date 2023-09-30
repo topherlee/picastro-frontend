@@ -5,6 +5,13 @@ export default StyleSheet.create({
   //   'black',
 
   // },
+  container: {
+    marginVertical: "0%",
+    borderWidth: 0,
+    borderColor: "red",
+    flex: 1,
+    maxWidth: "100%"
+  },
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,

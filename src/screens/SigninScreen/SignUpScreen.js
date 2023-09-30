@@ -23,6 +23,7 @@ export default function SignUpScreen( { navigation } ) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
   
   function handleRegister() {
     var body = JSON.stringify({
@@ -30,7 +31,8 @@ export default function SignUpScreen( { navigation } ) {
       'password': password,
       'first_name': firstName,
       'last_name': lastName,
-      'email': email
+      'email': email,
+      'phone_no': phoneNum
     })
     
     if (password === confirmPassword) {
@@ -113,7 +115,7 @@ export default function SignUpScreen( { navigation } ) {
           clearButtonMode="while-editing"
           returnKeyType="next"
           onChangeText={(username) => setUsername(username)}
-          maxLength={20}
+          maxLength={25}
         /> 
       </View>
       <View style={globalStyling.inputView}>
@@ -129,7 +131,21 @@ export default function SignUpScreen( { navigation } ) {
           onChangeText={(email) => setEmail(email)}
           maxLength={50}
         /> 
-      </View> 
+      </View>
+      <View style={globalStyling.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          inputMode="phoneNum"
+          placeholder="Phone No."
+          placeholderTextColor="grey"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
+          onChangeText={(phoneNum) => setPhoneNum(phoneNum)}
+          maxLength={50}
+        /> 
+      </View>
       <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
