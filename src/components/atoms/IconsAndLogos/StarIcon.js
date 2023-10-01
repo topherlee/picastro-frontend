@@ -56,7 +56,7 @@ const StarIcon = (props) => {
 
     const saveImage = async () => {
         console.log(props)
-        if (currentUser.user.username === props.poster.username) {
+        if (currentUser.username === props.poster.username) {
             raiseAlert()
         } else {
             try {

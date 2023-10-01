@@ -170,7 +170,7 @@ const UserScreen = ({navigation}) => {
                                         />
                                         <View style={styles.profilecontent}>
                                             <Text style={styles.profileName}>
-                                                {currentUser.user.username}
+                                                {currentUser.username}
                                             </Text>
                                             <Text
                                                 style={styles.profilePronounce}>

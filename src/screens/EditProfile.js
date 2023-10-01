@@ -32,8 +32,8 @@ const EditProfile = ({ navigation }) => {
   const [photo, setPhoto] = useState(null);
   const [selected, setSelected] = useState('')
   const [experienceLevel, setExperienceLevel] = useState('');
-  const [firstName, setFirstName] = useState(currentUser?.user.first_name);
-  const [lastName, setLastName] = useState(currentUser?.user.last_name);
+  const [firstName, setFirstName] = useState(currentUser?.first_name);
+  const [lastName, setLastName] = useState(currentUser?.last_name);
   const [genderIdentifier, setGenderIdentifier] = useState(currentUser?.genderIdentifier);
   const [location, setLocation] = useState(currentUser?.location);
   const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
@@ -88,7 +88,7 @@ const EditProfile = ({ navigation }) => {
           })
       }
 
-      formData.append("id", currentUser.user.id)
+      formData.append("id", currentUser.id)
       // formData.append("experienceLevel", experienceLevel)
       formData.append("firstName", firstName)
       formData.append("lastName", lastName)
@@ -96,7 +96,7 @@ const EditProfile = ({ navigation }) => {
       formData.append("location", location)
       formData.append("userDescription", userDescription)
 
-      var response = await fetchInstance(`/api/user/${currentUser.user.id}`, {
+      var response = await fetchInstance(`/api/user/${currentUser.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -182,7 +182,7 @@ const EditProfile = ({ navigation }) => {
                       placeholder="First Name"
                       placeholderTextColor={placeholderTextColor}
                       onChangeText={newFirstName => setFirstName(newFirstName)}
-                      // defaultValue={currentUser.user.first_name}
+                      // defaultValue={currentUser.first_name}
                       value={firstName}
                       maxLength={20}
                   />
@@ -193,7 +193,7 @@ const EditProfile = ({ navigation }) => {
                       placeholder="Last Name"
                       placeholderTextColor={placeholderTextColor}
                       onChangeText={newLastName => setLastName(newLastName)}
-                      // defaultValue={currentUser.user.last_name}
+                      // defaultValue={currentUser.last_name}
                       value={lastName}
                       maxLength={20}
                   />
