@@ -45,7 +45,7 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setUserScreenUrl('poster=' + currentUser.user.id);
+                        setUserScreenUrl('poster=' + currentUser.id);
                         //resets the modal and url to default upon loading userscreen
                         setUserActiveSelector('most_recent'); 
                         setUserSearchAndFilterUrl('')
