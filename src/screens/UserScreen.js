@@ -45,6 +45,8 @@ const UserScreen = ({navigation}) => {
     //setUrlAttachement('?poster=' + currentUser.id);
     const urlForApiCall = `/api/feed/?${userScreenUrl}&${userSearchAndFilterUrl}`;
 
+    console.log("UserScreen")
+
     async function loadUserFeed(pageNum) {
         try {
             var pageUrl = pageNum ? `&page=${pageNum}` : '';
@@ -162,7 +164,7 @@ const UserScreen = ({navigation}) => {
                                     <View style={styles.profile}>
                                         <Image
                                             style={
-                                                globalStyling.profileUserImage
+                                                globalStyling.profileImage
                                             }
                                             source={{
                                                 uri: currentUser.profileImage,

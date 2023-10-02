@@ -73,10 +73,6 @@ export const FullWidthPostsContainer = ({ props }) => {
     );
 }
 
-const View1 = styled.TouchableOpacity`
-    width: 100%;
-`;
-
 const styles = StyleSheet.create({
     container: {
         marginVertical: "0%",

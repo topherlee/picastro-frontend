@@ -215,12 +215,21 @@ export default StyleSheet.create({
     borderColor: '#FDD015',
     borderWidth: 3
   },
-  profileUserImage: {
+  profileImage: {
     position: "relative",
     marginBottom: "5%",
     width: 100,
     height: 100,
     borderRadius: 100,
+    borderColor: '#FDD015',
+    borderWidth: 3
+  },
+  profileImageSmall: {
+    position: "relative",
+    marginBottom: "5%",
+    width: 50,
+    height: 50,
+    borderRadius: 50,
     borderColor: '#FDD015',
     borderWidth: 3
   },

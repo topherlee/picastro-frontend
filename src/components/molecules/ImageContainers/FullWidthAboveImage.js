@@ -21,14 +21,14 @@ const FullWidthAboveImage = ({ props }) => {
   const navigation = useNavigation();
   const { fetchInstance, token, setModalVisible, isModalVisible } = useContext(AuthContext);
 
-  //var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
-  var source = Image.getSize(
-    props.poster.profileImage,
-    (width, height) => {
-        console.log(`Width: ${width}, Height: ${height}`);
-    },
-    (error) => console.error(error)
-  );
+  var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
+  // var source = Image.getSize(
+  //   props.poster.profileImage,
+  //   (width, height) => {
+  //       console.log(`Width: ${width}, Height: ${height}`);
+  //   },
+  //   (error) => console.error(error)
+  // );
 
     // getSize(
     //   uri: string,
@@ -40,7 +40,6 @@ const FullWidthAboveImage = ({ props }) => {
 
   return (
     <Banner>
-      <TouchableOpacity onPress={goToUserScreen(props.poster.id)}>
         <UserImage
           source={source}
           resizeMode="contain"
@@ -57,7 +56,6 @@ const FullWidthAboveImage = ({ props }) => {
             <LocationText>{props.starCamp}</LocationText>
           </View>
         </NameBanner>
-      </TouchableOpacity>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Icon name="dots-horizontal" size={40} color="lightgray" />
       </TouchableOpacity>

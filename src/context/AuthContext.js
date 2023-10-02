@@ -15,7 +15,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState();
     const [currentUserProfile, setCurrentUserProfile] = useState();
-    
+    const [otherUser, setOtherUser] = useState();
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -149,6 +149,7 @@ export const AuthProvider = ({children, contextValue}) => {
         user, setUser,
         currentUser, setCurrentUser,
         currentUserProfile, setCurrentUserProfile,
+        otherUser, setOtherUser,
         userScreenUrl, setUserScreenUrl,
         searchAndFilterUrl, setSearchAndFilterUrl,
         userSearchAndFilterUrl, setUserSearchAndFilterUrl,
@@ -169,7 +170,8 @@ export const AuthProvider = ({children, contextValue}) => {
     function resetStates(){
         setUser("");
         setCurrentUser();
-        setCurrentUserProfile()
+        setCurrentUserProfile();
+        setOtherUser();
         setUserScreenUrl("");
         setSearchAndFilterUrl("");
         setUserSearchAndFilterUrl("");

@@ -30,6 +30,7 @@ const UserNameImageBurgerHeader = () => {
         const fetchData = async () => {
             const userPro = await loadUserProfile(token, fetchInstance, user);
             setCurrentUser(userPro)
+            console.log(userPro)
         };
 
         fetchData();

@@ -137,7 +137,7 @@ const EditProfile = ({ navigation }) => {
                           />
                       ) : currentUser ? (
                           <Image
-                              style={globalStyling.profileUserImage}
+                              style={globalStyling.profileImage}
                               source={{
                                   uri: currentUser.profileImage,
                               }}

@@ -22,6 +22,8 @@ const PostDetailsScreen = ({ route, navigation }) => {
     }))
     const props = route.params;
     const headerHeight = useHeaderHeight();
+    console.log("PostDetailsScreen")
+    
   return (
     <SafeAreaView style={styles.container} >
         <KeyboardAvoidingView 

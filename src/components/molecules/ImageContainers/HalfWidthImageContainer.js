@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { AstroImageWrapper, AwardIcon } from '../../atoms';
+import globalStyling from '../../../../constants/globalStyling';
 
 
 export const HalfWidthImageContainer = (props) => {
-    // console.log("poster", props)
+    console.log("poster", props);
+
     return (
       <View2>
         <AstroImageWrapper 
@@ -14,6 +16,7 @@ export const HalfWidthImageContainer = (props) => {
         <UserImage
           uri={props.poster.profileImage}
           resizeMode="contain"
+          // style={globalStyling.profileImageSmall}
         />
         <UserName>{props.poster.username}</UserName>
         <AwardIconWrapper>
@@ -39,6 +42,8 @@ const UserImage = styled.Image`
   min-width: 0px;
   width: 27px;
   min-height: 0px;
+  border-width: 1px;
+  border-color: yellow;
 `;
 //box-sizing: border-box;
 //background-color: green;

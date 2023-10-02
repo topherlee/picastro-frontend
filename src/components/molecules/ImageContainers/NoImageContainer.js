@@ -20,7 +20,12 @@ const NoImage = ({ props }) => {
         <Text>
             Oops!
         </Text>
-        <KatherineJohnson resizeMode="contain" />
+        {/* <KatherineJohnson resizeMode="contain" /> */}
+        <Image
+            source={require('../../../assets/images/Group_34828.png')}
+            resizeMode="contain"
+            
+        />
     </View>
   )
 };
