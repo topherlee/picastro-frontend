@@ -9,7 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import KatherineJohnson from '../../../assets/images/Group_34828.png';
+// import KatherineJohnson from '../../../assets/images/Group_34828.png';
 import globalStyling from '../../../../constants/globalStyling';
 
 
@@ -20,7 +20,7 @@ const NoImage = ({ props }) => {
         <Text>
             Oops!
         </Text>
-        <KatherineJohnson resizeMode="contain" />
+        {/* <KatherineJohnson resizeMode="contain" /> */}
     </View>
   )
 };

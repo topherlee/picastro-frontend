@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'react-native';
 import styled from 'styled-components';
 
 import { AstroImageWrapper, AwardIcon } from '../../atoms';
@@ -11,10 +12,20 @@ export const HalfWidthImageContainer = (props) => {
         <AstroImageWrapper 
           {...props}
         />
-        <UserImage
-          uri={props.poster.profileImage}
-          resizeMode="contain"
-        />
+            <Image
+                source={{ uri: props.poster.profileImage }}
+                resizeMode="contain"
+                style={{
+                    position: 'absolute',
+                    top: 7,
+                    left: 10,
+                    width: 25,
+                    height: 25,
+                    borderWidth: 3,
+                    borderColor: '#FFD015',
+                    borderRadius: 15
+                }}
+            />
         <UserName>{props.poster.username}</UserName>
         <AwardIconWrapper>
           <AwardIcon {...props} />
@@ -33,12 +44,13 @@ const View2 = styled.View`
 
 
 const UserImage = styled.Image`
-  position: absolute;
-  top: 7px;
-  left: 10px;
-  min-width: 0px;
-  width: 27px;
-  min-height: 0px;
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    width: 27px;
+    height: 20px;
+    border: 3px solid #FDD015;
+    border-radius: 2px;
 `;
 //box-sizing: border-box;
 //background-color: green;

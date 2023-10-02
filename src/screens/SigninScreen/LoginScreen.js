@@ -39,14 +39,14 @@ export default function LoginScreen( { navigation } ) {
             },
             body: body
         })
-        .then(res => {
+        .then(async (res) => {
           console.log('STATUS',res.status);
           if (res.ok) {
             return res.json();
           } else {
             setError(true)
             console.log('error')
-            throw res.json();
+            throw await res.json();
           }
         })
         .then(async json => {
