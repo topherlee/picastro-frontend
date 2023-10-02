@@ -43,13 +43,13 @@ export default function SignUpScreen( { navigation } ) {
               },
               body: body
           })
-          .then(res => {
+          .then(async (res) => {
             console.log('STATUS',res.status);
             if (res.ok) {
               return res.json();
             } else {
               setError(true)
-              throw res.json();
+              throw await res.json();
             }
           })
           .then(async json => {
@@ -60,7 +60,7 @@ export default function SignUpScreen( { navigation } ) {
             //navigation.navigate('UserName')
           })
           .catch(error => {
-            throw(error)
+            console.log(error)
           })
       } else {
         console.log("password error")

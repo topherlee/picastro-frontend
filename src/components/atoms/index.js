@@ -24,5 +24,7 @@ export {default as LunarButton} from './Buttons/LunarButton';
 export {default as SolarButton} from './Buttons/SolarButton';
 export {default as ImageUploadButton} from './Buttons/ImageUploadButton';
 export {default as ImageOptionsView} from './ModalViews/ImageOptionsView';
+export {default as EmptyFeedFemaleFigure} from './EmptyFeedViews/EmptyFeedFemaleFigure';
+export {default as EmptyFeedMaleFigure} from './EmptyFeedViews/EmptyFeedMaleFigure';
 // export {default as BottomModalFilterHomeFeedView} from './ModalViews/BottomModalFilterHomeFeedView';
 // export {default as BottomModalFilterUserFeedView} from './ModalViews/BottomModalFilterUserFeedView';

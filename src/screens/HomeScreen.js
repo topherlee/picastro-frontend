@@ -4,6 +4,7 @@ import {
     SafeAreaView,
     StyleSheet,
     ActivityIndicator,
+    Alert
 } from 'react-native';
 import Modal from "react-native-modal";
 
@@ -14,6 +15,7 @@ import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
+import {EmptyFeedMaleFigure} from '../components/atoms';
 import globalStyling from '../../constants/globalStyling';
 import {apiCallLikeDislike} from '../utils';
 
@@ -146,16 +148,16 @@ const HomeScreen = ({ navigation }) => {
                             style={{
                                 maxWidth: '96%',
                                 paddingTop: '3%',
-                                paddingLeft: '4%',
                             }}>
-                            <Text
+                            <EmptyFeedMaleFigure />
+                            {/* <Text
                                 style={{color: 'white'}}
                                 onPress={function () {
                                     setRetry(retry + 1);
                                 }}>
                                 Nothing to display here, touch to refresh
                                 page.
-                            </Text>
+                            </Text> */}
                         </View>
                     }
                     contentContainerStyle={{
