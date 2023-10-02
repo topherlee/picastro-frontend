@@ -21,14 +21,16 @@ const FullWidthAboveImage = ({ props }) => {
   const navigation = useNavigation();
   const { fetchInstance, token, setModalVisible, isModalVisible } = useContext(AuthContext);
 
-  var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
-  // var source = Image.getSize(
-  //   props.poster.profileImage,
-  //   (width, height) => {
-  //       console.log(`Width: ${width}, Height: ${height}`);
-  //   },
-  //   (error) => console.error(error)
-  // );
+    var ratio;
+  //var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
+  var source = Image.getSize(
+    props.poster.profileImage,
+    (width, height) => {
+        console.log(`Width: ${width}, Height: ${height}`);
+        ratio = width / height;
+    },
+    (error) => console.error(error)
+  );
 
     // getSize(
     //   uri: string,
@@ -36,18 +38,20 @@ const FullWidthAboveImage = ({ props }) => {
     //   failure?: (error: any) => void,
     // ): any;
 
-  ratio = (source.width / source.height);
+//   ratio = (source.width / source.height);
 
   return (
     <Banner>
-      <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
+    <TouchableOpacity onPress={() => { goToUserScreen(props.poster.id) }}>
         <UserImage
-          source={source}
+          source={{
+            uri: props.poster.profileImage
+          }}
           resizeMode="contain"
           style={{
-            aspectRatio: ratio,
-            width: "15%",
-            height: 'auto',
+              aspectRatio: ratio,
+              width: '100%',
+            height: 60,
             borderRadius: 10,
           }}
         />
