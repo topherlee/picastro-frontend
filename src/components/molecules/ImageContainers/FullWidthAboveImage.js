@@ -14,61 +14,73 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/AuthContext';
 import { BottomModal } from '../../common';
 import { ImageOptionsView } from '../../atoms';
-import { goToUserScreen } from '../../../utils';
+// import { goToUserScreen } from '../../../utils';
 
 
 const FullWidthAboveImage = ({ props }) => {
   const navigation = useNavigation();
-  const { fetchInstance, token, setModalVisible, isModalVisible } = useContext(AuthContext);
+  const {
+      fetchInstance,
+      token,
+      setModalVisible,
+      isModalVisible,
+      setUserScreenUrl,
+      setUserActiveSelector,
+      setUserSearchAndFilterUrl,
+      setUserCurrentPage,
+  } = useContext(AuthContext);
 
-    var ratio;
-  //var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
-  var source = Image.getSize(
-    props.poster.profileImage,
-    (width, height) => {
-        console.log(`Width: ${width}, Height: ${height}`);
-        ratio = width / height;
-    },
-    (error) => console.error(error)
-  );
+    const goToUserScreen = function (userId) {
 
-    // getSize(
-    //   uri: string,
-    //   success: (width: number, height: number) => void,
-    //   failure?: (error: any) => void,
-    // ): any;
+        setUserScreenUrl('poster=' + userId);
+        //resets the modal and url to default upon loading userscreen
+        setUserActiveSelector('most_recent');
+        setUserSearchAndFilterUrl('');
+        setUserCurrentPage(1);
+        navigation.navigate('UserScreen', {userId: userId});
+    };
 
-//   ratio = (source.width / source.height);
 
   return (
-    <Banner>
-    <TouchableOpacity onPress={() => { goToUserScreen(props.poster.id) }}>
-        <UserImage
-          source={{
-            uri: props.poster.profileImage
-          }}
-          resizeMode="contain"
-          style={{
-              aspectRatio: ratio,
-              width: '100%',
-            height: 60,
-            borderRadius: 10,
-          }}
-        />
-        <NameBanner>
-          <View>
-            <UsernameText>{props.poster.username}</UsernameText>
-            <LocationText>{props.starCamp}</LocationText>
-          </View>
-        </NameBanner>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Icon name="dots-horizontal" size={40} color="lightgray" />
-      </TouchableOpacity>
+      <Banner>
+          <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
+              <Image
+                  source={{
+                      uri: props.poster.profileImage,
+                  }}
+                  resizeMode="contain"
+                  style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: 'red',
+                  }}
+              />
+          </TouchableOpacity>
+          <NameBanner>
+              <View>
+                    <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
+                        <UsernameText>{props.poster.username}</UsernameText>
+                    </TouchableOpacity>
+                    <LocationText>{props.poster.location}</LocationText>
+              </View>
+          </NameBanner>
 
-      {isModalVisible ? <BottomModal childrenText={"Image Options"} children={<ImageOptionsView props={props} />} /> : <></>}
-    </Banner>
-  )
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Icon name="dots-horizontal" size={40} color="lightgray" />
+          </TouchableOpacity>
+
+          {isModalVisible ? (
+              <BottomModal
+                  childrenText={'Image Options'}
+                  children={<ImageOptionsView props={props} />}
+              />
+          ) : (
+              <></>
+          )}
+      </Banner>
+  );
 };
 
 const Banner = styled.View`
@@ -85,12 +97,12 @@ const Banner = styled.View`
 
 const NameBanner = styled.View`
   display: flex;
-  flex: 1;
   flex-direction: row;
   justify-content: flex-start;
-  width: 85%;
+  width: 70%;
   height: 100%;
   padding: 3%;
+  border: 0px solid yellow;
 `;
 
 const UsernameText = styled.Text`
@@ -102,10 +114,5 @@ const UsernameText = styled.Text`
 const LocationText = styled.Text`
   color: #7a7a7a;
 `
-
-const UserImage = styled.Image`
-  width: 100%;
-  max-height: 100%;
-`;
 
 export default FullWidthAboveImage;

@@ -19,10 +19,11 @@ import AwardGoldSvg from '../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../assets/buttons/award-silver.svg';
 import AwardBronzeSvg from '../assets/buttons/award-bronze.svg';
 import globalStyling from '../../constants/globalStyling';
-
+import {loadUserProfile} from '../utils';
 import {AuthContext} from '../context/AuthContext';
 
-const UserScreen = ({navigation}) => {
+const UserScreen = ({ navigation, route }) => {
+    console.log('NAVI', route)
     const [data, setData] = useState([]);
     const [user, setUser] = useState();
     const [refreshing, setRefreshing] = useState(true);
@@ -44,9 +45,13 @@ const UserScreen = ({navigation}) => {
     } = useContext(AuthContext);
 
     //setUrlAttachement('?poster=' + currentUser.id);
-    const urlForApiCall = `/api/feed/?${userScreenUrl}&${userSearchAndFilterUrl}`;
+    const urlForApiCall = `/api/feed/?poster=${route.params.userId}&${userSearchAndFilterUrl}`;
 
-    console.log("UserScreen")
+     const fetchUser = async (userId) => {
+         const userPro = await loadUserProfile(token, fetchInstance, userId);
+         console.log('USERPROFILE', userPro.id, currentUser.id);
+         setUser(userPro)
+     };
 
     async function loadUserFeed(pageNum) {
         try {
@@ -74,11 +79,6 @@ const UserScreen = ({navigation}) => {
         }
     }
 
-    // const fetchUser = async () => {
-    //     const userPro = await loadUserProfile(token, fetchInstance, user);
-    //     setUserProfile(userPro)
-    // };
-
     const fetchMore = async () => {
         if (isLoading) return;
         if (!next) return;
@@ -100,7 +100,7 @@ const UserScreen = ({navigation}) => {
 
     useEffect(() => {
         //console.log('AccessToken',jwtDecode(token.access))
-        // fetchUser();
+        fetchUser(route.params.userId);
         console.log(currentUser)
         loadUserFeed(userCurrentPage)
             .then(data => {
@@ -112,8 +112,8 @@ const UserScreen = ({navigation}) => {
             });
     }, [userActiveObjectSelector, userActiveSelector, retry]);
 
-    if (!currentUser) {
-        return <></>;
+    if (!currentUser || !user) {
+        return <SafeAreaView style={styles.blank}></SafeAreaView>;
     } else {
         return (
             <SafeAreaView style={styles.container}>
@@ -140,11 +140,12 @@ const UserScreen = ({navigation}) => {
                             <HalfWidthPostsContainer {...item} />
                         )}
                         ListEmptyComponent={
-                            <View style={{
-                                maxWidth: '96%',
-                                paddingTop: '3%',
-                                paddingLeft: '4%',
-                            }}>
+                            <View
+                                style={{
+                                    maxWidth: '96%',
+                                    paddingTop: '3%',
+                                    paddingLeft: '4%',
+                                }}>
                                 <EmptyFeedMaleFigure />
                             </View>
                         }
@@ -158,20 +159,18 @@ const UserScreen = ({navigation}) => {
                                 <View style={styles.profilecontainer}>
                                     <View style={styles.profile}>
                                         <Image
-                                            style={
-                                                globalStyling.profileImage
-                                            }
+                                            style={globalStyling.profileImage}
                                             source={{
-                                                uri: currentUser.profileImage,
+                                                uri: user.profileImage,
                                             }}
                                         />
                                         <View style={styles.profilecontent}>
                                             <Text style={styles.profileName}>
-                                                {currentUser.username}
+                                                {user.username}
                                             </Text>
                                             <Text
                                                 style={styles.profilePronounce}>
-                                                {currentUser.genderIdentifier}
+                                                {user.genderIdentifier}
                                             </Text>
                                             <View style={styles.starandcount}>
                                                 <StarIconSvg
@@ -181,10 +180,9 @@ const UserScreen = ({navigation}) => {
                                                     fill="#F0355B"
                                                     stroke="#F0355B"
                                                     strokeWidth="0">
-                                                    {' '}
                                                 </StarIconSvg>
                                                 <Text style={styles.stars}>
-                                                    {currentUser.total_likes}
+                                                    {user.total_likes}
                                                 </Text>
                                             </View>
                                         </View>
@@ -193,7 +191,7 @@ const UserScreen = ({navigation}) => {
 
                                 <View style={styles.textcontainer}>
                                     <Text style={styles.profiledesc}>
-                                        {currentUser.userDescription}
+                                        {user.userDescription}
                                     </Text>
                                     {/* <View style={styles.multiplelink}>
                                         <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
@@ -209,15 +207,19 @@ const UserScreen = ({navigation}) => {
                                     {/* <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                                     <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                                     <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text> */}
-                                    <TouchableOpacity
-                                        style={styles.loginBtn}
-                                        onPress={function () {
-                                            navigation.navigate('EditProfile');
-                                        }}>
-                                        <Text style={styles.loginText}>
-                                            Edit Profile
-                                        </Text>
-                                    </TouchableOpacity>
+                                    {user.id === currentUser.id ?
+                                        <TouchableOpacity
+                                            style={styles.loginBtn}
+                                            onPress={function () {
+                                                navigation.navigate('EditProfile');
+                                            }}>
+                                            <Text style={styles.loginText}>
+                                                Edit Profile
+                                            </Text>
+                                        </TouchableOpacity>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                             </View>
                         }
@@ -367,14 +369,9 @@ const styles = StyleSheet.create({
         // position: "relative",
         // marginBottom: "2%"
     },
-
-    // title: {
-    //     color: "#FFC700",
-    //     fontWeight: "bold",
-    //     fontSize: 20,
-    //     position: "relative",
-    //     top: "-5%"
-    //   },
+    blank: {
+        backgroundColor: "#000000",
+      },
 });
 
 export default UserScreen;

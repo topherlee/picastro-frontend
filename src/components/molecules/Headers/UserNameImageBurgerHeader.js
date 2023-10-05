@@ -51,7 +51,9 @@ const UserNameImageBurgerHeader = () => {
                         setUserActiveSelector('most_recent'); 
                         setUserSearchAndFilterUrl('')
                         setUserCurrentPage(1)
-                        navigation.navigate('UserScreen');
+                        navigation.navigate('UserScreen', {
+                            userId: currentUser.id,
+                        });
                      }}
                 >
                     <UserImage 
