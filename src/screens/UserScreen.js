@@ -23,7 +23,7 @@ import {loadUserProfile} from '../utils';
 import {AuthContext} from '../context/AuthContext';
 
 const UserScreen = ({ navigation, route }) => {
-    console.log('NAVI', route)
+    // console.log('NAVI', navigation.getState())
     const [data, setData] = useState([]);
     const [user, setUser] = useState();
     const [refreshing, setRefreshing] = useState(true);
@@ -47,11 +47,11 @@ const UserScreen = ({ navigation, route }) => {
     //setUrlAttachement('?poster=' + currentUser.id);
     const urlForApiCall = `/api/feed/?poster=${route.params.userId}&${userSearchAndFilterUrl}`;
 
-     const fetchUser = async (userId) => {
-         const userPro = await loadUserProfile(token, fetchInstance, userId);
-         console.log('USERPROFILE', userPro.id, currentUser.id);
-         setUser(userPro)
-     };
+    const fetchUser = async (userId) => {
+        const userPro = await loadUserProfile(token, fetchInstance, userId);
+        console.log('USERPROFILE', userPro.id, currentUser.id);
+        setUser(userPro)
+    };
 
     async function loadUserFeed(pageNum) {
         try {
@@ -99,17 +99,18 @@ const UserScreen = ({ navigation, route }) => {
     };
 
     useEffect(() => {
-        //console.log('AccessToken',jwtDecode(token.access))
-        fetchUser(route.params.userId);
-        console.log(currentUser)
-        loadUserFeed(userCurrentPage)
-            .then(data => {
+        async function loadData() {
+            try {
+                await fetchUser(route.params.userId);
+                var data = await loadUserFeed(userCurrentPage);
                 setData(data);
                 setRefreshing(false);
-            })
-            .catch(err => {
-                console.log("USERSCREENEFFECT", err)
-            });
+            } catch (err) {
+                console.log('USERSCREEN', err);
+            }
+        }
+
+        loadData()
     }, [userActiveObjectSelector, userActiveSelector, retry]);
 
     if (!currentUser || !user) {

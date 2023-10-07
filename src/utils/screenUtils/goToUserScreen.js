@@ -20,4 +20,4 @@ import { AuthContext } from '../../context/AuthContext';
 //     // navigation.navigate('UserScreen');
 //  }
 
- export default goToUserScreen;
+//  export default goToUserScreen;

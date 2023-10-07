@@ -37,7 +37,7 @@ const FullWidthAboveImage = ({ props }) => {
         setUserActiveSelector('most_recent');
         setUserSearchAndFilterUrl('');
         setUserCurrentPage(1);
-        navigation.navigate('UserScreen', {userId: userId});
+        navigation.push('UserScreen', {userId: userId});
     };
 
 
@@ -53,7 +53,7 @@ const FullWidthAboveImage = ({ props }) => {
                       width: 60,
                       height: 60,
                       borderRadius: 10,
-                      borderWidth: 1,
+                      borderWidth: 0,
                       borderColor: 'red',
                   }}
               />

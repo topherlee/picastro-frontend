@@ -31,7 +31,11 @@ const MainStackNavigator = () => {
               options={{headerShown: false}}
               getId={({params}) => params.userId}
           />
-          <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
+          <Stack.Screen
+              name="PostDetails"
+              component={PostDetailsScreen}
+              getId={({params}) => params.id}
+          />
           <Stack.Screen name="Filter" component={PostDetailsScreen} />
           <Stack.Screen
               name="EditProfile"

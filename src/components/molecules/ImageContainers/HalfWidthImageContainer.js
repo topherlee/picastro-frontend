@@ -7,7 +7,7 @@ import globalStyling from '../../../../constants/globalStyling';
 
 
 export const HalfWidthImageContainer = (props) => {
-    console.log("poster", props);
+    // console.log("halfwidthimagecontainer", props);
 
     return (
       <View2>

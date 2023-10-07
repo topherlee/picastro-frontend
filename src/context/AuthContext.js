@@ -6,6 +6,9 @@ import {Platform} from "react-native";
 import * as Keychain from 'react-native-keychain';
 export const AuthContext = React.createContext({});
 
+//set dayjs
+var duration = require('dayjs/plugin/duration')
+dayjs.extend(duration)
 
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
@@ -96,8 +99,8 @@ export const AuthProvider = ({children, contextValue}) => {
             console.log(url)
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access);
-            const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-            if (isExpired) {
+            const remainingTokenTime = dayjs.unix(user.exp).diff(dayjs(), 'second');
+            if (remainingTokenTime < 15) {
                 console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
                 credentials = await refreshAllTokens();
                 setToken(credentials);
