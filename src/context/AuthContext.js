@@ -125,6 +125,7 @@ export const AuthProvider = ({children, contextValue}) => {
     //put those in separate context file, since it's not AuthContext,
     //but more related to Screens
     const [loading, setLoading] = useState(false);
+    const [retry, setRetry] = useState(0);
     const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
     const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState("");
     const [userScreenUrl, setUserScreenUrl] = useState("");
@@ -167,6 +168,7 @@ export const AuthProvider = ({children, contextValue}) => {
         userCurrentPage, setUserCurrentPage,
         isModalVisible, setModalVisible,
         listOfLikes, setListOfLikes,
+        retry, setRetry
     };
 
     //HACK: function to reset all states manually on logout

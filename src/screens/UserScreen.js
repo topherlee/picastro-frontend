@@ -29,7 +29,6 @@ const UserScreen = ({ navigation, route }) => {
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
-    const [retry, setRetry] = useState(0);
 
     const {
         token,
@@ -38,10 +37,10 @@ const UserScreen = ({ navigation, route }) => {
         userSearchAndFilterUrl,
         userActiveObjectSelector,
         userActiveSelector,
-        userCurrentPage,
-        setUserCurrentPage,
+        userCurrentPage, setUserCurrentPage,
         userScreenUrl,
-        isModalVisible
+        isModalVisible,
+        retry, setRetry
     } = useContext(AuthContext);
 
     //setUrlAttachement('?poster=' + currentUser.id);
@@ -93,9 +92,10 @@ const UserScreen = ({ navigation, route }) => {
 
     const refreshPage = async () => {
         setUserCurrentPage(1);
-        const newData = await loadUserFeed(1);
-        setData(newData);
-        setRefreshing(false);
+        // const newData = await loadUserFeed(1);
+        // setData(newData);
+        // setRefreshing(false);
+        setRetry(retry+1)
     };
 
     useEffect(() => {

@@ -26,8 +26,8 @@ const EditProfile = ({ navigation }) => {
   const {
     token,
     fetchInstance,
-    currentUser, 
-    setCurrentUser
+    currentUser, setCurrentUser,
+    retry, setRetry
   } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [selected, setSelected] = useState('')
@@ -37,7 +37,7 @@ const EditProfile = ({ navigation }) => {
   const [genderIdentifier, setGenderIdentifier] = useState(currentUser?.genderIdentifier);
   const [location, setLocation] = useState(currentUser?.location);
   const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
-  const [phone, setPhone] = useState(currentUser?.phone_no)
+//   const [phone, setPhone] = useState(currentUser?.phone_no)
     
   const experienceCategory = [
     { label: '0-1 years', value: '1' },
@@ -56,7 +56,7 @@ const EditProfile = ({ navigation }) => {
         setCurrentUser(data)
         Alert.alert("Profile Updated", "Your profile has been successfully updated.",[{
             text: "Ok",
-            onPress: () => navigation.goBack()
+            onPress: () => { setRetry(retry + 1); navigation.goBack() }
         }]);
     }
   }
@@ -78,7 +78,8 @@ const EditProfile = ({ navigation }) => {
     });
   }
 
-  const uploadImage = async () => {
+    const uploadImage = async () => {
+      
     try {
       var formData = new FormData();
       if (photo?.uri && photo?.fileName && photo?.type) {
@@ -89,15 +90,15 @@ const EditProfile = ({ navigation }) => {
           })
       }
 
-      formData.append("id", currentUser.id)
+    //   formData.append("username", currentUser?.username)
       formData.append("first_name", firstName)
       formData.append("last_name", lastName)
       formData.append("genderIdentifier", genderIdentifier)
       formData.append("location", location)
       formData.append("userDescription", userDescription)
-      formData.append('phone_no', phone)
+    //   formData.append('phone_no', phone)
 
-      var response = await fetchInstance(`/api/user/${currentUser.id}`, {
+        var response = await fetchInstance(`/api/user/${currentUser.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -223,7 +224,7 @@ const EditProfile = ({ navigation }) => {
                       maxLength={50}
                   />
               </View>
-              <View style={globalStyling.inputView}>
+              {/* <View style={globalStyling.inputView}>
                   <TextInput
                       style={globalStyling.inputFieldText}
                       placeholder="Phone No."
@@ -233,7 +234,7 @@ const EditProfile = ({ navigation }) => {
                       value={phone}
                       maxLength={50}
                   />
-              </View>
+              </View> */}
               <View style={globalStyling.inputViewLarge}>
                   <TextInput
                       style={globalStyling.inputFieldTextLarge}
