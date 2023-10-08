@@ -59,12 +59,10 @@ const FullWidthAboveImage = ({ props }) => {
               />
           </TouchableOpacity>
           <NameBanner>
-              <View>
-                    <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
-                        <UsernameText>{props.poster.username}</UsernameText>
-                    </TouchableOpacity>
-                    <LocationText>{props.poster.location}</LocationText>
-              </View>
+                <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
+                    <UsernameText>{props.poster.username}</UsernameText>
+                </TouchableOpacity>
+                <LocationText>{props.poster.location}</LocationText>
           </NameBanner>
 
           <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -97,11 +95,11 @@ const Banner = styled.View`
 
 const NameBanner = styled.View`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
   width: 70%;
   height: 100%;
-  padding: 3%;
+  padding: 0% 3% 0% 3%;
   border: 0px solid yellow;
 `;
 
