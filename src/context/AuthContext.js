@@ -13,8 +13,8 @@ dayjs.extend(duration)
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    //const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
+    // const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'https://mainapp.picastroapp.com' : 'https://mainapp.picastroapp.com');
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000');
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState();
     const [currentUserProfile, setCurrentUserProfile] = useState();

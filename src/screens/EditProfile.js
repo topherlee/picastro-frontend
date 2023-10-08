@@ -37,7 +37,8 @@ const EditProfile = ({ navigation }) => {
   const [genderIdentifier, setGenderIdentifier] = useState(currentUser?.genderIdentifier);
   const [location, setLocation] = useState(currentUser?.location);
   const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
-  
+  const [phone, setPhone] = useState(currentUser?.phone_no)
+    
   const experienceCategory = [
     { label: '0-1 years', value: '1' },
     { label: '2-5 years', value: '2' },
@@ -89,12 +90,12 @@ const EditProfile = ({ navigation }) => {
       }
 
       formData.append("id", currentUser.id)
-      // formData.append("experienceLevel", experienceLevel)
-      formData.append("firstName", firstName)
-      formData.append("lastName", lastName)
+      formData.append("first_name", firstName)
+      formData.append("last_name", lastName)
       formData.append("genderIdentifier", genderIdentifier)
       formData.append("location", location)
       formData.append("userDescription", userDescription)
+      formData.append('phone_no', phone)
 
       var response = await fetchInstance(`/api/user/${currentUser.id}`, {
         method: 'PUT',
@@ -222,6 +223,17 @@ const EditProfile = ({ navigation }) => {
                       maxLength={50}
                   />
               </View>
+              <View style={globalStyling.inputView}>
+                  <TextInput
+                      style={globalStyling.inputFieldText}
+                      placeholder="Phone No."
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={num => setPhone(num)}
+                      defaultValue={currentUser?.phone_no}
+                      value={phone}
+                      maxLength={50}
+                  />
+              </View>
               <View style={globalStyling.inputViewLarge}>
                   <TextInput
                       style={globalStyling.inputFieldTextLarge}
@@ -242,7 +254,7 @@ const EditProfile = ({ navigation }) => {
                   style={globalStyling.loginBtn}
                   onPress={() =>
                       uploadImage()
-                          .then((response) => {
+                          .then(response => {
                               uploadedHandler(response);
                           })
                           .catch(function (err) {
