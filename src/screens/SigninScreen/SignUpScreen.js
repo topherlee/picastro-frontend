@@ -54,10 +54,10 @@ export default function SignUpScreen( { navigation } ) {
           })
           .then(async json => {
             console.log('REGISTRATION SUCCESS',json);
-            await Keychain.setGenericPassword('token',JSON.stringify(json.token));
-            setToken(json.token);
-            setIsSignedIn(true);
-            //navigation.navigate('UserName')
+            // await Keychain.setGenericPassword('token',JSON.stringify(json.token));
+            // setToken(json.token);
+            // setIsSignedIn(true);
+            navigation.navigate('Verify', {email: email, username: username})
           })
           .catch(error => {
             console.log(error)
@@ -135,7 +135,7 @@ export default function SignUpScreen( { navigation } ) {
       <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
-          inputMode="phoneNum"
+          inputMode="tel"
           placeholder="Phone No."
           placeholderTextColor="grey"
           autoComplete="off"
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({container: {
 },
 image: {
   position: "relative",
-  marginBottom: "20%",
+  marginBottom: "5%",
 },
 bottomText: {
   flexDirection:'row',
@@ -216,7 +216,7 @@ loginBtn: {
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-  marginTop: "10%",
+  marginTop: "0%",
   marginBottom: "3%",
   backgroundColor: "#FFC700",
 },
@@ -225,7 +225,7 @@ title: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%",
+  top: "-2%",
   textAlign: "center"
 },
 titleRed: {

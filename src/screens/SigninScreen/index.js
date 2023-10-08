@@ -3,3 +3,4 @@ export {default as SignUpScreen} from './SignUpScreen';
 export {default as ForgotPasswordScreen} from "./ForgotPasswordScreen"
 export {default as UserNameScreen} from "./UserNameScreen";
 export {default as LogoutScreen} from "./LogoutScreen";
+export {default as VerificationScreen} from './VerificationScreen';

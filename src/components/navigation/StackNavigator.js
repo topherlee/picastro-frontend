@@ -6,8 +6,6 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import PostDetailsScreen from "../../screens/PostDetailsScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen";
 import SortAndFilterScreen from "../../screens/SortAndFilterScreen";
-import {LogoutScreen } from "../../screens/SigninScreen";
-import { LoginScreen } from "../../screens/SigninScreen";
 import { PicastroLogoHeader, UserNameImageBurgerHeader } from "../molecules";
 import UserScreen from "../../screens/UserScreen"
 import EditProfile from "../../screens/EditProfile";

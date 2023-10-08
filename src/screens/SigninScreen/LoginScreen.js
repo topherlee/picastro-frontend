@@ -14,7 +14,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
 
-export default function LoginScreen( { navigation } ) {
+export default function LoginScreen( { navigation, route } ) {
   const { setIsSignedIn, domain, resetStates, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -76,6 +76,7 @@ export default function LoginScreen( { navigation } ) {
           autoCorrect={false}
           clearButtonMode="while-editing"
           returnKeyType="next"
+          defaultValue={route.params?.username && route.params.username}
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
         /> 
