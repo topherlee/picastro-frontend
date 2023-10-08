@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
     Linking,
+    ActivityIndicator
 } from 'react-native';
 import {ExtendedPicastroBurgerHeader} from '../components/molecules';
 import {HalfWidthPostsContainer} from '../components/organisms';
@@ -221,6 +222,9 @@ const UserScreen = ({ navigation, route }) => {
                                         }
                                     </View>
                                 </View>
+                            }
+                            LoadingView={
+                                <ActivityIndicator size='large' color='#FFC700' />
                             }
                             contentContainerStyle={{
                                 borderColor: 'red',
