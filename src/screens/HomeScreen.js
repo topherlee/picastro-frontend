@@ -137,6 +137,7 @@ const HomeScreen = ({ navigation }) => {
                     numColumns={2}
                     onRefresh={refreshPage}
                     refreshing={refreshing}
+                    keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}
                     indicatorStyle={'white'}
                     renderItem={({item}) => (
@@ -160,6 +161,9 @@ const HomeScreen = ({ navigation }) => {
                             </Text> */}
                         </View>
                     }
+                    LoadingView={
+                        <ActivityIndicator size="large" color="#FFC700" />
+                    }
                     contentContainerStyle={{
                         borderColor: 'red',
                         borderWidth: 0,
@@ -174,7 +178,9 @@ const HomeScreen = ({ navigation }) => {
                         borderColor: 'yellow',
                         borderWidth: 0,
                     }}
-                    onEndReached={() => { if (data.length != 0) fetchMore() }}
+                    onEndReached={() => {
+                        if (data.length != 0) fetchMore();
+                    }}
                     onEndReachedThreshold={0.1}
                 />
             </View>

@@ -233,7 +233,7 @@ titleRed: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%",
+  top: "-1%",
   textAlign: "center"
 },
 loginText: {
