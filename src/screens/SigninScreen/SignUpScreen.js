@@ -172,7 +172,11 @@ export default function SignUpScreen( { navigation } ) {
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ handleRegister() }}>
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress= {function(){ handleRegister() }}
+        testID="registerButton"
+      >
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
       <View style={styles.bottomText}>
