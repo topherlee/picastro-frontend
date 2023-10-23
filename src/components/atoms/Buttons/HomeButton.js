@@ -18,8 +18,9 @@ const HomeButton = ({focused}) => {
             top: 0
         }}>
 
-            <HomeButtonSvg style={globalStyling.NavBarButton} />
-            {focused ? <Text style={globalStyling.SortByModalTextGrey}>focused</Text> : <Text style={globalStyling.SortByModalTextGrey}>not focused</Text>}
+            <HomeButtonSvg
+                stroke={focused ? "#ffffff" : ""}
+                style={globalStyling.NavBarButton} />
         </View>
     )
 };

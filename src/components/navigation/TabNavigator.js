@@ -66,7 +66,7 @@ const BottomTabNavigator = ({ navigation }) => {
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ focused }) => (
-                        <ImageUploadButton />
+                        <ImageUploadButton focused={focused}/>
                     ),
                 }}
             />
