@@ -1,14 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Image,
     StyleSheet,
 } from 'react-native';
 
-import globalStyling from '../../../../constants/globalStyling';
 
-
-const UserImage = ({userImageURL}) => {
-
+const DefaultUserImage = ({userImageURL}) => {
     if (!userImageURL) {
         return <React.Fragment></React.Fragment>;
     } else { 
@@ -17,11 +14,18 @@ const UserImage = ({userImageURL}) => {
                 source={{
                     uri: userImageURL.profileImage,
                 }}
-                style={globalStyling.headerUserImage}
-                resizeMode="contain"
+                style={styles.userImage}
             />
         )
     }
 }
 
-export default UserImage;
+const styles = StyleSheet.create({
+    defaultUserImage: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
+    }
+})
+
+export default DefaultUserImage;

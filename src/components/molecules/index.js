@@ -1,3 +1,4 @@
+export {default as CommentInputContainer} from './CommentContainers/CommentInputContainer';
 export {default as BottomFilterModal} from './Modals/BottomModalFilterFeed';
 export {default as PicastroLogoHeader} from './Headers/PicastroLogoHeader';
 export {default as UserNameImageBurgerHeader} from './Headers/UserNameImageBurgerHeader';

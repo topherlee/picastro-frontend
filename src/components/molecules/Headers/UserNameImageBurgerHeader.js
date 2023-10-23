@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { UserImage, HeaderUserName } from '../../atoms';
+import { HeaderUserImage, HeaderUserName } from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
 import { loadUserProfile } from '../../../utils';
 
@@ -56,7 +56,7 @@ const UserNameImageBurgerHeader = () => {
                         });
                      }}
                 >
-                    <UserImage 
+                    <HeaderUserImage
                         userImageURL={currentUser}
                     />
                 </TouchableOpacity>

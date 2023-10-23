@@ -16,8 +16,7 @@ import { StarIcon, AwardIcon, UserImage, SendButton, InCommentUserImage } from '
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
-import { CommentInputContainer } from '../../organisms';
-
+import CommentInputContainer from '../CommentContainers/CommentInputContainer';
 
 const FullWidthBelowImage = ({ props }) => {
   const [modalVisible, setModalVisible] = useState(false);
