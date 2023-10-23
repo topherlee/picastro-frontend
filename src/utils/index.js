@@ -1,3 +1,4 @@
+export {default as commentPostAPICall} from './apiCalls/commentAPI';
 export {default as loadUserProfile} from './apiCalls/userProfileAPI';
 export {default as loadCurrentUser} from './apiCalls/currentUserAPI';
 export {default as imageLike} from './apiCalls/imageLikeAPI';

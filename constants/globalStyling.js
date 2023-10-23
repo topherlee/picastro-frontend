@@ -267,5 +267,17 @@ export default StyleSheet.create({
     fontSize: 20,
     position: "relative",
     marginBottom: "5%",
+  },
+  sendBtn: {
+    width: 22,
+    height: 22
+  },
+  commentInputContainer: {
+    borderRadius: 10,
+    marginTop: "3%",
+    marginBottom: "3%",
+    padding: "4%",
+    paddingHorizontal: '10%',
+    backgroundColor: "white",
   }
 });

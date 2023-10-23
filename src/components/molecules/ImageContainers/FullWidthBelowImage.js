@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -8,18 +8,22 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-
 import styled from 'styled-components';
 import { MoreOrLess } from "@rntext/more-or-less";
 
-import {StarIcon, AwardIcon} from '../../atoms';
+import { AuthContext } from '../../../context/AuthContext';
+import { StarIcon, AwardIcon, UserImage, SendButton, InCommentUserImage } from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
+import { CommentInputContainer } from '../../organisms';
 
 
-const FullWidthBelowImage = ({props}) => {
+const FullWidthBelowImage = ({ props }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const {
+    currentUser,
+  } = useContext(AuthContext);
 
   return (
     <Container>
@@ -36,7 +40,7 @@ const FullWidthBelowImage = ({props}) => {
           </StarAliasWrapper>
         </StarNameWrapper>
         <IconView>
-            <StarIcon {...props} />
+          <StarIcon {...props} />
         </IconView>
       </Row1>
 
@@ -50,16 +54,16 @@ const FullWidthBelowImage = ({props}) => {
         <IconView>
           <CloudSvg /><LightText> {props.cloudCoverage}</LightText>
         </IconView>
-        <Text style={{color: "#7a7a7a", fontWeight: "bold"}}>BORTLE <Text style={{color: "#FFC700", fontWeight: "bold"}}>{props.bortle}</Text></Text>
+        <Text style={{ color: "#7a7a7a", fontWeight: "bold" }}>BORTLE <Text style={{ color: "#FFC700", fontWeight: "bold" }}>{props.bortle}</Text></Text>
       </Row2>
 
       <MoreOrLess
         numberOfLines={3}
         textStyle={{
-          color: "#7a7a7a", 
-          fontWeight: 500, 
+          color: "#7a7a7a",
+          fontWeight: 500,
         }}
-        containerStyle= {{
+        containerStyle={{
           marginTop: "3%",
           width: "100%",
           paddingBottom: "4%",
@@ -73,10 +77,8 @@ const FullWidthBelowImage = ({props}) => {
         {props.imageDescription}
       </MoreOrLess>
 
-      <TouchableOpacity onPress={() => {setModalVisible(true)}}>
-        <CommentInputView>
-          <Text>Write a comment</Text>
-        </CommentInputView>
+      <TouchableOpacity onPress={() => { setModalVisible(true) }}>
+        <CommentInputContainer currentUser={currentUser}/>
       </TouchableOpacity>
 
       <Modal
@@ -85,10 +87,10 @@ const FullWidthBelowImage = ({props}) => {
         visible={modalVisible}
         presentationStyle="overFullScreen"
         onRequestClose={() => {
-            setModalVisible(false);
+          setModalVisible(false);
         }}
       >
-        <TouchableWithoutFeedback onPress={()=>{;setModalVisible(false)}}>
+        <TouchableWithoutFeedback onPress={() => { ; setModalVisible(false) }}>
           <View style={{
             position: 'absolute',
             top: 0,
@@ -104,34 +106,37 @@ const FullWidthBelowImage = ({props}) => {
             backgroundColor: "black",
             position: "absolute",
             width: "100%",
-            bottom: 1,}}
+            bottom: 1,
+          }}
         >
           <View style={{
             backgroundColor: "black",
             width: "100%",
             paddingVertical: "4%",
-            paddingHorizontal: "10%"}}>
-          <TextInput 
-            multiline={true}
-            textAlignVertical="top"
-            placeholder="Write a comment"
-            placeholderTextColor="black"
-            autoFocus={true}
-            style={{
-              backgroundColor: "white",
-              width:"100%", 
-              minHeight: 50,
-              maxHeight: 150,
-              paddingHorizontal: "3%",
-              paddingVertical: "4%",
-              borderRadius: 10,
-            }}
-          />
+            paddingHorizontal: "10%"
+          }}>
+            <TextInput
+              multiline={true}
+              textAlignVertical="top"
+              placeholder="Write a comment"
+              placeholderTextColor="black"
+              autoFocus={true}
+              style={{
+                backgroundColor: "white",
+                width: "100%",
+                minHeight: 50,
+                maxHeight: 150,
+                paddingHorizontal: "3%",
+                paddingVertical: "4%",
+                borderRadius: 10,
+              }}
+            />
           </View>
         </KeyboardAvoidingView>
       </Modal>
     </Container>
-)};
+  )
+};
 
 const Container = styled.View`
   display: flex;
