@@ -6,7 +6,7 @@ import {
 import ImageUploadButtonSvg from '../../../assets/buttons/image-upload-button.svg';
 import globalStyling from '../../../../constants/globalStyling';
 
-const ImageUploadButton = () => {
+const ImageUploadButton = ({ focused }) => {
 
     return (
         <View style={{
@@ -15,6 +15,7 @@ const ImageUploadButton = () => {
             top: 0
         }}>
             <ImageUploadButtonSvg
+                stroke={focused ? "#ffffff" : ""}
                 style={globalStyling.NavBarButton}
             />
         </View>
