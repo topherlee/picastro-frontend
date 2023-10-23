@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render } from '@testing-library/react-native';
-import { LoginScreen, SignUpScreen } from "../../src/screens/SigninScreen";
-
+import { LoginScreen, SignUpScreen } from "../../../src/screens/SigninScreen";
 
 describe('Login screen', () => {
     it('should go to home screen on login', () => {
