@@ -47,9 +47,12 @@ const BottomTabNavigator = ({ navigation }) => {
                 component={MainStackNavigator}
                 options={{
                     tabBarShowLabel: false,
-                    tabBarIcon: ({ focused }) => (
-                        <HomeButton />
-                    ),
+                    tabBarIcon: ({ focused }) => {
+                        console.log(focused)
+                        return (
+                            <HomeButton focused={focused} />
+                        )
+                    },
                 }}
             />
             <Tab.Screen
