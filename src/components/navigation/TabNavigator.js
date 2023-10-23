@@ -52,18 +52,13 @@ const BottomTabNavigator = ({ navigation }) => {
                     ),
                 }}
             />
-            {/* <Tab.Screen 
-            name="ProfileTab" 
-            component={ProfileStackNavigator} 
-            options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                    <StarCampsButton />
-                ),
-            }}
-        /> */}
             <Tab.Screen
                 name="ImageUploadTab"
+                listeners={({ route }) => ({
+                    state: () => {
+                        subRoute = 'ImageUpload'
+                      }
+                    })}
                 component={ImageUploadStackNavigator}
                 options={{
                     tabBarShowLabel: false,
@@ -93,8 +88,9 @@ const BottomTabNavigator = ({ navigation }) => {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
+                        console.log(subRoute)
                         //navigation.navigate('Home')
-                        if (subRoute !== "PostDetails") {
+                        if (subRoute !== "PostDetails" && subRoute !== "ImageUpload") {
                             setModalVisible(!isModalVisible)
                         }
                     },
