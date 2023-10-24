@@ -23,6 +23,7 @@ export {default as AsterismsButton} from './Buttons/AsterismsButton';
 export {default as ClustersButton} from './Buttons/ClustersButton';
 export {default as IssTransitButton} from './Buttons/IssTransitButton';
 export {default as LunarButton} from './Buttons/LunarButton';
+export {default as SendButton} from './Buttons/SendButton';
 export {default as SolarButton} from './Buttons/SolarButton';
 export {default as ImageUploadButton} from './Buttons/ImageUploadButton';
 export {default as ImageOptionsView} from './ModalViews/ImageOptionsView';
