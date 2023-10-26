@@ -24,6 +24,8 @@ const FullWidthBelowImage = ({ props }) => {
     currentUser,
   } = useContext(AuthContext);
 
+  console.log("FullWidthBelowImage", props)
+
   return (
     <Container>
       <Row1>
@@ -77,7 +79,9 @@ const FullWidthBelowImage = ({ props }) => {
       </MoreOrLess>
 
       <TouchableOpacity onPress={() => { setModalVisible(true) }}>
-        <CommentInputContainer currentUser={currentUser}/>
+        <CommentInputContainer
+          currentUser={currentUser}
+          props={props}/>
       </TouchableOpacity>
 
       <Modal

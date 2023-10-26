@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
     Text,
     View,
@@ -13,7 +13,7 @@ import globalStyling from "../../../../constants/globalStyling";
 import { commentPostAPICall } from "../../../utils";
 
 
-const CommentInputContainer = (currentUser) => {
+const CommentInputContainer = ({currentUser, props}) => {
     const {
         token,
         fetchInstance
@@ -25,10 +25,17 @@ const CommentInputContainer = (currentUser) => {
 
     const placeholderTextColor = "grey";
 
+    console.log("CommentInputContainer", "cU", currentUser)
+    console.log("props", props)
+
     let commentBody = new FormData();
-    commentBody.append("post", "2")
+    commentBody.append("post", props.id)
     commentBody.append("commenter", currentUser.id)
     commentBody.append("comment_body", comment)
+
+    useEffect(() => {
+        console.log("commentBody", commentBody)
+    }, [commentBody])
 
 
     return (

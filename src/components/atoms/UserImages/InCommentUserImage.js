@@ -6,8 +6,8 @@ import {
 
 
 const InCommentUserImage = ({userImageURL}) => {
-
-    console.log("DefaultUserImage", userImageURL)
+    // console.log("InCommentUserImage", userImageURL)
+    // console.log("InCommentUserImage", userImageURL.profileImage)
 
     if (!userImageURL) {
         return <React.Fragment></React.Fragment>;
