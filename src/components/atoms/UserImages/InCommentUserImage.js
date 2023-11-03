@@ -3,10 +3,11 @@ import {
     Image,
     StyleSheet,
 } from 'react-native';
+import globalStyling from '../../../../constants/globalStyling';
 
 
 const InCommentUserImage = ({userImageURL}) => {
-    // console.log("InCommentUserImage", userImageURL)
+    console.log("InCommentUserImage", userImageURL)
     // console.log("InCommentUserImage", userImageURL.profileImage)
 
     if (!userImageURL) {
@@ -17,19 +18,11 @@ const InCommentUserImage = ({userImageURL}) => {
                 source={{
                     uri: userImageURL.profileImage,
                 }}
-                style={styles.InCommentUserImage}
+                style={globalStyling.InCommentUserImage}
             />
         )
     }
 }
 
-const styles = StyleSheet.create({
-    InCommentUserImage: {
-        width: 33,
-        height: 33,
-        borderRadius: 7,
-        resizeMode: 'contain',
-    }
-})
 
 export default InCommentUserImage;

@@ -25,17 +25,14 @@ const CommentInputContainer = ({currentUser, props}) => {
 
     const placeholderTextColor = "grey";
 
-    console.log("CommentInputContainer", "cU", currentUser)
-    console.log("props", props)
-
     let commentBody = new FormData();
     commentBody.append("post", props.id)
     commentBody.append("commenter", currentUser.id)
     commentBody.append("comment_body", comment)
 
-    useEffect(() => {
-        console.log("commentBody", commentBody)
-    }, [commentBody])
+    // useEffect(() => {
+    //     console.log("commentBody", commentBody)
+    // }, [commentBody])
 
 
     return (
@@ -56,13 +53,6 @@ const CommentInputContainer = ({currentUser, props}) => {
             <TouchableOpacity
                 onPress={() => {
                     commentPostAPICall(commentUrl, requestMethod, fetchInstance, token, commentBody)
-                    // setSearchAndFilterUrl('imageCategory=iss_transit');
-                    // console.log(
-                    //     'searchAndFilterUrl iss',
-                    //     searchAndFilterUrl,
-                    // );
-                    // setModalVisible(!isModalVisible);
-                    // setCurrentPage(1);
                 }} >
                 <SendButton />
             </TouchableOpacity>

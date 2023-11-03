@@ -7,24 +7,37 @@ import {
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native';
 import styled from 'styled-components';
 import { MoreOrLess } from "@rntext/more-or-less";
 
 import { AuthContext } from '../../../context/AuthContext';
-import { StarIcon, AwardIcon, UserImage, SendButton, InCommentUserImage } from '../../atoms';
+import { StarIcon, AwardIcon } from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
-import CommentInputContainer from '../CommentContainers/CommentInputContainer';
+import { CommentInputContainer, CommentOutputContainer } from '../index'
+import { commentGetAPICall, commentPostAPICall } from '../../../utils';
 
 const FullWidthBelowImage = ({ props }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const {
     currentUser,
+    fetchInstance,
+    token
   } = useContext(AuthContext);
 
   console.log("FullWidthBelowImage", props)
+  const commentUrl = '/api/comments/' + props.id;
+  const requestMethod = 'GET';
+
+  // let COMMENTS = [{id: 1, comment: "test comment 1v1.", commenter: "ich"}, {id: 2, comment: "test comment 2.", commenter: "du"}]
+  const COMMENTS = (async () => {
+    console.log("COMMENTS", commentUrl, requestMethod)
+    let comment = await commentGetAPICall(commentUrl, requestMethod, fetchInstance, token)
+    return comment
+  })()
 
   return (
     <Container>
@@ -77,6 +90,12 @@ const FullWidthBelowImage = ({ props }) => {
       >
         {props.imageDescription}
       </MoreOrLess>
+
+      <FlatList
+        data={COMMENTS}
+        renderItem={({item}) => <CommentOutputContainer {...item} />}
+        keyExtractor={item => item.id}
+      />
 
       <TouchableOpacity onPress={() => { setModalVisible(true) }}>
         <CommentInputContainer

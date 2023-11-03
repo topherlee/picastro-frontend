@@ -279,5 +279,28 @@ export default StyleSheet.create({
     padding: "4%",
     paddingHorizontal: '10%',
     backgroundColor: "white",
-  }
+  },
+  commentOutputCommentText: {
+    color: '#959595',
+    fontSize: 15,
+    marginBottom: 20,
+    borderColor: 'red',
+    borderWidth: 0,
+    gap: 20,
+  },
+  commentOutputUserName: {
+    color: '#959595',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    borderColor: 'red',
+    borderWidth: 0,
+    gap: 20,
+  },
+  InCommentUserImage: {
+    width: 33,
+    height: 33,
+    borderRadius: 7,
+    resizeMode: 'contain',
+}
 });
