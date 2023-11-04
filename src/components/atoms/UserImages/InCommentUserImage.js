@@ -16,11 +16,11 @@ const InCommentUserImage = ({userImageURL}) => {
         return (
             <Image
                 source={{
-                    uri: userImageURL.profileImage,
+                    uri: userImageURL.profileImage + `?date=${new Date()}`,
                 }}
                 style={globalStyling.InCommentUserImage}
             />
-        )
+        );
     }
 }
 

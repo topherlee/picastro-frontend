@@ -16,7 +16,7 @@ import globalStyling from "../../../constants/globalStyling";
 
 export default function LoginScreen({ navigation, route }) {
   const { setIsSignedIn, domain, resetStates, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState(route.params?.username ? route.params.username : null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);

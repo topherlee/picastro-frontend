@@ -161,7 +161,8 @@ const UserScreen = ({ navigation, route }) => {
                                             <Image
                                                 style={globalStyling.profileImage}
                                                 source={{
-                                                    uri: user.profileImage,
+                                                    uri: user.profileImage + `?date=${new Date()}`,
+                                                    cache: "reload",
                                                 }}
                                             />
                                             <View style={styles.profilecontent}>
