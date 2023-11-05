@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -38,6 +38,7 @@ const EditProfile = ({ navigation }) => {
   const [location, setLocation] = useState(currentUser?.location);
   const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
 //   const [phone, setPhone] = useState(currentUser?.phone_no)
+    const inputField = useRef([]);
     
   const experienceCategory = [
     { label: '0-1 years', value: '1' },
@@ -141,7 +142,7 @@ const EditProfile = ({ navigation }) => {
                           <Image
                               style={globalStyling.profileImage}
                               source={{
-                                  uri: currentUser.profileImage,
+                                  uri: currentUser.profileImage + `?date=${new Date()}`,
                               }}
                           />
                       ) : (
@@ -187,6 +188,7 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.first_name}
                       value={firstName}
                       maxLength={20}
+                      onSubmitEditing={()=>{inputField.current[0].focus()}}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -198,6 +200,8 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.last_name}
                       value={lastName}
                       maxLength={20}
+                      ref={ref => inputField.current[0] = ref}
+                      onSubmitEditing={()=>{inputField.current[1].focus()}}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -211,6 +215,8 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.genderIdentifier}
                       value={genderIdentifier}
                       maxLength={10}
+                      ref={ref => inputField.current[1] = ref}
+                      onSubmitEditing={()=>{inputField.current[2].focus()}}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -222,6 +228,8 @@ const EditProfile = ({ navigation }) => {
                       defaultValue={currentUser?.location}
                       value={location}
                       maxLength={50}
+                      ref={ref => inputField.current[2] = ref}
+                      onSubmitEditing={()=>{inputField.current[3].focus()}}
                   />
               </View>
               {/* <View style={globalStyling.inputView}>
@@ -248,6 +256,7 @@ const EditProfile = ({ navigation }) => {
                       multiline={true}
                       numberOfLines={4}
                       maxLength={200}
+                      ref={ref => inputField.current[3] = ref}
                   />
               </View>
 

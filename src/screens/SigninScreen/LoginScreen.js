@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -20,6 +20,7 @@ export default function LoginScreen({ navigation, route }) {
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);
+  const passwordInput = useRef(null);
 
   useEffect(() => {
     resetStates()
@@ -28,8 +29,8 @@ export default function LoginScreen({ navigation, route }) {
   async function handleLogin() {
 
     var body = JSON.stringify({
-      'username': username,
-      'password': password
+      'username': 'topah',
+      'password': 'kulibangunas'
     })
 
     await fetch(`${domain}/api/auth/login/`, {
@@ -79,6 +80,8 @@ export default function LoginScreen({ navigation, route }) {
           defaultValue={route.params?.username && route.params.username}
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
+          blurOnSubmit={false}
+          onSubmitEditing={()=>{ passwordInput.current.focus()}}
         />
       </View>
       <View style={globalStyling.inputView}>
@@ -93,6 +96,7 @@ export default function LoginScreen({ navigation, route }) {
           onChangeText={(password) => setPassword(password)}
           onSubmitEditing={handleLogin}
           onBlur={() => setError(false)}
+          ref={passwordInput}
         />
         <TouchableOpacity style={{ position: "absolute", right: 1 }} onPress={() => setSecurePassword(!securePassword)}>
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray" />

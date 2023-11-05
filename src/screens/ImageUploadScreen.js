@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
     StyleSheet,
     Text,
@@ -42,6 +42,8 @@ const ImageUploadScreen = ({ navigation }) => {
   const [moonPhase, setMoonPhase] = useState('');
   const [cloudCoverage, setCloudCoverage] = useState('');
   const [bortle, setBortle] = useState('');
+  
+    const inputRef = useRef([]);
 
   const category = [
     {key: 'iss_transit', value: 'ISS Transit'},
@@ -185,9 +187,10 @@ const ImageUploadScreen = ({ navigation }) => {
               style={globalStyling.inputFieldTextLarge}
               placeholder="Image Description"
               placeholderTextColor="grey"
-              multiline={true}
+              multiline={false}
               onChangeText={newImageDescription => setImageDescription(newImageDescription)}
               defaultValue={imageDescription}
+              returnKeyType="next"
             />
           </View>
           <View style={styles.selectListView}>
@@ -202,7 +205,7 @@ const ImageUploadScreen = ({ navigation }) => {
               dropdownTextStyles={styles.dropdownText} //style of text of each element inside scrollview
               dropdownItemStyles={styles.dropdownItemStyles} //style of each element inside scrollview
               setSelected={setSelected}
-              onSelect={() => setImageCategory(selected)}
+              onSelect={() => {setImageCategory(selected)}}
             />
           </View>
           <View style={globalStyling.inputView}>
@@ -212,6 +215,9 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newAstroNameShort => setAstroNameShort(newAstroNameShort)}
               defaultValue={astroNameShort}
+              ref={ref => inputRef.current[1] = ref}
+              onSubmitEditing={()=>{inputRef.current[2].focus()}}
+              returnKeyType="next"
             />
           </View>
           <View style={globalStyling.inputView}>
@@ -221,6 +227,9 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newAstroName => setAstroName(newAstroName)}
               defaultValue={astroName}
+              ref={ref => inputRef.current[2] = ref}
+              onSubmitEditing={()=>{inputRef.current[3].focus()}}
+              returnKeyType="next"
             />
           </View>
           <View style={globalStyling.inputView}>
@@ -230,6 +239,9 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newExposureTime => setExposureTime(newExposureTime)}
               defaultValue={exposureTime}
+              ref={ref => inputRef.current[3] = ref}
+              onSubmitEditing={()=>{inputRef.current[4].focus()}}
+              returnKeyType="next"
             />
           </View>
           <View style={globalStyling.inputView}>
@@ -239,6 +251,9 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newMoonPhase => setMoonPhase(newMoonPhase)}
               defaultValue={moonPhase}
+              ref={ref => inputRef.current[4] = ref}
+              onSubmitEditing={()=>{inputRef.current[5].focus()}}
+              returnKeyType="next"
             />
           </View>
           <View style={globalStyling.inputView}>
@@ -248,6 +263,9 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newCloudCoverage => setCloudCoverage(newCloudCoverage)}
               defaultValue={cloudCoverage}
+              ref={ref => inputRef.current[5] = ref}
+              onSubmitEditing={()=>{inputRef.current[6].focus()}}
+              returnKeyType="next"
             />
           </View>
           <View style={globalStyling.inputView}>
@@ -257,6 +275,13 @@ const ImageUploadScreen = ({ navigation }) => {
               placeholderTextColor="grey"
               onChangeText={newBortle => setBortle(newBortle)}
               defaultValue={bortle}
+              ref={ref => inputRef.current[6] = ref}
+              returnKeyType="done"
+              onSubmitEditing={() => uploadImage()
+                .then((response) => uploadedHandler(response))
+                .catch(function(err){
+                    console.log(err)
+                })}
             />
           </View>
 
