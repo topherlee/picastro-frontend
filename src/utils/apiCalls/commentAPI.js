@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 
 
-const commentPostAPICall = async (urlForApiCall, requestMethod, fetchInstance, token, body) => {
+const commentPostAPICall = async (urlForApiCall, requestMethod, fetchInstance, token, body, onSendComment) => {
     
     console.log("commentPostAPIcall, body", body)
 
@@ -15,12 +15,18 @@ const commentPostAPICall = async (urlForApiCall, requestMethod, fetchInstance, t
             },
             body: body
         })
-        console.log("RESPONSE", response)
-        return response;
+        if (response.ok) {
+            response = await response.json();
+            // console.log('RESPONSE', response);
+            onSendComment();
+            return response;
+        } else {
+            throw new Error(`HTTP response status ${response.status}`);
+        }
 
     } catch (error) {
         console.log("commentAPI error",error);
-        return response;
+        return response
     }
 }
 
@@ -30,19 +36,24 @@ const commentGetAPICall = async (urlForApiCall, requestMethod, fetchInstance, to
 
 
     try {
-        var { response, data } = await fetchInstance(urlForApiCall, {
+        var response = await fetchInstance(urlForApiCall, {
             method: requestMethod,
             headers: {
                 'Authorization': `Token ${token.access}`
             }
             // body: body
         })
-        console.log("DATA get", response)
-        return data;
+        if (response.ok) {
+            response = await response.json();
+            // console.log("DATA get", response.results)
+            return response.results;
+        } else {
+            throw new Error(`HTTP response status ${response.status}`);
+        }
 
     } catch (error) {
         console.log("commentGetAPI",error);
-        return response;
+        return [];
     }
 }
 

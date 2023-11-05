@@ -7,8 +7,6 @@ import globalStyling from '../../../../constants/globalStyling';
 
 
 const InCommentUserImage = ({userImageURL}) => {
-    console.log("InCommentUserImage", userImageURL)
-    // console.log("InCommentUserImage", userImageURL.profileImage)
 
     if (!userImageURL) {
         return <React.Fragment></React.Fragment>;

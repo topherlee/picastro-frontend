@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,8 @@ import styled from 'styled-components';
 import { MoreOrLess } from "@rntext/more-or-less";
 
 import { AuthContext } from '../../../context/AuthContext';
+import { InCommentUserImage, SendButton } from "../../atoms"
+import globalStyling from '../../../../constants/globalStyling';
 import { StarIcon, AwardIcon } from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
@@ -21,23 +23,31 @@ import { CommentInputContainer, CommentOutputContainer } from '../index'
 import { commentGetAPICall, commentPostAPICall } from '../../../utils';
 
 const FullWidthBelowImage = ({ props }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [comments, setComments] = useState({});
   const {
     currentUser,
     fetchInstance,
     token
   } = useContext(AuthContext);
 
-  console.log("FullWidthBelowImage", props)
+//   console.log("FullWidthBelowImage", props)
   const commentUrl = '/api/comments/' + props.id;
   const requestMethod = 'GET';
 
-  // let COMMENTS = [{id: 1, comment: "test comment 1v1.", commenter: "ich"}, {id: 2, comment: "test comment 2.", commenter: "du"}]
-  const COMMENTS = (async () => {
-    console.log("COMMENTS", commentUrl, requestMethod)
+    useEffect(() => {
+        if (modalVisible) {
+            fetchComments();
+        }
+    }, [modalVisible])
+
+//   let COMMENTS = [{id: 1, comment: "test comment 1v1.", commenter: "ich"}, {id: 2, comment: "test comment 2.", commenter: "du"}]
+  const fetchComments = async () => {
+    // console.log("COMMENTS", commentUrl, requestMethod)
     let comment = await commentGetAPICall(commentUrl, requestMethod, fetchInstance, token)
-    return comment
-  })()
+    // console.log(comment)
+    setComments(comment);
+  }
 
   return (
     <Container>
@@ -91,16 +101,18 @@ const FullWidthBelowImage = ({ props }) => {
         {props.imageDescription}
       </MoreOrLess>
 
-      <FlatList
-        data={COMMENTS}
-        renderItem={({item}) => <CommentOutputContainer {...item} />}
-        keyExtractor={item => item.id}
-      />
-
-      <TouchableOpacity onPress={() => { setModalVisible(true) }}>
-        <CommentInputContainer
-          currentUser={currentUser}
-          props={props}/>
+          <TouchableOpacity onPress={() => { console.log('touch'); setModalVisible(true) }}>
+            <View style={globalStyling.commentInputContainer} pointerEvents='none'>
+                <InCommentUserImage
+                    userImageURL={currentUser}
+                />
+                <TextInput
+                    style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
+                    placeholder="Write a comment"
+                    placeholderTextColor='grey'
+                    />
+                <SendButton />
+            </View>
       </TouchableOpacity>
 
       <Modal
@@ -123,7 +135,7 @@ const FullWidthBelowImage = ({ props }) => {
           }} />
         </TouchableWithoutFeedback>
 
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+        <View behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{
             backgroundColor: "black",
             position: "absolute",
@@ -131,13 +143,24 @@ const FullWidthBelowImage = ({ props }) => {
             bottom: 1,
           }}
         >
+            <FlatList
+                style={{flex:1, height: 300}}
+                contentContainerStyle={{ flexGrow: 1 }}
+                data={comments}
+                renderItem={({item}) => <CommentOutputContainer {...item} />}
+                keyExtractor={item => item.id}
+            />
           <View style={{
             backgroundColor: "black",
             width: "100%",
             paddingVertical: "4%",
-            paddingHorizontal: "10%"
+            paddingHorizontal: "5%"
           }}>
-            <TextInput
+            <CommentInputContainer
+                currentUser={currentUser}
+                onSendComment={fetchComments}
+                props={props}/>
+            {/* <TextInput
               multiline={true}
               textAlignVertical="top"
               placeholder="Write a comment"
@@ -152,9 +175,9 @@ const FullWidthBelowImage = ({ props }) => {
                 paddingVertical: "4%",
                 borderRadius: 10,
               }}
-            />
+            /> */}
           </View>
-        </KeyboardAvoidingView>
+        </View>
       </Modal>
     </Container>
   )
