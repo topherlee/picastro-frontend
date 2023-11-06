@@ -29,8 +29,8 @@ export default function LoginScreen({ navigation, route }) {
   async function handleLogin() {
 
     var body = JSON.stringify({
-      'username': 'topah',
-      'password': 'kulibangunas'
+      'username': username,
+      'password': password
     })
 
     await fetch(`${domain}/api/auth/login/`, {
