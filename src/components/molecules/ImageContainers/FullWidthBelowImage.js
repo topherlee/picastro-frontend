@@ -21,7 +21,6 @@ import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
 import { CommentInputContainer, CommentOutputContainer } from '../index'
 import { commentGetAPICall, commentPostAPICall } from '../../../utils';
-
 const FullWidthBelowImage = ({ props }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [comments, setComments] = useState({});
@@ -135,7 +134,7 @@ const FullWidthBelowImage = ({ props }) => {
           }} />
         </TouchableWithoutFeedback>
 
-        <View behavior={Platform.OS === "ios" ? "padding" : "height"}
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{
             backgroundColor: "black",
             position: "absolute",
@@ -177,7 +176,7 @@ const FullWidthBelowImage = ({ props }) => {
               }}
             /> */}
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </Container>
   )
