@@ -3,11 +3,11 @@ import {
   View,
   Text,
   TextInput,
-  KeyboardAvoidingView,
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,
   FlatList,
+  KeyboardAvoidingView
 } from 'react-native';
 import styled from 'styled-components';
 import { MoreOrLess } from "@rntext/more-or-less";
@@ -30,7 +30,6 @@ const FullWidthBelowImage = ({ props }) => {
     token
   } = useContext(AuthContext);
 
-//   console.log("FullWidthBelowImage", props)
   const commentUrl = '/api/comments/' + props.id;
   const requestMethod = 'GET';
 
@@ -40,7 +39,6 @@ const FullWidthBelowImage = ({ props }) => {
         }
     }, [modalVisible])
 
-//   let COMMENTS = [{id: 1, comment: "test comment 1v1.", commenter: "ich"}, {id: 2, comment: "test comment 2.", commenter: "du"}]
   const fetchComments = async () => {
     // console.log("COMMENTS", commentUrl, requestMethod)
     let comment = await commentGetAPICall(commentUrl, requestMethod, fetchInstance, token)

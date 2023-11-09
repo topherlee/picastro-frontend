@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -6,18 +7,15 @@ import {
     ActivityIndicator,
     Alert
 } from 'react-native';
-import Modal from "react-native-modal";
 
-import React, { useContext, useEffect, useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
-
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
 import {EmptyFeedMaleFigure} from '../components/atoms';
 import globalStyling from '../../constants/globalStyling';
-import {apiCallLikeDislike} from '../utils';
+import {apiCallLikeDislike, loadLikedPostList} from '../utils';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -40,15 +38,15 @@ const HomeScreen = ({ navigation }) => {
         setListOfLikes
     } = useContext(AuthContext);
 
-
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
-    // console.log("urlForApiCall", urlForApiCall);
+
+    const loadLikedPostListURL = '/api/like/1';
+    const loadLikedPostListMethod = 'GET';
 
     async function loadLikedPostList() {
-        const url = '/api/like/1';
-        let requestMethod = 'GET';
         try {
-            var response = await apiCallLikeDislike(url, requestMethod, fetchInstance, token)
+            var response = await apiCallLikeDislike(
+                loadLikedPostListURL, loadLikedPostListMethod, fetchInstance, token)
             var listOfLikes2;
             if (response.ok) {
                 listOfLikes2 = await response.json();
@@ -106,11 +104,7 @@ const HomeScreen = ({ navigation }) => {
         setRefreshing(false)
     }
 
-    let shortList = []
-
     useEffect(() => {
-        //console.log('AccessToken',jwtDecode(token.access))
-
         loadHomescreen(currentPage)
             .then((res) => {
                 setData(res);
@@ -151,14 +145,6 @@ const HomeScreen = ({ navigation }) => {
                                 paddingTop: '3%',
                             }}>
                             <EmptyFeedMaleFigure />
-                            {/* <Text
-                                style={{color: 'white'}}
-                                onPress={function () {
-                                    setRetry(retry + 1);
-                                }}>
-                                Nothing to display here, touch to refresh
-                                page.
-                            </Text> */}
                         </View>
                     }
                     LoadingView={

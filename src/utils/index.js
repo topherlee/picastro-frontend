@@ -1,7 +1,3 @@
-// export {
-//     commentPostAPICall as commentPostAPICall,
-//     commentGetAPICall as commentGetAPICall
-// } from './apiCalls/commentAPI';
 export * from './apiCalls/commentAPI';
 export {default as loadUserProfile} from './apiCalls/userProfileAPI';
 export {default as loadCurrentUser} from './apiCalls/currentUserAPI';

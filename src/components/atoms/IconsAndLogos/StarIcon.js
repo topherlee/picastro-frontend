@@ -6,11 +6,9 @@ import { AuthContext } from '../../../context/AuthContext';
 import StarIconSvg from '../../../assets/star-icon.svg';
 import StarIconSavedSvg from '../../../assets/star-icon-saved.svg';
 
-import { imageLike, imageDislike } from '../../../utils';
+import { apiCallLikeDislike } from '../../../utils'
 import { Alert } from "react-native";
 
-
-let userID;
 
 const StarIcon = (props) => {
     const {
@@ -18,9 +16,34 @@ const StarIcon = (props) => {
         fetchInstance,
         currentUser,
         user,
-        listOfLikes
+        listOfLikes,
+        setListOfLikes
     } = useContext(AuthContext);
     const [imageIsSaved, setImageIsSaved] = React.useState(false);
+
+    const likeUrl = '/api/like/';
+    const dislikeUrl = '/api/dislike/';
+    const getLikeListUrl = '/api/like/1';
+    const getLikeListMethod = 'GET';
+
+    let imageLikeResponse;
+
+    async function loadLikedPostList() {
+        try {
+            var response = await apiCallLikeDislike(
+                getLikeListUrl, getLikeListMethod, fetchInstance, token)
+            var listOfLikes;
+            if (response.ok) {
+                listOfLikes = await response.json();
+                setListOfLikes(listOfLikes.results);
+                console.log('listOfLikes', listOfLikes);
+            }
+            
+        } catch (error) {
+            console.log("ERROR starIcon loadLikedPostList",error);
+            return [];   
+        }
+    }
 
     useEffect(() => {
         const inListOfLikesCheck = (element) => element.post === props.id
@@ -32,25 +55,27 @@ const StarIcon = (props) => {
 
     }, [])
 
-    const likeUrl = '/api/like/';
-    const dislikeUrl = '/api/dislike/';
+    useEffect(() => {
+        loadLikedPostList()
+    }, [imageLikeResponse])
 
-    const apiCallLikeDislike = async (urlForApiCall, requestMethod) => {
-        try {
-            var response = await fetchInstance(urlForApiCall, {
-                method: requestMethod,
-                headers: {
-                    'Authorization': `Token ${token.access}`
-                }
-            })
-            // console.log("DATA", response, data)
-            return response
+    
+    // const apiCallLikeDislike = async (urlForApiCall, requestMethod) => {
+    //     try {
+    //         var response = await fetchInstance(urlForApiCall, {
+    //             method: requestMethod,
+    //             headers: {
+    //                 'Authorization': `Token ${token.access}`
+    //             }
+    //         })
+    //         // console.log("DATA", response, data)
+    //         return response
 
-        } catch (error) {
-            console.log("starIconAPI", error);
-            return [];
-        }
-    }
+    //     } catch (error) {
+    //         console.log("starIconAPI", error);
+    //         return [];
+    //     }
+    // }
 
     const raiseAlert = () => Alert.alert("Sorry!", "You cannot like your own posts")
 
@@ -63,7 +88,7 @@ const StarIcon = (props) => {
                 urlForApiCall = likeUrl + props.id;
                 let requestMethod = 'POST';
 
-                imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
+                imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod, fetchInstance, token)
 
                 if (imageLikeResponse.status === 201) {
                     setImageIsSaved(!imageIsSaved);
@@ -86,7 +111,7 @@ const StarIcon = (props) => {
             urlForApiCall = dislikeUrl + props.id;
             let requestMethod = 'DELETE';
 
-            imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod)
+            imageLikeResponse = await apiCallLikeDislike(urlForApiCall, requestMethod, fetchInstance, token)
 
             if (imageLikeResponse.status === 204) {
                 setImageIsSaved(!imageIsSaved);
