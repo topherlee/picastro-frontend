@@ -19,11 +19,12 @@ import { StarIcon, AwardIcon } from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
-import { CommentInputContainer, CommentOutputContainer } from '../index'
+import { CommentInputContainer, CommentContainer } from '../index'
 import { commentGetAPICall, commentPostAPICall } from '../../../utils';
+
 const FullWidthBelowImage = ({ props }) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [comments, setComments] = useState({});
+    const [comments, setComments] = useState([]);
   const {
     currentUser,
     fetchInstance,
@@ -31,22 +32,23 @@ const FullWidthBelowImage = ({ props }) => {
   } = useContext(AuthContext);
 
 //   console.log("FullWidthBelowImage", props)
-  const commentUrl = '/api/comments/' + props.id;
-  const requestMethod = 'GET';
+
+    const fetchComments = async (postId) => {
+        // console.log("COMMENTS", commentUrl, requestMethod)
+        let comments = await commentGetAPICall(
+            postId,
+            fetchInstance,
+            token,
+        );
+        setComments(comments);
+    };
 
     useEffect(() => {
         if (modalVisible) {
-            fetchComments();
+            fetchComments(props.id);
         }
-    }, [modalVisible])
+    }, [modalVisible, props.id])
 
-//   let COMMENTS = [{id: 1, comment: "test comment 1v1.", commenter: "ich"}, {id: 2, comment: "test comment 2.", commenter: "du"}]
-  const fetchComments = async () => {
-    // console.log("COMMENTS", commentUrl, requestMethod)
-    let comment = await commentGetAPICall(commentUrl, requestMethod, fetchInstance, token)
-    // console.log(comment)
-    setComments(comment);
-  }
 
   return (
     <Container>
@@ -100,7 +102,7 @@ const FullWidthBelowImage = ({ props }) => {
         {props.imageDescription}
       </MoreOrLess>
 
-          <TouchableOpacity onPress={() => { console.log('touch'); setModalVisible(true) }}>
+          <TouchableOpacity onPress={() => { setModalVisible(true) }}>
             <View style={globalStyling.commentInputContainer} pointerEvents='none'>
                 <InCommentUserImage
                     userImageURL={currentUser}
@@ -123,7 +125,7 @@ const FullWidthBelowImage = ({ props }) => {
           setModalVisible(false);
         }}
       >
-        <TouchableWithoutFeedback onPress={() => { ; setModalVisible(false) }}>
+        <TouchableWithoutFeedback onPress={() => { setModalVisible(false) }}>
           <View style={{
             position: 'absolute',
             top: 0,
@@ -142,13 +144,7 @@ const FullWidthBelowImage = ({ props }) => {
             bottom: 1,
           }}
         >
-            <FlatList
-                style={{flex:1, height: 300}}
-                contentContainerStyle={{ flexGrow: 1 }}
-                data={comments}
-                renderItem={({item}) => <CommentOutputContainer {...item} />}
-                keyExtractor={item => item.id}
-            />
+          <CommentContainer comments={comments} />
           <View style={{
             backgroundColor: "black",
             width: "100%",

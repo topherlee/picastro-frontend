@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 
 
 
-const commentPostAPICall = async (urlForApiCall, requestMethod, fetchInstance, token, body, onSendComment) => {
+const commentPostAPICall = async (fetchInstance, token, body, onSendComment, postId) => {
     
     console.log("commentPostAPIcall, body", body)
-
+    const url = '/api/comments/';
 
     try {
-        var response = await fetchInstance(urlForApiCall, {
-            method: requestMethod,
+        var response = await fetchInstance(url, {
+            method: 'POST',
             headers: {
                 'Authorization': `Token ${token.access}`
             },
@@ -18,7 +18,7 @@ const commentPostAPICall = async (urlForApiCall, requestMethod, fetchInstance, t
         if (response.ok) {
             response = await response.json();
             // console.log('RESPONSE', response);
-            onSendComment();
+            onSendComment(postId);
             return response;
         } else {
             throw new Error(`HTTP response status ${response.status}`);
@@ -30,18 +30,16 @@ const commentPostAPICall = async (urlForApiCall, requestMethod, fetchInstance, t
     }
 }
 
-const commentGetAPICall = async (urlForApiCall, requestMethod, fetchInstance, token, body) => {
+const commentGetAPICall = async (postId, fetchInstance, token) => {
     
-    console.log("commentGetAPIcall")
-
+    var url = `/api/comments/${postId}`
 
     try {
-        var response = await fetchInstance(urlForApiCall, {
-            method: requestMethod,
+        var response = await fetchInstance(url, {
+            method: 'GET',
             headers: {
                 'Authorization': `Token ${token.access}`
             }
-            // body: body
         })
         if (response.ok) {
             response = await response.json();
