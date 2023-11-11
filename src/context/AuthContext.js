@@ -19,6 +19,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [currentUser, setCurrentUser] = useState();
     const [currentUserProfile, setCurrentUserProfile] = useState();
     const [otherUser, setOtherUser] = useState();
+    const [currentPostsPage, setCurrentPostsPage] = useState(1);
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -138,7 +139,6 @@ export const AuthProvider = ({children, contextValue}) => {
     const [userActiveObjectSelector, setUserActiveObjectSelector] = useState("");
     const [activeSelector, setActiveSelector] = useState("most_recent");
     const [activeObjectSelector, setActiveObjectSelector] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
     const [userCurrentPage, setUserCurrentPage] = useState(1);
     const [listOfLikes, setListOfLikes] = useState([]);
 
@@ -164,7 +164,7 @@ export const AuthProvider = ({children, contextValue}) => {
         activeObjectSelector, setActiveObjectSelector,
         userActiveSelector, setUserActiveSelector,
         userActiveObjectSelector, setUserActiveObjectSelector,
-        currentPage, setCurrentPage,
+        currentPostsPage, setCurrentPostsPage,
         userCurrentPage, setUserCurrentPage,
         isModalVisible, setModalVisible,
         listOfLikes, setListOfLikes,
@@ -187,7 +187,7 @@ export const AuthProvider = ({children, contextValue}) => {
         setActiveObjectSelector("");
         setUserActiveSelector("most_recent");
         setUserActiveObjectSelector("");
-        setCurrentPage(1);
+        setCurrentPostsPage(1);
         setUserCurrentPage(1);
         setToken(null);
         setIsSignedIn(false);

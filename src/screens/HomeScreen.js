@@ -32,10 +32,10 @@ const HomeScreen = ({ navigation }) => {
         isModalVisible,
         activeSelector,
         activeObjectSelector,
-        currentPage,
-        setCurrentPage,
         listOfLikes,
-        setListOfLikes
+        setListOfLikes,
+        currentPostsPage,
+        setCurrentPostsPage
     } = useContext(AuthContext);
 
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
@@ -90,22 +90,22 @@ const HomeScreen = ({ navigation }) => {
         if (!next) return;
         setIsLoading(true);
         
-        const nextPage = currentPage + 1;
+        const nextPage = currentPostsPage + 1;
         const newData = await loadHomescreen(nextPage);
-        setCurrentPage(nextPage);
+        setCurrentPostsPage(nextPage);
         setIsLoading(false);
         setData(prevData => [...prevData, ...newData]);
     };
 
     const refreshPage = async () => {
-        setCurrentPage(1)
+        setCurrentPostsPage(1)
         const newData = await loadHomescreen(1)
         setData(newData)
         setRefreshing(false)
     }
 
     useEffect(() => {
-        loadHomescreen(currentPage)
+        loadHomescreen(currentPostsPage)
             .then((res) => {
                 setData(res);
                 setRefreshing(false);

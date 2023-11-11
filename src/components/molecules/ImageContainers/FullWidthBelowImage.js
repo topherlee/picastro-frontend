@@ -20,10 +20,21 @@ import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
 import { CommentInputContainer, CommentOutputContainer } from '../index'
-import { commentGetAPICall, commentPostAPICall } from '../../../utils';
+import {
+  commentGetAPICall,
+  commentPostAPICall,
+  fetchMore
+} from '../../../utils';
+
+
 const FullWidthBelowImage = ({ props }) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [comments, setComments] = useState({});
+  const [commentsRefreshing, setCommentsRefreshing] = useState(true);
+  const [isCommentsLoading, setIsCommentsLoading] = useState(false);
+  const [nextComments, setNextComments] = useState(null);
+  const [retry, setRetry] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [comments, setComments] = useState({});
+  const [currentCommentsPage, setCurrentCommentsPage] = useState(1);
   const {
     currentUser,
     fetchInstance,
@@ -41,7 +52,7 @@ const FullWidthBelowImage = ({ props }) => {
 
   const fetchComments = async () => {
     // console.log("COMMENTS", commentUrl, requestMethod)
-    let comment = await commentGetAPICall(commentUrl, requestMethod, fetchInstance, token)
+    let comment = await commentGetAPICall(setNextComments, commentUrl, requestMethod, fetchInstance, token)
     // console.log(comment)
     setComments(comment);
   }
@@ -146,6 +157,24 @@ const FullWidthBelowImage = ({ props }) => {
                 data={comments}
                 renderItem={({item}) => <CommentOutputContainer {...item} />}
                 keyExtractor={item => item.id}
+                onEndReached={() => {
+                  console.log("comments onEndReached")
+                  if (comments.length != 0)
+                    fetchMore(
+                      setComments,
+                      nextComments,
+                      setNextComments,
+                      isCommentsLoading,
+                      setIsCommentsLoading,
+                      currentCommentsPage,
+                      setCurrentCommentsPage,
+                      commentUrl,
+                      requestMethod,
+                      fetchInstance,
+                      token
+                    );
+                }}
+                onEndReachedThreshold={0.1}
             />
           <View style={{
             backgroundColor: "black",
