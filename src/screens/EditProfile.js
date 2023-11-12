@@ -142,7 +142,8 @@ const EditProfile = ({ navigation }) => {
                           <Image
                               style={globalStyling.profileImage}
                               source={{
-                                  uri: currentUser.profileImage + `?date=${new Date()}`,
+                                  uri: currentUser.profileImage, //+ `?date=${new Date()}`,
+                                  cache: 'reload',
                               }}
                           />
                       ) : (
@@ -188,7 +189,9 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.first_name}
                       value={firstName}
                       maxLength={20}
-                      onSubmitEditing={()=>{inputField.current[0].focus()}}
+                      onSubmitEditing={() => {
+                          inputField.current[0].focus();
+                      }}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -200,8 +203,10 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.last_name}
                       value={lastName}
                       maxLength={20}
-                      ref={ref => inputField.current[0] = ref}
-                      onSubmitEditing={()=>{inputField.current[1].focus()}}
+                      ref={ref => (inputField.current[0] = ref)}
+                      onSubmitEditing={() => {
+                          inputField.current[1].focus();
+                      }}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -215,8 +220,10 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.genderIdentifier}
                       value={genderIdentifier}
                       maxLength={10}
-                      ref={ref => inputField.current[1] = ref}
-                      onSubmitEditing={()=>{inputField.current[2].focus()}}
+                      ref={ref => (inputField.current[1] = ref)}
+                      onSubmitEditing={() => {
+                          inputField.current[2].focus();
+                      }}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -228,8 +235,10 @@ const EditProfile = ({ navigation }) => {
                       defaultValue={currentUser?.location}
                       value={location}
                       maxLength={50}
-                      ref={ref => inputField.current[2] = ref}
-                      onSubmitEditing={()=>{inputField.current[3].focus()}}
+                      ref={ref => (inputField.current[2] = ref)}
+                      onSubmitEditing={() => {
+                          inputField.current[3].focus();
+                      }}
                   />
               </View>
               {/* <View style={globalStyling.inputView}>
@@ -256,7 +265,7 @@ const EditProfile = ({ navigation }) => {
                       multiline={true}
                       numberOfLines={4}
                       maxLength={200}
-                      ref={ref => inputField.current[3] = ref}
+                      ref={ref => (inputField.current[3] = ref)}
                   />
               </View>
 

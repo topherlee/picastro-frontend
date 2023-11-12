@@ -329,6 +329,6 @@ export default StyleSheet.create({
         width: 33,
         height: 33,
         borderRadius: 7,
-        resizeMode: 'contain',
+        // resizeMode: 'contain',
     },
 });

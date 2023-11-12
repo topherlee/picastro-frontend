@@ -14,7 +14,8 @@ const InCommentUserImage = ({userImageURL}) => {
         return (
             <Image
                 source={{
-                    uri: userImageURL + `?date=${new Date()}`,
+                    uri: userImageURL, // + `?date=${new Date()}`,
+                    cache: 'reload',
                 }}
                 style={globalStyling.InCommentUserImage}
             />

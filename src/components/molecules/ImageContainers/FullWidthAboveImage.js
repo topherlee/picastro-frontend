@@ -47,8 +47,9 @@ const FullWidthAboveImage = ({ props }) => {
               <Image
                   source={{
                       uri: props.poster.profileImage,
+                      cache: 'reload'
                   }}
-                  resizeMode="contain"
+                  // resizeMode="contain"
                   style={{
                       width: 60,
                       height: 60,

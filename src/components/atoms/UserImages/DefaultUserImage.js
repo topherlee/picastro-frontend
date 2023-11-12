@@ -13,6 +13,7 @@ const DefaultUserImage = ({userImageURL}) => {
             <Image
                 source={{
                     uri: userImageURL.profileImage,
+                    cache: 'reload'
                 }}
                 style={styles.userImage}
             />

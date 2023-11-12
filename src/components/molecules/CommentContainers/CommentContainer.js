@@ -13,6 +13,14 @@ import { fetchMore } from '../../../utils';
   
 const CommentContainer = forwardRef(function CommentContainer({ comments, nextComments, fetchMoreComments, setNextCommentsPage }, ref) {
 
+    const ListEmptyComponent = () => {
+        return (
+            <View style={{paddingTop: 10}}>
+                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#959595' }}>No comments yet.</Text>
+            </View>
+        );
+    }
+
     return (
         <FlatList
             ref={ref}
@@ -28,8 +36,8 @@ const CommentContainer = forwardRef(function CommentContainer({ comments, nextCo
                     setNextCommentsPage(page => page + 1);
                 }
             }}
-            
-            // onEndReachedThreshold={0.1}
+            ListEmptyComponent={ListEmptyComponent}
+            onEndReachedThreshold={0.5}
         />
     );
 })

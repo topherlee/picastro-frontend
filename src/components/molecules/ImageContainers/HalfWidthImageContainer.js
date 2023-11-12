@@ -15,7 +15,10 @@ export const HalfWidthImageContainer = (props) => {
           {...props}
         />
             <Image
-                source={{ uri: props.poster.profileImage }}
+                source={{ 
+                  uri: props.poster.profileImage,
+                  cache: 'reload'
+                 }}
                 resizeMode="contain"
                 style={{
                     position: 'absolute',

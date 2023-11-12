@@ -25,9 +25,11 @@ import {
   commentPostAPICall,
   fetchMore
 } from '../../../utils';
+import { useNavigation } from '@react-navigation/native';
 
 
 const FullWidthBelowImage = ({ props }) => {
+  const navigation = useNavigation();
   const commentList = useRef(null)
   const [commentsRefreshing, setCommentsRefreshing] = useState(true);
   const [isCommentsLoading, setIsCommentsLoading] = useState(false);
@@ -42,13 +44,13 @@ const FullWidthBelowImage = ({ props }) => {
     token
   } = useContext(AuthContext);
 
-    const toggleModal = () => {
-        setModalVisible(!modalVisible);
+    const toggleModal = (show) => {
+        setModalVisible(show ? show : !modalVisible);
         setCommentsPage(2);
     }
 
     const scrollToTop = () => {
-        commentList.current.scrollToIndex({index: 0, animated: true});
+        if (comments.length > 0) commentList.current.scrollToIndex({index: 0, animated: true});
     };
     
     const fetchComments = async (postId) => {
@@ -78,9 +80,9 @@ const FullWidthBelowImage = ({ props }) => {
   } 
 
   useEffect(() => {
-    if (modalVisible) {
-      fetchComments(props.id);
-    }
+    fetchComments(props.id);
+    navigation.addListener('blur', ()=>{if (modalVisible) toggleModal(false)})
+
   }, [modalVisible, props.id])
 
   return (
@@ -138,7 +140,7 @@ const FullWidthBelowImage = ({ props }) => {
       <TouchableOpacity onPress={() => { toggleModal() }}>
         <View style={globalStyling.commentInputContainer} pointerEvents='none'>
           <InCommentUserImage
-            userImageURL={currentUser}
+            userImageURL={currentUser.profileImage}
           />
           <TextInput
             style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}

@@ -15,7 +15,8 @@ const HeaderUserImage = ({userImageURL}) => {
         return (
             <Image
                 source={{
-                    uri: userImageURL.profileImage + `?date=${new Date()}`,
+                    uri: userImageURL.profileImage, // + `?date=${new Date()}`,
+                    cache: 'reload',
                 }}
                 style={globalStyling.headerUserImage}
                 resizeMode="contain"

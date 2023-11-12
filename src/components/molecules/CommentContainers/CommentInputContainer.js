@@ -35,7 +35,7 @@ const CommentInputContainer = ({currentUser, onSendComment, setCommentsPage, scr
     return (
         <View style={globalStyling.commentInputContainer}>
             <InCommentUserImage
-                userImageURL={currentUser}
+                userImageURL={currentUser.profileImage}
             />
             <TextInput
                 style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
