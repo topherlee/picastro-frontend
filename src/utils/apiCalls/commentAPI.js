@@ -28,9 +28,9 @@ const commentPostAPICall = async (fetchInstance, token, body, onSendComment, pos
     }
 }
 
-const commentGetAPICall = async (postId, setNextComments, urlForApiCall, requestMethod, fetchInstance, token, body) => {
+const commentGetAPICall = async (fetchInstance, token, postId, setNextComments, page=1) => {
     
-    var url = `/api/comments/${postId}`
+    var url = `/api/comments/${postId}?page=${page}`
 
     try {
         var response = await fetchInstance(url, {
@@ -56,39 +56,32 @@ const commentGetAPICall = async (postId, setNextComments, urlForApiCall, request
 }
 
 const fetchMore = async (
+    fetchInstance,
+    token,
     postId,
+    page,
     setComments,
     nextComments,
     setNextComments,
     isCommentsLoading,
     setIsCommentsLoading,
-    currentCommentsPage,
-    setCurrentCommentsPage,
-    commentUrl,
-    requestMethod,
-    fetchInstance,
-    token
 ) => {
-    console.log("fetchmore comments", isCommentsLoading, nextComments, token)
+    console.log('fetchmore comments', isCommentsLoading, nextComments, token);
     if (isCommentsLoading) return;
     if (!nextComments) return;
     setIsCommentsLoading(true);
-    console.log("setIsCommentsLoading")
+    console.log('setIsCommentsLoading');
 
-    const nextCommentsPage = currentCommentsPage + 1;
-    const pageUrl = `?page=${nextCommentsPage}`;
-
-    const urlForApiCall = commentUrl + pageUrl;
-    console.log("comments fetchmore urlForApiCall", urlForApiCall)
+    const pageUrl = `?page=${page}`;
+    console.log('comments fetchmore page', page);
     const newData = await commentGetAPICall(
+        fetchInstance,
+        token,
         postId,
         setNextComments,
-        urlForApiCall,
-        requestMethod,
-        fetchInstance,
-        token
+        page
     );
-    setCurrentCommentsPage(nextCommentsPage);
+    console.log()
     setIsCommentsLoading(false);
     setComments(prevData => [...prevData, ...newData]);
 };

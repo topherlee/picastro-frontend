@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -28,34 +28,54 @@ import {
 
 
 const FullWidthBelowImage = ({ props }) => {
+  const commentList = useRef(null)
   const [commentsRefreshing, setCommentsRefreshing] = useState(true);
   const [isCommentsLoading, setIsCommentsLoading] = useState(false);
   const [nextComments, setNextComments] = useState(null);
   const [retry, setRetry] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [comments, setComments] = useState([]);
-  const [currentCommentsPage, setCurrentCommentsPage] = useState(1);
+  const [commentsPage, setCommentsPage] = useState(2);
   const {
     currentUser,
     fetchInstance,
     token
   } = useContext(AuthContext);
 
-  const commentUrl = '/api/comments/' + props.id;
-  const requestMethod = 'GET';
-  const fetchComments = async () => {
-    // console.log("COMMENTS", commentUrl, requestMethod)
-    let comments = await commentGetAPICall(
-      postID,
-      setNextComments,
-      commentUrl,
-      requestMethod,
-      fetchInstance,
-      token
-    )
-    // console.log(comment)
-    setComments(comments);
-  }
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+        setCommentsPage(2);
+    }
+
+    const scrollToTop = () => {
+        commentList.current.scrollToIndex({index: 0, animated: true});
+    };
+    
+    const fetchComments = async (postId) => {
+        // console.log("COMMENTS", commentUrl, requestMethod)
+        let comments = await commentGetAPICall(
+            fetchInstance,
+            token,
+            postId,
+            setNextComments,
+        );
+        // console.log(comment)
+        setComments(comments);
+    }
+  
+    const fetchMoreComments = async () => {
+        fetchMore(
+            fetchInstance,
+            token,
+            props.id,
+            commentsPage,
+            setComments,
+            nextComments,
+            setNextComments,
+            isCommentsLoading,
+            setIsCommentsLoading,
+        );
+  } 
 
   useEffect(() => {
     if (modalVisible) {
@@ -115,7 +135,7 @@ const FullWidthBelowImage = ({ props }) => {
         {props.imageDescription}
       </MoreOrLess>
 
-      <TouchableOpacity onPress={() => { setModalVisible(true) }}>
+      <TouchableOpacity onPress={() => { toggleModal() }}>
         <View style={globalStyling.commentInputContainer} pointerEvents='none'>
           <InCommentUserImage
             userImageURL={currentUser}
@@ -138,7 +158,7 @@ const FullWidthBelowImage = ({ props }) => {
           setModalVisible(false);
         }}
       >
-        <TouchableWithoutFeedback onPress={() => { setModalVisible(false) }}>
+        <TouchableWithoutFeedback onPress={() => { toggleModal() }}>
           <View style={{
             position: 'absolute',
             top: 0,
@@ -157,7 +177,7 @@ const FullWidthBelowImage = ({ props }) => {
             bottom: 1,
           }}
         >
-          <CommentContainer comments={comments} />
+        <CommentContainer ref={commentList} comments={comments} nextComments={nextComments} fetchMoreComments={fetchMoreComments} setNextCommentsPage={setCommentsPage} />
           <View style={{
             backgroundColor: "black",
             width: "100%",
@@ -167,6 +187,8 @@ const FullWidthBelowImage = ({ props }) => {
             <CommentInputContainer
                 currentUser={currentUser}
                 onSendComment={fetchComments}
+                setCommentsPage={setCommentsPage}
+                scrollToTop={scrollToTop}
                 props={props}/>
             {/* <TextInput
               multiline={true}

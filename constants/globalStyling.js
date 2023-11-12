@@ -300,6 +300,16 @@ export default StyleSheet.create({
         borderWidth: 0,
         width: '100%',
     },
+    commentUsernameRow: {
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center',
+        marginBottom: 5
+    },
+    commentTimeStamp: {
+        color: '#7a7a7a',
+        fontSize: 12
+    },
     commentOutputCommentText: {
         color: '#959595',
         fontSize: 15,
@@ -312,7 +322,6 @@ export default StyleSheet.create({
         color: '#959595',
         fontSize: 15,
         fontWeight: 'bold',
-        marginBottom: 10,
         borderColor: 'red',
         borderWidth: 0,
     },

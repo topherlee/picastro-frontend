@@ -13,7 +13,7 @@ import globalStyling from "../../../../constants/globalStyling";
 import { commentPostAPICall } from "../../../utils";
 
 
-const CommentInputContainer = ({currentUser, onSendComment, props}) => {
+const CommentInputContainer = ({currentUser, onSendComment, setCommentsPage, scrollToTop, props}) => {
     const {
         token,
         fetchInstance
@@ -41,6 +41,7 @@ const CommentInputContainer = ({currentUser, onSendComment, props}) => {
                 style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
                 placeholder="Write a comment"
                 placeholderTextColor={placeholderTextColor}
+                defaultValue={comment}
                 onChangeText={newComment => setComment(newComment)}
                 multiline={true}
             />
@@ -48,6 +49,9 @@ const CommentInputContainer = ({currentUser, onSendComment, props}) => {
             <TouchableOpacity
                 onPress={() => {
                     commentPostAPICall(fetchInstance, token, commentBody, onSendComment, props.id)
+                    setComment("")
+                    scrollToTop()
+                    setCommentsPage(2)      //reset comments page for query string url
                 }} >
                 <SendButton />
             </TouchableOpacity>

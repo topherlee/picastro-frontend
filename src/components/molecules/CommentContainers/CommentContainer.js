@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, forwardRef } from 'react';
 import {
     View,
     Text,
@@ -11,33 +11,27 @@ import { AuthContext } from '../../../context/AuthContext';
 import { CommentOutputContainer } from '../index';
 import { fetchMore } from '../../../utils';
   
-export default function CommentContainer({ comments }) {
+const CommentContainer = forwardRef(function CommentContainer({ comments, nextComments, fetchMoreComments, setNextCommentsPage }, ref) {
 
     return (
         <FlatList
-            style={{ flex: 1, height: 300 }}
+            ref={ref}
+            style={{ flex: 1, maxHeight: 400 }}
             contentContainerStyle={{ flexGrow: 1 }}
             data={comments}
             renderItem={({ item }) => <CommentOutputContainer {...item} />}
             keyExtractor={item => item.id}
             onEndReached={() => {
                 console.log("comments onEndReached")
-                if (comments.length != 0)
-                    fetchMore(
-                        setComments,
-                        nextComments,
-                        setNextComments,
-                        isCommentsLoading,
-                        setIsCommentsLoading,
-                        currentCommentsPage,
-                        setCurrentCommentsPage,
-                        commentUrl,
-                        requestMethod,
-                        fetchInstance,
-                        token
-                    );
+                if (comments.length != 0 && nextComments) { 
+                    fetchMoreComments()
+                    setNextCommentsPage(page => page + 1);
+                }
             }}
-            onEndReachedThreshold={0.1}
+            
+            // onEndReachedThreshold={0.1}
         />
     );
-}
+})
+
+export default CommentContainer;
