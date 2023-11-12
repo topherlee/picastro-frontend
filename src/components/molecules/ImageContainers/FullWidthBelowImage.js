@@ -19,7 +19,7 @@ import { StarIcon, AwardIcon } from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
-import { CommentInputContainer, CommentOutputContainer } from '../index'
+import { CommentInputContainer, CommentOutputContainer, CommentContainer } from '../index'
 import {
   commentGetAPICall,
   commentPostAPICall,
@@ -33,7 +33,7 @@ const FullWidthBelowImage = ({ props }) => {
   const [nextComments, setNextComments] = useState(null);
   const [retry, setRetry] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-  const [comments, setComments] = useState({});
+  const [comments, setComments] = useState([]);
   const [currentCommentsPage, setCurrentCommentsPage] = useState(1);
   const {
     currentUser,
@@ -43,19 +43,25 @@ const FullWidthBelowImage = ({ props }) => {
 
   const commentUrl = '/api/comments/' + props.id;
   const requestMethod = 'GET';
-
-    useEffect(() => {
-        if (modalVisible) {
-            fetchComments();
-        }
-    }, [modalVisible])
-
   const fetchComments = async () => {
     // console.log("COMMENTS", commentUrl, requestMethod)
-    let comment = await commentGetAPICall(setNextComments, commentUrl, requestMethod, fetchInstance, token)
+    let comments = await commentGetAPICall(
+      postID,
+      setNextComments,
+      commentUrl,
+      requestMethod,
+      fetchInstance,
+      token
+    )
     // console.log(comment)
-    setComments(comment);
+    setComments(comments);
   }
+
+  useEffect(() => {
+    if (modalVisible) {
+      fetchComments(props.id);
+    }
+  }, [modalVisible, props.id])
 
   return (
     <Container>
@@ -109,18 +115,18 @@ const FullWidthBelowImage = ({ props }) => {
         {props.imageDescription}
       </MoreOrLess>
 
-          <TouchableOpacity onPress={() => { console.log('touch'); setModalVisible(true) }}>
-            <View style={globalStyling.commentInputContainer} pointerEvents='none'>
-                <InCommentUserImage
-                    userImageURL={currentUser}
-                />
-                <TextInput
-                    style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
-                    placeholder="Write a comment"
-                    placeholderTextColor='grey'
-                    />
-                <SendButton />
-            </View>
+      <TouchableOpacity onPress={() => { setModalVisible(true) }}>
+        <View style={globalStyling.commentInputContainer} pointerEvents='none'>
+          <InCommentUserImage
+            userImageURL={currentUser}
+          />
+          <TextInput
+            style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
+            placeholder="Write a comment"
+            placeholderTextColor='grey'
+          />
+          <SendButton />
+        </View>
       </TouchableOpacity>
 
       <Modal
@@ -132,7 +138,7 @@ const FullWidthBelowImage = ({ props }) => {
           setModalVisible(false);
         }}
       >
-        <TouchableWithoutFeedback onPress={() => { ; setModalVisible(false) }}>
+        <TouchableWithoutFeedback onPress={() => { setModalVisible(false) }}>
           <View style={{
             position: 'absolute',
             top: 0,
@@ -151,31 +157,7 @@ const FullWidthBelowImage = ({ props }) => {
             bottom: 1,
           }}
         >
-            <FlatList
-                style={{flex:1, height: 300}}
-                contentContainerStyle={{ flexGrow: 1 }}
-                data={comments}
-                renderItem={({item}) => <CommentOutputContainer {...item} />}
-                keyExtractor={item => item.id}
-                onEndReached={() => {
-                  console.log("comments onEndReached")
-                  if (comments.length != 0)
-                    fetchMore(
-                      setComments,
-                      nextComments,
-                      setNextComments,
-                      isCommentsLoading,
-                      setIsCommentsLoading,
-                      currentCommentsPage,
-                      setCurrentCommentsPage,
-                      commentUrl,
-                      requestMethod,
-                      fetchInstance,
-                      token
-                    );
-                }}
-                onEndReachedThreshold={0.1}
-            />
+          <CommentContainer comments={comments} />
           <View style={{
             backgroundColor: "black",
             width: "100%",
@@ -203,9 +185,9 @@ const FullWidthBelowImage = ({ props }) => {
               }}
             /> */}
           </View>
-        </KeyboardAvoidingView>
-      </Modal>
-    </Container>
+        </KeyboardAvoidingView >
+      </Modal >
+    </Container >
   )
 };
 

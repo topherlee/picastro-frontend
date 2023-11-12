@@ -20,9 +20,6 @@ const CommentInputContainer = ({currentUser, onSendComment, props}) => {
     } = useContext(AuthContext);
     const [comment, setComment] = useState('');
 
-    const commentUrl = '/api/comments/';
-    const requestMethod = 'POST';
-
     const placeholderTextColor = "grey";
 
     let commentBody = new FormData();
@@ -50,7 +47,7 @@ const CommentInputContainer = ({currentUser, onSendComment, props}) => {
             {/* <Text>Write a comment</Text> */}
             <TouchableOpacity
                 onPress={() => {
-                    commentPostAPICall(commentUrl, requestMethod, fetchInstance, token, commentBody, onSendComment)
+                    commentPostAPICall(fetchInstance, token, commentBody, onSendComment, props.id)
                 }} >
                 <SendButton />
             </TouchableOpacity>
