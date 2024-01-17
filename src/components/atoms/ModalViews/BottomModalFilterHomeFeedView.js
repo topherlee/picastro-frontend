@@ -32,7 +32,7 @@ export default function BottomModalFilterHomeView() {
         setActiveSelector,
         activeObjectSelector,
         setActiveObjectSelector,
-        setCurrentPage,
+        setCurrentPostsPage,
     } = useContext(AuthContext);
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function BottomModalFilterHomeView() {
                         setModalVisible(!isModalVisible);
                         setSearchAndFilterUrl('ordering="-pub_date"');
                         setActiveSelector('most_recent');
-                        setCurrentPage(1);
+                        setCurrentPostsPage(1);
                     }}>
                     <Text style={globalStyling.bottomModalButtonText}>
                         Most Recent
@@ -83,7 +83,7 @@ export default function BottomModalFilterHomeView() {
                                   `imageCategory=${activeObjectSelector}`,
                               )
                             : setSearchAndFilterUrl('');
-                        setCurrentPage(1);
+                        setCurrentPostsPage(1);
                     }}>
                     <Text style={globalStyling.bottomModalButtonText}>
                         Object Type
@@ -105,7 +105,7 @@ export default function BottomModalFilterHomeView() {
                         setModalVisible(!isModalVisible);
                         setSearchAndFilterUrl('order=random');
                         setActiveSelector('randomizer');
-                        setCurrentPage(1);
+                        setCurrentPostsPage(1);
                     }}>
                     <Text style={globalStyling.bottomModalButtonText}>
                         Randomizer
@@ -126,7 +126,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <IssTransitButton selected={activeObjectSelector} />
@@ -142,7 +142,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <LunarButton selected={activeObjectSelector} />
@@ -158,7 +158,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <SolarButton selected={activeObjectSelector} />
@@ -174,7 +174,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <PlanetButton selected={activeObjectSelector} />
@@ -190,7 +190,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <CometButton selected={activeObjectSelector} />
@@ -206,7 +206,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <GalaxyButton selected={activeObjectSelector} />
@@ -222,7 +222,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <AsterismsButton selected={activeObjectSelector} />
@@ -238,7 +238,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <NebulaButton selected={activeObjectSelector} />
@@ -254,7 +254,7 @@ export default function BottomModalFilterHomeView() {
                                 searchAndFilterUrl,
                             );
                             setModalVisible(!isModalVisible);
-                            setCurrentPage(1);
+                            setCurrentPostsPage(1);
                         }}
                         title="Filter Value">
                         <ClustersButton selected={activeObjectSelector} />
