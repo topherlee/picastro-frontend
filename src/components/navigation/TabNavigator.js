@@ -48,7 +48,6 @@ const BottomTabNavigator = ({ navigation }) => {
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ focused }) => {
-                        console.log(focused)
                         return (
                             <HomeButton focused={focused} />
                         )

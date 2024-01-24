@@ -51,9 +51,9 @@ const FullWidthAboveImage = ({ props }) => {
                   }}
                   // resizeMode="contain"
                   style={{
-                      width: 60,
-                      height: 60,
-                      borderRadius: 10,
+                      width: 55,
+                      height: 55,
+                      borderRadius: 9,
                       borderWidth: 0,
                       borderColor: 'red',
                   }}

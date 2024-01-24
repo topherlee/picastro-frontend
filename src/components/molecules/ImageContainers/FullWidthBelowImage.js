@@ -45,7 +45,7 @@ const FullWidthBelowImage = ({ props }) => {
   } = useContext(AuthContext);
 
     const toggleModal = (show) => {
-        setModalVisible(show ? show : !modalVisible);
+        setModalVisible(show);
         setCommentsPage(2);
     }
 
@@ -61,7 +61,7 @@ const FullWidthBelowImage = ({ props }) => {
             postId,
             setNextComments,
         );
-        // console.log(comment)
+        // console.log(comments)
         setComments(comments);
     }
   
@@ -85,134 +85,186 @@ const FullWidthBelowImage = ({ props }) => {
 
   }, [modalVisible, props.id])
 
-  return (
-    <Container>
-      <Row1>
-        <AwardIconWrapper>
-          <AwardIcon {...props} />
-        </AwardIconWrapper>
-        <StarNameWrapper>
-          <TextStarName>{props.astroName}</TextStarName>
-          <StarAliasWrapper>
-            <TextStarNameShort>{props.astroNameShort}</TextStarNameShort>
-            <TextStarNameShort>{props.astroNameShort2}</TextStarNameShort>
-            <TextStarNameShort>{props.astroNameShort3}</TextStarNameShort>
-          </StarAliasWrapper>
-        </StarNameWrapper>
-        <IconView>
-          <StarIcon {...props} />
-        </IconView>
-      </Row1>
+    return (
+        <View>
+            {/* Post Details Section */}
+            <Container>
+                <Row1>
+                    <AwardIconWrapper>
+                        <AwardIcon {...props} />
+                    </AwardIconWrapper>
+                    <StarNameWrapper>
+                        <TextStarName>{props.astroName}</TextStarName>
+                        <StarAliasWrapper>
+                            <TextStarNameShort>
+                                {props.astroNameShort}
+                            </TextStarNameShort>
+                            <TextStarNameShort>
+                                {props.astroNameShort2}
+                            </TextStarNameShort>
+                            <TextStarNameShort>
+                                {props.astroNameShort3}
+                            </TextStarNameShort>
+                        </StarAliasWrapper>
+                    </StarNameWrapper>
+                    <IconView>
+                        <StarIcon {...props} />
+                    </IconView>
+                </Row1>
 
-      <Row2>
-        <IconView>
-          <ExposureSvg /><LightText> {props.exposureTime}</LightText>
-        </IconView>
-        <IconView>
-          <MoonSvg /><LightText> {props.moonPhase}</LightText>
-        </IconView>
-        <IconView>
-          <CloudSvg /><LightText> {props.cloudCoverage}</LightText>
-        </IconView>
-        <Text style={{ color: "#7a7a7a", fontWeight: "bold" }}>BORTLE <Text style={{ color: "#FFC700", fontWeight: "bold" }}>{props.bortle}</Text></Text>
-      </Row2>
+                <Row2>
+                    <IconView>
+                        <ExposureSvg />
+                        <LightText> {props.exposureTime}</LightText>
+                    </IconView>
+                    <IconView>
+                        <MoonSvg />
+                        <LightText> {props.moonPhase}</LightText>
+                    </IconView>
+                    <IconView>
+                        <CloudSvg />
+                        <LightText> {props.cloudCoverage}</LightText>
+                    </IconView>
+                    <Text style={{color: '#7a7a7a', fontWeight: 'bold'}}>
+                        BORTLE{' '}
+                        <Text style={{color: '#FFC700', fontWeight: 'bold'}}>
+                            {props.bortle}
+                        </Text>
+                    </Text>
+                </Row2>
 
-      <MoreOrLess
-        numberOfLines={3}
-        textStyle={{
-          color: "#7a7a7a",
-          fontWeight: 500,
-        }}
-        containerStyle={{
-          marginTop: "3%",
-          width: "100%",
-          paddingBottom: "4%",
-          borderWidth: 0,
-          borderColor: "yellow"
-        }}
-        textButtonStyle={{
-          color: "#FFC700"
-        }}
-      >
-        {props.imageDescription}
-      </MoreOrLess>
+                <MoreOrLess
+                    numberOfLines={3}
+                    textStyle={{
+                        color: '#7a7a7a',
+                        fontWeight: 500,
+                    }}
+                    containerStyle={{
+                        marginTop: '3%',
+                        width: '100%',
+                        paddingBottom: '4%',
+                        borderWidth: 0,
+                        borderColor: 'yellow',
+                    }}
+                    textButtonStyle={{
+                        color: '#FFC700',
+                    }}>
+                    {props.imageDescription}
+                </MoreOrLess>
 
-      <TouchableOpacity onPress={() => { toggleModal() }}>
-        <View style={globalStyling.commentInputContainer} pointerEvents='none'>
-          <InCommentUserImage
-            userImageURL={currentUser.profileImage}
-          />
-          <TextInput
-            style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
-            placeholder="Write a comment"
-            placeholderTextColor='grey'
-          />
-          <SendButton />
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                    presentationStyle="overFullScreen"
+                    onRequestClose={() => {
+                        setModalVisible(false);
+                    }}>
+                    <TouchableWithoutFeedback
+                        onPress={() => {
+                            toggleModal(false);
+                        }}>
+                        <View
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                            }}
+                        />
+                    </TouchableWithoutFeedback>
+
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                        style={{
+                            backgroundColor: 'black',
+                            position: 'absolute',
+                            width: '100%',
+                            bottom: 1,
+                        }}>
+                        <CommentContainer
+                            ref={commentList}
+                            comments={comments}
+                            nextComments={nextComments}
+                            fetchMoreComments={fetchMoreComments}
+                            setNextCommentsPage={setCommentsPage}
+                        />
+                        <View
+                            style={{
+                                backgroundColor: 'black',
+                                width: '100%',
+                                paddingVertical: '4%',
+                                paddingHorizontal: '5%',
+                            }}>
+                            <CommentInputContainer
+                                currentUser={currentUser}
+                                onSendComment={fetchComments}
+                                setCommentsPage={setCommentsPage}
+                                scrollToTop={scrollToTop}
+                                props={props}
+                            />
+                            {/* <TextInput
+                    multiline={true}
+                    textAlignVertical="top"
+                    placeholder="Write a comment"
+                    placeholderTextColor="black"
+                    autoFocus={true}
+                    style={{
+                        backgroundColor: "white",
+                        width: "100%",
+                        minHeight: 50,
+                        maxHeight: 150,
+                        paddingHorizontal: "3%",
+                        paddingVertical: "4%",
+                        borderRadius: 10,
+                    }}
+                    /> */}
+                        </View>
+                    </KeyboardAvoidingView>
+                </Modal>
+            </Container>
+            {/* Comments Section */}
+            {comments.slice(0, 3).map(comment => {
+                return <CommentOutputContainer key={comment.id} {...comment} />;
+            })}
+            <TouchableOpacity
+                onPress={() => {
+                    toggleModal(true);
+                }}>
+                {comments.length > 3 ? (
+                    <View style={{margin: '2%', padding: '3%'}}>
+                        <Text style={{color: '#FFC700', fontWeight: 'bold'}}>
+                            Load more comments
+                        </Text>
+                    </View>
+                ) : (
+                    <></>
+                )}
+                <View
+                    style={globalStyling.commentInputContainer}
+                    pointerEvents="none">
+                    <InCommentUserImage
+                        userImageURL={currentUser.profileImage}
+                    />
+                    <TextInput
+                        style={[
+                            globalStyling.inputFieldText,
+                            {
+                                height: 'auto',
+                                textAlign: 'left',
+                                marginHorizontal: 10,
+                            },
+                        ]}
+                        placeholder="Write a comment"
+                        placeholderTextColor="grey"
+                    />
+                    <SendButton />
+                </View>
+            </TouchableOpacity>
         </View>
-      </TouchableOpacity>
-
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        presentationStyle="overFullScreen"
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <TouchableWithoutFeedback onPress={() => { toggleModal() }}>
-          <View style={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(0,0,0,0.5)'
-          }} />
-        </TouchableWithoutFeedback>
-
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{
-            backgroundColor: "black",
-            position: "absolute",
-            width: "100%",
-            bottom: 1,
-          }}
-        >
-        <CommentContainer ref={commentList} comments={comments} nextComments={nextComments} fetchMoreComments={fetchMoreComments} setNextCommentsPage={setCommentsPage} />
-          <View style={{
-            backgroundColor: "black",
-            width: "100%",
-            paddingVertical: "4%",
-            paddingHorizontal: "5%"
-          }}>
-            <CommentInputContainer
-                currentUser={currentUser}
-                onSendComment={fetchComments}
-                setCommentsPage={setCommentsPage}
-                scrollToTop={scrollToTop}
-                props={props}/>
-            {/* <TextInput
-              multiline={true}
-              textAlignVertical="top"
-              placeholder="Write a comment"
-              placeholderTextColor="black"
-              autoFocus={true}
-              style={{
-                backgroundColor: "white",
-                width: "100%",
-                minHeight: 50,
-                maxHeight: 150,
-                paddingHorizontal: "3%",
-                paddingVertical: "4%",
-                borderRadius: 10,
-              }}
-            /> */}
-          </View>
-        </KeyboardAvoidingView >
-      </Modal >
-    </Container >
-  )
+    );
 };
 
 const Container = styled.View`
