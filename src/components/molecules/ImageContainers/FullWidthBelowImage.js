@@ -243,7 +243,7 @@ const FullWidthBelowImage = ({props}) => {
                     style={globalStyling.commentInputContainer}
                     pointerEvents="none">
                     <InCommentUserImage
-                        userImageURL={currentUser.profileImage}
+                        userImageURL={currentUser?.profileImage}
                     />
                     <TextInput
                         style={[
