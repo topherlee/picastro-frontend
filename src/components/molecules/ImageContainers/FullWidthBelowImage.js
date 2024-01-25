@@ -1,59 +1,55 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  Modal,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  FlatList,
-  KeyboardAvoidingView
+    View,
+    Text,
+    TextInput,
+    Modal,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    FlatList,
+    KeyboardAvoidingView,
 } from 'react-native';
 import styled from 'styled-components';
-import { MoreOrLess } from "@rntext/more-or-less";
+import {MoreOrLess} from '@rntext/more-or-less';
 
-import { AuthContext } from '../../../context/AuthContext';
-import { InCommentUserImage, SendButton } from "../../atoms"
+import {AuthContext} from '../../../context/AuthContext';
+import {InCommentUserImage, SendButton} from '../../atoms';
 import globalStyling from '../../../../constants/globalStyling';
-import { StarIcon, AwardIcon } from '../../atoms';
+import {StarIcon, AwardIcon} from '../../atoms';
 import ExposureSvg from '../../../assets/buttons/icon-exposure.svg';
 import MoonSvg from '../../../assets/buttons/icon-moonphase.svg';
 import CloudSvg from '../../../assets/buttons/icon-cloud.svg';
-import { CommentInputContainer, CommentOutputContainer, CommentContainer } from '../index'
 import {
-  commentGetAPICall,
-  commentPostAPICall,
-  fetchMore
-} from '../../../utils';
-import { useNavigation } from '@react-navigation/native';
+    CommentInputContainer,
+    CommentOutputContainer,
+    CommentContainer,
+} from '../index';
+import {commentGetAPICall, commentPostAPICall, fetchMore} from '../../../utils';
+import {useNavigation} from '@react-navigation/native';
 
+const FullWidthBelowImage = ({props}) => {
+    const navigation = useNavigation();
+    const commentList = useRef(null);
+    const [commentsRefreshing, setCommentsRefreshing] = useState(true);
+    const [isCommentsLoading, setIsCommentsLoading] = useState(false);
+    const [nextComments, setNextComments] = useState(null);
+    const [retry, setRetry] = useState(0);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [commentsPage, setCommentsPage] = useState(2);
+    const {currentUser, fetchInstance, token} = useContext(AuthContext);
 
-const FullWidthBelowImage = ({ props }) => {
-  const navigation = useNavigation();
-  const commentList = useRef(null)
-  const [commentsRefreshing, setCommentsRefreshing] = useState(true);
-  const [isCommentsLoading, setIsCommentsLoading] = useState(false);
-  const [nextComments, setNextComments] = useState(null);
-  const [retry, setRetry] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [commentsPage, setCommentsPage] = useState(2);
-  const {
-    currentUser,
-    fetchInstance,
-    token
-  } = useContext(AuthContext);
-
-    const toggleModal = (show) => {
+    const toggleModal = show => {
         setModalVisible(show);
         setCommentsPage(2);
-    }
+    };
 
     const scrollToTop = () => {
-        if (comments.length > 0) commentList.current.scrollToIndex({index: 0, animated: true});
+        if (comments.length > 0)
+            commentList.current.scrollToIndex({index: 0, animated: true});
     };
-    
-    const fetchComments = async (postId) => {
+
+    const fetchComments = async postId => {
         // console.log("COMMENTS", commentUrl, requestMethod)
         let comments = await commentGetAPICall(
             fetchInstance,
@@ -63,8 +59,8 @@ const FullWidthBelowImage = ({ props }) => {
         );
         // console.log(comments)
         setComments(comments);
-    }
-  
+    };
+
     const fetchMoreComments = async () => {
         fetchMore(
             fetchInstance,
@@ -76,14 +72,16 @@ const FullWidthBelowImage = ({ props }) => {
             setNextComments,
             isCommentsLoading,
             setIsCommentsLoading,
+            setCommentsPage,
         );
-  } 
+    };
 
-  useEffect(() => {
-    fetchComments(props.id);
-    navigation.addListener('blur', ()=>{if (modalVisible) toggleModal(false)})
-
-  }, [modalVisible, props.id])
+    useEffect(() => {
+        fetchComments(props.id);
+        navigation.addListener('blur', () => {
+            if (modalVisible) toggleModal(false);
+        });
+    }, [modalVisible, props.id]);
 
     return (
         <View>
@@ -189,7 +187,6 @@ const FullWidthBelowImage = ({ props }) => {
                             comments={comments}
                             nextComments={nextComments}
                             fetchMoreComments={fetchMoreComments}
-                            setNextCommentsPage={setCommentsPage}
                         />
                         <View
                             style={{
@@ -268,42 +265,42 @@ const FullWidthBelowImage = ({ props }) => {
 };
 
 const Container = styled.View`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-  padding: 4%;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  background-color: #2e2e2e;
-  border: 0px solid yellow;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    padding: 4%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #2e2e2e;
+    border: 0px solid yellow;
 `;
 //
 //border: 1px solid grey;
 
 const Row1 = styled.View`
-  display: flex;
-  flex-direction: row;
-  padding-vertical: 2%;
-  border: 0px solid red;
-`
+    display: flex;
+    flex-direction: row;
+    padding-vertical: 2%;
+    border: 0px solid red;
+`;
 
 const Row2 = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 95%;
-  padding-vertical: 2%;
-  border: 0px solid red;
-`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding-vertical: 2%;
+    border: 0px solid red;
+`;
 
 const CommentInputView = styled.View`
-  background-color: white;
-  margin-vertical: 3%;
-  padding: 4%;
-  border-radius: 10px;
-`
+    background-color: white;
+    margin-vertical: 3%;
+    padding: 4%;
+    border-radius: 10px;
+`;
 
 const AwardIconWrapper = styled.View`
   width: 10%;
@@ -317,45 +314,44 @@ const AwardIconWrapper = styled.View`
 `;
 
 const StarNameWrapper = styled.View`
-  width: 75%;
-  border: 0px solid yellow;
-`
+    width: 75%;
+    border: 0px solid yellow;
+`;
 
 const StarAliasWrapper = styled.View`
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: flex-start;
-  border: 0px solid white;
-`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 0px solid white;
+`;
 
 const TextStarName = styled.Text`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 29px;
-  color: #ffffff;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 29px;
+    color: #ffffff;
 `;
 
 const TextStarNameShort = styled.Text`
-  padding-right: 20px;
-  font-family: 'Inter';
-  font-weight: bold;
-  font-size: 13px;
-  color: #FFC700;
+    padding-right: 20px;
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 13px;
+    color: #ffc700;
 `;
 
 const IconView = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border:0px solid yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid yellow;
 `;
 
 const LightText = styled.Text`
-  color: #7a7a7a;  
-`
-
+    color: #7a7a7a;
+`;
 
 export default FullWidthBelowImage;

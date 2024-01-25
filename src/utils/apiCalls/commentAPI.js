@@ -1,18 +1,23 @@
-import { Alert } from "react-native";
+import {Alert} from 'react-native';
 
-const commentPostAPICall = async (fetchInstance, token, body, onSendComment, postId) => {
-    
-    console.log("commentPostAPIcall, body", body)
+const commentPostAPICall = async (
+    fetchInstance,
+    token,
+    body,
+    onSendComment,
+    postId,
+) => {
+    console.log('commentPostAPIcall, body', body);
     const url = '/api/comments/';
 
     try {
         var response = await fetchInstance(url, {
             method: 'POST',
             headers: {
-                'Authorization': `Token ${token.access}`
+                Authorization: `Token ${token.access}`,
             },
-            body: body
-        })
+            body: body,
+        });
         if (response.ok) {
             response = await response.json();
             // console.log('RESPONSE', response);
@@ -21,25 +26,29 @@ const commentPostAPICall = async (fetchInstance, token, body, onSendComment, pos
         } else {
             throw new Error(`HTTP response status ${response.status}`);
         }
-
     } catch (error) {
-        console.log("commentAPI error",error);
-        return response
+        console.log('commentAPI error', error);
+        return response;
     }
-}
+};
 
-const commentGetAPICall = async (fetchInstance, token, postId, setNextComments, page=1) => {
-    
-    var url = `/api/comments/${postId}?page=${page}`
+const commentGetAPICall = async (
+    fetchInstance,
+    token,
+    postId,
+    setNextComments,
+    page = 1,
+) => {
+    var url = `/api/comments/${postId}?page=${page}`;
 
     try {
         var response = await fetchInstance(url, {
             method: 'GET',
             headers: {
-                'Authorization': `Token ${token.access}`,
-                'Content-Type': 'application/json'
-            }
-        })
+                Authorization: `Token ${token.access}`,
+                'Content-Type': 'application/json',
+            },
+        });
         if (response.ok) {
             response = await response.json();
             setNextComments(response.next);
@@ -47,13 +56,12 @@ const commentGetAPICall = async (fetchInstance, token, postId, setNextComments, 
         } else {
             throw new Error(`HTTP response status ${response.status}`);
         }
-
     } catch (error) {
-        console.log("commentGetAPI",error);
+        console.log('commentGetAPI', error);
         Alert.alert('Error Fetching Data', error.toString());
         return [];
     }
-}
+};
 
 const fetchMore = async (
     fetchInstance,
@@ -65,8 +73,8 @@ const fetchMore = async (
     setNextComments,
     isCommentsLoading,
     setIsCommentsLoading,
+    setCommentsPage,
 ) => {
-    console.log('fetchmore comments', isCommentsLoading, nextComments, token);
     if (isCommentsLoading) return;
     if (!nextComments) return;
     setIsCommentsLoading(true);
@@ -79,10 +87,10 @@ const fetchMore = async (
         token,
         postId,
         setNextComments,
-        page
+        page,
     );
-    console.log()
     setIsCommentsLoading(false);
+    setCommentsPage(page => page + 1);
     setComments(prevData => [...prevData, ...newData]);
 };
 

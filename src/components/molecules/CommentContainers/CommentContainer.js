@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, forwardRef } from 'react';
+import React, {useState, useContext, useEffect, forwardRef} from 'react';
 import {
     View,
     Text,
@@ -7,39 +7,46 @@ import {
     TouchableOpacity,
     FlatList,
 } from 'react-native';
-import { AuthContext } from '../../../context/AuthContext';
-import { CommentOutputContainer } from '../index';
-import { fetchMore } from '../../../utils';
-  
-const CommentContainer = forwardRef(function CommentContainer({ comments, nextComments, fetchMoreComments, setNextCommentsPage }, ref) {
+import {AuthContext} from '../../../context/AuthContext';
+import {CommentOutputContainer} from '../index';
+import {fetchMore} from '../../../utils';
 
+const CommentContainer = forwardRef(function CommentContainer(
+    {comments, nextComments, fetchMoreComments, setNextCommentsPage},
+    ref,
+) {
     const ListEmptyComponent = () => {
         return (
             <View style={{paddingTop: 10}}>
-                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#959595' }}>No comments yet.</Text>
+                <Text
+                    style={{
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        color: '#959595',
+                    }}>
+                    No comments yet.
+                </Text>
             </View>
         );
-    }
+    };
 
     return (
         <FlatList
             ref={ref}
-            style={{ flex: 1, maxHeight: 400 }}
-            contentContainerStyle={{ flexGrow: 1 }}
+            style={{flex: 1, maxHeight: 400}}
+            contentContainerStyle={{flexGrow: 1}}
             data={comments}
-            renderItem={({ item }) => <CommentOutputContainer {...item} />}
+            renderItem={({item}) => <CommentOutputContainer {...item} />}
             keyExtractor={item => item.id}
             onEndReached={() => {
-                console.log("comments onEndReached")
-                if (comments.length != 0 && nextComments) { 
-                    fetchMoreComments()
-                    setNextCommentsPage(page => page + 1);
+                if (comments.length != 0 && nextComments) {
+                    fetchMoreComments();
                 }
             }}
             ListEmptyComponent={ListEmptyComponent}
             onEndReachedThreshold={0.5}
         />
     );
-})
+});
 
 export default CommentContainer;
