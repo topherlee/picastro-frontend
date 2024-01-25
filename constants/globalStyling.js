@@ -290,7 +290,7 @@ export default StyleSheet.create({
         borderColor: 'red',
         flexDirection: 'row',
         alignItems: 'flex-start',
-        margin: '3%',
+        margin: '2%',
         padding: '3%',
         gap: 15,
     },
