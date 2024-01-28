@@ -96,11 +96,11 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('Picastro.keystore')
+            storeFile file('picastro.keystore')
             storePassword System.console().readLine("\nKeystore password:")
             keyAlias System.console().readLine("\nAlias: ")
             keyPassword System.console().readLine("\nAlias password: ")
-   }
+        }
     }
     buildTypes {
         debug {

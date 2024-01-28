@@ -20,6 +20,7 @@ export const AuthProvider = ({children, contextValue}) => {
     const [currentUserProfile, setCurrentUserProfile] = useState();
     const [otherUser, setOtherUser] = useState();
     const [currentPostsPage, setCurrentPostsPage] = useState(1);
+    const [validSubscription, setValidSubscription] = useState(false);
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -196,6 +197,8 @@ export const AuthProvider = ({children, contextValue}) => {
         setListOfLikes,
         retry,
         setRetry,
+        validSubscription,
+        setValidSubscription
     };
 
     //HACK: function to reset all states manually on logout
@@ -226,6 +229,7 @@ export const AuthProvider = ({children, contextValue}) => {
         setIsSignedIn(false);
         setListOfLikes([]);
         setModalVisible(false);
+        setValidSubscription(false);
     }
 
     useEffect(() => {

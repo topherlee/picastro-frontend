@@ -8,11 +8,14 @@ import { AuthContext } from '../../context/AuthContext';
 const Stack = createStackNavigator();
 
 const OnboardingNavigator = () => {
-    const {isSignedIn} = useContext(AuthContext);
+    const {
+      isSignedIn,
+      validSubscription
+    } = useContext(AuthContext);
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
           {/* if isSignedIn, then use the drawer navigator, otherwise render the login screen */}
-          {isSignedIn ? (
+          {isSignedIn && validSubscription ? (
             <Stack.Screen name="MainStack" component={DrawerNavigator} />
           
           ) : (

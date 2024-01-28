@@ -13,9 +13,20 @@ import * as Keychain from 'react-native-keychain';
 import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
+import { loadCurrentUser } from "../../utils";
 
 export default function LoginScreen({ navigation, route }) {
-  const { setIsSignedIn, domain, resetStates, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
+  const {
+    setIsSignedIn,
+    domain,
+    resetStates,
+    setToken,
+    token,
+    setCurrentUser,
+    fetchInstance,
+    currentUser,
+    setValidSubscription
+  } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(route.params?.username ? route.params.username : null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -55,13 +66,25 @@ export default function LoginScreen({ navigation, route }) {
         await Keychain.setGenericPassword('token', JSON.stringify(json))
         setToken(json);
         setIsSignedIn(true);
+        // console.log("LoginScreen, token", token, JSON.stringify(json));
+        console.log("LoginScreen, token3", json.access);
+        const curUser = await loadCurrentUser(json, fetchInstance)
+        setValidSubscription(curUser.valid_subscription)
+        console.log("validSubscription", curUser.valid_subscription);
       })
+      // .then(async () => {
+      //   console.log("LoginScreen2, token", token)
+      //   const curUser = await loadCurrentUser(token, fetchInstance)
+      //   setValidSubscription(curUser)
+      // })
       .catch(error => {
-        console.log("error", error);
+        console.log("LoginScreen error", error);
         setError(true)
       })
 
   }
+
+  
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
