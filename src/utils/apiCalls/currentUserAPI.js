@@ -2,13 +2,11 @@ import React, { useContext, useEffect } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
 import { getUserID } from '../../context/UserContext';
-//import { loadUserProfile } from '../../utils';
 
 const loadCurrentUser = async (token, fetchInstance) => {
 
     const urlForApiCall = `/api/current_user/`;
-    console.log("loadCurrentUser, token", token, token.access)
-
+    
     try {
       var response = await fetchInstance(urlForApiCall, {
         method: 'GET',
@@ -60,23 +58,3 @@ const loadCurrentUser = async (token, fetchInstance) => {
 
 
 export default loadCurrentUser;
-
-
-// useEffect(() => {
-        
-//     fetch(`${domain}/api/current_user/`, {
-//         method: 'GET',
-//         headers: {
-//             'Authorization': `Token ${token.access}`,
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(res => {return res.json()})
-//     .then((result) => {
-//         //console.log("INCOMINGDATA",result.username)
-//         setCurrentUser(result);
-//     }).catch (err => {
-//         console.log(err);
-//         //setData(existingData);
-//     })
-// }, [])

@@ -62,21 +62,15 @@ export default function LoginScreen({ navigation, route }) {
         }
       })
       .then(async json => {
-        console.log('JSON', json);
+        console.debug('JSON', json);
         await Keychain.setGenericPassword('token', JSON.stringify(json))
         setToken(json);
         setIsSignedIn(true);
-        // console.log("LoginScreen, token", token, JSON.stringify(json));
-        console.log("LoginScreen, token3", json.access);
+        
         const curUser = await loadCurrentUser(json, fetchInstance)
         setValidSubscription(curUser.valid_subscription)
-        console.log("validSubscription", curUser.valid_subscription);
+        console.debug("validSubscription", curUser.valid_subscription);
       })
-      // .then(async () => {
-      //   console.log("LoginScreen2, token", token)
-      //   const curUser = await loadCurrentUser(token, fetchInstance)
-      //   setValidSubscription(curUser)
-      // })
       .catch(error => {
         console.log("LoginScreen error", error);
         setError(true)

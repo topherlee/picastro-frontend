@@ -8,7 +8,6 @@ const loadUserProfile = async (token, fetchInstance, user_id) => {
 
     if (!user_id) {
         user_id = getUserID(token);
-        console.log("userProfileAPI", user_id)
     }
 
     const urlForApiCall = `/api/user/${user_id}`;
