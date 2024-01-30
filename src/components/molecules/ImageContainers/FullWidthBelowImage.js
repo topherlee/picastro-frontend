@@ -88,9 +88,13 @@ const FullWidthBelowImage = ({props}) => {
             {/* Post Details Section */}
             <Container>
                 <Row1>
-                    <AwardIconWrapper>
-                        <AwardIcon {...props} />
-                    </AwardIconWrapper>
+                    {props.award != 'None' ? (
+                        <AwardIconWrapper>
+                            <AwardIcon {...props} />
+                        </AwardIconWrapper>
+                    ) : (
+                        <></>
+                    )}
                     <StarNameWrapper>
                         <TextStarName>{props.astroName}</TextStarName>
                         <StarAliasWrapper>
@@ -280,6 +284,7 @@ const Container = styled.View`
 
 const Row1 = styled.View`
     display: flex;
+    justify-content: space-evenly;
     flex-direction: row;
     padding-vertical: 2%;
     border: 0px solid red;
