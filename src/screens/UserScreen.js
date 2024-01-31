@@ -8,26 +8,28 @@ import {
     TouchableOpacity,
     View,
     Linking,
+    ActivityIndicator
 } from 'react-native';
 import {ExtendedPicastroBurgerHeader} from '../components/molecules';
 import {HalfWidthPostsContainer} from '../components/organisms';
 import MasonryList from 'reanimated-masonry-list';
-import {BottomFilterModal} from '../components/molecules';
+import { BottomFilterModal } from '../components/molecules';
+import { EmptyFeedMaleFigure } from '../components/atoms';
 import StarIconSvg from '../assets/star-icon.svg';
 import AwardGoldSvg from '../assets/buttons/award-gold.svg';
 import AwardSilverSvg from '../assets/buttons/award-silver.svg';
 import AwardBronzeSvg from '../assets/buttons/award-bronze.svg';
 import globalStyling from '../../constants/globalStyling';
-
+import {loadUserProfile} from '../utils';
 import {AuthContext} from '../context/AuthContext';
 
-const UserScreen = ({navigation}) => {
+const UserScreen = ({ navigation, route }) => {
+    // console.log('NAVI', navigation.getState())
     const [data, setData] = useState([]);
     const [user, setUser] = useState();
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
-    const [retry, setRetry] = useState(0);
 
     const {
         token,
@@ -36,14 +38,20 @@ const UserScreen = ({navigation}) => {
         userSearchAndFilterUrl,
         userActiveObjectSelector,
         userActiveSelector,
-        userCurrentPage,
-        setUserCurrentPage,
+        userCurrentPage, setUserCurrentPage,
         userScreenUrl,
-        isModalVisible
+        isModalVisible,
+        retry, setRetry
     } = useContext(AuthContext);
 
     //setUrlAttachement('?poster=' + currentUser.id);
-    const urlForApiCall = `/api/feed/?${userScreenUrl}&${userSearchAndFilterUrl}`;
+    const urlForApiCall = `/api/feed/?poster=${route.params.userId}&${userSearchAndFilterUrl}`;
+
+    const fetchUser = async (userId) => {
+        const userPro = await loadUserProfile(token, fetchInstance, userId);
+        console.log('USERPROFILE', userPro.id, currentUser.id);
+        setUser(userPro)
+    };
 
     async function loadUserFeed(pageNum) {
         try {
@@ -71,11 +79,6 @@ const UserScreen = ({navigation}) => {
         }
     }
 
-    // const fetchUser = async () => {
-    //     const userPro = await loadUserProfile(token, fetchInstance, user);
-    //     setUserProfile(userPro)
-    // };
-
     const fetchMore = async () => {
         if (isLoading) return;
         if (!next) return;
@@ -90,114 +93,108 @@ const UserScreen = ({navigation}) => {
 
     const refreshPage = async () => {
         setUserCurrentPage(1);
-        const newData = await loadUserFeed(1);
-        setData(newData);
-        setRefreshing(false);
+        // const newData = await loadUserFeed(1);
+        // setData(newData);
+        // setRefreshing(false);
+        setRetry(retry+1)
     };
 
     useEffect(() => {
-        //console.log('AccessToken',jwtDecode(token.access))
-        // fetchUser();
-        console.log(currentUser)
-        loadUserFeed(userCurrentPage)
-            .then(data => {
+        async function loadData() {
+            try {
+                await fetchUser(route.params.userId);
+                var data = await loadUserFeed(userCurrentPage);
                 setData(data);
                 setRefreshing(false);
-            })
-            .catch(err => {
-                console.log("USERSCREENEFFECT", err)
-            });
+            } catch (err) {
+                console.log('USERSCREEN', err);
+            }
+        }
+
+        loadData()
     }, [userActiveObjectSelector, userActiveSelector, retry]);
 
-    if (!currentUser) {
-        return <></>;
-    } else {
         return (
             <SafeAreaView style={styles.container}>
                 <ExtendedPicastroBurgerHeader />
 
                 {isModalVisible ? <BottomFilterModal screen={'User'} /> : <></>}
-                <View
-                    style={{
-                        backgroundColor: 'black',
-                        borderWidth: 0,
-                        borderColor: 'white',
-                        flex: 1,
-                    }}>
-                    <MasonryList
-                        data={data}
-                        keyExtractor={item => item.id}
-                        numColumns={2}
-                        onRefresh={refreshPage}
-                        refreshing={refreshing}
-                        showsVerticalScrollIndicator={false}
-                        onEndReached={fetchMore}
-                        onEndReachedThreshold={0.1}
-                        renderItem={({item}) => (
-                            <HalfWidthPostsContainer {...item} />
-                        )}
-                        ListEmptyComponent={
-                            <View style={{
-                                maxWidth: '96%',
-                                paddingTop: '3%',
-                                paddingLeft: '4%',}}>
-                            <Text
-                                style={{color: 'white'}}
-                                onPress={function () {
-                                    setRetry(retry + 1);
-                                }}>
-                                Nothing to display here, touch to refresh page.
-                            </Text>
-                            </View>
-                        }
-                        ListHeaderComponent={
-                            <View
-                                style={{
-                                    borderWidth: 0,
-                                    borderColor: 'green',
-                                    backgroundColor: '#2f2f2f',
-                                }}>
-                                <View style={styles.profilecontainer}>
-                                    <View style={styles.profile}>
-                                        <Image
-                                            style={
-                                                globalStyling.profileUserImage
-                                            }
-                                            source={{
-                                                uri: currentUser.profileImage,
-                                            }}
-                                        />
-                                        <View style={styles.profilecontent}>
-                                            <Text style={styles.profileName}>
-                                                {currentUser.user.username}
-                                            </Text>
-                                            <Text
-                                                style={styles.profilePronounce}>
-                                                {currentUser.genderIdentifier}
-                                            </Text>
-                                            <View style={styles.starandcount}>
-                                                <StarIconSvg
-                                                    style={styles.starcount}
-                                                    height="40"
-                                                    width="40"
-                                                    fill="#F0355B"
-                                                    stroke="#F0355B"
-                                                    strokeWidth="0">
-                                                    {' '}
-                                                </StarIconSvg>
-                                                <Text style={styles.stars}>
-                                                    {currentUser.total_likes}
+                {(user && currentUser) &&
+                    <View
+                        style={{
+                            backgroundColor: 'black',
+                            borderWidth: 0,
+                            borderColor: 'white',
+                            flex: 1,
+                        }}>
+                        <MasonryList
+                            data={data}
+                            keyExtractor={item => item.id}
+                            numColumns={2}
+                            onRefresh={refreshPage}
+                            refreshing={refreshing}
+                            showsVerticalScrollIndicator={false}
+                            onEndReached={fetchMore}
+                            onEndReachedThreshold={0.1}
+                            renderItem={({ item }) => (
+                                <HalfWidthPostsContainer {...item} />
+                            )}
+                            ListEmptyComponent={
+                                <View
+                                    style={{
+                                        maxWidth: '96%',
+                                        paddingTop: '3%',
+                                        paddingLeft: '4%',
+                                    }}>
+                                    <EmptyFeedMaleFigure />
+                                </View>
+                            }
+                            ListHeaderComponent={
+                                <View
+                                    style={{
+                                        borderWidth: 0,
+                                        borderColor: 'green',
+                                        backgroundColor: '#2f2f2f',
+                                    }}>
+                                    <View style={styles.profilecontainer}>
+                                        <View style={styles.profile}>
+                                            <Image
+                                                style={globalStyling.profileImage}
+                                                source={{
+                                                    uri: user.profileImage, //+ `?date=${new Date()}`,
+                                                    cache: "reload",
+                                                }}
+                                            />
+                                            <View style={styles.profilecontent}>
+                                                <Text style={styles.profileName}>
+                                                    {user.username}
                                                 </Text>
+                                                <Text
+                                                    style={styles.profilePronounce}>
+                                                    {user.genderIdentifier}
+                                                </Text>
+                                                <View style={styles.starandcount}>
+                                                    <StarIconSvg
+                                                        style={styles.starcount}
+                                                        height="40"
+                                                        width="40"
+                                                        fill="#F0355B"
+                                                        stroke="#F0355B"
+                                                        strokeWidth="0">
+                                                    </StarIconSvg>
+                                                    <Text style={styles.stars}>
+                                                        {user.total_likes}
+                                                    </Text>
+                                                </View>
                                             </View>
                                         </View>
                                     </View>
-                                </View>
 
-                                <View style={styles.textcontainer}>
-                                    <Text style={styles.profiledesc}>
-                                        {currentUser.userDescription}
-                                    </Text>
-                                    {/* <View style={styles.multiplelink}>
+                                    <View style={styles.textcontainer}>
+                                        <Text style={styles.profiledesc}>
+                                            {user.userDescription}
+                                        </Text>
+                                        {/* <View style={styles.multiplelink}>
                                         <TouchableOpacity onPress={() => Linking.openURL('linktr.ee/starboyastro')}>
                                         <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text> 
                                         </TouchableOpacity>
@@ -205,43 +202,50 @@ const UserScreen = ({navigation}) => {
                                             <Text style={styles.externalprofilelink}> linktr.ee/starboyastro </Text>     
                                         </TouchableOpacity>
                                     </View> */}
-                                </View>
+                                    </View>
 
-                                <View style={styles.awardcontainer}>
-                                    {/* <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
+                                    <View style={styles.awardcontainer}>
+                                        {/* <AwardGoldSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                                     <AwardSilverSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text>
                                     <AwardBronzeSvg height="25" width="25" resizeMode="contain" style={styles.awarditem}/><Text style={styles.awardcount}>10</Text> */}
-                                    <TouchableOpacity
-                                        style={styles.loginBtn}
-                                        onPress={function () {
-                                            navigation.navigate('EditProfile');
-                                        }}>
-                                        <Text style={styles.loginText}>
-                                            Edit Profile
-                                        </Text>
-                                    </TouchableOpacity>
+                                        {user.id === currentUser.id ?
+                                            <TouchableOpacity
+                                                style={styles.loginBtn}
+                                                onPress={function () {
+                                                    navigation.navigate('EditProfile');
+                                                }}>
+                                                <Text style={styles.loginText}>
+                                                    Edit Profile
+                                                </Text>
+                                            </TouchableOpacity>
+                                            :
+                                            <></>
+                                        }
+                                    </View>
                                 </View>
-                            </View>
-                        }
-                        contentContainerStyle={{
-                            borderColor: 'red',
-                            borderWidth: 0,
-                        }}
-                        style={{
-                            flex: 1,
-                            maxWidth: '96%',
-                            columnGap: 10,
-                            borderColor: 'yellow',
-                            borderWidth: 0,
-                            paddingTop: '3%',
-                            paddingLeft: '4%',
-                        }}
-                    />
-                </View>
+                            }
+                            LoadingView={
+                                <ActivityIndicator size='large' color='#FFC700' />
+                            }
+                            contentContainerStyle={{
+                                borderColor: 'red',
+                                borderWidth: 0,
+                            }}
+                            style={{
+                                flex: 1,
+                                maxWidth: '96%',
+                                columnGap: 10,
+                                borderColor: 'yellow',
+                                borderWidth: 0,
+                                paddingTop: '3%',
+                                paddingLeft: '4%',
+                            }}
+                        />
+                    </View>
+                }
             </SafeAreaView>
         );
-    }
-};
+    };
 
 const styles = StyleSheet.create({
     container: {
@@ -369,14 +373,9 @@ const styles = StyleSheet.create({
         // position: "relative",
         // marginBottom: "2%"
     },
-
-    // title: {
-    //     color: "#FFC700",
-    //     fontWeight: "bold",
-    //     fontSize: 20,
-    //     position: "relative",
-    //     top: "-5%"
-    //   },
+    blank: {
+        backgroundColor: "#000000",
+      },
 });
 
 export default UserScreen;

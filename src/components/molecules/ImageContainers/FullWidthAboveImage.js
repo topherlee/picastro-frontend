@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Alert,
@@ -14,40 +14,73 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/AuthContext';
 import { BottomModal } from '../../common';
 import { ImageOptionsView } from '../../atoms';
+// import { goToUserScreen } from '../../../utils';
 
 
-const FullWidthAboveImage = ({props}) => {
+const FullWidthAboveImage = ({ props }) => {
   const navigation = useNavigation();
-  const { fetchInstance, token, setModalVisible, isModalVisible } = useContext(AuthContext);
-  
-  var source = Image.resolveAssetSource(require('../../../assets/Sample/sampleuserbig.png'))//props.imageURL);
-  ratio = (source.width / source.height);
+  const {
+      fetchInstance,
+      token,
+      setModalVisible,
+      isModalVisible,
+      setUserScreenUrl,
+      setUserActiveSelector,
+      setUserSearchAndFilterUrl,
+      setUserCurrentPage,
+  } = useContext(AuthContext);
+
+    const goToUserScreen = function (userId) {
+
+        setUserScreenUrl('poster=' + userId);
+        //resets the modal and url to default upon loading userscreen
+        setUserActiveSelector('most_recent');
+        setUserSearchAndFilterUrl('');
+        setUserCurrentPage(1);
+        navigation.push('UserScreen', {userId: userId});
+    };
+
 
   return (
-    <Banner>
-      <UserImage
-        source={source}
-        resizeMode="contain"
-        style={{
-          aspectRatio: ratio,
-          width: "15%",
-          height: 'auto',
-          borderRadius:10,
-        }}
-      />
-      <NameBanner>
-        <View>
-          <UsernameText>{props.poster.username}</UsernameText>
-          <LocationText>{props.starCamp}</LocationText>
-        </View>
-      </NameBanner>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Icon name="dots-horizontal" size={40} color="lightgray" />
-      </TouchableOpacity>
-      
-      {isModalVisible ? <BottomModal childrenText={"Image Options"} children={<ImageOptionsView props={props}/>} /> : <></>}
-    </Banner>
-)};
+      <Banner>
+          <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
+              <Image
+                  source={{
+                      uri: props.poster.profileImage,
+                      cache: 'reload'
+                  }}
+                  // resizeMode="contain"
+                  style={{
+                      width: 55,
+                      height: 55,
+                      borderRadius: 9,
+                      borderWidth: 0,
+                      borderColor: 'red',
+                  }}
+              />
+          </TouchableOpacity>
+          <NameBanner>
+                <TouchableOpacity onPress={() => goToUserScreen(props.poster.id)}>
+                    <UsernameText>{props.poster.username}</UsernameText>
+                </TouchableOpacity>
+                <LocationText>{props.poster.location}</LocationText>
+          </NameBanner>
+
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Icon name="dots-horizontal" size={40} color="lightgray" />
+          </TouchableOpacity>
+
+          {isModalVisible ? (
+              <BottomModal
+                  childrenText={'Image Options'}
+                  children={<ImageOptionsView props={props} />}
+              />
+          ) : (
+              <></>
+          )}
+      </Banner>
+  );
+};
 
 const Banner = styled.View`
   display: flex;
@@ -63,12 +96,12 @@ const Banner = styled.View`
 
 const NameBanner = styled.View`
   display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 85%;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
   height: 100%;
-  padding: 3%;
+  padding: 0% 3% 0% 3%;
+  border: 0px solid yellow;
 `;
 
 const UsernameText = styled.Text`
@@ -80,10 +113,5 @@ const UsernameText = styled.Text`
 const LocationText = styled.Text`
   color: #7a7a7a;
 `
-
-const UserImage = styled.Image`
-  width: 100%;
-  max-height: 100%;
-`;
 
 export default FullWidthAboveImage;

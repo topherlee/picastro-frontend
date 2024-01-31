@@ -17,7 +17,7 @@ import globalStyling from '../../../../constants/globalStyling';
 export default function ImageOptionsView({props}) {
     const {fetchInstance, token, currentUser, setModalVisible} = useContext(AuthContext);
     const navigation = useNavigation();
-    console.log(currentUser.user.username , props.poster.username )
+    console.log(currentUser.username , props.poster.username )
     const handleDelete = function () {
         Alert.alert(
             'Delete Post?',
@@ -79,7 +79,7 @@ export default function ImageOptionsView({props}) {
             flexDirection: 'row',
             justifyContent: 'center'
             }}>
-            {currentUser.user.username === props.poster.username ? <>
+            {currentUser.username === props.poster.username ? <>
                 <TouchableIcon name="pencil-outline" size={60} label="Edit" />
                 <TouchableIcon name="delete-outline" size={60} color="red" label="Delete" onPress={handleDelete} />
             </> : 

@@ -1,6 +1,3 @@
-import React, { useContext } from 'react';
-
-
 
 const apiCallLikeDislike = async (urlForApiCall, requestMethod, fetchInstance, token) => {
     try {

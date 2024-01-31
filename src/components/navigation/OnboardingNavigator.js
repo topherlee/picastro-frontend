@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './DrawerNavigator';
-import { ForgotPasswordScreen, LoginScreen, SignUpScreen, UserNameScreen, LogoutScreen} from '../../screens/SigninScreen';
+import { ForgotPasswordScreen, LoginScreen, SignUpScreen, VerificationScreen, UserNameScreen, LogoutScreen} from '../../screens/SigninScreen';
 import { AuthContext } from '../../context/AuthContext';
 
 
@@ -17,10 +17,11 @@ const OnboardingNavigator = () => {
           
           ) : (
             <Stack.Group>
-              <Stack.Screen name="Login" component={LoginScreen}  />
-              <Stack.Screen name="SignUp" component={SignUpScreen}  /> 
-              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}  /> 
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="SignUp" component={SignUpScreen} /> 
+              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} /> 
               <Stack.Screen name="UserName" component={UserNameScreen} />
+              <Stack.Screen name="Verify" component={VerificationScreen} />
               
             </Stack.Group>
           )}

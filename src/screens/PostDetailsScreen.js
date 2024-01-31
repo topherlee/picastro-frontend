@@ -13,6 +13,7 @@ import { FullWidthPostsContainer } from '../components/organisms';
 
 
 const PostDetailsScreen = ({ route, navigation }) => {
+    // console.log('PDS', navigation.getState());
     useFocusEffect(React.useCallback(()=>{
         disallowScreenshot(true);
         return () => {
@@ -22,6 +23,7 @@ const PostDetailsScreen = ({ route, navigation }) => {
     }))
     const props = route.params;
     const headerHeight = useHeaderHeight();
+    
   return (
     <SafeAreaView style={styles.container} >
         <KeyboardAvoidingView 

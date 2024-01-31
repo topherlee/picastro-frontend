@@ -9,7 +9,7 @@ export const HalfWidthPostsContainer = (props) => {
   //console.log("HFC", props)
   const navigation = useNavigation();
     return (
-      <View1 onPress={() => navigation.navigate('PostDetails', props)}>
+      <View1 onPress={() => navigation.push('PostDetails', props)}>
         <HalfWidthImageContainer 
           {...props}
         />

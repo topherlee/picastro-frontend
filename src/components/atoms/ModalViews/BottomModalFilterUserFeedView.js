@@ -57,7 +57,7 @@ export default function BottomModalFilterUserView() {
                         setUserCurrentPage(1);
                     }}>
                     <Text style={globalStyling.bottomModalButtonText}>
-                        Most recent
+                        Most Recent
                     </Text>
                 </Pressable>
                 <Pressable

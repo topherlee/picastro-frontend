@@ -4,7 +4,8 @@ import {
     View,
     TouchableOpacity,
     Dimensions,
-    Image
+    Image,
+    ActivityIndicator
 } from 'react-native';
 import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
 import Modal from "react-native-modal";
@@ -18,6 +19,7 @@ var windowWidth = Math.ceil(Dimensions.get('window').width);
 export const FullWidthPostsContainer = ({ props }) => {
     //console.log("DFC",props);
     const [modalVisible, setModalVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [contWidth] = useState(0);
     const [contHeight] = useState(0);
     return (
@@ -48,12 +50,33 @@ export const FullWidthPostsContainer = ({ props }) => {
                         borderColor: 'yellow',
                         borderWidth: 0,
                     }}>
+                    {loading && (
+                        <ActivityIndicator
+                            color={'#FFC700'}
+                            size={'large'}
+                            style={{
+                                position: 'absolute',
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: Dimensions.get("screen").height,
+                                width: windowWidth,
+                            }}
+                        />
+                    )}
                     <Image
                         source={{
                             uri: props.image,
                         }}
-                        resizeMethod='scale'
-                        style={{width: Dimensions.get('window').width, aspectRatio: props.aspectRatio ? props.aspectRatio : 1}}
+                        resizeMethod="scale"
+                        style={{
+                            width: windowWidth,
+                            aspectRatio: props.aspectRatio
+                                ? props.aspectRatio
+                                : 1,
+                        }}
+                        onLoadStart={() => setLoading(true)}
+                        onLoadEnd={()=>setLoading(false)}
                     />
                 </ReactNativeZoomableView>
             </Modal>
@@ -72,10 +95,6 @@ export const FullWidthPostsContainer = ({ props }) => {
         </View>
     );
 }
-
-const View1 = styled.TouchableOpacity`
-    width: 100%;
-`;
 
 const styles = StyleSheet.create({
     container: {

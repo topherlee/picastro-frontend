@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -26,18 +26,20 @@ const EditProfile = ({ navigation }) => {
   const {
     token,
     fetchInstance,
-    currentUser, 
-    setCurrentUser
+    currentUser, setCurrentUser,
+    retry, setRetry
   } = useContext(AuthContext);
   const [photo, setPhoto] = useState(null);
   const [selected, setSelected] = useState('')
   const [experienceLevel, setExperienceLevel] = useState('');
-  const [firstName, setFirstName] = useState(currentUser?.user.first_name);
-  const [lastName, setLastName] = useState(currentUser?.user.last_name);
+  const [firstName, setFirstName] = useState(currentUser?.first_name);
+  const [lastName, setLastName] = useState(currentUser?.last_name);
   const [genderIdentifier, setGenderIdentifier] = useState(currentUser?.genderIdentifier);
   const [location, setLocation] = useState(currentUser?.location);
   const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
-  
+//   const [phone, setPhone] = useState(currentUser?.phone_no)
+    const inputField = useRef([]);
+    
   const experienceCategory = [
     { label: '0-1 years', value: '1' },
     { label: '2-5 years', value: '2' },
@@ -55,7 +57,7 @@ const EditProfile = ({ navigation }) => {
         setCurrentUser(data)
         Alert.alert("Profile Updated", "Your profile has been successfully updated.",[{
             text: "Ok",
-            onPress: () => navigation.goBack()
+            onPress: () => { setRetry(retry + 1); navigation.goBack() }
         }]);
     }
   }
@@ -77,7 +79,8 @@ const EditProfile = ({ navigation }) => {
     });
   }
 
-  const uploadImage = async () => {
+    const uploadImage = async () => {
+      
     try {
       var formData = new FormData();
       if (photo?.uri && photo?.fileName && photo?.type) {
@@ -88,15 +91,15 @@ const EditProfile = ({ navigation }) => {
           })
       }
 
-      formData.append("id", currentUser.user.id)
-      // formData.append("experienceLevel", experienceLevel)
-      formData.append("firstName", firstName)
-      formData.append("lastName", lastName)
+    //   formData.append("username", currentUser?.username)
+      formData.append("first_name", firstName)
+      formData.append("last_name", lastName)
       formData.append("genderIdentifier", genderIdentifier)
       formData.append("location", location)
       formData.append("userDescription", userDescription)
+    //   formData.append('phone_no', phone)
 
-      var response = await fetchInstance(`/api/user/${currentUser.user.id}`, {
+        var response = await fetchInstance(`/api/user/${currentUser.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -137,9 +140,10 @@ const EditProfile = ({ navigation }) => {
                           />
                       ) : currentUser ? (
                           <Image
-                              style={globalStyling.profileUserImage}
+                              style={globalStyling.profileImage}
                               source={{
-                                  uri: currentUser.profileImage,
+                                  uri: currentUser.profileImage, //+ `?date=${new Date()}`,
+                                  cache: 'reload',
                               }}
                           />
                       ) : (
@@ -182,9 +186,12 @@ const EditProfile = ({ navigation }) => {
                       placeholder="First Name"
                       placeholderTextColor={placeholderTextColor}
                       onChangeText={newFirstName => setFirstName(newFirstName)}
-                      // defaultValue={currentUser.user.first_name}
+                      // defaultValue={currentUser.first_name}
                       value={firstName}
                       maxLength={20}
+                      onSubmitEditing={() => {
+                          inputField.current[0].focus();
+                      }}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -193,9 +200,13 @@ const EditProfile = ({ navigation }) => {
                       placeholder="Last Name"
                       placeholderTextColor={placeholderTextColor}
                       onChangeText={newLastName => setLastName(newLastName)}
-                      // defaultValue={currentUser.user.last_name}
+                      // defaultValue={currentUser.last_name}
                       value={lastName}
                       maxLength={20}
+                      ref={ref => (inputField.current[0] = ref)}
+                      onSubmitEditing={() => {
+                          inputField.current[1].focus();
+                      }}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -209,6 +220,10 @@ const EditProfile = ({ navigation }) => {
                       // defaultValue={currentUser.genderIdentifier}
                       value={genderIdentifier}
                       maxLength={10}
+                      ref={ref => (inputField.current[1] = ref)}
+                      onSubmitEditing={() => {
+                          inputField.current[2].focus();
+                      }}
                   />
               </View>
               <View style={globalStyling.inputView}>
@@ -220,8 +235,23 @@ const EditProfile = ({ navigation }) => {
                       defaultValue={currentUser?.location}
                       value={location}
                       maxLength={50}
+                      ref={ref => (inputField.current[2] = ref)}
+                      onSubmitEditing={() => {
+                          inputField.current[3].focus();
+                      }}
                   />
               </View>
+              {/* <View style={globalStyling.inputView}>
+                  <TextInput
+                      style={globalStyling.inputFieldText}
+                      placeholder="Phone No."
+                      placeholderTextColor={placeholderTextColor}
+                      onChangeText={num => setPhone(num)}
+                      defaultValue={currentUser?.phone_no}
+                      value={phone}
+                      maxLength={50}
+                  />
+              </View> */}
               <View style={globalStyling.inputViewLarge}>
                   <TextInput
                       style={globalStyling.inputFieldTextLarge}
@@ -235,6 +265,7 @@ const EditProfile = ({ navigation }) => {
                       multiline={true}
                       numberOfLines={4}
                       maxLength={200}
+                      ref={ref => (inputField.current[3] = ref)}
                   />
               </View>
 
@@ -242,7 +273,7 @@ const EditProfile = ({ navigation }) => {
                   style={globalStyling.loginBtn}
                   onPress={() =>
                       uploadImage()
-                          .then((response) => {
+                          .then(response => {
                               uploadedHandler(response);
                           })
                           .catch(function (err) {

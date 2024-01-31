@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,61 +14,62 @@ import { AuthContext } from "../../context/AuthContext";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
 
-export default function LoginScreen( { navigation } ) {
+export default function LoginScreen({ navigation, route }) {
   const { setIsSignedIn, domain, resetStates, setToken } = useContext(AuthContext);     //get setIsSignedIn function from global context
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState(route.params?.username ? route.params.username : null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);
+  const passwordInput = useRef(null);
 
   useEffect(() => {
     resetStates()
   }, [])
 
-    async function handleLogin(){
+  async function handleLogin() {
 
     var body = JSON.stringify({
       'username': username,
       'password': password
     })
-    
+
     await fetch(`${domain}/api/auth/login/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: body
-        })
-        .then(res => {
-          console.log('STATUS',res.status);
-          if (res.ok) {
-            return res.json();
-          } else {
-            setError(true)
-            console.log('error')
-            throw res.json();
-          }
-        })
-        .then(async json => {
-          console.log('JSON',json);
-          await Keychain.setGenericPassword('token',JSON.stringify(json))
-          setToken(json);
-          setIsSignedIn(true);
-        })
-        .catch(error => { 
-          console.log("error",error);
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body
+    })
+      .then(async (res) => {
+        console.log('STATUS', res.status);
+        if (res.ok) {
+          return res.json();
+        } else {
           setError(true)
-        })
-    
+          console.log('error')
+          throw await res.json();
+        }
+      })
+      .then(async json => {
+        console.log('JSON', json);
+        await Keychain.setGenericPassword('token', JSON.stringify(json))
+        setToken(json);
+        setIsSignedIn(true);
+      })
+      .catch(error => {
+        console.log("error", error);
+        setError(true)
+      })
+
   }
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-      <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} /> 
+      <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} />
       {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
       <View keyboardShouldPersistTaps='handled' style={globalStyling.inputView}>
         <TextInput
-          style={globalStyling.inputFieldText} 
+          style={globalStyling.inputFieldText}
           textContentType={'username'}
           placeholder="Username"
           placeholderTextColor="grey"
@@ -76,10 +77,13 @@ export default function LoginScreen( { navigation } ) {
           autoCorrect={false}
           clearButtonMode="while-editing"
           returnKeyType="next"
+          defaultValue={route.params?.username && route.params.username}
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
-        /> 
-      </View> 
+          blurOnSubmit={false}
+          onSubmitEditing={()=>{ passwordInput.current.focus()}}
+        />
+      </View>
       <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
@@ -92,24 +96,29 @@ export default function LoginScreen( { navigation } ) {
           onChangeText={(password) => setPassword(password)}
           onSubmitEditing={handleLogin}
           onBlur={() => setError(false)}
-        /> 
-        <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
-          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
-        </TouchableOpacity>
-      </View> 
-      <TouchableOpacity onPress= {function(){ navigation.navigate('ForgotPassword') }}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
-      </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn} onPress={ () => handleLogin() }>
-        <Text style={styles.loginText}>LET'S GO</Text> 
-      </TouchableOpacity>
-      <View style={styles.bottomText}>
-        <Text style={styles.text}>Don't have an account? </Text> 
-        <TouchableOpacity onPress= {function(){ navigation.navigate('SignUp') }}>
-          <Text style={{color: "#FFC700"}}> Register here</Text>
+          ref={passwordInput}
+        />
+        <TouchableOpacity style={{ position: "absolute", right: 1 }} onPress={() => setSecurePassword(!securePassword)}>
+          <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray" />
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView> 
+      <TouchableOpacity onPress={function () { navigation.navigate('ForgotPassword') }}>
+        <Text style={styles.forgot_button}>Forgot Password?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress={() => handleLogin()}
+        testID="loginButton"
+      >
+        <Text style={styles.loginText}>LET'S GO</Text>
+      </TouchableOpacity>
+      <View style={styles.bottomText}>
+        <Text style={styles.text}>Don't have an account? </Text>
+        <TouchableOpacity onPress={function () { navigation.navigate('SignUp') }}>
+          <Text style={{ color: "#FFC700" }}> Register here</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: "20%",
   },
   bottomText: {
-    flexDirection:'row',
+    flexDirection: 'row',
     position: "relative",
     marginBottom: "2%"
   },

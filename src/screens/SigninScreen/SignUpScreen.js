@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -23,6 +23,8 @@ export default function SignUpScreen( { navigation } ) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
+  const inputField = useRef([]);
   
   function handleRegister() {
     var body = JSON.stringify({
@@ -30,7 +32,8 @@ export default function SignUpScreen( { navigation } ) {
       'password': password,
       'first_name': firstName,
       'last_name': lastName,
-      'email': email
+      'email': email,
+      'phone_no': phoneNum
     })
     
     if (password === confirmPassword) {
@@ -41,24 +44,24 @@ export default function SignUpScreen( { navigation } ) {
               },
               body: body
           })
-          .then(res => {
+          .then(async (res) => {
             console.log('STATUS',res.status);
             if (res.ok) {
               return res.json();
             } else {
               setError(true)
-              throw res.json();
+              throw await res.json();
             }
           })
           .then(async json => {
             console.log('REGISTRATION SUCCESS',json);
-            await Keychain.setGenericPassword('token',JSON.stringify(json.token));
-            setToken(json.token);
-            setIsSignedIn(true);
-            //navigation.navigate('UserName')
+            // await Keychain.setGenericPassword('token',JSON.stringify(json.token));
+            // setToken(json.token);
+            // setIsSignedIn(true);
+            navigation.navigate('Verify', {email: email, username: username})
           })
           .catch(error => {
-            throw(error)
+            console.log(error)
           })
       } else {
         console.log("password error")
@@ -87,6 +90,7 @@ export default function SignUpScreen( { navigation } ) {
           returnKeyType="next"
           onChangeText={(firstName) => setFirstName(firstName)}
           maxLength={20}
+          onSubmitEditing={()=> inputField.current[0].focus()}
         /> 
       </View> 
       <View style={globalStyling.inputView}>
@@ -100,6 +104,8 @@ export default function SignUpScreen( { navigation } ) {
           returnKeyType="next"
           onChangeText={(lastName) => setLastName(lastName)}
           maxLength={20}
+          ref={ref => inputField.current[0] = ref}
+          onSubmitEditing={()=> inputField.current[1].focus()}
         /> 
       </View> 
       <View style={globalStyling.inputView}>
@@ -113,7 +119,9 @@ export default function SignUpScreen( { navigation } ) {
           clearButtonMode="while-editing"
           returnKeyType="next"
           onChangeText={(username) => setUsername(username)}
-          maxLength={20}
+          maxLength={25}
+          ref={ref => inputField.current[1] = ref}
+          onSubmitEditing={()=> inputField.current[2].focus()}
         /> 
       </View>
       <View style={globalStyling.inputView}>
@@ -128,8 +136,26 @@ export default function SignUpScreen( { navigation } ) {
           returnKeyType="next"
           onChangeText={(email) => setEmail(email)}
           maxLength={50}
+          ref={ref => inputField.current[2] = ref}
+          onSubmitEditing={()=> inputField.current[3].focus()}
         /> 
-      </View> 
+      </View>
+      <View style={globalStyling.inputView}>
+        <TextInput
+          style={globalStyling.inputFieldText}
+          inputMode="tel"
+          placeholder="Phone No."
+          placeholderTextColor="grey"
+          autoComplete="off"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="next"
+          onChangeText={(phoneNum) => setPhoneNum(phoneNum)}
+          maxLength={50}
+          ref={ref => inputField.current[3] = ref}
+          onSubmitEditing={()=> inputField.current[4].focus()}
+        /> 
+      </View>
       <View style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
@@ -138,6 +164,8 @@ export default function SignUpScreen( { navigation } ) {
           returnKeyType="next"
           secureTextEntry={securePassword}
           onChangeText={(password) => setPassword(password)}
+          ref={ref => inputField.current[4] = ref}
+          onSubmitEditing={()=> inputField.current[5].focus()}
         /> 
         <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
@@ -151,12 +179,17 @@ export default function SignUpScreen( { navigation } ) {
           secureTextEntry={securePassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
           onSubmitEditing={() => handleRegister()}
+          ref={ref => inputField.current[5] = ref}
         /> 
         <TouchableOpacity  style={{position: "absolute",right: 1}} onPress={() => setSecurePassword(!securePassword)}>
           <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray"/>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.loginBtn} onPress= {function(){ handleRegister() }}>
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress= {function(){ handleRegister() }}
+        testID="registerButton"
+      >
         <Text style={styles.loginText}>PROCEED TO PAYMENT</Text> 
       </TouchableOpacity>
       <View style={styles.bottomText}>
@@ -178,7 +211,7 @@ const styles = StyleSheet.create({container: {
 },
 image: {
   position: "relative",
-  marginBottom: "20%",
+  marginBottom: "5%",
 },
 bottomText: {
   flexDirection:'row',
@@ -200,7 +233,7 @@ loginBtn: {
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-  marginTop: "10%",
+  marginTop: "0%",
   marginBottom: "3%",
   backgroundColor: "#FFC700",
 },
@@ -209,7 +242,7 @@ title: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%",
+  top: "-2%",
   textAlign: "center"
 },
 titleRed: {
@@ -217,7 +250,7 @@ titleRed: {
   fontWeight: "bold",
   fontSize: 20,
   position: "relative",
-  top: "-5%",
+  top: "-1%",
   textAlign: "center"
 },
 loginText: {

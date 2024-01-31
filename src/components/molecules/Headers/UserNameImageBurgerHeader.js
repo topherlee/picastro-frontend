@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { UserImage, HeaderUserName } from '../../atoms';
+import { HeaderUserImage, HeaderUserName } from '../../atoms';
 import { AuthContext } from '../../../context/AuthContext';
 import { loadUserProfile } from '../../../utils';
 
@@ -30,6 +30,7 @@ const UserNameImageBurgerHeader = () => {
         const fetchData = async () => {
             const userPro = await loadUserProfile(token, fetchInstance, user);
             setCurrentUser(userPro)
+            console.log("usernameburgerheader", userPro)
         };
 
         fetchData();
@@ -45,15 +46,17 @@ const UserNameImageBurgerHeader = () => {
                 <TouchableOpacity 
                     style={styles.userImage}
                     onPress={function () {
-                        setUserScreenUrl('poster=' + currentUser.user.id);
+                        setUserScreenUrl('poster=' + currentUser.id);
                         //resets the modal and url to default upon loading userscreen
                         setUserActiveSelector('most_recent'); 
                         setUserSearchAndFilterUrl('')
                         setUserCurrentPage(1)
-                        navigation.navigate('UserScreen');
+                        navigation.navigate('UserScreen', {
+                            userId: currentUser.id,
+                        });
                      }}
                 >
-                    <UserImage 
+                    <HeaderUserImage
                         userImageURL={currentUser}
                     />
                 </TouchableOpacity>

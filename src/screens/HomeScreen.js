@@ -1,21 +1,21 @@
+import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
     Text,
     SafeAreaView,
     StyleSheet,
     ActivityIndicator,
+    Alert
 } from 'react-native';
-import Modal from "react-native-modal";
 
-import React, { useContext, useEffect, useState } from 'react';
 import { UserNameImageBurgerHeader } from '../components/molecules';
-
 import { AuthContext } from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
 import { HalfWidthPostsContainer } from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
+import {EmptyFeedMaleFigure} from '../components/atoms';
 import globalStyling from '../../constants/globalStyling';
-import {apiCallLikeDislike} from '../utils';
+import {apiCallLikeDislike, loadLikedPostList} from '../utils';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -32,21 +32,21 @@ const HomeScreen = ({ navigation }) => {
         isModalVisible,
         activeSelector,
         activeObjectSelector,
-        currentPage,
-        setCurrentPage,
         listOfLikes,
-        setListOfLikes
+        setListOfLikes,
+        currentPostsPage,
+        setCurrentPostsPage
     } = useContext(AuthContext);
 
-
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
-    // console.log("urlForApiCall", urlForApiCall);
+
+    const loadLikedPostListURL = '/api/like/1';
+    const loadLikedPostListMethod = 'GET';
 
     async function loadLikedPostList() {
-        const url = '/api/like/1';
-        let requestMethod = 'GET';
         try {
-            var response = await apiCallLikeDislike(url, requestMethod, fetchInstance, token)
+            var response = await apiCallLikeDislike(
+                loadLikedPostListURL, loadLikedPostListMethod, fetchInstance, token)
             var listOfLikes2;
             if (response.ok) {
                 listOfLikes2 = await response.json();
@@ -90,26 +90,22 @@ const HomeScreen = ({ navigation }) => {
         if (!next) return;
         setIsLoading(true);
         
-        const nextPage = currentPage + 1;
+        const nextPage = currentPostsPage + 1;
         const newData = await loadHomescreen(nextPage);
-        setCurrentPage(nextPage);
+        setCurrentPostsPage(nextPage);
         setIsLoading(false);
         setData(prevData => [...prevData, ...newData]);
     };
 
     const refreshPage = async () => {
-        setCurrentPage(1)
+        setCurrentPostsPage(1)
         const newData = await loadHomescreen(1)
         setData(newData)
         setRefreshing(false)
     }
 
-    let shortList = []
-
     useEffect(() => {
-        //console.log('AccessToken',jwtDecode(token.access))
-
-        loadHomescreen(currentPage)
+        loadHomescreen(currentPostsPage)
             .then((res) => {
                 setData(res);
                 setRefreshing(false);
@@ -135,6 +131,7 @@ const HomeScreen = ({ navigation }) => {
                     numColumns={2}
                     onRefresh={refreshPage}
                     refreshing={refreshing}
+                    keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}
                     indicatorStyle={'white'}
                     renderItem={({item}) => (
@@ -146,17 +143,12 @@ const HomeScreen = ({ navigation }) => {
                             style={{
                                 maxWidth: '96%',
                                 paddingTop: '3%',
-                                paddingLeft: '4%',
                             }}>
-                            <Text
-                                style={{color: 'white'}}
-                                onPress={function () {
-                                    setRetry(retry + 1);
-                                }}>
-                                Nothing to display here, touch to refresh
-                                page.
-                            </Text>
+                            <EmptyFeedMaleFigure />
                         </View>
+                    }
+                    LoadingView={
+                        <ActivityIndicator size="large" color="#FFC700" />
                     }
                     contentContainerStyle={{
                         borderColor: 'red',
@@ -172,7 +164,9 @@ const HomeScreen = ({ navigation }) => {
                         borderColor: 'yellow',
                         borderWidth: 0,
                     }}
-                    onEndReached={() => { if (data.length != 0) fetchMore() }}
+                    onEndReached={() => {
+                        if (data.length != 0) fetchMore();
+                    }}
                     onEndReachedThreshold={0.1}
                 />
             </View>

@@ -6,16 +6,20 @@ import {Platform} from "react-native";
 import * as Keychain from 'react-native-keychain';
 export const AuthContext = React.createContext({});
 
+//set dayjs
+var duration = require('dayjs/plugin/duration')
+dayjs.extend(duration)
 
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
-    // const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://13.42.37.75:8000' : 'http://13.42.37.75:8000/'); //http://13.42.37.75:8000 http://127.0.0.1:8000 http://10.0.2.2:8000/
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000'); //http://13.42.37.75:8000 http://127.0.0.1:8000 
+    // const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'https://mainapp.picastroapp.com' : 'https://mainapp.picastroapp.com');
+    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000');
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState();
     const [currentUserProfile, setCurrentUserProfile] = useState();
-    
+    const [otherUser, setOtherUser] = useState();
+    const [currentPostsPage, setCurrentPostsPage] = useState(1);
 
     //gets access and refresh token from keychain in JSON object format
     async function getSavedTokens() {
@@ -25,15 +29,15 @@ export const AuthProvider = ({children, contextValue}) => {
             credentials = JSON.parse(credentials.password);
             return credentials;
         } else {
-            console.log('saved credentials null')
+            console.log('saved credentials null');
             return null;
         }
     }
-    
+
     //save tokens in keychain
     //tokenPair: a JSON object containing access and refresh tokens
     async function setSavedTokens(tokenPair) {
-        console.log('SAVING NEW TOKENS', tokenPair)
+        console.log('SAVING NEW TOKENS', tokenPair);
         await Keychain.setGenericPassword('token', JSON.stringify(tokenPair));
     }
 
@@ -44,35 +48,37 @@ export const AuthProvider = ({children, contextValue}) => {
             var response = await fetch(`${domain}/api/auth/login/refresh/`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({'refresh':credentials?.refresh})
-            })
-            
+                body: JSON.stringify({refresh: credentials?.refresh}),
+            });
+
             newToken = await response.json();
-            console.log('REFRESH STATUS',response.status);
+            console.log('REFRESH STATUS', response.status);
 
             if (response.ok) {
-                console.log('REFRESH OK', newToken)
-                await setSavedTokens(newToken)
+                console.log('REFRESH OK', newToken);
+                await setSavedTokens(newToken);
                 setToken(newToken);
                 return newToken;
             } else {
-                console.log('REFRESH TOKEN EXPIRED')
+                console.log('REFRESH TOKEN EXPIRED');
                 setToken(null);
                 setIsSignedIn(false);
-                return Promise.reject(new Error('Token expired please login again'))
+                return Promise.reject(
+                    new Error('Token expired please login again'),
+                );
             }
         } catch (err) {
-            console.log('REFRESH TOKEN ERROR', err)
+            console.log('REFRESH TOKEN ERROR', err);
             setIsSignedIn(false);
         }
     }
 
     let originalRequest = async (url, config) => {
-        try{
-            url = `${domain}${url}`
-            var response = await fetch(url, config)
+        try {
+            url = `${domain}${url}`;
+            var response = await fetch(url, config);
             // if (response.status === 204 || response.status === 205) {  //successful delete or error don't parse json
             //     data = "Successful";
             // } else if (response.ok) {
@@ -86,18 +92,20 @@ export const AuthProvider = ({children, contextValue}) => {
                 throw new Error(`HTTP response status ${response.status}`);
             }
         } catch (err) {
-            console.log('ERROR IN ORIGINAL REQUEST', err)
+            console.log('ERROR IN ORIGINAL REQUEST', err);
             return response;
         }
-    }
+    };
 
-    let fetchInstance = async (url, config={}) => {
+    let fetchInstance = async (url, config = {}) => {
         try {
-            console.log(url)
+            console.log(url);
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access);
-            const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-            if (isExpired) {
+            const remainingTokenTime = dayjs
+                .unix(user.exp)
+                .diff(dayjs(), 'second');
+            if (remainingTokenTime < 15) {
                 console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
                 credentials = await refreshAllTokens();
                 setToken(credentials);
@@ -108,79 +116,111 @@ export const AuthProvider = ({children, contextValue}) => {
             //proceed with request
 
             config['headers'] = {
-                'Authorization': `Token ${credentials?.access}`
-            }
+                Authorization: `Token ${credentials?.access}`,
+            };
 
-            var response = await originalRequest(url, config)
-            return response
+            var response = await originalRequest(url, config);
+            return response;
         } catch (err) {
-            console.log('FETCH ERROR', err)
-            return response
+            console.log('FETCH ERROR', err);
+            return response;
         }
-    }
+    };
 
     //put those in separate context file, since it's not AuthContext,
     //but more related to Screens
     const [loading, setLoading] = useState(false);
-    const [searchAndFilterUrl, setSearchAndFilterUrl] = useState("");
-    const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState("");
-    const [userScreenUrl, setUserScreenUrl] = useState("");
+    const [retry, setRetry] = useState(0);
+    const [searchAndFilterUrl, setSearchAndFilterUrl] = useState('');
+    const [userSearchAndFilterUrl, setUserSearchAndFilterUrl] = useState('');
+    const [userScreenUrl, setUserScreenUrl] = useState('');
     const [isSortModalVisible, setSortModalVisible] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
-    const [user, setUser] = useState("");
-    const [userUrl, setUserUrl] = useState("");
-    const [userFilterUrl, setUserFilterUrl] = useState("");
-    const [userActiveSelector, setUserActiveSelector] = useState("most_recent");
-    const [userActiveObjectSelector, setUserActiveObjectSelector] = useState("");
-    const [activeSelector, setActiveSelector] = useState("most_recent");
-    const [activeObjectSelector, setActiveObjectSelector] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
+    const [user, setUser] = useState('');
+    const [userUrl, setUserUrl] = useState('');
+    const [userFilterUrl, setUserFilterUrl] = useState('');
+    const [userActiveSelector, setUserActiveSelector] = useState('most_recent');
+    const [userActiveObjectSelector, setUserActiveObjectSelector] =
+        useState('');
+    const [activeSelector, setActiveSelector] = useState('most_recent');
+    const [activeObjectSelector, setActiveObjectSelector] = useState('');
     const [userCurrentPage, setUserCurrentPage] = useState(1);
     const [listOfLikes, setListOfLikes] = useState([]);
 
     const globalContext = {
-        fetchInstance, 
-        getSavedTokens, 
+        fetchInstance,
+        getSavedTokens,
         setSavedTokens,
         resetStates,
-        domain, setDomain,
-        isSignedIn, setIsSignedIn,
-        token, setToken,
-        user, setUser,
-        currentUser, setCurrentUser,
-        currentUserProfile, setCurrentUserProfile,
-        userScreenUrl, setUserScreenUrl,
-        searchAndFilterUrl, setSearchAndFilterUrl,
-        userSearchAndFilterUrl, setUserSearchAndFilterUrl,
-        userUrl, setUserUrl,
-        userFilterUrl, setUserFilterUrl,
-        isSortModalVisible, setSortModalVisible,
-        activeSelector, setActiveSelector,
-        activeObjectSelector, setActiveObjectSelector,
-        userActiveSelector, setUserActiveSelector,
-        userActiveObjectSelector, setUserActiveObjectSelector,
-        currentPage, setCurrentPage,
-        userCurrentPage, setUserCurrentPage,
-        isModalVisible, setModalVisible,
-        listOfLikes, setListOfLikes,
+        domain,
+        setDomain,
+        isSignedIn,
+        setIsSignedIn,
+        token,
+        setToken,
+        user,
+        setUser,
+        currentUser,
+        setCurrentUser,
+        currentUserProfile,
+        setCurrentUserProfile,
+        otherUser,
+        setOtherUser,
+        userScreenUrl,
+        setUserScreenUrl,
+        searchAndFilterUrl,
+        setSearchAndFilterUrl,
+        userSearchAndFilterUrl,
+        setUserSearchAndFilterUrl,
+        userUrl,
+        setUserUrl,
+        userFilterUrl,
+        setUserFilterUrl,
+        isSortModalVisible,
+        setSortModalVisible,
+        activeSelector,
+        setActiveSelector,
+        activeObjectSelector,
+        setActiveObjectSelector,
+        userActiveSelector,
+        setUserActiveSelector,
+        userActiveObjectSelector,
+        setUserActiveObjectSelector,
+        currentPostsPage,
+        setCurrentPostsPage,
+        userCurrentPage,
+        setUserCurrentPage,
+        isModalVisible,
+        setModalVisible,
+        listOfLikes,
+        setListOfLikes,
+        retry,
+        setRetry,
     };
 
     //HACK: function to reset all states manually on logout
-    function resetStates(){
-        setUser("");
-        setCurrentUser();
-        setCurrentUserProfile()
-        setUserScreenUrl("");
-        setSearchAndFilterUrl("");
-        setUserSearchAndFilterUrl("");
-        setUserUrl("");
-        setUserFilterUrl("");
+    function resetStates() {
+        setUser('');
+        setCurrentUser({
+            id: '',
+            username: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+        });
+        setCurrentUserProfile();
+        setOtherUser();
+        setUserScreenUrl('');
+        setSearchAndFilterUrl('');
+        setUserSearchAndFilterUrl('');
+        setUserUrl('');
+        setUserFilterUrl('');
         setSortModalVisible(false);
-        setActiveSelector("most_recent");
-        setActiveObjectSelector("");
-        setUserActiveSelector("most_recent");
-        setUserActiveObjectSelector("");
-        setCurrentPage(1);
+        setActiveSelector('most_recent');
+        setActiveObjectSelector('');
+        setUserActiveSelector('most_recent');
+        setUserActiveObjectSelector('');
+        setCurrentPostsPage(1);
         setUserCurrentPage(1);
         setToken(null);
         setIsSignedIn(false);
@@ -189,19 +229,19 @@ export const AuthProvider = ({children, contextValue}) => {
     }
 
     useEffect(() => {
-    //     let interval = setInterval(() => {
-    //         if (token) {
-    //             refreshAllTokens();
-    //         }
-    //     }, 240000);
-    //     return () => clearInterval(interval)
+        //     let interval = setInterval(() => {
+        //         if (token) {
+        //             refreshAllTokens();
+        //         }
+        //     }, 240000);
+        //     return () => clearInterval(interval)
 
         setLoading(false);
-    }, [token, loading, isSignedIn])
+    }, [token, loading, isSignedIn]);
 
     return (
         <AuthContext.Provider value={globalContext}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }

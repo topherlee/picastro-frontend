@@ -1,13 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Image,
     StyleSheet,
 } from 'react-native';
-
 import globalStyling from '../../../../constants/globalStyling';
 
 
-const UserImage = ({userImageURL}) => {
+const InCommentUserImage = ({userImageURL}) => {
 
     if (!userImageURL) {
         return <React.Fragment></React.Fragment>;
@@ -15,13 +14,14 @@ const UserImage = ({userImageURL}) => {
         return (
             <Image
                 source={{
-                    uri: userImageURL.profileImage,
+                    uri: userImageURL, // + `?date=${new Date()}`,
+                    cache: 'reload',
                 }}
-                style={globalStyling.headerUserImage}
-                resizeMode="contain"
+                style={globalStyling.InCommentUserImage}
             />
-        )
+        );
     }
 }
 
-export default UserImage;
+
+export default InCommentUserImage;
