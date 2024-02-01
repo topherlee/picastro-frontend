@@ -13,23 +13,19 @@ import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from '../../../constants/globalStyling';
-import {useIsFocused} from '@react-navigation/core';
 
-export default function LoginScreen({navigation, route}) {
+export default function LoginScreen({navigation}) {
     const {setIsSignedIn, domain, resetStates, setToken} =
         useContext(AuthContext); //get setIsSignedIn function from global context
-    const [username, setUsername] = useState(
-        route.params?.username ? route.params.username : null,
-    );
+    const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [error, setError] = useState(false);
     const [securePassword, setSecurePassword] = useState(true);
     const passwordInput = useRef(null);
-    const isFocus = useIsFocused();
+
     useEffect(() => {
-        setUsername(route.params?.username);
         resetStates();
-    }, [isFocus]);
+    }, []);
 
     async function handleLogin() {
         var body = JSON.stringify({
@@ -97,9 +93,6 @@ export default function LoginScreen({navigation, route}) {
                     autoCorrect={false}
                     clearButtonMode="while-editing"
                     returnKeyType="next"
-                    defaultValue={
-                        route.params?.username && route.params.username
-                    }
                     onChangeText={username => setUsername(username)}
                     onBlur={() => setError(false)}
                     blurOnSubmit={false}

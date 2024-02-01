@@ -33,7 +33,7 @@ export default function VerificationScreen({ navigation, route }) {
             <TouchableOpacity
                 style={styles.loginBtn}
                 onPress={function () {
-                    navigation.navigate('Login', {username: route.params?.username});
+                    navigation.navigate('Login');
                 }}>
                 <Text style={{fontWeight: 'bold'}}>Login Here</Text>
             </TouchableOpacity>
