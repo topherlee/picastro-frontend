@@ -142,7 +142,7 @@ export default function LoginScreen({ navigation, route }) {
             </View>
             <TouchableOpacity
                 onPress={function () {
-                    navigation.navigate('ForgotPassword')
+                    navigation.navigate('ForgotPassword');
                 }}>
                 <Text style={styles.forgot_button}>Forgot Password?</Text>
             </TouchableOpacity>
@@ -157,7 +157,7 @@ export default function LoginScreen({ navigation, route }) {
                 <Text style={styles.text}>Don't have an account? </Text>
                 <TouchableOpacity
                     onPress={function () {
-                        navigation.navigate('SignUp')
+                        navigation.navigate('SignUp');
                     }}>
                     <Text style={{ color: "#FFC700" }}> Register here</Text>
                 </TouchableOpacity>
