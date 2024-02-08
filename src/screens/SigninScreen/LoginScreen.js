@@ -30,6 +30,9 @@ export default function LoginScreen({ navigation, route }) {
     const [securePassword, setSecurePassword] = useState(true);
     const passwordInput = useRef(null);
 
+    useEffect(() => {
+        resetStates();
+    }, []);
 
     async function handleLogin() {
 
@@ -71,14 +74,10 @@ export default function LoginScreen({ navigation, route }) {
             .catch(error => {
                 console.log("LoginScreen error", error);
                 setError(true);
-            })
-      }
+            });
+    }
 
-    useEffect(() => {
-        resetStates();
-    }, []);
-
-
+    
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -90,7 +89,7 @@ export default function LoginScreen({ navigation, route }) {
             />
             {error ? (
                 <Text style={styles.titleRed}>
-                  Error logging in. Please try again
+                    Error logging in. Please try again
                 </Text>
             ) : (
                 <Text style={styles.title}>Register or Login</Text>
@@ -156,7 +155,10 @@ export default function LoginScreen({ navigation, route }) {
             </TouchableOpacity>
             <View style={styles.bottomText}>
                 <Text style={styles.text}>Don't have an account? </Text>
-                <TouchableOpacity onPress={function () { navigation.navigate('SignUp') }}>
+                <TouchableOpacity
+                    onPress={function () {
+                        navigation.navigate('SignUp')
+                    }}>
                     <Text style={{ color: "#FFC700" }}> Register here</Text>
                 </TouchableOpacity>
             </View>
