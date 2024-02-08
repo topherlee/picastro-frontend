@@ -66,7 +66,7 @@ export default function LoginScreen({ navigation, route }) {
         await Keychain.setGenericPassword('token', JSON.stringify(json))
         setToken(json);
         setIsSignedIn(true);
-        
+
         const curUser = await loadCurrentUser(json, fetchInstance)
         setValidSubscription(curUser.valid_subscription)
         console.debug("validSubscription", curUser.valid_subscription);
@@ -78,7 +78,7 @@ export default function LoginScreen({ navigation, route }) {
 
   }
 
-  
+
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
@@ -98,7 +98,7 @@ export default function LoginScreen({ navigation, route }) {
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
           blurOnSubmit={false}
-          onSubmitEditing={()=>{ passwordInput.current.focus()}}
+          onSubmitEditing={() => { passwordInput.current.focus() }}
         />
       </View>
       <View style={globalStyling.inputView}>
