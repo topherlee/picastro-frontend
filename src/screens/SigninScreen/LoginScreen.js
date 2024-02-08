@@ -34,30 +34,33 @@ export default function LoginScreen({ navigation, route }) {
     async function handleLogin() {
 
         var body = JSON.stringify({
-          'username': username,
-          'password': password
+          username: username,
+          password: password,
         })
 
         await fetch(`${domain}/api/auth/login/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: body
+            body: body,
         })
             .then(async (res) => {
                 console.log('STATUS', res.status);
                 if (res.ok) {
                     return res.json();
                 } else {
-                    setError(true)
-                    console.log('error')
+                    setError(true);
+                    console.log('error');
                     throw await res.json();
                 }
             })
             .then(async json => {
                 console.debug('JSON', json);
-                await Keychain.setGenericPassword('token', JSON.stringify(json))
+                await Keychain.setGenericPassword(
+                    'token',
+                    JSON.stringify(json),
+                );
                 setToken(json);
                 setIsSignedIn(true);
 
@@ -67,7 +70,7 @@ export default function LoginScreen({ navigation, route }) {
             })
             .catch(error => {
                 console.log("LoginScreen error", error);
-                setError(true)
+                setError(true);
             })
       }
 
@@ -78,11 +81,11 @@ export default function LoginScreen({ navigation, route }) {
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}>
             <Image
                 style={styles.image}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={require('../../assets/logo-text-gray.png')}
             />
             {error ? (
@@ -104,8 +107,7 @@ export default function LoginScreen({ navigation, route }) {
                     autoCorrect={false}
                     clearButtonMode="while-editing"
                     returnKeyType="next"
-                    defaultValue={route.params?.username && route.params.username}
-                    onChangeText={(username) => setUsername(username)}
+                    onChangeText={username => setUsername(username)}
                     onBlur={() => setError(false)}
                     blurOnSubmit={false}
                     onSubmitEditing={() => {
@@ -122,16 +124,27 @@ export default function LoginScreen({ navigation, route }) {
                     placeholder="Password"
                     placeholderTextColor="grey"
                     secureTextEntry={securePassword}
-                    onChangeText={(password) => setPassword(password)}
+                    onChangeText={password => setPassword(password)}
                     onSubmitEditing={handleLogin}
                     onBlur={() => setError(false)}
                     ref={passwordInput}
                 />
-                <TouchableOpacity style={{ position: "absolute", right: 1 }} onPress={() => setSecurePassword(!securePassword)}>
-                    <Icon name={securePassword ? "eye-outline" : "eye-off-outline"} size={30} color="lightgray" />
+                <TouchableOpacity
+                    style={{ position: "absolute", right: 1 }}
+                    onPress={() => setSecurePassword(!securePassword)}>
+                    <Icon
+                        name={
+                            securePassword ? "eye-outline" : "eye-off-outline"
+                        }
+                        size={30}
+                        color="lightgray"
+                    />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={function () { navigation.navigate('ForgotPassword') }}>
+            <TouchableOpacity
+                onPress={function () {
+                    navigation.navigate('ForgotPassword')
+                }}>
                 <Text style={styles.forgot_button}>Forgot Password?</Text>
             </TouchableOpacity>
             <TouchableOpacity
