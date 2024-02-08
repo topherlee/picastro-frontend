@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    Platform,
+} from 'react-native';
 import * as Keychain from 'react-native-keychain';
-import { AuthContext } from "../../context/AuthContext";
+import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
 import { loadCurrentUser } from "../../utils";
@@ -33,52 +33,48 @@ export default function LoginScreen({ navigation, route }) {
   const [securePassword, setSecurePassword] = useState(true);
   const passwordInput = useRef(null);
 
-  useEffect(() => {
-    resetStates()
-  }, [])
 
-  async function handleLogin() {
+    useEffect(() => {
+        resetStates();
+    }, []);
 
-    var body = JSON.stringify({
-      'username': username,
-      'password': password
-    })
+    async function handleLogin() {
+        var body = JSON.stringify({
+            username: username,
+            password: password,
+        });
 
-    await fetch(`${domain}/api/auth/login/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: body
-    })
-      .then(async (res) => {
-        console.log('STATUS', res.status);
-        if (res.ok) {
-          return res.json();
-        } else {
-          setError(true)
-          console.log('error')
-          throw await res.json();
-        }
-      })
-      .then(async json => {
-        console.debug('JSON', json);
-        await Keychain.setGenericPassword('token', JSON.stringify(json))
-        setToken(json);
-        setIsSignedIn(true);
-
-        const curUser = await loadCurrentUser(json, fetchInstance)
-        setValidSubscription(curUser.valid_subscription)
-        console.debug("validSubscription", curUser.valid_subscription);
-      })
-      .catch(error => {
-        console.log("LoginScreen error", error);
-        setError(true)
-      })
-
-  }
-
-
+        await fetch(`${domain}/api/auth/login/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: body,
+        })
+            .then(async res => {
+                console.log('STATUS', res.status);
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    setError(true);
+                    console.log('error');
+                    throw await res.json();
+                }
+            })
+            .then(async json => {
+                console.log('JSON', json);
+                await Keychain.setGenericPassword(
+                    'token',
+                    JSON.stringify(json),
+                );
+                setToken(json);
+                setIsSignedIn(true);
+            })
+            .catch(error => {
+                console.log('error', error);
+                setError(true);
+            });
+    }
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
@@ -140,55 +136,55 @@ export default function LoginScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    position: "relative",
-    marginBottom: "20%",
-  },
-  bottomText: {
-    flexDirection: 'row',
-    position: "relative",
-    marginBottom: "2%"
-  },
-  text: {
-    color: "white",
-  },
-  forgot_button: {
-    height: 30,
-    color: "#FFC700",
-  },
-  loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: "7%",
-    minHeight: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    marginTop: "10%",
-    marginBottom: "3%",
-    backgroundColor: "#FFC700",
-  },
-  title: {
-    color: "#FFC700",
-    fontWeight: "bold",
-    fontSize: 20,
-    position: "relative",
-    top: "-5%"
-  },
-  titleRed: {
-    color: "red",
-    fontWeight: "bold",
-    fontSize: 20,
-    position: "relative",
-    top: "-5%"
-  },
-  loginText: {
-    fontWeight: "bold",
-  }
+    container: {
+        flex: 1,
+        backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        position: 'relative',
+        marginBottom: '20%',
+    },
+    bottomText: {
+        flexDirection: 'row',
+        position: 'relative',
+        marginBottom: '2%',
+    },
+    text: {
+        color: 'white',
+    },
+    forgot_button: {
+        height: 30,
+        color: '#FFC700',
+    },
+    loginBtn: {
+        width: '80%',
+        borderRadius: 25,
+        height: '7%',
+        minHeight: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        marginTop: '10%',
+        marginBottom: '3%',
+        backgroundColor: '#FFC700',
+    },
+    title: {
+        color: '#FFC700',
+        fontWeight: 'bold',
+        fontSize: 20,
+        position: 'relative',
+        top: '-5%',
+    },
+    titleRed: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: 20,
+        position: 'relative',
+        top: '-5%',
+    },
+    loginText: {
+        fontWeight: 'bold',
+    },
 });
