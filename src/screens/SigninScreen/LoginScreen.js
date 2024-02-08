@@ -21,10 +21,7 @@ export default function LoginScreen({ navigation, route }) {
     domain,
     resetStates,
     setToken,
-    token,
-    setCurrentUser,
     fetchInstance,
-    currentUser,
     setValidSubscription
   } = useContext(AuthContext);     //get setIsSignedIn function from global context
   const [username, setUsername] = useState(route.params?.username ? route.params.username : null);
@@ -75,16 +72,29 @@ export default function LoginScreen({ navigation, route }) {
         console.log("LoginScreen error", error);
         setError(true)
       })
-
   }
 
 
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-      <Image style={styles.image} resizeMode="contain" source={require('../../assets/logo-text-gray.png')} />
-      {error ? <Text style={styles.titleRed}>Error logging in. Please try again</Text> : <Text style={styles.title}>Register or Login</Text>}
-      <View keyboardShouldPersistTaps='handled' style={globalStyling.inputView}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}>
+      <Image
+        style={styles.image}
+        resizeMode="contain"
+        source={require('../../assets/logo-text-gray.png')}
+      />
+      {error ? (
+        <Text style={styles.titleRed}>
+          Error logging in. Please try again
+        </Text>
+        ) : (
+          <Text style={styles.title}>Register or Login</Text>
+        )}
+      <View 
+        keyboardShouldPersistTaps='handled'
+        style={globalStyling.inputView}>
         <TextInput
           style={globalStyling.inputFieldText}
           textContentType={'username'}
@@ -98,7 +108,9 @@ export default function LoginScreen({ navigation, route }) {
           onChangeText={(username) => setUsername(username)}
           onBlur={() => setError(false)}
           blurOnSubmit={false}
-          onSubmitEditing={() => { passwordInput.current.focus() }}
+          onSubmitEditing={() => {
+            passwordInput.current.focus();
+          }}
         />
       </View>
       <View style={globalStyling.inputView}>
