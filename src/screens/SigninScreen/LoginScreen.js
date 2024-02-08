@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-} from "react-native";
+} from 'react-native';
 import * as Keychain from 'react-native-keychain';
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from "../../../constants/globalStyling";
 import { loadCurrentUser } from "../../utils";
@@ -30,9 +30,6 @@ export default function LoginScreen({ navigation, route }) {
   const [securePassword, setSecurePassword] = useState(true);
   const passwordInput = useRef(null);
 
-  useEffect(() => {
-    resetStates()
-  }, [])
 
   async function handleLogin() {
 
@@ -74,6 +71,9 @@ export default function LoginScreen({ navigation, route }) {
       })
   }
 
+  useEffect(() => {
+    resetStates();
+  }, []);
 
 
   return (
@@ -89,10 +89,10 @@ export default function LoginScreen({ navigation, route }) {
         <Text style={styles.titleRed}>
           Error logging in. Please try again
         </Text>
-        ) : (
-          <Text style={styles.title}>Register or Login</Text>
-        )}
-      <View 
+      ) : (
+        <Text style={styles.title}>Register or Login</Text>
+      )}
+      <View
         keyboardShouldPersistTaps='handled'
         style={globalStyling.inputView}>
         <TextInput
@@ -154,53 +154,53 @@ export default function LoginScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
-    position: "relative",
-    marginBottom: "20%",
+    position: 'relative',
+    marginBottom: '20%',
   },
   bottomText: {
     flexDirection: 'row',
-    position: "relative",
-    marginBottom: "2%"
+    position: 'relative',
+    marginBottom: '2%',
   },
   text: {
-    color: "white",
+    color: 'white',
   },
   forgot_button: {
     height: 30,
-    color: "#FFC700",
+    color: '#FFC700',
   },
   loginBtn: {
-    width: "80%",
+    width: '80%',
     borderRadius: 25,
-    height: "7%",
+    height: '7%',
     minHeight: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    marginTop: "10%",
-    marginBottom: "3%",
-    backgroundColor: "#FFC700",
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    marginTop: '10%',
+    marginBottom: '3%',
+    backgroundColor: '#FFC700',
   },
   title: {
-    color: "#FFC700",
-    fontWeight: "bold",
+    color: '#FFC700',
+    fontWeight: 'bold',
     fontSize: 20,
-    position: "relative",
-    top: "-5%"
+    position: 'relative',
+    top: '-5%',
   },
   titleRed: {
-    color: "red",
-    fontWeight: "bold",
+    color: 'red',
+    fontWeight: 'bold',
     fontSize: 20,
-    position: "relative",
-    top: "-5%"
+    position: 'relative',
+    top: '-5%',
   },
   loginText: {
-    fontWeight: "bold",
-  }
+    fontWeight: 'bold',
+  },
 });
