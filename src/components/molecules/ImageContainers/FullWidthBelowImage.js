@@ -49,6 +49,10 @@ const FullWidthBelowImage = ({props}) => {
         setComments(newComments);
     };
 
+    const addCommentRow = comment => {
+        setComments(oldComments => [comment, ...oldComments]);
+    };
+
     const scrollToTop = () => {
         if (comments.length > 0)
             commentList.current.scrollToIndex({index: 0, animated: true});
@@ -207,7 +211,7 @@ const FullWidthBelowImage = ({props}) => {
                             }}>
                             <CommentInputContainer
                                 currentUser={currentUser}
-                                onSendComment={fetchComments}
+                                onSendComment={addCommentRow}
                                 setCommentsPage={setCommentsPage}
                                 scrollToTop={scrollToTop}
                                 props={props}

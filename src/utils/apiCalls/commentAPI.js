@@ -21,14 +21,13 @@ const commentPostAPICall = async (
         if (response.ok) {
             response = await response.json();
             // console.log('RESPONSE', response);
-            onSendComment(postId);
             return response;
         } else {
             throw new Error(`HTTP response status ${response.status}`);
         }
     } catch (error) {
         console.log('commentAPI error', error);
-        return response;
+        return null;
     }
 };
 
