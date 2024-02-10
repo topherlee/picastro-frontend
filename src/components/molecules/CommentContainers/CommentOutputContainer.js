@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useContext} from 'react';
 import {Animated, Text, View, TouchableOpacity} from 'react-native';
 import {
     Swipeable,
@@ -11,11 +11,16 @@ import {InCommentUserImage} from '../../atoms';
 import {MoreOrLess} from '@rntext/more-or-less';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import {commentDeleteAPICall} from '../../../utils';
 import {TouchableIcon} from '../../common';
+import {AuthContext} from '../../../context/AuthContext';
 dayjs.extend(relativeTime);
 
-const CommentOutputContainer = props => {
+const CommentOutputContainer = ({onRemoveComment, ...props}) => {
+    const {currentUser, fetchInstance, token} = useContext(AuthContext);
     const navigation = useNavigation();
+
+    const ref = useRef();
 
     const renderRightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
@@ -26,36 +31,41 @@ const CommentOutputContainer = props => {
 
         return (
             <Animated.View
-                style={[
-                    // globalStyling.commentOutput,
-                    {
-                        borderWidth: 0,
-                        borderColor: 'red',
-                        display: 'flex',
-                        alignItems: 'center',
-                        alignContent: 'center',
-                        alignSelf: 'center',
-                        flexDirection: 'row',
-                        gap: 10,
-                        height: '100%',
-                        backgroundColor: '#2e2e2e',
-                        transform: [{scale}],
-                    },
-                ]}>
+                style={{
+                    borderWidth: 0,
+                    borderColor: 'red',
+                    display: 'flex',
+                    alignItems: 'center',
+                    alignContent: 'center',
+                    alignSelf: 'center',
+                    flexDirection: 'row',
+                    gap: 10,
+                    marginVertical: '2%',
+                    height: '89%',
+                    backgroundColor: '#2e2e2e',
+                    transform: [{scale}],
+                }}>
                 <TouchableIcon
-                    onPress={() => {
-                        alert('YES');
+                    onPress={async () => {
+                        var deleted = await commentDeleteAPICall(
+                            fetchInstance,
+                            token,
+                            props.id,
+                        );
+                        if (deleted) {
+                            onRemoveComment(props.id);
+                        }
                     }}
                     name="trash-can-outline"
                     color={'red'}
-                    size={35}
+                    size={30}
                 />
                 <TouchableIcon
                     name="cancel"
                     color={'white'}
-                    size={35}
+                    size={30}
                     onPress={() => {
-                        alert('NO');
+                        ref.current?.close();
                     }}
                 />
             </Animated.View>
@@ -64,7 +74,12 @@ const CommentOutputContainer = props => {
 
     return (
         <Swipeable
-            containerStyle={{overflow: 'auto'}}
+            containerStyle={{
+                overflow: 'auto',
+                borderWidth: 0,
+                borderColor: 'green',
+            }}
+            onSwipeableOpen={(_, swipeable) => (ref.current = swipeable)}
             renderRightActions={renderRightActions}>
             <View style={globalStyling.commentOutput}>
                 <TouchableOpacity
@@ -104,8 +119,8 @@ const CommentOutputContainer = props => {
                         {props.comment_body}
                     </MoreOrLess>
                     {/* <Text style={globalStyling.commentOutputCommentText}>
-                    {props.comment_body}
-                </Text> */}
+                {props.comment_body}
+            </Text> */}
                 </View>
             </View>
         </Swipeable>

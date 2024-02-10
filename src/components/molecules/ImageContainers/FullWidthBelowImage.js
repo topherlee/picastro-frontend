@@ -44,6 +44,11 @@ const FullWidthBelowImage = ({props}) => {
         setCommentsPage(2);
     };
 
+    const removeCommentRow = id => {
+        const newComments = comments.filter(comment => comment.id !== id);
+        setComments(newComments);
+    };
+
     const scrollToTop = () => {
         if (comments.length > 0)
             commentList.current.scrollToIndex({index: 0, animated: true});
@@ -191,6 +196,7 @@ const FullWidthBelowImage = ({props}) => {
                             comments={comments}
                             nextComments={nextComments}
                             fetchMoreComments={fetchMoreComments}
+                            onRemoveComment={removeCommentRow}
                         />
                         <View
                             style={{
@@ -227,43 +233,52 @@ const FullWidthBelowImage = ({props}) => {
                 </Modal>
             </Container>
             {/* Comments Section */}
-            {comments.slice(0, 3).map(comment => {
-                return <CommentOutputContainer key={comment.id} {...comment} />;
-            })}
-            <TouchableOpacity
-                onPress={() => {
-                    toggleModal(true);
-                }}>
-                {comments.length > 3 ? (
-                    <View style={{margin: '2%', padding: '3%'}}>
-                        <Text style={{color: '#FFC700', fontWeight: 'bold'}}>
-                            Load more comments
-                        </Text>
+            <View style={{marginVertical: 10}}>
+                {comments.slice(0, 3).map(comment => {
+                    return (
+                        <CommentOutputContainer
+                            key={comment.id}
+                            {...comment}
+                            onRemoveComment={removeCommentRow}
+                        />
+                    );
+                })}
+                <TouchableOpacity
+                    onPress={() => {
+                        toggleModal(true);
+                    }}>
+                    {comments.length > 3 ? (
+                        <View style={{margin: '2%', padding: '3%'}}>
+                            <Text
+                                style={{color: '#FFC700', fontWeight: 'bold'}}>
+                                Load more comments
+                            </Text>
+                        </View>
+                    ) : (
+                        <></>
+                    )}
+                    <View
+                        style={globalStyling.commentInputContainer}
+                        pointerEvents="none">
+                        <InCommentUserImage
+                            userImageURL={currentUser?.profileImage}
+                        />
+                        <TextInput
+                            style={[
+                                globalStyling.inputFieldText,
+                                {
+                                    height: 'auto',
+                                    textAlign: 'left',
+                                    marginHorizontal: 10,
+                                },
+                            ]}
+                            placeholder="Write a comment"
+                            placeholderTextColor="grey"
+                        />
+                        <SendButton />
                     </View>
-                ) : (
-                    <></>
-                )}
-                <View
-                    style={globalStyling.commentInputContainer}
-                    pointerEvents="none">
-                    <InCommentUserImage
-                        userImageURL={currentUser?.profileImage}
-                    />
-                    <TextInput
-                        style={[
-                            globalStyling.inputFieldText,
-                            {
-                                height: 'auto',
-                                textAlign: 'left',
-                                marginHorizontal: 10,
-                            },
-                        ]}
-                        placeholder="Write a comment"
-                        placeholderTextColor="grey"
-                    />
-                    <SendButton />
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };

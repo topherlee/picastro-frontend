@@ -63,6 +63,29 @@ const commentGetAPICall = async (
     }
 };
 
+const commentDeleteAPICall = async (fetchInstance, token, commentId) => {
+    var url = `/api/comment/${commentId}`;
+
+    try {
+        var response = await fetchInstance(url, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Token ${token.access}`,
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.ok) {
+            return true;
+        } else {
+            throw new Error(`HTTP response status ${response.status}`);
+        }
+    } catch (error) {
+        console.log('commentDeleteAPI', error);
+        Alert.alert('Error Fetching Data', error.toString());
+        return false;
+    }
+};
+
 const fetchMore = async (
     fetchInstance,
     token,
@@ -82,16 +105,10 @@ const fetchMore = async (
 
     const pageUrl = `?page=${page}`;
     console.log('comments fetchmore page', page);
-    const newData = await commentGetAPICall(
-        fetchInstance,
-        token,
-        postId,
-        setNextComments,
-        page,
-    );
+    const newData = await commentGetAPICall(fetchInstance, token, postId, setNextComments, page);
     setIsCommentsLoading(false);
     setCommentsPage(page => page + 1);
     setComments(prevData => [...prevData, ...newData]);
 };
 
-export {commentPostAPICall, commentGetAPICall, fetchMore};
+export {commentDeleteAPICall, commentPostAPICall, commentGetAPICall, fetchMore};

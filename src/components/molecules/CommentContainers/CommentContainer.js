@@ -12,7 +12,13 @@ import {CommentOutputContainer} from '../index';
 import {fetchMore} from '../../../utils';
 
 const CommentContainer = forwardRef(function CommentContainer(
-    {comments, nextComments, fetchMoreComments, setNextCommentsPage},
+    {
+        comments,
+        nextComments,
+        fetchMoreComments,
+        setNextCommentsPage,
+        onRemoveComment,
+    },
     ref,
 ) {
     const ListEmptyComponent = () => {
@@ -36,7 +42,12 @@ const CommentContainer = forwardRef(function CommentContainer(
             style={{flex: 1, maxHeight: 400}}
             contentContainerStyle={{flexGrow: 1}}
             data={comments}
-            renderItem={({item}) => <CommentOutputContainer {...item} />}
+            renderItem={({item}) => (
+                <CommentOutputContainer
+                    {...item}
+                    onRemoveComment={onRemoveComment}
+                />
+            )}
             keyExtractor={item => item.id}
             onEndReached={() => {
                 if (comments.length != 0 && nextComments) {
