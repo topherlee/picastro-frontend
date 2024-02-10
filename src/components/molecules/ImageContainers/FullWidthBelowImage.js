@@ -30,7 +30,7 @@ import {useNavigation} from '@react-navigation/native';
 const FullWidthBelowImage = ({props}) => {
     const navigation = useNavigation();
     const commentList = useRef(null);
-    const [commentsRefreshing, setCommentsRefreshing] = useState(true);
+    const [commentsRefreshing, setCommentsRefreshing] = useState(false);
     const [isCommentsLoading, setIsCommentsLoading] = useState(false);
     const [nextComments, setNextComments] = useState(null);
     const [retry, setRetry] = useState(0);
@@ -58,6 +58,10 @@ const FullWidthBelowImage = ({props}) => {
             commentList.current.scrollToIndex({index: 0, animated: true});
     };
 
+    const refreshComments = async () => {
+        await fetchComments(props.id);
+    };
+
     const fetchComments = async postId => {
         // console.log("COMMENTS", commentUrl, requestMethod)
         let comments = await commentGetAPICall(
@@ -68,6 +72,7 @@ const FullWidthBelowImage = ({props}) => {
         );
         // console.log(comments)
         setComments(comments);
+        setCommentsRefreshing(false);
     };
 
     const fetchMoreComments = async () => {
@@ -201,6 +206,8 @@ const FullWidthBelowImage = ({props}) => {
                             nextComments={nextComments}
                             fetchMoreComments={fetchMoreComments}
                             onRemoveComment={removeCommentRow}
+                            refreshComments={refreshComments}
+                            refreshing={commentsRefreshing}
                         />
                         <View
                             style={{

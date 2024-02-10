@@ -45,21 +45,38 @@ const CommentOutputContainer = ({onRemoveComment, ...props}) => {
                     backgroundColor: '#2e2e2e',
                     transform: [{scale}],
                 }}>
-                <TouchableIcon
-                    onPress={async () => {
-                        var deleted = await commentDeleteAPICall(
-                            fetchInstance,
-                            token,
-                            props.id,
-                        );
-                        if (deleted) {
-                            onRemoveComment(props.id);
-                        }
-                    }}
-                    name="trash-can-outline"
-                    color={'red'}
-                    size={30}
-                />
+                {props.commenter?.id === currentUser?.id ? (
+                    <>
+                        <TouchableIcon
+                            onPress={async () => {
+                                var deleted = await commentDeleteAPICall(
+                                    fetchInstance,
+                                    token,
+                                    props.id,
+                                );
+                                if (deleted) {
+                                    onRemoveComment(props.id);
+                                }
+                            }}
+                            name="trash-can-outline"
+                            color={'red'}
+                            size={30}
+                        />
+                        <TouchableIcon
+                            name="pencil"
+                            color={'white'}
+                            size={30}
+                            onPress={() => {
+                                alert(
+                                    'Not implemented yet! Check back soon...',
+                                );
+                                ref.current?.close();
+                            }}
+                        />
+                    </>
+                ) : (
+                    <></>
+                )}
                 <TouchableIcon
                     name="cancel"
                     color={'white'}
