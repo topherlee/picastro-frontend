@@ -60,6 +60,7 @@ const FullWidthBelowImage = ({props}) => {
 
     const refreshComments = async () => {
         await fetchComments(props.id);
+        setCommentsPage(2);
     };
 
     const fetchComments = async postId => {
