@@ -18,13 +18,13 @@ import globalStyling from '../../constants/globalStyling';
 import {apiCallLikeDislike, loadLikedPostList} from '../utils';
 
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({navigation, route}) => {
     const [data, setData] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
     const [retry, setRetry] = useState(0);
-    
+
     const {
         token,
         fetchInstance,
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
         listOfLikes,
         setListOfLikes,
         currentPostsPage,
-        setCurrentPostsPage
+        setCurrentPostsPage,
     } = useContext(AuthContext);
 
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
@@ -46,17 +46,20 @@ const HomeScreen = ({ navigation }) => {
     async function loadLikedPostList() {
         try {
             var response = await apiCallLikeDislike(
-                loadLikedPostListURL, loadLikedPostListMethod, fetchInstance, token)
+                loadLikedPostListURL,
+                loadLikedPostListMethod,
+                fetchInstance,
+                token,
+            );
             var listOfLikes2;
             if (response.ok) {
                 listOfLikes2 = await response.json();
                 setListOfLikes(listOfLikes2.results);
                 console.log('listOfLikes', listOfLikes);
             }
-            
         } catch (error) {
-            console.log("ERROR",error);
-            return [];   
+            console.log('ERROR', error);
+            return [];
         }
     }
 
@@ -66,20 +69,20 @@ const HomeScreen = ({ navigation }) => {
             var response = await fetchInstance(urlForApiCall + pageUrl, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Token ${token.access}`,
-                    'Content-Type': 'application/json'
-                }
-            })
+                    Authorization: `Token ${token.access}`,
+                    'Content-Type': 'application/json',
+                },
+            });
             if (response.ok) {
                 response = await response.json();
-                setNext(response.next)
-                return response.results
+                setNext(response.next);
+                return response.results;
             } else {
                 throw new Error(`HTTP response status ${response.status}`);
             }
         } catch (error) {
-            console.log("HOMESCREEN", error);
-            
+            console.log('HOMESCREEN', error);
+
             Alert.alert('Error Fetching Data', error.toString());
             return [];
         }
@@ -89,31 +92,45 @@ const HomeScreen = ({ navigation }) => {
         if (isLoading) return;
         if (!next) return;
         setIsLoading(true);
-        
+
         const nextPage = currentPostsPage + 1;
         const newData = await loadHomescreen(nextPage);
         setCurrentPostsPage(nextPage);
         setIsLoading(false);
-        setData(prevData => [...prevData, ...newData]);
+        setData((prevData) => [...prevData, ...newData]);
     };
 
     const refreshPage = async () => {
-        setCurrentPostsPage(1)
-        const newData = await loadHomescreen(1)
-        setData(newData)
-        setRefreshing(false)
-    }
+        setCurrentPostsPage(1);
+        const newData = await loadHomescreen(1);
+        setData(newData);
+        setRefreshing(false);
+    };
 
     useEffect(() => {
         loadHomescreen(currentPostsPage)
             .then((res) => {
                 setData(res);
                 setRefreshing(false);
-            }).catch(err => {
-                console.log("UE ERROR", err)
             })
-        loadLikedPostList()
-    }, [activeObjectSelector, activeSelector, retry])
+            .catch((err) => {
+                console.log('UE ERROR', err);
+            });
+        loadLikedPostList();
+    }, [activeObjectSelector, activeSelector, retry]);
+
+    useEffect(() => {
+        setCurrentPostsPage(1);
+        loadHomescreen(1)
+            .then((res) => {
+                setData(res);
+                setRefreshing(false);
+            })
+            .catch((err) => {
+                console.log('UE ERROR', err);
+            });
+        loadLikedPostList();
+    }, [route.params]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -131,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
                     numColumns={2}
                     onRefresh={refreshPage}
                     refreshing={refreshing}
-                    keyExtractor={item => item.id}
+                    keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}
                     indicatorStyle={'white'}
                     renderItem={({item}) => (
