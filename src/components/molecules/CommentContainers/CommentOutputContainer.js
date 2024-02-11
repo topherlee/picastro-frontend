@@ -16,7 +16,8 @@ import {TouchableIcon} from '../../common';
 import {AuthContext} from '../../../context/AuthContext';
 dayjs.extend(relativeTime);
 
-const CommentOutputContainer = ({onRemoveComment, ...props}) => {
+const CommentOutputContainer = ({postOwner, onRemoveComment, ...props}) => {
+    console.log(props);
     const {currentUser, fetchInstance, token} = useContext(AuthContext);
     const navigation = useNavigation();
 
@@ -45,35 +46,38 @@ const CommentOutputContainer = ({onRemoveComment, ...props}) => {
                     backgroundColor: '#2e2e2e',
                     transform: [{scale}],
                 }}>
+                {/* Show delete button if post owner or commenter */}
+                {props.commenter?.id === currentUser?.id ||
+                postOwner === currentUser?.id ? (
+                    <TouchableIcon
+                        onPress={async () => {
+                            var deleted = await commentDeleteAPICall(
+                                fetchInstance,
+                                token,
+                                props.id,
+                            );
+                            if (deleted) {
+                                onRemoveComment(props.id);
+                            }
+                        }}
+                        name="trash-can-outline"
+                        color={'red'}
+                        size={30}
+                    />
+                ) : (
+                    <></>
+                )}
+                {/* Show edit button only for commenter */}
                 {props.commenter?.id === currentUser?.id ? (
-                    <>
-                        <TouchableIcon
-                            onPress={async () => {
-                                var deleted = await commentDeleteAPICall(
-                                    fetchInstance,
-                                    token,
-                                    props.id,
-                                );
-                                if (deleted) {
-                                    onRemoveComment(props.id);
-                                }
-                            }}
-                            name="trash-can-outline"
-                            color={'red'}
-                            size={30}
-                        />
-                        <TouchableIcon
-                            name="pencil"
-                            color={'white'}
-                            size={30}
-                            onPress={() => {
-                                alert(
-                                    'Not implemented yet! Check back soon...',
-                                );
-                                ref.current?.close();
-                            }}
-                        />
-                    </>
+                    <TouchableIcon
+                        name="pencil"
+                        color={'white'}
+                        size={30}
+                        onPress={() => {
+                            alert('Not implemented yet! Check back soon...');
+                            ref.current?.close();
+                        }}
+                    />
                 ) : (
                     <></>
                 )}

@@ -21,6 +21,7 @@ const CommentContainer = forwardRef(function CommentContainer(
         onRemoveComment,
         refreshComments,
         refreshing,
+        postOwner,
     },
     ref,
 ) {
@@ -49,6 +50,7 @@ const CommentContainer = forwardRef(function CommentContainer(
                 <CommentOutputContainer
                     {...item}
                     onRemoveComment={onRemoveComment}
+                    postOwner={postOwner}
                 />
             )}
             keyExtractor={item => item.id}

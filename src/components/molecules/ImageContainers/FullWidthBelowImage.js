@@ -209,6 +209,7 @@ const FullWidthBelowImage = ({props}) => {
                             onRemoveComment={removeCommentRow}
                             refreshComments={refreshComments}
                             refreshing={commentsRefreshing}
+                            postOwner={props.poster.id} //to notify that the post owner can delete any comments
                         />
                         <View
                             style={{
@@ -252,6 +253,7 @@ const FullWidthBelowImage = ({props}) => {
                             key={comment.id}
                             {...comment}
                             onRemoveComment={removeCommentRow}
+                            postOwner={props.poster.id} //to notify that the post owner can delete any comments
                         />
                     );
                 })}
