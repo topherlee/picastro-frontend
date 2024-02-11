@@ -1,24 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
     View,
     Text,
     SafeAreaView,
     StyleSheet,
     ActivityIndicator,
-    Alert
+    Alert,
 } from 'react-native';
 
-import { UserNameImageBurgerHeader } from '../components/molecules';
-import { AuthContext } from '../context/AuthContext';
+import {useScrollToTop} from '@react-navigation/native';
+import {UserNameImageBurgerHeader} from '../components/molecules';
+import {AuthContext} from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
-import { HalfWidthPostsContainer } from '../components/organisms';
+import {HalfWidthPostsContainer} from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
 import {EmptyFeedMaleFigure} from '../components/atoms';
 import globalStyling from '../../constants/globalStyling';
 import {apiCallLikeDislike, loadLikedPostList} from '../utils';
 
-
 const HomeScreen = ({navigation, route}) => {
+    //this is to scroll up on pressing the homescreen
+    const ref = useRef();
+    useScrollToTop(ref);
+
     const [data, setData] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -101,6 +105,10 @@ const HomeScreen = ({navigation, route}) => {
     };
 
     const refreshPage = async () => {
+        ref.current?.scrollTo({
+            y: 0,
+            animated: true,
+        });
         setCurrentPostsPage(1);
         const newData = await loadHomescreen(1);
         setData(newData);
@@ -120,16 +128,7 @@ const HomeScreen = ({navigation, route}) => {
     }, [activeObjectSelector, activeSelector, retry]);
 
     useEffect(() => {
-        setCurrentPostsPage(1);
-        loadHomescreen(1)
-            .then((res) => {
-                setData(res);
-                setRefreshing(false);
-            })
-            .catch((err) => {
-                console.log('UE ERROR', err);
-            });
-        loadLikedPostList();
+        refreshPage();
     }, [route.params]);
 
     return (
@@ -144,6 +143,7 @@ const HomeScreen = ({navigation, route}) => {
                     flex: 1,
                 }}>
                 <MasonryList
+                    innerRef={ref}
                     data={data}
                     numColumns={2}
                     onRefresh={refreshPage}
@@ -196,22 +196,22 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         display: 'flex',
-        backgroundColor: "#2F2F2F",
-        borderColor: "yellow",
+        backgroundColor: '#2F2F2F',
+        borderColor: 'yellow',
         borderWidth: 0,
     },
     text: {
         fontSize: 25,
         fontWeight: '500',
         color: 'red',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     image: {
-        width: "100%",
-        height: 200
+        width: '100%',
+        height: 200,
     },
     modalWrapper: {
-        borderColor: "red",
+        borderColor: 'red',
         borderWidth: 0,
         margin: 0,
         display: 'flex',
@@ -229,8 +229,8 @@ const styles = StyleSheet.create({
         paddingRight: 30,
         alignItems: 'center',
         elevation: 10,
-        backgroundColor: "#2F2F2F",
-        borderColor: "green",
+        backgroundColor: '#2F2F2F',
+        borderColor: 'green',
         borderWidth: 0,
     },
     buttonWrapper: {
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         width: 90,
         height: 32,
-        gap: 5
+        gap: 5,
     },
     buttonUnselected: {
         backgroundColor: '#DDD7D7',
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 11,
         textAlign: 'center',
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     textStyle: {
         color: 'white',
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderColor: 'red',
         borderWidth: 0,
-        gap: 20
+        gap: 20,
     },
     horizontalScrollview: {
         marginBottom: 10,
@@ -286,9 +286,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         display: 'flex',
-        top: 0
-    }
-
+        top: 0,
+    },
 });
 
 export default HomeScreen;
