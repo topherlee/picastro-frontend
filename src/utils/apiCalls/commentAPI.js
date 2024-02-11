@@ -7,7 +7,7 @@ const commentPostAPICall = async (
     onSendComment,
     postId,
 ) => {
-    console.log('commentPostAPIcall, body', body);
+    // console.log('commentPostAPIcall, body', body);
     const url = '/api/comments/';
 
     try {

@@ -54,7 +54,7 @@ const CommentContainer = forwardRef(function CommentContainer(
             keyExtractor={item => item.id}
             refreshControl={
                 <RefreshControl
-                    tintColor={'grey'}
+                    tintColor={'#FFC700'}
                     refreshing={refreshing}
                     onRefresh={() => {
                         refreshComments();
