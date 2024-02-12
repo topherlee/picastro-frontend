@@ -278,7 +278,7 @@ export default StyleSheet.create({
         borderRadius: 10,
         marginTop: '3%',
         marginBottom: '3%',
-        padding: "3%",
+        padding: '3%',
         backgroundColor: 'white',
         borderColor: 'red',
         borderWidth: 0,
@@ -304,11 +304,11 @@ export default StyleSheet.create({
         flexDirection: 'row',
         gap: 10,
         alignItems: 'center',
-        marginBottom: 5
+        marginBottom: 5,
     },
     commentTimeStamp: {
         color: '#7a7a7a',
-        fontSize: 12
+        fontSize: 12,
     },
     commentOutputCommentText: {
         color: '#959595',

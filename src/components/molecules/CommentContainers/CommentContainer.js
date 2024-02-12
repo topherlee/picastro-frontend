@@ -6,13 +6,23 @@ import {
     Modal,
     TouchableOpacity,
     FlatList,
+    RefreshControl,
 } from 'react-native';
 import {AuthContext} from '../../../context/AuthContext';
 import {CommentOutputContainer} from '../index';
 import {fetchMore} from '../../../utils';
 
 const CommentContainer = forwardRef(function CommentContainer(
-    {comments, nextComments, fetchMoreComments, setNextCommentsPage},
+    {
+        comments,
+        nextComments,
+        fetchMoreComments,
+        setNextCommentsPage,
+        onRemoveComment,
+        refreshComments,
+        refreshing,
+        postOwner,
+    },
     ref,
 ) {
     const ListEmptyComponent = () => {
@@ -36,8 +46,23 @@ const CommentContainer = forwardRef(function CommentContainer(
             style={{flex: 1, maxHeight: 400}}
             contentContainerStyle={{flexGrow: 1}}
             data={comments}
-            renderItem={({item}) => <CommentOutputContainer {...item} />}
+            renderItem={({item}) => (
+                <CommentOutputContainer
+                    {...item}
+                    onRemoveComment={onRemoveComment}
+                    postOwner={postOwner}
+                />
+            )}
             keyExtractor={item => item.id}
+            refreshControl={
+                <RefreshControl
+                    tintColor={'#FFC700'}
+                    refreshing={refreshing}
+                    onRefresh={() => {
+                        refreshComments();
+                    }}
+                />
+            }
             onEndReached={() => {
                 if (comments.length != 0 && nextComments) {
                     fetchMoreComments();
