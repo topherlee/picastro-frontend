@@ -39,7 +39,7 @@ const FullWidthBelowImage = ({props}) => {
     const [commentsPage, setCommentsPage] = useState(2);
     const {currentUser, fetchInstance, token} = useContext(AuthContext);
 
-    const toggleModal = show => {
+    const toggleModal = (show) => {
         setModalVisible(show);
         setCommentsPage(2);
     };
@@ -49,7 +49,7 @@ const FullWidthBelowImage = ({props}) => {
             commentList.current.scrollToIndex({index: 0, animated: true});
     };
 
-    const fetchComments = async postId => {
+    const fetchComments = async (postId) => {
         // console.log("COMMENTS", commentUrl, requestMethod)
         let comments = await commentGetAPICall(
             fetchInstance,
@@ -227,7 +227,7 @@ const FullWidthBelowImage = ({props}) => {
                 </Modal>
             </Container>
             {/* Comments Section */}
-            {comments.slice(0, 3).map(comment => {
+            {comments.slice(0, 3).map((comment) => {
                 return <CommentOutputContainer key={comment.id} {...comment} />;
             })}
             <TouchableOpacity
