@@ -109,9 +109,9 @@ const FullWidthBelowImage = ({props}) => {
                             </TextStarNameShort>
                         </StarAliasWrapper>
                     </StarNameWrapper>
-                    <IconView>
+                    <StarIconView>
                         <StarIcon {...props} />
-                    </IconView>
+                    </StarIconView>
                 </Row1>
 
                 <Row2>
@@ -284,9 +284,11 @@ const Container = styled.View`
 
 const Row1 = styled.View`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-direction: row;
     padding-vertical: 2%;
+    margin-vertical: 2%;
     border: 0px solid red;
 `;
 
@@ -353,6 +355,15 @@ const IconView = styled.View`
     justify-content: center;
     align-items: center;
     border: 0px solid yellow;
+`;
+
+const StarIconView = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid yellow;
+    top: 15px;
 `;
 
 const LightText = styled.Text`
