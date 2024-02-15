@@ -15,6 +15,8 @@ const HalfWidthBelowImage = (props) => (
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
             alignItems: 'center',
         }}>
         <View style={{flex: 1, gap: 3}}>
