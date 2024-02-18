@@ -1,30 +1,34 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
     View,
     Text,
     SafeAreaView,
     StyleSheet,
     ActivityIndicator,
-    Alert
+    Alert,
 } from 'react-native';
 
-import { UserNameImageBurgerHeader } from '../components/molecules';
-import { AuthContext } from '../context/AuthContext';
+import {useScrollToTop} from '@react-navigation/native';
+import {UserNameImageBurgerHeader} from '../components/molecules';
+import {AuthContext} from '../context/AuthContext';
 import MasonryList from 'reanimated-masonry-list';
-import { HalfWidthPostsContainer } from '../components/organisms';
+import {HalfWidthPostsContainer} from '../components/organisms';
 import {BottomFilterModal} from '../components/molecules';
 import {EmptyFeedMaleFigure} from '../components/atoms';
 import globalStyling from '../../constants/globalStyling';
 import {apiCallLikeDislike, loadLikedPostList} from '../utils';
 
+const HomeScreen = ({navigation, route}) => {
+    //this is to scroll up on pressing the homescreen
+    const ref = useRef();
+    useScrollToTop(ref);
 
-const HomeScreen = ({ navigation }) => {
     const [data, setData] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [next, setNext] = useState(null);
     const [retry, setRetry] = useState(0);
-    
+
     const {
         token,
         fetchInstance,
@@ -35,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
         listOfLikes,
         setListOfLikes,
         currentPostsPage,
-        setCurrentPostsPage
+        setCurrentPostsPage,
     } = useContext(AuthContext);
 
     const urlForApiCall = '/api/feed/?' + searchAndFilterUrl;
@@ -46,17 +50,20 @@ const HomeScreen = ({ navigation }) => {
     async function loadLikedPostList() {
         try {
             var response = await apiCallLikeDislike(
-                loadLikedPostListURL, loadLikedPostListMethod, fetchInstance, token)
+                loadLikedPostListURL,
+                loadLikedPostListMethod,
+                fetchInstance,
+                token,
+            );
             var listOfLikes2;
             if (response.ok) {
                 listOfLikes2 = await response.json();
                 setListOfLikes(listOfLikes2.results);
-                console.log('listOfLikes', listOfLikes);
+                // console.log('listOfLikes', listOfLikes);
             }
-            
         } catch (error) {
-            console.log("ERROR",error);
-            return [];   
+            console.log('ERROR', error);
+            return [];
         }
     }
 
@@ -66,20 +73,20 @@ const HomeScreen = ({ navigation }) => {
             var response = await fetchInstance(urlForApiCall + pageUrl, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Token ${token.access}`,
-                    'Content-Type': 'application/json'
-                }
-            })
+                    Authorization: `Token ${token.access}`,
+                    'Content-Type': 'application/json',
+                },
+            });
             if (response.ok) {
                 response = await response.json();
-                setNext(response.next)
-                return response.results
+                setNext(response.next);
+                return response.results;
             } else {
                 throw new Error(`HTTP response status ${response.status}`);
             }
         } catch (error) {
-            console.log("HOMESCREEN", error);
-            
+            console.log('HOMESCREEN', error);
+
             Alert.alert('Error Fetching Data', error.toString());
             return [];
         }
@@ -89,31 +96,40 @@ const HomeScreen = ({ navigation }) => {
         if (isLoading) return;
         if (!next) return;
         setIsLoading(true);
-        
+
         const nextPage = currentPostsPage + 1;
         const newData = await loadHomescreen(nextPage);
         setCurrentPostsPage(nextPage);
         setIsLoading(false);
-        setData(prevData => [...prevData, ...newData]);
+        setData((prevData) => [...prevData, ...newData]);
     };
 
     const refreshPage = async () => {
-        setCurrentPostsPage(1)
-        const newData = await loadHomescreen(1)
-        setData(newData)
-        setRefreshing(false)
-    }
+        ref.current?.scrollTo({
+            y: 0,
+            animated: true,
+        });
+        setCurrentPostsPage(1);
+        const newData = await loadHomescreen(1);
+        setData(newData);
+        setRefreshing(false);
+    };
 
     useEffect(() => {
         loadHomescreen(currentPostsPage)
             .then((res) => {
                 setData(res);
                 setRefreshing(false);
-            }).catch(err => {
-                console.log("UE ERROR", err)
             })
-        loadLikedPostList()
-    }, [activeObjectSelector, activeSelector, retry])
+            .catch((err) => {
+                console.log('UE ERROR', err);
+            });
+        loadLikedPostList();
+    }, [activeObjectSelector, activeSelector, retry]);
+
+    useEffect(() => {
+        refreshPage();
+    }, [route.params]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -127,11 +143,12 @@ const HomeScreen = ({ navigation }) => {
                     flex: 1,
                 }}>
                 <MasonryList
+                    innerRef={ref}
                     data={data}
                     numColumns={2}
                     onRefresh={refreshPage}
                     refreshing={refreshing}
-                    keyExtractor={item => item.id}
+                    keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}
                     indicatorStyle={'white'}
                     renderItem={({item}) => (
@@ -179,22 +196,22 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         display: 'flex',
-        backgroundColor: "#2F2F2F",
-        borderColor: "yellow",
+        backgroundColor: '#2F2F2F',
+        borderColor: 'yellow',
         borderWidth: 0,
     },
     text: {
         fontSize: 25,
         fontWeight: '500',
         color: 'red',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     image: {
-        width: "100%",
-        height: 200
+        width: '100%',
+        height: 200,
     },
     modalWrapper: {
-        borderColor: "red",
+        borderColor: 'red',
         borderWidth: 0,
         margin: 0,
         display: 'flex',
@@ -212,8 +229,8 @@ const styles = StyleSheet.create({
         paddingRight: 30,
         alignItems: 'center',
         elevation: 10,
-        backgroundColor: "#2F2F2F",
-        borderColor: "green",
+        backgroundColor: '#2F2F2F',
+        borderColor: 'green',
         borderWidth: 0,
     },
     buttonWrapper: {
@@ -228,7 +245,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         width: 90,
         height: 32,
-        gap: 5
+        gap: 5,
     },
     buttonUnselected: {
         backgroundColor: '#DDD7D7',
@@ -241,7 +258,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 11,
         textAlign: 'center',
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     textStyle: {
         color: 'white',
@@ -257,7 +274,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderColor: 'red',
         borderWidth: 0,
-        gap: 20
+        gap: 20,
     },
     horizontalScrollview: {
         marginBottom: 10,
@@ -269,9 +286,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         display: 'flex',
-        top: 0
-    }
-
+        top: 0,
+    },
 });
 
 export default HomeScreen;

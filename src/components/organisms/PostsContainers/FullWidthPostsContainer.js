@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     StyleSheet,
     View,
     TouchableOpacity,
     Dimensions,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
 } from 'react-native';
-import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
-import Modal from "react-native-modal";
+import {ReactNativeZoomableView} from '@openspacelabs/react-native-zoomable-view';
+import Modal from 'react-native-modal';
 import styled from 'styled-components';
-import { FullWidthAboveImage, FullWidthImage, FullWidthBelowImage } from '../../molecules';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import {
+    FullWidthAboveImage,
+    FullWidthImage,
+    FullWidthBelowImage,
+} from '../../molecules';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 var windowWidth = Math.ceil(Dimensions.get('window').width);
 
-export const FullWidthPostsContainer = ({ props }) => {
+export const FullWidthPostsContainer = ({props}) => {
     //console.log("DFC",props);
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -59,7 +62,7 @@ export const FullWidthPostsContainer = ({ props }) => {
                                 flex: 1,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                height: Dimensions.get("screen").height,
+                                height: Dimensions.get('screen').height,
                                 width: windowWidth,
                             }}
                         />
@@ -76,7 +79,7 @@ export const FullWidthPostsContainer = ({ props }) => {
                                 : 1,
                         }}
                         onLoadStart={() => setLoading(true)}
-                        onLoadEnd={()=>setLoading(false)}
+                        onLoadEnd={() => setLoading(false)}
                     />
                 </ReactNativeZoomableView>
             </Modal>
@@ -94,31 +97,31 @@ export const FullWidthPostsContainer = ({ props }) => {
             <FullWidthBelowImage props={props} />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: "0%",
+        marginVertical: '0%',
         borderWidth: 0,
-        borderColor: "red",
+        borderColor: 'red',
         flex: 1,
-        maxWidth: "100%"
+        maxWidth: '100%',
     },
     button: {
-        flexDirection: "row",
+        flexDirection: 'row',
         justifyContent: 'flex-end',
         paddingVertical: 12,
         paddingHorizontal: 32,
         elevation: 3,
         maxHeight: 50,
         top: 40,
-        zIndex: 400
+        zIndex: 400,
     },
     fullResImage: {
         width: windowWidth,
         height: undefined,
         aspectRatio: 1,
-    }
-})
+    },
+});
 
 export default FullWidthPostsContainer;

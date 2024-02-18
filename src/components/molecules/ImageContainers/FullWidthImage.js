@@ -8,13 +8,13 @@ const FullWidthImage = ({props}) => {
 
     return (
         <View>
-            <Pinchable maximumZoomScale={10}>
-                <AutoscaleImageIndicator
-                    uri={props.image}
-                    width={0.93 * Dimensions.get('window').width}
-                    aspectRatio={props.aspectRatio}
-                />
-            </Pinchable>
+            {/* <Pinchable maximumZoomScale={10}> */}
+            <AutoscaleImageIndicator
+                uri={props.image}
+                width={0.93 * Dimensions.get('window').width}
+                aspectRatio={props.aspectRatio}
+            />
+            {/* </Pinchable> */}
         </View>
     );
 };
