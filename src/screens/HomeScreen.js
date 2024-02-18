@@ -59,7 +59,7 @@ const HomeScreen = ({navigation, route}) => {
             if (response.ok) {
                 listOfLikes2 = await response.json();
                 setListOfLikes(listOfLikes2.results);
-                console.log('listOfLikes', listOfLikes);
+                // console.log('listOfLikes', listOfLikes);
             }
         } catch (error) {
             console.log('ERROR', error);

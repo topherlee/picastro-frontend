@@ -1,6 +1,5 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
-import Pinchable from 'react-native-pinchable';
 
 import AutoscaleImage from '../AutoscaleImage/AutoscaleImage';
 
