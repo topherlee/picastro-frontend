@@ -43,7 +43,7 @@ const CommentContainer = forwardRef(function CommentContainer(
     return (
         <FlatList
             ref={ref}
-            style={{flex: 1, maxHeight: 400}}
+            style={{flex: 1, maxHeight: 360}}
             contentContainerStyle={{flexGrow: 1}}
             data={comments}
             renderItem={({item}) => (
@@ -53,7 +53,7 @@ const CommentContainer = forwardRef(function CommentContainer(
                     postOwner={postOwner}
                 />
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
             refreshControl={
                 <RefreshControl
                     tintColor={'#FFC700'}

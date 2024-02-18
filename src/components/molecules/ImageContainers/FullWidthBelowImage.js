@@ -39,18 +39,18 @@ const FullWidthBelowImage = ({props}) => {
     const [commentsPage, setCommentsPage] = useState(2);
     const {currentUser, fetchInstance, token} = useContext(AuthContext);
 
-    const toggleModal = show => {
+    const toggleModal = (show) => {
         setModalVisible(show);
         setCommentsPage(2);
     };
 
-    const removeCommentRow = id => {
-        const newComments = comments.filter(comment => comment.id !== id);
+    const removeCommentRow = (id) => {
+        const newComments = comments.filter((comment) => comment.id !== id);
         setComments(newComments);
     };
 
-    const addCommentRow = comment => {
-        setComments(oldComments => [comment, ...oldComments]);
+    const addCommentRow = (comment) => {
+        setComments((oldComments) => [comment, ...oldComments]);
     };
 
     const scrollToTop = () => {
@@ -63,7 +63,7 @@ const FullWidthBelowImage = ({props}) => {
         setCommentsPage(2);
     };
 
-    const fetchComments = async postId => {
+    const fetchComments = async (postId) => {
         // console.log("COMMENTS", commentUrl, requestMethod)
         let comments = await commentGetAPICall(
             fetchInstance,
@@ -124,9 +124,9 @@ const FullWidthBelowImage = ({props}) => {
                             </TextStarNameShort>
                         </StarAliasWrapper>
                     </StarNameWrapper>
-                    <IconView>
+                    <StarIconView>
                         <StarIcon {...props} />
-                    </IconView>
+                    </StarIconView>
                 </Row1>
 
                 <Row2>
@@ -247,7 +247,7 @@ const FullWidthBelowImage = ({props}) => {
             </Container>
             {/* Comments Section */}
             <View style={{marginVertical: 10}}>
-                {comments.slice(0, 3).map(comment => {
+                {comments.slice(0, 3).map((comment) => {
                     return (
                         <CommentOutputContainer
                             key={comment.id}
@@ -313,9 +313,11 @@ const Container = styled.View`
 
 const Row1 = styled.View`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-direction: row;
     padding-vertical: 2%;
+    margin-vertical: 2%;
     border: 0px solid red;
 `;
 
@@ -382,6 +384,15 @@ const IconView = styled.View`
     justify-content: center;
     align-items: center;
     border: 0px solid yellow;
+`;
+
+const StarIconView = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid yellow;
+    top: 15px;
 `;
 
 const LightText = styled.Text`
