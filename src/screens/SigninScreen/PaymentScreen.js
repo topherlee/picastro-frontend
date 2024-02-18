@@ -59,10 +59,10 @@ export default function PaymentScreen({navigation, route}) {
         const {error} = await presentPaymentSheet();
 
         if (error) {
-            Alert.alert(`Error code: ${error.code}`, error.message);
+            Alert.alert(`Payment Failed: ${error.code}`, error.message);
         } else {
             Alert.alert(
-                'Success',
+                'Payment Succeeded',
                 'Your payment is successful. Clear skies ahead!',
                 [{text: 'Go!', onPress: () => setValidSubscription(true)}],
             );
@@ -80,12 +80,20 @@ export default function PaymentScreen({navigation, route}) {
                 resizeMode="contain"
                 source={require('../../assets/logo-text-gray.png')}
             />
-            <Text style={styles.title}>Payment</Text>
-            <Text style={styles.text}>Lorem ipsum dolor sit amet</Text>
+            <Text style={[styles.title, {marginBottom: 50}]}>Payment</Text>
+            <View style={styles.pricing}>
+                <Text style={[styles.yellowText, {marginBottom: 20}]}>
+                    12 Month Full Access
+                </Text>
+                <Text style={styles.text}>
+                    Complete access to the platform for 1 year.
+                </Text>
+                <Text style={styles.yellowText}>£24.99</Text>
+            </View>
             <TouchableOpacity
                 style={styles.loginBtn}
                 onPress={openPaymentSheet}>
-                <Text style={{fontWeight: 'bold'}}>OR PAY VIA STRIPE</Text>
+                <Text style={{fontWeight: 'bold'}}>PAY VIA STRIPE</Text>
             </TouchableOpacity>
         </View>
     );
@@ -102,17 +110,28 @@ const styles = StyleSheet.create({
         position: 'relative',
         marginBottom: '10%',
     },
+    yellowText: {
+        color: '#FFC700',
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
     text: {
         color: 'white',
         fontSize: 16,
         textAlign: 'center',
-        marginTop: '3%',
     },
     title: {
         color: '#FFC700',
         fontWeight: 'bold',
         fontSize: 20,
         position: 'relative',
+    },
+    pricing: {
+        backgroundColor: '#2e2e2e',
+        borderRadius: 20,
+        padding: 20,
+        width: '65%',
     },
     loginBtn: {
         width: '80%',
