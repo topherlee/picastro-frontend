@@ -14,13 +14,14 @@ import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function PaymentScreen({navigation, route}) {
-    const {domain, token, setIsSignedIn, setDomain} = useContext(AuthContext); //get setIsSignedIn function from global context
+    const {domain, token, setValidSubscription, fetchInstance} =
+        useContext(AuthContext); //get setIsSignedIn function from global context
 
     const {initPaymentSheet, presentPaymentSheet} = useStripe();
     const [loading, setLoading] = useState(false);
 
     const fetchPaymentSheetParams = async () => {
-        const response = await fetch(`${domain}/api/payment-sheet/`, {
+        const response = await fetchInstance('/api/payment-sheet/', {
             method: 'POST',
             headers: {
                 Authorization: `Token ${token.access}`,
@@ -41,19 +42,15 @@ export default function PaymentScreen({navigation, route}) {
             await fetchPaymentSheetParams();
 
         const {error} = await initPaymentSheet({
-            merchantDisplayName: 'Example, Inc.',
+            merchantDisplayName: 'Picastro Global Ltd.',
             customerId: customer,
             customerEphemeralKeySecret: ephemeralKey,
             paymentIntentClientSecret: paymentIntent,
             // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
             //methods that complete payment after a delay, like SEPA Debit and Sofort.
             allowsDelayedPaymentMethods: false,
-            defaultBillingDetails: {
-                name: 'Jane Doe',
-            },
         });
         if (!error) {
-            console.log('error?');
             setLoading(true);
         }
     };
@@ -64,7 +61,11 @@ export default function PaymentScreen({navigation, route}) {
         if (error) {
             Alert.alert(`Error code: ${error.code}`, error.message);
         } else {
-            Alert.alert('Success', 'Your order is confirmed!');
+            Alert.alert(
+                'Success',
+                'Your payment is successful. Clear skies ahead!',
+                [{text: 'Go!', onPress: () => setValidSubscription(true)}],
+            );
         }
     };
 
