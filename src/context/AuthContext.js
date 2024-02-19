@@ -1,20 +1,24 @@
-import dayjs from "dayjs";
-import jwtDecode from "jwt-decode";
-import React, { useState, useEffect, useMemo } from "react";
-import {Platform} from "react-native";
+import dayjs from 'dayjs';
+import jwtDecode from 'jwt-decode';
+import React, {useState, useEffect, useMemo} from 'react';
+import {Platform} from 'react-native';
 
 import * as Keychain from 'react-native-keychain';
 export const AuthContext = React.createContext({});
 
 //set dayjs
-var duration = require('dayjs/plugin/duration')
-dayjs.extend(duration)
+var duration = require('dayjs/plugin/duration');
+dayjs.extend(duration);
 
 export const AuthProvider = ({children, contextValue}) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     //IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
     // const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'https://mainapp.picastroapp.com' : 'https://mainapp.picastroapp.com');
-    const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000');
+    const [domain, setDomain] = useState(
+        Platform.OS === 'ios'
+            ? 'http://127.0.0.1:8000'
+            : 'http://10.0.2.2:8000',
+    );
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState();
     const [currentUserProfile, setCurrentUserProfile] = useState();
@@ -100,7 +104,7 @@ export const AuthProvider = ({children, contextValue}) => {
 
     let fetchInstance = async (url, config = {}) => {
         try {
-            console.log(url);
+            // console.log(url);
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access);
             const remainingTokenTime = dayjs
@@ -198,7 +202,7 @@ export const AuthProvider = ({children, contextValue}) => {
         retry,
         setRetry,
         validSubscription,
-        setValidSubscription
+        setValidSubscription,
     };
 
     //HACK: function to reset all states manually on logout
@@ -248,4 +252,4 @@ export const AuthProvider = ({children, contextValue}) => {
             {children}
         </AuthContext.Provider>
     );
-}
+};

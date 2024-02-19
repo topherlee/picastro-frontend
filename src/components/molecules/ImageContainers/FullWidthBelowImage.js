@@ -30,7 +30,7 @@ import {useNavigation} from '@react-navigation/native';
 const FullWidthBelowImage = ({props}) => {
     const navigation = useNavigation();
     const commentList = useRef(null);
-    const [commentsRefreshing, setCommentsRefreshing] = useState(true);
+    const [commentsRefreshing, setCommentsRefreshing] = useState(false);
     const [isCommentsLoading, setIsCommentsLoading] = useState(false);
     const [nextComments, setNextComments] = useState(null);
     const [retry, setRetry] = useState(0);
@@ -39,9 +39,18 @@ const FullWidthBelowImage = ({props}) => {
     const [commentsPage, setCommentsPage] = useState(2);
     const {currentUser, fetchInstance, token} = useContext(AuthContext);
 
-    const toggleModal = show => {
+    const toggleModal = (show) => {
         setModalVisible(show);
         setCommentsPage(2);
+    };
+
+    const removeCommentRow = (id) => {
+        const newComments = comments.filter((comment) => comment.id !== id);
+        setComments(newComments);
+    };
+
+    const addCommentRow = (comment) => {
+        setComments((oldComments) => [comment, ...oldComments]);
     };
 
     const scrollToTop = () => {
@@ -49,7 +58,12 @@ const FullWidthBelowImage = ({props}) => {
             commentList.current.scrollToIndex({index: 0, animated: true});
     };
 
-    const fetchComments = async postId => {
+    const refreshComments = async () => {
+        await fetchComments(props.id);
+        setCommentsPage(2);
+    };
+
+    const fetchComments = async (postId) => {
         // console.log("COMMENTS", commentUrl, requestMethod)
         let comments = await commentGetAPICall(
             fetchInstance,
@@ -59,6 +73,7 @@ const FullWidthBelowImage = ({props}) => {
         );
         // console.log(comments)
         setComments(comments);
+        setCommentsRefreshing(false);
     };
 
     const fetchMoreComments = async () => {
@@ -88,9 +103,13 @@ const FullWidthBelowImage = ({props}) => {
             {/* Post Details Section */}
             <Container>
                 <Row1>
-                    <AwardIconWrapper>
-                        <AwardIcon {...props} />
-                    </AwardIconWrapper>
+                    {props.award != 'None' ? (
+                        <AwardIconWrapper>
+                            <AwardIcon {...props} />
+                        </AwardIconWrapper>
+                    ) : (
+                        <></>
+                    )}
                     <StarNameWrapper>
                         <TextStarName>{props.astroName}</TextStarName>
                         <StarAliasWrapper>
@@ -105,9 +124,9 @@ const FullWidthBelowImage = ({props}) => {
                             </TextStarNameShort>
                         </StarAliasWrapper>
                     </StarNameWrapper>
-                    <IconView>
+                    <StarIconView>
                         <StarIcon {...props} />
-                    </IconView>
+                    </StarIconView>
                 </Row1>
 
                 <Row2>
@@ -187,6 +206,10 @@ const FullWidthBelowImage = ({props}) => {
                             comments={comments}
                             nextComments={nextComments}
                             fetchMoreComments={fetchMoreComments}
+                            onRemoveComment={removeCommentRow}
+                            refreshComments={refreshComments}
+                            refreshing={commentsRefreshing}
+                            postOwner={props.poster.id} //to notify that the post owner can delete any comments
                         />
                         <View
                             style={{
@@ -197,7 +220,7 @@ const FullWidthBelowImage = ({props}) => {
                             }}>
                             <CommentInputContainer
                                 currentUser={currentUser}
-                                onSendComment={fetchComments}
+                                onSendComment={addCommentRow}
                                 setCommentsPage={setCommentsPage}
                                 scrollToTop={scrollToTop}
                                 props={props}
@@ -223,43 +246,53 @@ const FullWidthBelowImage = ({props}) => {
                 </Modal>
             </Container>
             {/* Comments Section */}
-            {comments.slice(0, 3).map(comment => {
-                return <CommentOutputContainer key={comment.id} {...comment} />;
-            })}
-            <TouchableOpacity
-                onPress={() => {
-                    toggleModal(true);
-                }}>
-                {comments.length > 3 ? (
-                    <View style={{margin: '2%', padding: '3%'}}>
-                        <Text style={{color: '#FFC700', fontWeight: 'bold'}}>
-                            Load more comments
-                        </Text>
+            <View style={{marginVertical: 10}}>
+                {comments.slice(0, 3).map((comment) => {
+                    return (
+                        <CommentOutputContainer
+                            key={comment.id}
+                            {...comment}
+                            onRemoveComment={removeCommentRow}
+                            postOwner={props.poster.id} //to notify that the post owner can delete any comments
+                        />
+                    );
+                })}
+                <TouchableOpacity
+                    onPress={() => {
+                        toggleModal(true);
+                    }}>
+                    {comments.length > 3 ? (
+                        <View style={{margin: '2%', padding: '3%'}}>
+                            <Text
+                                style={{color: '#FFC700', fontWeight: 'bold'}}>
+                                Load more comments
+                            </Text>
+                        </View>
+                    ) : (
+                        <></>
+                    )}
+                    <View
+                        style={globalStyling.commentInputContainer}
+                        pointerEvents="none">
+                        <InCommentUserImage
+                            userImageURL={currentUser?.profileImage}
+                        />
+                        <TextInput
+                            style={[
+                                globalStyling.inputFieldText,
+                                {
+                                    height: 'auto',
+                                    textAlign: 'left',
+                                    marginHorizontal: 10,
+                                },
+                            ]}
+                            placeholder="Write a comment"
+                            placeholderTextColor="grey"
+                        />
+                        <SendButton />
                     </View>
-                ) : (
-                    <></>
-                )}
-                <View
-                    style={globalStyling.commentInputContainer}
-                    pointerEvents="none">
-                    <InCommentUserImage
-                        userImageURL={currentUser?.profileImage}
-                    />
-                    <TextInput
-                        style={[
-                            globalStyling.inputFieldText,
-                            {
-                                height: 'auto',
-                                textAlign: 'left',
-                                marginHorizontal: 10,
-                            },
-                        ]}
-                        placeholder="Write a comment"
-                        placeholderTextColor="grey"
-                    />
-                    <SendButton />
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -280,8 +313,11 @@ const Container = styled.View`
 
 const Row1 = styled.View`
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-direction: row;
     padding-vertical: 2%;
+    margin-vertical: 2%;
     border: 0px solid red;
 `;
 
@@ -348,6 +384,15 @@ const IconView = styled.View`
     justify-content: center;
     align-items: center;
     border: 0px solid yellow;
+`;
+
+const StarIconView = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid yellow;
+    top: 15px;
 `;
 
 const LightText = styled.Text`

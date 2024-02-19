@@ -34,11 +34,12 @@ const CommentInputContainer = ({currentUser, onSendComment, setCommentsPage, scr
 
     return (
         <View style={globalStyling.commentInputContainer}>
-            <InCommentUserImage
-                userImageURL={currentUser.profileImage}
-            />
+            <InCommentUserImage userImageURL={currentUser.profileImage} />
             <TextInput
-                style={[globalStyling.inputFieldText, { height: 'auto', textAlign: 'left', marginHorizontal: 10 }]}
+                style={[
+                    globalStyling.inputFieldText,
+                    {height: 'auto', textAlign: 'left', marginHorizontal: 10},
+                ]}
                 placeholder="Write a comment"
                 placeholderTextColor={placeholderTextColor}
                 defaultValue={comment}
@@ -47,17 +48,24 @@ const CommentInputContainer = ({currentUser, onSendComment, setCommentsPage, scr
             />
             {/* <Text>Write a comment</Text> */}
             <TouchableOpacity
-                onPress={() => {
-                    commentPostAPICall(fetchInstance, token, commentBody, onSendComment, props.id)
-                    setComment("")
-                    scrollToTop()
-                    setCommentsPage(2)      //reset comments page for query string url
-                }} >
+                onPress={async () => {
+                    var newComment = await commentPostAPICall(
+                        fetchInstance,
+                        token,
+                        commentBody,
+                        props.id,
+                    );
+                    if (newComment) {
+                        onSendComment(newComment);
+                    }
+                    setComment('');
+                    scrollToTop();
+                    setCommentsPage(2); //reset comments page for query string url
+                }}>
                 <SendButton />
             </TouchableOpacity>
-
         </View>
-    )
+    );
 }
 
 
