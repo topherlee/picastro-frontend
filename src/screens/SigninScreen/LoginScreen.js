@@ -13,14 +13,17 @@ import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from '../../../constants/globalStyling';
+import {loadCurrentUser} from '../../utils';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation, route}) {
     const {
         setIsSignedIn,
         domain,
         resetStates,
         setToken,
-        setListOfLikes
+        setListOfLikes,
+        fetchInstance,
+        setValidSubscription
     } = useContext(AuthContext); //get setIsSignedIn function from global context
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -48,7 +51,7 @@ export default function LoginScreen({navigation}) {
             },
             body: body,
         })
-            .then(async res => {
+            .then(async (res) => {
                 console.log('STATUS', res.status);
                 if (res.ok) {
                     return res.json();
@@ -58,8 +61,8 @@ export default function LoginScreen({navigation}) {
                     throw await res.json();
                 }
             })
-            .then(async json => {
-                console.log('JSON', json);
+            .then(async (json) => {
+                console.debug('JSON', json);
                 await Keychain.setGenericPassword(
                     'token',
                     JSON.stringify(json),
@@ -67,9 +70,18 @@ export default function LoginScreen({navigation}) {
                 setToken(json);
                 setIsSignedIn(true);
                 loadLikedPostList();
+
+                const curUser = await loadCurrentUser(json, fetchInstance);
+                setValidSubscription(curUser.valid_subscription);
+                console.debug('validSubscription', curUser.valid_subscription);
+                if (curUser.valid_subscription === false) {
+                    navigation.navigate('Payment', {
+                        username: curUser.username,
+                    });
+                }
             })
-            .catch(error => {
-                console.log('error', error);
+            .catch((error) => {
+                console.log('LoginScreen error', error);
                 setError(true);
             });
     }
@@ -122,7 +134,7 @@ export default function LoginScreen({navigation}) {
                     autoCorrect={false}
                     clearButtonMode="while-editing"
                     returnKeyType="next"
-                    onChangeText={username => setUsername(username)}
+                    onChangeText={(username) => setUsername(username)}
                     onBlur={() => setError(false)}
                     blurOnSubmit={false}
                     onSubmitEditing={() => {
@@ -139,7 +151,7 @@ export default function LoginScreen({navigation}) {
                     placeholder="Password"
                     placeholderTextColor="grey"
                     secureTextEntry={securePassword}
-                    onChangeText={password => setPassword(password)}
+                    onChangeText={(password) => setPassword(password)}
                     onSubmitEditing={handleLogin}
                     onBlur={() => setError(false)}
                     ref={passwordInput}
