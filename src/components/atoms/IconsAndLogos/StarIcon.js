@@ -39,7 +39,7 @@ const StarIcon = (props) => {
             if (response.ok) {
                 listOfLikes = await response.json();
                 setListOfLikes(listOfLikes.results);
-                // console.log('listOfLikes', listOfLikes);
+                console.log('listOfLikes', listOfLikes);
             }
         } catch (error) {
             console.log('ERROR starIcon loadLikedPostList', error);
@@ -48,33 +48,12 @@ const StarIcon = (props) => {
     }
 
     useEffect(() => {
-        // const inListOfLikesCheck = (element) => element.post === props.id;
-        // const postInListOfLikes = listOfLikes.some(inListOfLikesCheck);
-        // if (postInListOfLikes) {
-        //     setImageIsSaved(true);
-        // }
-    }, []);
-
-    // useEffect(() => {
-    // loadLikedPostList();
-    // }, [imageLikeResponse]);
-
-    // const apiCallLikeDislike = async (urlForApiCall, requestMethod) => {
-    //     try {
-    //         var response = await fetchInstance(urlForApiCall, {
-    //             method: requestMethod,
-    //             headers: {
-    //                 'Authorization': `Token ${token.access}`
-    //             }
-    //         })
-    //         // console.log("DATA", response, data)
-    //         return response
-
-    //     } catch (error) {
-    //         console.log("starIconAPI", error);
-    //         return [];
-    //     }
-    // }
+        const inListOfLikesCheck = (element) => element.post === props.id;
+        const postInListOfLikes = listOfLikes.some(inListOfLikesCheck);
+        if (postInListOfLikes) {
+            setImageIsSaved(true);
+        }
+    }, [listOfLikes]);
 
     const raiseAlert = () =>
         Alert.alert('Sorry!', 'You cannot like your own posts');
@@ -97,6 +76,7 @@ const StarIcon = (props) => {
 
                 if (imageLikeResponse.status === 201) {
                     setImageIsSaved(!imageIsSaved);
+                    loadLikedPostList();
                 } else if (imageLikeResponse.status === 403) {
                     pass;
                 } else {
@@ -124,6 +104,7 @@ const StarIcon = (props) => {
 
             if (imageLikeResponse.status === 204) {
                 setImageIsSaved(!imageIsSaved);
+                loadLikedPostList();
             } else if (imageLikeResponse.status === 403) {
                 pass;
             } else {
@@ -139,7 +120,7 @@ const StarIcon = (props) => {
     return (
         <StarIconWrapper
             onPress={() => {
-                // !imageIsSaved ? saveImage() : unsaveImage();
+                !imageIsSaved ? saveImage() : unsaveImage();
             }}
             title="Save Image">
             {imageIsSaved ? <StarIconSavedSvg /> : <StarIconSvg />}

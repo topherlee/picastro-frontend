@@ -15,13 +15,21 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from '../../../constants/globalStyling';
 
 export default function LoginScreen({navigation}) {
-    const {setIsSignedIn, domain, resetStates, setToken} =
-        useContext(AuthContext); //get setIsSignedIn function from global context
+    const {
+        setIsSignedIn,
+        domain,
+        resetStates,
+        setToken,
+        setListOfLikes
+    } = useContext(AuthContext); //get setIsSignedIn function from global context
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [error, setError] = useState(false);
     const [securePassword, setSecurePassword] = useState(true);
     const passwordInput = useRef(null);
+
+    const getLikeListUrl = '/api/like/1';
+    const getLikeListMethod = 'GET';
 
     useEffect(() => {
         resetStates();
@@ -58,11 +66,32 @@ export default function LoginScreen({navigation}) {
                 );
                 setToken(json);
                 setIsSignedIn(true);
+                loadLikedPostList();
             })
             .catch(error => {
                 console.log('error', error);
                 setError(true);
             });
+    }
+
+    async function loadLikedPostList() {
+        try {
+            var response = await apiCallLikeDislike(
+                getLikeListUrl,
+                getLikeListMethod,
+                fetchInstance,
+                token,
+            );
+            var listOfLikes;
+            if (response.ok) {
+                listOfLikes = await response.json();
+                setListOfLikes(listOfLikes.results);
+                console.log('listOfLikes', listOfLikes);
+            }
+        } catch (error) {
+            console.log('ERROR starIcon loadLikedPostList', error);
+            return [];
+        }
     }
 
     return (
