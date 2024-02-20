@@ -5,7 +5,7 @@ export {default as BurgerButtonForEXPL} from './Buttons/BurgerButtonForEXPL';
 export {default as PicastroLogo} from './IconsAndLogos/PicastroLogo';
 export {default as ExtendedPicastroLogo} from './IconsAndLogos/ExtendedPicastroLogo';
 export {default as DefaultUserImage} from './UserImages/DefaultUserImage';
-export {default as HeaderUserImage} from  './UserImages/HeaderUserImage';
+export {default as HeaderUserImage} from './UserImages/HeaderUserImage';
 export {default as InCommentUserImage} from './UserImages/InCommentUserImage';
 export {default as HeaderUserName} from './HeaderUserName/HeaderUserName';
 export {default as StarIcon} from './IconsAndLogos/StarIcon';

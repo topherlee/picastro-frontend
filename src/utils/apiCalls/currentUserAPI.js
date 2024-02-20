@@ -1,31 +1,30 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect} from 'react';
 
-import { AuthContext } from '../../context/AuthContext';
-import { getUserID } from '../../context/UserContext';
+import {AuthContext} from '../../context/AuthContext';
+import {getUserID} from '../../context/UserContext';
 
 const loadCurrentUser = async (token, fetchInstance) => {
+	const urlForApiCall = `/api/current_user/`;
 
-    const urlForApiCall = `/api/current_user/`;
-    
-    try {
-      var response = await fetchInstance(urlForApiCall, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Token ${token.access}`,
-            'Content-Type': 'application/json'
-        }
-      })
-      if (response.ok) {
-        response = await response.json()
-        return response
-      } else {
-        throw new Error(response.status)
-      }
-    } catch (error) {
-      console.log("currentUserAPI", error);
-      return response;
-    }
-}
+	try {
+		var response = await fetchInstance(urlForApiCall, {
+			method: 'GET',
+			headers: {
+				Authorization: `Token ${token.access}`,
+				'Content-Type': 'application/json',
+			},
+		});
+		if (response.ok) {
+			response = await response.json();
+			return response;
+		} else {
+			throw new Error(response.status);
+		}
+	} catch (error) {
+		console.log('currentUserAPI', error);
+		return response;
+	}
+};
 
 //     useEffect(() => {
 //         console.log("loadCurrentUser() to be executed.");
@@ -55,6 +54,5 @@ const loadCurrentUser = async (token, fetchInstance) => {
 //           });
 //     }, [])
 // }
-
 
 export default loadCurrentUser;

@@ -1,0 +1,7 @@
+dist/
+node_modules/
+Pods/
+ios/
+android/
+documentation/
+README.md
