@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 import styled from 'styled-components';
 import {AuthContext} from '../../../context/AuthContext';
@@ -10,8 +10,14 @@ import {apiCallLikeDislike} from '../../../utils';
 import {Alert} from 'react-native';
 
 const StarIcon = (props) => {
-	const {token, fetchInstance, currentUser, user, listOfLikes, setListOfLikes} =
-		useContext(AuthContext);
+	const {
+		token,
+		fetchInstance,
+		currentUser,
+		user,
+		listOfLikes,
+		setListOfLikes,
+	} = useContext(AuthContext);
 	const [imageIsSaved, setImageIsSaved] = React.useState(false);
 
 	const likeUrl = '/api/like/';
@@ -49,7 +55,8 @@ const StarIcon = (props) => {
 		}
 	}, [listOfLikes]);
 
-	const raiseAlert = () => Alert.alert('Sorry!', 'You cannot like your own posts');
+	const raiseAlert = () =>
+		Alert.alert('Sorry!', 'You cannot like your own posts');
 
 	const saveImage = async () => {
 		console.log(props);

@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
+import {decode} from 'base-64';
+global.atob = decode;
 import React, {useState, useEffect, useMemo} from 'react';
 import {Platform} from 'react-native';
 
@@ -15,7 +17,9 @@ export const AuthProvider = ({children, contextValue}) => {
 	//IMPORTANT: PAY ATTENTION NOT TO ADD A TRAILING / FOR DOMAIN ON IOS OTHERWISE ALL API CALLS WILL NOT WORK
 	// const [domain, setDomain] = useState(Platform.OS === 'ios' ? 'https://mainapp.picastroapp.com' : 'https://mainapp.picastroapp.com');
 	const [domain, setDomain] = useState(
-		Platform.OS === 'ios' ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000',
+		Platform.OS === 'ios' ?
+			'http://127.0.0.1:8000'
+		:	'http://10.0.2.2:8000',
 	);
 	const [token, setToken] = useState(null);
 	const [currentUser, setCurrentUser] = useState();
@@ -68,7 +72,9 @@ export const AuthProvider = ({children, contextValue}) => {
 				console.log('REFRESH TOKEN EXPIRED');
 				setToken(null);
 				setIsSignedIn(false);
-				return Promise.reject(new Error('Token expired please login again'));
+				return Promise.reject(
+					new Error('Token expired please login again'),
+				);
 			}
 		} catch (err) {
 			console.log('REFRESH TOKEN ERROR', err);
@@ -103,7 +109,9 @@ export const AuthProvider = ({children, contextValue}) => {
 			console.log(url);
 			var credentials = await getSavedTokens();
 			const user = jwtDecode(credentials.access);
-			const remainingTokenTime = dayjs.unix(user.exp).diff(dayjs(), 'second');
+			const remainingTokenTime = dayjs
+				.unix(user.exp)
+				.diff(dayjs(), 'second');
 			if (remainingTokenTime < 15) {
 				console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
 				credentials = await refreshAllTokens();
@@ -139,7 +147,8 @@ export const AuthProvider = ({children, contextValue}) => {
 	const [userUrl, setUserUrl] = useState('');
 	const [userFilterUrl, setUserFilterUrl] = useState('');
 	const [userActiveSelector, setUserActiveSelector] = useState('most_recent');
-	const [userActiveObjectSelector, setUserActiveObjectSelector] = useState('');
+	const [userActiveObjectSelector, setUserActiveObjectSelector] =
+		useState('');
 	const [activeSelector, setActiveSelector] = useState('most_recent');
 	const [activeObjectSelector, setActiveObjectSelector] = useState('');
 	const [userCurrentPage, setUserCurrentPage] = useState(1);
@@ -240,5 +249,9 @@ export const AuthProvider = ({children, contextValue}) => {
 		setLoading(false);
 	}, [token, loading, isSignedIn]);
 
-	return <AuthContext.Provider value={globalContext}>{children}</AuthContext.Provider>;
+	return (
+		<AuthContext.Provider value={globalContext}>
+			{children}
+		</AuthContext.Provider>
+	);
 };
