@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {AutoscaleImage} from '../components/atoms';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import {SelectList} from 'react-native-dropdown-select-list';
 import globalStyling from '../../constants/globalStyling';
 

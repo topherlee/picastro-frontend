@@ -2,7 +2,6 @@
 
 // // import { AuthContext } from "../../context/AuthContext";
 
-
 // const imageLike = async (requestData, fetchInstance, token) => {
 
 //     // const {
@@ -26,7 +25,7 @@
 //             },
 //             body: requestData
 //         })
-        
+
 //         return response
 //     } catch (err) {
 //         console.log('ERROR',err)
@@ -34,12 +33,10 @@
 //     }
 // }
 
-
 // export default imageLike;
 
-
 // // useEffect(() => {
-        
+
 // //     fetch(`${domain}/api/current_user/`, {
 // //         method: 'GET',
 // //         headers: {
