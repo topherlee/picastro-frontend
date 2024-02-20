@@ -19,6 +19,7 @@ const screenOptionStyle = {
 	},
 	drawerLabelStyle: {color: 'white'},
 	drawerType: 'front',
+	drawerActiveBackgroundColor: '#ffc700',
 };
 
 const DrawerNavigator = ({navigation}) => {
