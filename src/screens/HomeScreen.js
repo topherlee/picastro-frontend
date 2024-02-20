@@ -1,5 +1,13 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {View, Text, SafeAreaView, StyleSheet, ActivityIndicator, Alert} from 'react-native';
+import {
+	View,
+	Text,
+	SafeAreaView,
+	StyleSheet,
+	ActivityIndicator,
+	Alert,
+	Dimensions,
+} from 'react-native';
 
 import {useScrollToTop} from '@react-navigation/native';
 import {UserNameImageBurgerHeader} from '../components/molecules';
@@ -151,8 +159,9 @@ const HomeScreen = ({navigation, route}) => {
 					ListEmptyComponent={
 						<View
 							style={{
-								maxWidth: '96%',
+								maxWidth: '100%',
 								paddingTop: '3%',
+								paddingHorizontal: '4%',
 							}}>
 							<EmptyFeedMaleFigure />
 						</View>
@@ -162,13 +171,13 @@ const HomeScreen = ({navigation, route}) => {
 						borderColor: 'red',
 						borderWidth: 0,
 						paddingTop: '3%',
-						paddingLeft: '4%',
 						backgroundColor: 'black',
 					}}
 					style={{
 						flex: 1,
-						maxWidth: '96%',
-						columnGap: 10,
+						maxWidth: '100%',
+						columnGap: (Dimensions.get('window').width * 2) / 100,
+						paddingHorizontal: '4%',
 						borderColor: 'yellow',
 						borderWidth: 0,
 					}}

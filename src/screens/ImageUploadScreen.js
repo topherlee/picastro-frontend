@@ -92,7 +92,7 @@ const ImageUploadScreen = ({navigation}) => {
 		launchImageLibrary(
 			{
 				mediaType: 'photo',
-				presentationStyle: 'popover',
+				presentationStyle: 'fullScreen',
 				includeExtra: true,
 			},
 			(response) => {
@@ -101,10 +101,7 @@ const ImageUploadScreen = ({navigation}) => {
 				} else if (response.error) {
 					console.log('ImagePicker Error: ', response.error);
 				} else if (response.customButton) {
-					console.log(
-						'User tapped custom button: ',
-						response.customButton,
-					);
+					console.log('User tapped custom button: ', response.customButton);
 				} else {
 					const source = {uri: response.uri};
 					// You can also display the image using data:
@@ -164,11 +161,7 @@ const ImageUploadScreen = ({navigation}) => {
 			<Modal transparent={true}>
 				<View style={styles.indicatorWrapper}>
 					{complete ?
-						<Icon
-							name={'check-circle'}
-							size={100}
-							color={'#FFC700'}
-						/>
+						<Icon name={'check-circle'} size={100} color={'#FFC700'} />
 					:	<ActivityIndicator size="large" color={'#FFC700'} />}
 					<Text style={styles.indicatorText}>
 						{complete ? 'Upload Successful' : 'Uploading Image...'}
@@ -205,20 +198,11 @@ const ImageUploadScreen = ({navigation}) => {
 								height={Dimensions.get('window').height / 3}
 								aspectRatio={photo.width / photo.height}
 							/>
-						:	<Icon
-								name="file-image-plus"
-								size={100}
-								color={'#FFC700'}
-							/>
-						}
+						:	<Icon name="file-image-plus" size={100} color={'#FFC700'} />}
 					</TouchableOpacity>
 					{photo ?
-						<TouchableOpacity
-							style={styles.loginBtn2}
-							onPress={pickImage}>
-							<Text style={styles.loginText}>
-								Pick Another Image
-							</Text>
+						<TouchableOpacity style={styles.loginBtn2} onPress={pickImage}>
+							<Text style={styles.loginText}>Pick Another Image</Text>
 						</TouchableOpacity>
 					:	null}
 				</View>
@@ -257,9 +241,7 @@ const ImageUploadScreen = ({navigation}) => {
 						style={globalStyling.inputFieldText}
 						placeholder="Object Number (e.g. 'M17')"
 						placeholderTextColor="grey"
-						onChangeText={(newAstroNameShort) =>
-							setAstroNameShort(newAstroNameShort)
-						}
+						onChangeText={(newAstroNameShort) => setAstroNameShort(newAstroNameShort)}
 						defaultValue={astroNameShort}
 						ref={(ref) => (inputRef.current[1] = ref)}
 						onSubmitEditing={() => {
@@ -273,9 +255,7 @@ const ImageUploadScreen = ({navigation}) => {
 						style={globalStyling.inputFieldText}
 						placeholder="Object Common Name (e.g. 'Rosette Nebula')"
 						placeholderTextColor="grey"
-						onChangeText={(newAstroName) =>
-							setAstroName(newAstroName)
-						}
+						onChangeText={(newAstroName) => setAstroName(newAstroName)}
 						defaultValue={astroName}
 						ref={(ref) => (inputRef.current[2] = ref)}
 						onSubmitEditing={() => {
@@ -289,9 +269,7 @@ const ImageUploadScreen = ({navigation}) => {
 						style={globalStyling.inputFieldText}
 						placeholder="Exposure Time"
 						placeholderTextColor="grey"
-						onChangeText={(newExposureTime) =>
-							setExposureTime(newExposureTime)
-						}
+						onChangeText={(newExposureTime) => setExposureTime(newExposureTime)}
 						defaultValue={exposureTime}
 						ref={(ref) => (inputRef.current[3] = ref)}
 						onSubmitEditing={() => {
@@ -305,9 +283,7 @@ const ImageUploadScreen = ({navigation}) => {
 						style={globalStyling.inputFieldText}
 						placeholder="Moon Phase"
 						placeholderTextColor="grey"
-						onChangeText={(newMoonPhase) =>
-							setMoonPhase(newMoonPhase)
-						}
+						onChangeText={(newMoonPhase) => setMoonPhase(newMoonPhase)}
 						defaultValue={moonPhase}
 						ref={(ref) => (inputRef.current[4] = ref)}
 						onSubmitEditing={() => {
@@ -321,9 +297,7 @@ const ImageUploadScreen = ({navigation}) => {
 						style={globalStyling.inputFieldText}
 						placeholder="Cloud Coverage"
 						placeholderTextColor="grey"
-						onChangeText={(newCloudCoverage) =>
-							setCloudCoverage(newCloudCoverage)
-						}
+						onChangeText={(newCloudCoverage) => setCloudCoverage(newCloudCoverage)}
 						defaultValue={cloudCoverage}
 						ref={(ref) => (inputRef.current[5] = ref)}
 						onSubmitEditing={() => {

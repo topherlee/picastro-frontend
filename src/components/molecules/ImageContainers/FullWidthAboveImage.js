@@ -80,13 +80,14 @@ const Banner = styled.View`
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	background-color: #2e2e2e;
+	padding-right: 2%;
 `;
 
 const NameBanner = styled.View`
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 	justify-content: center;
-	width: 70%;
 	height: 100%;
 	padding: 0% 3% 0% 3%;
 	border: 0px solid yellow;

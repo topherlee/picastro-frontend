@@ -9,6 +9,7 @@ import {
 	View,
 	Linking,
 	ActivityIndicator,
+	Dimensions,
 } from 'react-native';
 import {ExtendedPicastroBurgerHeader} from '../components/molecules';
 import {HalfWidthPostsContainer} from '../components/organisms';
@@ -141,9 +142,9 @@ const UserScreen = ({navigation, route}) => {
 						ListEmptyComponent={
 							<View
 								style={{
-									maxWidth: '96%',
+									maxWidth: '100%',
 									paddingTop: '3%',
-									paddingLeft: '4%',
+									paddingHorizontal: '4%',
 								}}>
 								<EmptyFeedMaleFigure />
 							</View>
@@ -218,12 +219,12 @@ const UserScreen = ({navigation, route}) => {
 						}}
 						style={{
 							flex: 1,
-							maxWidth: '96%',
-							columnGap: 10,
+							maxWidth: '100%',
+							columnGap: (Dimensions.get('window').width * 2) / 100,
 							borderColor: 'yellow',
 							borderWidth: 0,
 							paddingTop: '3%',
-							paddingLeft: '4%',
+							paddingHorizontal: '4%',
 						}}
 					/>
 				</View>

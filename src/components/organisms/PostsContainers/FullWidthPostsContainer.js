@@ -77,14 +77,15 @@ export const FullWidthPostsContainer = ({props}) => {
 					/>
 				</ReactNativeZoomableView>
 			</Modal>
+			<View>
+				<FullWidthAboveImage props={props} />
 
-			<FullWidthAboveImage props={props} />
+				<TouchableOpacity onPress={() => setModalVisible(true)}>
+					<FullWidthImage props={props} contHeight={contHeight} contWidth={contWidth} />
+				</TouchableOpacity>
 
-			<TouchableOpacity onPress={() => setModalVisible(true)}>
-				<FullWidthImage props={props} contHeight={contHeight} contWidth={contWidth} />
-			</TouchableOpacity>
-
-			<FullWidthBelowImage props={props} />
+				<FullWidthBelowImage props={props} />
+			</View>
 		</View>
 	);
 };

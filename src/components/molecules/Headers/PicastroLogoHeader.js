@@ -8,6 +8,7 @@ const PicastroLogoHeader = {
 	headerTintColor: '#fff',
 	headerTitleAlign: 'center',
 	headerBackTitleVisible: false,
+	headerShadowVisible: false,
 };
 
 export default PicastroLogoHeader;

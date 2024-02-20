@@ -17,7 +17,7 @@ export const HalfWidthPostsContainer = (props) => {
 
 const View1 = styled.TouchableOpacity`
 	position: relative;
-	max-width: 200px;
+	max-width: 100%;
 	margin-bottom: 5%;
 	display: flex;
 	flex-direction: column;

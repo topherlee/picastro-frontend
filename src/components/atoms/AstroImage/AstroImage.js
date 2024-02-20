@@ -9,7 +9,7 @@ const AstroImageWrapper = (props) => {
 	return (
 		<AutoscaleImage
 			uri={props.thumbnail}
-			width={(0.96 * Dimensions.get('window').width - 25) / 2}
+			width={(0.9 * Dimensions.get('window').width) / 2}
 			aspectRatio={props.aspectRatio}
 		/>
 	);
