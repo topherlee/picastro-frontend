@@ -1,41 +1,40 @@
-import React from "react";
-import { fireEvent, render } from '@testing-library/react-native';
-import { LoginScreen, SignUpScreen } from "../../../src/screens/SigninScreen";
+import React from 'react';
+import {fireEvent, render} from '@testing-library/react-native';
+import {LoginScreen, SignUpScreen} from '../../../src/screens/SigninScreen';
 
 describe('Login screen', () => {
-    it('should go to home screen on login', () => {
-        const navigation = {navigate: () => {}};
-        spyOn(navigation, 'navigate');
+	it('should go to home screen on login', () => {
+		const navigation = {navigate: () => {}};
+		spyOn(navigation, 'navigate');
 
-        const loginPage = render(<LoginScreen />);
-        const loginButton = loginPage.getByTestId('loginButton');
-        fireEvent.press(loginButton);
+		const loginPage = render(<LoginScreen />);
+		const loginButton = loginPage.getByTestId('loginButton');
+		fireEvent.press(loginButton);
 
-        expect(navigation.navigate).toHaveBeenCalledWith("Home")
-    })
-    
-    it('should go to forgotPassword screen on forgotPassword click', () => {
-        const navigation = {navigate: () => {}};
-        spyOn(navigation, 'navigate');
+		expect(navigation.navigate).toHaveBeenCalledWith('Home');
+	});
 
-        const loginPage = render(<LoginScreen />);
+	it('should go to forgotPassword screen on forgotPassword click', () => {
+		const navigation = {navigate: () => {}};
+		spyOn(navigation, 'navigate');
 
-        const goToForgotPasswordButton = loginPage.getByTestId('goToForgotPasswordButton');
-        fireEvent.press(goToForgotPasswordButton);
+		const loginPage = render(<LoginScreen />);
 
-        expect(navigation.navigate).toHaveBeenCalledWith("ForgotPassword")
-    })
+		const goToForgotPasswordButton = loginPage.getByTestId('goToForgotPasswordButton');
+		fireEvent.press(goToForgotPasswordButton);
 
-    it('should go to signUp screen on register click', () => {
-        const navigation = {navigate: () => {}};
-        spyOn(navigation, 'navigate');
+		expect(navigation.navigate).toHaveBeenCalledWith('ForgotPassword');
+	});
 
-        const loginPage = render(<LoginScreen />);
+	it('should go to signUp screen on register click', () => {
+		const navigation = {navigate: () => {}};
+		spyOn(navigation, 'navigate');
 
-        const goToRegisterButton = loginPage.getByTestId('goToRegisterButton');
-        fireEvent.press(goToRegisterButton);
+		const loginPage = render(<LoginScreen />);
 
-        expect(navigation.navigate).toHaveBeenCalledWith("SignUp")
-    })
+		const goToRegisterButton = loginPage.getByTestId('goToRegisterButton');
+		fireEvent.press(goToRegisterButton);
 
-})
+		expect(navigation.navigate).toHaveBeenCalledWith('SignUp');
+	});
+});

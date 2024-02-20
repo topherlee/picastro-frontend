@@ -2,38 +2,32 @@
 // currently this works by dragging from the right side of the screen
 
 import React from 'react';
-import {
-  createDrawerNavigator,
-  DrawerToggleButton,
-} from '@react-navigation/drawer';
+import {createDrawerNavigator, DrawerToggleButton} from '@react-navigation/drawer';
 import TabNavigator from './TabNavigator';
 import LogoutScreen from '../../screens/SigninScreen/LogoutScreen';
-
 
 const Drawer = createDrawerNavigator();
 
 const screenOptionStyle = {
-  drawerPosition: 'right',
-  headerShown: false,
-  headerLeft: false,
-  headerRight: () => <DrawerToggleButton />,
-  drawerStyle: {
-    backgroundColor:  '#0d0d0d',
-    width: '90%'
-  },
-  drawerLabelStyle: {color:'white'},
-  drawerType: "front",
+	drawerPosition: 'right',
+	headerShown: false,
+	headerLeft: false,
+	headerRight: () => <DrawerToggleButton />,
+	drawerStyle: {
+		backgroundColor: '#0d0d0d',
+		width: '90%',
+	},
+	drawerLabelStyle: {color: 'white'},
+	drawerType: 'front',
 };
 
 const DrawerNavigator = ({navigation}) => {
-  return (
-      
-      <Drawer.Navigator screenOptions={screenOptionStyle}>
-        <Drawer.Screen name="Main Screen" component={TabNavigator} />
-        <Drawer.Screen name="Log Out" component={LogoutScreen} />
-      </Drawer.Navigator>
-    
-  );
+	return (
+		<Drawer.Navigator screenOptions={screenOptionStyle}>
+			<Drawer.Screen name="Main Screen" component={TabNavigator} />
+			<Drawer.Screen name="Log Out" component={LogoutScreen} />
+		</Drawer.Navigator>
+	);
 };
 
 export default DrawerNavigator;

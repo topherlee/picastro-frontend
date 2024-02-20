@@ -1,4 +1,3 @@
-
 // const imageDislike = async (postID, fetchInstance, token) => {
 
 //     // const {
@@ -19,7 +18,7 @@
 //                 'Content-Type': 'application/json'
 //             }
 //         })
-        
+
 //         return response
 //     } catch (err) {
 //         console.log('ERROR',err)
