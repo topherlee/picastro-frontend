@@ -104,7 +104,7 @@ export const AuthProvider = ({children, contextValue}) => {
 
     let fetchInstance = async (url, config = {}) => {
         try {
-            // console.log(url);
+            console.log(url);
             var credentials = await getSavedTokens();
             const user = jwtDecode(credentials.access);
             const remainingTokenTime = dayjs
@@ -115,7 +115,7 @@ export const AuthProvider = ({children, contextValue}) => {
                 credentials = await refreshAllTokens();
                 setToken(credentials);
             } else {
-                console.log('TOKEN VALID');
+                // console.log('TOKEN VALID');
             }
 
             //proceed with request
