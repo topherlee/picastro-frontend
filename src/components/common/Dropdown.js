@@ -1,24 +1,8 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
-import {
-	StyleSheet,
-	Text,
-	View,
-	TextInput,
-	TouchableOpacity,
-	Alert,
-	ScrollView,
-	KeyboardAvoidingView,
-	Dimensions,
-	SafeAreaView,
-	ActivityIndicator,
-	Modal,
-	Button,
-} from 'react-native';
+import React from 'react';
 
 import * as DropdownMenu from 'zeego/dropdown-menu';
 
 export default function Dropdown({triggerStyle, content, children}) {
-	// console.log(triggerStyle, children, content);
 	return (
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger style={triggerStyle}>{children}</DropdownMenu.Trigger>

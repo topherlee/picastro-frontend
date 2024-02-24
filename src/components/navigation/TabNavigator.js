@@ -13,6 +13,7 @@ const screenOptionStyle = {
 	tabBarStyle: {
 		backgroundColor: 'black',
 		paddingTop: 10,
+		borderTopWidth: 0,
 	},
 	tabBarActiveTintColor: 'red',
 	tabBarInactiveTintColor: 'white',
@@ -73,7 +74,6 @@ const BottomTabNavigator = ({navigation}) => {
 				listeners={{
 					tabPress: (e) => {
 						e.preventDefault();
-						console.log(subRoute);
 						//navigation.navigate('Home')
 						if (subRoute !== 'PostDetails' && subRoute !== 'ImageUpload') {
 							setModalVisible(!isModalVisible);
