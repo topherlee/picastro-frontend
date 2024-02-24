@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useState, useContext, useEffect, useRef, useMemo} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -12,15 +12,18 @@ import {
 	SafeAreaView,
 	ActivityIndicator,
 	Modal,
+	Button,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
+import * as DropdownMenu from 'zeego/dropdown-menu';
 import {AutoscaleImage} from '../components/atoms';
 import {jwtDecode} from 'jwt-decode';
 import {SelectList} from 'react-native-dropdown-select-list';
 import globalStyling from '../../constants/globalStyling';
+import {Dropdown} from '../components/common';
 
 var userId;
 
@@ -41,19 +44,47 @@ const ImageUploadScreen = ({navigation}) => {
 
 	const inputRef = useRef([]);
 
-	const category = [
-		{key: 'iss_transit', value: 'ISS Transit'},
-		{key: 'lunar', value: 'Lunar'},
-		{key: 'solar', value: 'Solar'},
-		{key: 'planet', value: 'Planet'},
-		{key: 'comet', value: 'Comet'},
-		{key: 'galaxy', value: 'Galaxy'},
-		{key: 'nebula', value: 'Nebula'},
-		{key: 'asterism', value: 'Asterism'},
-		{key: 'cluster', value: 'Star/Cluster'},
-		{key: 'mcloud', value: 'Molecular Cloud'},
-		{key: 'other', value: 'Other'},
-	];
+	const options = useMemo(() => {
+		let options = [];
+		const category = [
+			{key: 'iss_transit', value: 'ISS Transit'},
+			{key: 'lunar', value: 'Lunar'},
+			{key: 'solar', value: 'Solar'},
+			{key: 'planet', value: 'Planet'},
+			{key: 'comet', value: 'Comet'},
+			{key: 'galaxy', value: 'Galaxy'},
+			{key: 'nebula', value: 'Nebula'},
+			{key: 'asterism', value: 'Asterism'},
+			{key: 'cluster', value: 'Star / Cluster'},
+			{key: 'mcloud', value: 'Molecular Cloud'},
+			{key: 'other', value: 'Other'},
+		];
+
+		for (let item of category) {
+			options.push({
+				title: item.value,
+				onSelect: () => {
+					setImageCategory(item.value);
+					setSelected(item.key);
+				},
+			});
+		}
+
+		return options;
+	});
+
+	const resetForm = () => {
+		setPhoto(null);
+		setImageDescription('');
+		setSelected('');
+		setImageCategory('');
+		setAstroName('');
+		setAstroNameShort('');
+		setExposureTime('');
+		setCloudCoverage('');
+		setMoonPhase('');
+		setBortle('');
+	};
 
 	//console.log("image category", imageCategory);
 
@@ -151,8 +182,9 @@ const ImageUploadScreen = ({navigation}) => {
 				throw new Error(`HTTP Response Status ${response.status}`);
 			}
 		} catch (err) {
-			console.log('ERROR UPLOAD', err);
-			return response;
+			console.log('ERROR UPLOAD', err, response);
+			setLoading(false);
+			Alert.alert('Error', err.toString());
 		}
 	};
 
@@ -219,22 +251,27 @@ const ImageUploadScreen = ({navigation}) => {
 						returnKeyType="next"
 					/>
 				</View>
-				<View style={styles.selectListView}>
-					<SelectList
-						placeholder="Object Category"
-						placeholderTextColor="grey"
-						search={false}
-						data={category}
-						inputStyles={styles.dropdownText} //style for the text of the unselected box
-						boxStyles={styles.DropdownSelectListBox} //style for the unselected box
-						dropdownStyles={styles.dropdownSelectList} //style of the scrollview, when box selected
-						dropdownTextStyles={styles.dropdownText} //style of text of each element inside scrollview
-						dropdownItemStyles={styles.dropdownItemStyles} //style of each element inside scrollview
-						setSelected={setSelected}
-						onSelect={() => {
-							setImageCategory(selected);
+				<View style={globalStyling.inputView}>
+					<Dropdown
+						triggerStyle={{
+							width: 0.8 * Dimensions.get('screen').width,
+							flex: 1,
 						}}
-					/>
+						content={options}>
+						<View
+							style={{
+								flex: 1,
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}>
+							<Text
+								style={{
+									color: selected == '' ? 'grey' : 'black',
+								}}>
+								{imageCategory == '' ? 'Object Type' : imageCategory}
+							</Text>
+						</View>
+					</Dropdown>
 				</View>
 				<View style={globalStyling.inputView}>
 					<TextInput
@@ -317,7 +354,10 @@ const ImageUploadScreen = ({navigation}) => {
 						returnKeyType="done"
 						onSubmitEditing={() =>
 							uploadImage()
-								.then((response) => uploadedHandler(response))
+								.then((response) => {
+									uploadedHandler(response);
+									resetForm();
+								})
 								.catch(function (err) {
 									console.log(err);
 								})
