@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {AuthContext} from '../../context/AuthContext';
 import {useNavigationState, getFocusedRouteNameFromRoute} from '@react-navigation/native';
@@ -21,8 +21,7 @@ const screenOptionStyle = {
 
 const BottomTabNavigator = ({navigation}) => {
 	const {isModalVisible, setModalVisible} = useContext(AuthContext);
-
-	var subRoute;
+	const [subRoute, setSubRoute] = useState(null);
 
 	return (
 		<Tab.Navigator screenOptions={screenOptionStyle}>
@@ -31,7 +30,7 @@ const BottomTabNavigator = ({navigation}) => {
 				//check for focused screen name
 				listeners={({route}) => ({
 					state: () => {
-						subRoute = getFocusedRouteNameFromRoute(route);
+						setSubRoute(getFocusedRouteNameFromRoute(route));
 					},
 				})}
 				component={MainStackNavigator}
@@ -46,7 +45,7 @@ const BottomTabNavigator = ({navigation}) => {
 				name="ImageUploadTab"
 				listeners={({route}) => ({
 					state: () => {
-						subRoute = 'ImageUpload';
+						setSubRoute('ImageUpload');
 					},
 				})}
 				component={ImageUploadStackNavigator}
@@ -74,8 +73,12 @@ const BottomTabNavigator = ({navigation}) => {
 				listeners={{
 					tabPress: (e) => {
 						e.preventDefault();
-						//navigation.navigate('Home')
-						if (subRoute !== 'PostDetails' && subRoute !== 'ImageUpload') {
+						// console.log(subRoute);
+						if (
+							subRoute !== undefined &&
+							subRoute !== 'PostDetails' &&
+							subRoute !== 'ImageUpload'
+						) {
 							setModalVisible(!isModalVisible);
 						}
 					},
