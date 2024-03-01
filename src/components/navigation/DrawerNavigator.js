@@ -5,6 +5,7 @@ import React from 'react';
 import {createDrawerNavigator, DrawerToggleButton} from '@react-navigation/drawer';
 import TabNavigator from './TabNavigator';
 import LogoutScreen from '../../screens/SigninScreen/LogoutScreen';
+import SharePicastroScreen from '../../screens/SharePicastroScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +27,7 @@ const DrawerNavigator = ({navigation}) => {
 	return (
 		<Drawer.Navigator screenOptions={screenOptionStyle}>
 			<Drawer.Screen name="Main Screen" component={TabNavigator} />
+			<Drawer.Screen name="Share Picastro" component={SharePicastroScreen} />
 			<Drawer.Screen name="Log Out" component={LogoutScreen} />
 		</Drawer.Navigator>
 	);

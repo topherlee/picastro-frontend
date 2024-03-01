@@ -87,8 +87,8 @@ export default function SignUpScreen({navigation}) {
 			/>
 			<Text style={!error ? styles.title : styles.titleRed}>
 				{!error ?
-					'Register for an account'
-				:	'Unable to register, please check your details and try again'}
+					'Register for an Account'
+				:	'Unable to Register, Please Check Your details and Try Again'}
 			</Text>
 			<View style={globalStyling.inputView}>
 				<TextInput
