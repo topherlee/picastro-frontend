@@ -49,6 +49,7 @@
 		"react-native-splash-screen": "^3.3.0",
 		"react-native-svg": "^14.0.0",
 		"react-native-vector-icons": "^10.0.3",
+		"react-native-zoom-toolkit": "^1.0.1",
 		"reanimated-masonry-list": "^1.0.1",
 		"styled-components": "^5.3.6",
 		"zeego": "^1.9.1"
