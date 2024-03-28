@@ -964,8 +964,6 @@ PODS:
     - React-Core
   - react-native-menu (0.9.1):
     - React
-  - react-native-pinchable (0.2.1):
-    - React-Core
   - react-native-safe-area-context (4.9.0):
     - React-Core
   - react-native-screen-capture (0.1.0):
@@ -1169,12 +1167,12 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.6.1)
-  - Stripe (23.22.0):
-    - StripeApplePay (= 23.22.0)
-    - StripeCore (= 23.22.0)
-    - StripePayments (= 23.22.0)
-    - StripePaymentsUI (= 23.22.0)
-    - StripeUICore (= 23.22.0)
+  - Stripe (23.22.1):
+    - StripeApplePay (= 23.22.1)
+    - StripeCore (= 23.22.1)
+    - StripePayments (= 23.22.1)
+    - StripePaymentsUI (= 23.22.1)
+    - StripeUICore (= 23.22.1)
   - stripe-react-native (0.37.0):
     - React-Core
     - Stripe (~> 23.22.0)
@@ -1183,28 +1181,28 @@ PODS:
     - StripePayments (~> 23.22.0)
     - StripePaymentSheet (~> 23.22.0)
     - StripePaymentsUI (~> 23.22.0)
-  - StripeApplePay (23.22.0):
-    - StripeCore (= 23.22.0)
-  - StripeCore (23.22.0)
-  - StripeFinancialConnections (23.22.0):
-    - StripeCore (= 23.22.0)
-    - StripeUICore (= 23.22.0)
-  - StripePayments (23.22.0):
-    - StripeCore (= 23.22.0)
-    - StripePayments/Stripe3DS2 (= 23.22.0)
-  - StripePayments/Stripe3DS2 (23.22.0):
-    - StripeCore (= 23.22.0)
-  - StripePaymentSheet (23.22.0):
-    - StripeApplePay (= 23.22.0)
-    - StripeCore (= 23.22.0)
-    - StripePayments (= 23.22.0)
-    - StripePaymentsUI (= 23.22.0)
-  - StripePaymentsUI (23.22.0):
-    - StripeCore (= 23.22.0)
-    - StripePayments (= 23.22.0)
-    - StripeUICore (= 23.22.0)
-  - StripeUICore (23.22.0):
-    - StripeCore (= 23.22.0)
+  - StripeApplePay (23.22.1):
+    - StripeCore (= 23.22.1)
+  - StripeCore (23.22.1)
+  - StripeFinancialConnections (23.22.1):
+    - StripeCore (= 23.22.1)
+    - StripeUICore (= 23.22.1)
+  - StripePayments (23.22.1):
+    - StripeCore (= 23.22.1)
+    - StripePayments/Stripe3DS2 (= 23.22.1)
+  - StripePayments/Stripe3DS2 (23.22.1):
+    - StripeCore (= 23.22.1)
+  - StripePaymentSheet (23.22.1):
+    - StripeApplePay (= 23.22.1)
+    - StripeCore (= 23.22.1)
+    - StripePayments (= 23.22.1)
+    - StripePaymentsUI (= 23.22.1)
+  - StripePaymentsUI (23.22.1):
+    - StripeCore (= 23.22.1)
+    - StripePayments (= 23.22.1)
+    - StripeUICore (= 23.22.1)
+  - StripeUICore (23.22.1):
+    - StripeCore (= 23.22.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -1263,7 +1261,6 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-ios-context-menu (from `../node_modules/react-native-ios-context-menu`)
   - "react-native-menu (from `../node_modules/@react-native-menu/menu`)"
-  - react-native-pinchable (from `../node_modules/react-native-pinchable`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-screen-capture (from `../node_modules/react-native-screen-capture`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -1386,8 +1383,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ios-context-menu"
   react-native-menu:
     :path: "../node_modules/@react-native-menu/menu"
-  react-native-pinchable:
-    :path: "../node_modules/react-native-pinchable"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-screen-capture:
@@ -1468,8 +1463,6 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   FlipperKit: 37525a5d056ef9b93d1578e04bc3ea1de940094f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 035f1e36e53b355cf70f6434d161b36e7d21fecd
-  hermes-engine: b361c9ef5ef3cda53f66e195599b47e1f84ffa35
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
@@ -1499,7 +1492,6 @@ SPEC CHECKSUMS:
   react-native-image-picker: 6c51359eca7a7df9f07e297218c25696eb9da976
   react-native-ios-context-menu: b170594b4448c0cd10c79e13432216bac99de1ac
   react-native-menu: 9728f90160c36b9a75481fc76e05354b99d54c59
-  react-native-pinchable: b4381b0807d15c12b14bfacd927128f52d96f0f1
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   react-native-screen-capture: 90a01350797cee6da83aca94dbb52ce8db7beaad
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -1533,16 +1525,16 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  Stripe: 34d71a65c3741627c366d72d51b481704a3e2fc7
+  Stripe: b65e9f748f8f51b51e015b0d72f5474dc0708788
   stripe-react-native: 3988dbb404888f4224bdb9dd27ddfdaac6d309a8
-  StripeApplePay: a31936b6901a55ec1cccd6a6f2176731d4d3f13f
-  StripeCore: f404f471435b55f9984023ec2962a0d58d72ef6d
-  StripeFinancialConnections: e977adc59dabedd0b807b5c025770381ed401d3a
-  StripePayments: 5d3f5f4064347559bd2bba04448e808c92f2fb89
-  StripePaymentSheet: 4d367fb96e3005077259ccde28c1e362ae472dd4
-  StripePaymentsUI: 3e67ffc17d10ef2b0e1538867934a644a1dd6fc6
-  StripeUICore: 2e512d3fd27045ca4a899acdef1ed66dcf935d83
-  Yoga: 1b901a6d6eeba4e8a2e8f308f708691cdb5db312
+  StripeApplePay: 4a2fef6cd4e1e9b2c0849919fc7b3a9c5c3684b1
+  StripeCore: e1f6cd91d1487c0f6b5db81b42aec860420f75c9
+  StripeFinancialConnections: d223a44613e6982cedd552c5950edc9b4901c90a
+  StripePayments: 76144e9e6b5fee859954238a175f859043562659
+  StripePaymentSheet: a25d920bb3bb5e2580696476482dc7df9cb5e4e2
+  StripePaymentsUI: 66088abec88754bbdd522ef227dfdbb2265a653e
+  StripeUICore: b193c7d35e9cd1b04bc9ed4a6fb8c548fcee83fa
+  Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
 
 PODFILE CHECKSUM: 60417783dc02d9eacfd2f49692cd31c5e22b417c
 
