@@ -34,7 +34,7 @@ export const FullWidthPostsContainer = ({props}) => {
 					onPress={() => setModalVisible(!modalVisible)}>
 					<Icon name="window-close" size={30} color="lightgray" />
 				</TouchableOpacity>
-				<ResumableZoom maxScale={10} panMode="friction">
+				<ResumableZoom maxScale={10} panMode="friction" panWithPinch={false}>
 					<FullWidthImage props={props} contHeight={contHeight} contWidth={contWidth} />
 				</ResumableZoom>
 			</Modal>
