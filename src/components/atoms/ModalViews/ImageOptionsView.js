@@ -9,6 +9,7 @@ import {
 	Button,
 	Alert,
 } from 'react-native';
+import * as Burnt from 'burnt';
 import {TouchableIcon} from '../../common';
 import {useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../../context/AuthContext';
@@ -51,20 +52,27 @@ export default function ImageOptionsView({props}) {
 	const onConfirmDelete = () => {
 		deletePost(props.id).then((response) => {
 			if (response.ok) {
-				Alert.alert('Delete Successful', 'This post has been successfully deleted.', [
-					{
-						text: 'OK',
-						onPress: () => {
-							setModalVisible(false);
-							navigation.goBack();
-						},
-					},
-				]);
+				Burnt.toast({
+					title: 'Delete Successful', // required
+					preset: 'done',
+					message: `Post has been deleted`, // optional
+					duration: 2, // duration in seconds
+					shouldDismissByTap: true,
+					haptic: 'success',
+				});
+				setModalVisible(false);
+				navigation.goBack();
 			} else {
-				Alert.alert('Delete Failed', 'Please try again later.');
+				Burnt.toast({
+					title: 'Delete Failed', // required
+					preset: 'error',
+					message: 'Please try again', // optional
+					haptic: 'error',
+					duration: 2, // duration in seconds
+					shouldDismissByTap: true,
+				});
 			}
 		});
-		console.log('OK Pressed');
 	};
 
 	return (
