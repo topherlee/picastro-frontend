@@ -12,6 +12,7 @@ import {
 	Dimensions,
 	SafeAreaView,
 } from 'react-native';
+import {CommonActions} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../context/AuthContext';
@@ -56,7 +57,14 @@ const EditProfile = ({navigation}) => {
 					text: 'Ok',
 					onPress: () => {
 						setRetry(retry + 1);
-						navigation.goBack();
+						navigation.dispatch((state) => {
+							const prevRoute = state.routes[state.routes.length - 2];
+							return CommonActions.navigate({
+								name: prevRoute.name,
+								params: {refresh: true},
+								merge: true,
+							});
+						});
 					},
 				},
 			]);

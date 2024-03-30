@@ -88,37 +88,33 @@ const ImageUploadScreen = ({navigation}) => {
 	//console.log("image category", imageCategory);
 
 	useEffect(() => {
-		//Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-
 		userId = jwtDecode(token?.access).user_id;
 	}, []);
 
 	const uploadedHandler = async (response) => {
-		if (!response.ok) {
-			setLoading(false);
-			// Alert.alert('Upload Failed', JSON.stringify(response.status));
-			Burnt.alert({
-				title: 'Upload Failed', // required
-				preset: 'error',
-				message: `HTTP Response Status ${JSON.stringify(response.status)}`, // optional
-				shouldDismissByTap: true,
-				duration: 2, // duration in seconds
-			});
-		} else {
+		console.log(response);
+		Burnt.dismissAllAlerts();
+		if (response.ok) {
 			console.log('UPLOAD RESULT', await response.json());
-			// setComplete(true);
-			setTimeout(() => {
-				navigation.navigate('Home', {refresh: true});
-				setComplete(false);
-				setLoading(false);
-			}, 1500);
-
+			setComplete(false);
+			setLoading(false);
+			// resetForm();
 			Burnt.toast({
 				title: 'Upload Successful', // required
 				preset: 'done',
 				duration: 2, // duration in seconds
 				preset: 'done',
 				shouldDismissByDrag: true,
+			});
+			navigation.navigate('Home', {refresh: true});
+		} else {
+			setLoading(false);
+			Burnt.alert({
+				title: 'Upload Failed', // required
+				preset: 'error',
+				message: `HTTP Response Status ${JSON.stringify(response.status)}`, // optional
+				shouldDismissByTap: true,
+				duration: 2, // duration in seconds
 			});
 		}
 	};
@@ -180,8 +176,7 @@ const ImageUploadScreen = ({navigation}) => {
 				body: formData,
 			});
 
-			Burnt.dismissAllAlerts();
-			uploadedHandler(response);
+			await uploadedHandler(response);
 			// if (response.ok) {
 			// 	console.log('UPLOAD RESULT', await response.json());
 			// 	return response;

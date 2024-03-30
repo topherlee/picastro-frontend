@@ -114,6 +114,10 @@ const UserScreen = ({navigation, route}) => {
 		loadData();
 	}, [userActiveObjectSelector, userActiveSelector, retry]);
 
+	useEffect(() => {
+		refreshPage();
+	}, [route.params]);
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<ExtendedPicastroBurgerHeader />

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import * as Burnt from 'burnt';
 import {TouchableIcon} from '../../common';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../../context/AuthContext';
 import globalStyling from '../../../../constants/globalStyling';
 
@@ -61,7 +61,15 @@ export default function ImageOptionsView({props}) {
 					haptic: 'success',
 				});
 				setModalVisible(false);
-				navigation.goBack();
+				// navigation.goBack();
+				navigation.dispatch((state) => {
+					const prevRoute = state.routes[state.routes.length - 2];
+					return CommonActions.navigate({
+						name: prevRoute.name,
+						params: {refresh: true},
+						merge: true,
+					});
+				});
 			} else {
 				Burnt.toast({
 					title: 'Delete Failed', // required
