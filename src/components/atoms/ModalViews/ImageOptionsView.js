@@ -57,7 +57,7 @@ export default function ImageOptionsView({props}) {
 					preset: 'done',
 					message: `Post has been deleted`, // optional
 					duration: 2, // duration in seconds
-					shouldDismissByTap: true,
+					shouldDismissByDrag: true,
 					haptic: 'success',
 				});
 				setModalVisible(false);
@@ -69,7 +69,7 @@ export default function ImageOptionsView({props}) {
 					message: 'Please try again', // optional
 					haptic: 'error',
 					duration: 2, // duration in seconds
-					shouldDismissByTap: true,
+					shouldDismissByDrag: true,
 				});
 			}
 		});

@@ -18,10 +18,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
-import * as DropdownMenu from 'zeego/dropdown-menu';
+import * as Burnt from 'burnt';
 import {AutoscaleImage} from '../components/atoms';
 import {jwtDecode} from 'jwt-decode';
-import {SelectList} from 'react-native-dropdown-select-list';
 import globalStyling from '../../constants/globalStyling';
 import {Dropdown} from '../components/common';
 
@@ -94,28 +93,33 @@ const ImageUploadScreen = ({navigation}) => {
 		userId = jwtDecode(token?.access).user_id;
 	}, []);
 
-	const uploadedHandler = (response) => {
+	const uploadedHandler = async (response) => {
 		if (!response.ok) {
 			setLoading(false);
-			Alert.alert('Upload Failed', JSON.stringify(response.status));
+			// Alert.alert('Upload Failed', JSON.stringify(response.status));
+			Burnt.alert({
+				title: 'Upload Failed', // required
+				preset: 'error',
+				message: `HTTP Response Status ${JSON.stringify(response.status)}`, // optional
+				shouldDismissByTap: true,
+				duration: 2, // duration in seconds
+			});
 		} else {
-			setComplete(true);
+			console.log('UPLOAD RESULT', await response.json());
+			// setComplete(true);
 			setTimeout(() => {
 				navigation.navigate('Home', {refresh: true});
 				setComplete(false);
 				setLoading(false);
 			}, 1500);
-			// : Alert.alert(
-			//       'Upload Successful',
-			//       'Your image has been uploaded.',
-			//       [
-			//           {
-			//               text: 'Ok',
-			//               onPress: () =>
-			//                   navigation.navigate('Home', {refresh: true}),
-			//           },
-			//       ],
-			//   );
+
+			Burnt.toast({
+				title: 'Upload Successful', // required
+				preset: 'done',
+				duration: 2, // duration in seconds
+				preset: 'done',
+				shouldDismissByDrag: true,
+			});
 		}
 	};
 
@@ -175,32 +179,44 @@ const ImageUploadScreen = ({navigation}) => {
 				},
 				body: formData,
 			});
-			if (response.ok) {
-				console.log('UPLOAD RESULT', await response.json());
-				return response;
-			} else {
-				throw new Error(`HTTP Response Status ${response.status}`);
-			}
+
+			Burnt.dismissAllAlerts();
+			uploadedHandler(response);
+			// if (response.ok) {
+			// 	console.log('UPLOAD RESULT', await response.json());
+			// 	return response;
+			// } else {
+			// 	// throw new Error(`HTTP Response Status ${response.status}`);
+			// 	Burnt.alert({
+			// 		title: 'Upload Failed', // required
+			// 		preset: 'error',
+			// 		message: `HTTP Response Status ${JSON.stringify(response.status)}`, // optional
+			// 		duration: 2, // duration in seconds
+			// 		shouldDismissByTap: true,
+			// 	});
+			// }
 		} catch (err) {
 			console.log('ERROR UPLOAD', err, response);
 			setLoading(false);
-			Alert.alert('Error', err.toString());
+			Burnt.dismissAllAlerts();
+
+			Burnt.alert({
+				title: 'Upload Failed', // required
+				preset: 'error',
+				message: `${err.toString()}`, // optional
+				duration: 2, // duration in seconds
+				shouldDismissByTap: true,
+			});
 		}
 	};
 
 	function LoadingAnimation() {
-		return (
-			<Modal transparent={true}>
-				<View style={styles.indicatorWrapper}>
-					{complete ?
-						<Icon name={'check-circle'} size={100} color={'#FFC700'} />
-					:	<ActivityIndicator size="large" color={'#FFC700'} />}
-					<Text style={styles.indicatorText}>
-						{complete ? 'Upload Successful' : 'Uploading Image...'}
-					</Text>
-				</View>
-			</Modal>
-		);
+		Burnt.alert({
+			title: 'Uploading Image...', // required
+			preset: 'spinner',
+			shouldDismissByTap: true,
+			duration: 60,
+		});
 	}
 
 	return (
@@ -352,27 +368,27 @@ const ImageUploadScreen = ({navigation}) => {
 						defaultValue={bortle}
 						ref={(ref) => (inputRef.current[6] = ref)}
 						returnKeyType="done"
-						onSubmitEditing={() =>
-							uploadImage()
-								.then((response) => {
-									uploadedHandler(response);
-									resetForm();
-								})
-								.catch(function (err) {
-									console.log(err);
-								})
+						onSubmitEditing={
+							async () => uploadImage()
+							// .then((response) => {
+							// 	uploadedHandler(response);
+							// 	resetForm();
+							// })
+							// .catch(function (err) {
+							// 	console.log(err);
+							// })
 						}
 					/>
 				</View>
 
 				<TouchableOpacity
 					style={styles.loginBtn}
-					onPress={() =>
-						uploadImage()
-							.then((response) => uploadedHandler(response))
-							.catch(function (err) {
-								console.log(err);
-							})
+					onPress={
+						async () => uploadImage()
+						// .then((response) => uploadedHandler(response))
+						// .catch(function (err) {
+						// 	console.log(err);
+						// })
 					}>
 					<Text style={styles.loginText}>Upload Post</Text>
 				</TouchableOpacity>
