@@ -102,6 +102,7 @@ const ImageUploadScreen = ({navigation}) => {
 			Burnt.toast({
 				title: 'Upload Successful', // required
 				preset: 'done',
+				haptic: 'success',
 				duration: 2, // duration in seconds
 				shouldDismissByDrag: true,
 			});
