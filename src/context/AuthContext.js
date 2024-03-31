@@ -4,6 +4,7 @@ import {decode} from 'base-64';
 global.atob = decode;
 import React, {useState, useEffect, useMemo} from 'react';
 import {Platform} from 'react-native';
+import * as Burnt from 'burnt';
 
 import * as Keychain from 'react-native-keychain';
 export const AuthContext = React.createContext({});
@@ -72,9 +73,15 @@ export const AuthProvider = ({children, contextValue}) => {
 				console.log('REFRESH TOKEN EXPIRED');
 				setToken(null);
 				setIsSignedIn(false);
-				return Promise.reject(
-					new Error('Token expired please login again'),
-				);
+
+				Burnt.alert({
+					title: 'Session Expired',
+					message: 'Please log in again to continue.',
+					preset: 'error',
+					duration: 2, // duration in seconds
+					shouldDismissByTap: true,
+				});
+				return Promise.reject(new Error('Token expired please login again'));
 			}
 		} catch (err) {
 			console.log('REFRESH TOKEN ERROR', err);
@@ -82,56 +89,48 @@ export const AuthProvider = ({children, contextValue}) => {
 		}
 	}
 
-	let originalRequest = async (url, config) => {
-		try {
-			url = `${domain}${url}`;
-			var response = await fetch(url, config);
-			// if (response.status === 204 || response.status === 205) {  //successful delete or error don't parse json
-			//     data = "Successful";
-			// } else if (response.ok) {
-			//     data = await response.json();
-			// } else {
-			//     data = await response.status.toString();
-			// }
-			if (response.ok) {
-				return response;
-			} else {
-				throw new Error(`HTTP response status ${response.status}`);
-			}
-		} catch (err) {
-			console.log('ERROR IN ORIGINAL REQUEST', err);
-			return response;
-		}
-	};
-
 	let fetchInstance = async (url, config = {}) => {
+		var response;
+		console.log(url);
+		var credentials = await getSavedTokens();
+		const user = jwtDecode(credentials.access);
+		const remainingTokenTime = dayjs.unix(user.exp).diff(dayjs(), 'second');
+		if (remainingTokenTime < 15) {
+			console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
+			credentials = await refreshAllTokens();
+			setToken(credentials);
+		}
+
+		//proceed with request
+		config['headers'] = {
+			Authorization: `Token ${credentials?.access}`,
+		};
+
 		try {
-			console.log(url);
-			var credentials = await getSavedTokens();
-			const user = jwtDecode(credentials.access);
-			const remainingTokenTime = dayjs
-				.unix(user.exp)
-				.diff(dayjs(), 'second');
-			if (remainingTokenTime < 15) {
-				console.log('REFERSHING EXPIRED TOKEN FROM FETCH INSTANCE');
-				credentials = await refreshAllTokens();
-				setToken(credentials);
-			} else {
-				// console.log('TOKEN VALID');
-			}
-
-			//proceed with request
-
-			config['headers'] = {
-				Authorization: `Token ${credentials?.access}`,
-			};
-
-			var response = await originalRequest(url, config);
-			return response;
+			response = await fetch(domain + url, config);
 		} catch (err) {
 			console.log('FETCH ERROR', err);
-			return response;
+			// Burnt.alert({
+			// 	title: 'Network Error',
+			// 	message: 'Please check your network connection and try again.',
+			// 	preset: 'error',
+			// 	duration: 2, // duration in seconds
+			// 	shouldDismissByTap: true,
+			// });
+
+			Burnt.toast({
+				title: 'Network Error',
+				message: 'Please try again',
+				preset: 'error',
+				haptic: 'error',
+				duration: 4, // duration in seconds
+				shouldDismissByDrag: true,
+			});
+			setTimeout(() => Burnt.dismissAllAlerts(), 2000);
+			throw err;
 		}
+
+		return response;
 	};
 
 	//put those in separate context file, since it's not AuthContext,
@@ -147,8 +146,7 @@ export const AuthProvider = ({children, contextValue}) => {
 	const [userUrl, setUserUrl] = useState('');
 	const [userFilterUrl, setUserFilterUrl] = useState('');
 	const [userActiveSelector, setUserActiveSelector] = useState('most_recent');
-	const [userActiveObjectSelector, setUserActiveObjectSelector] =
-		useState('');
+	const [userActiveObjectSelector, setUserActiveObjectSelector] = useState('');
 	const [activeSelector, setActiveSelector] = useState('most_recent');
 	const [activeObjectSelector, setActiveObjectSelector] = useState('');
 	const [userCurrentPage, setUserCurrentPage] = useState(1);
@@ -249,9 +247,5 @@ export const AuthProvider = ({children, contextValue}) => {
 		setLoading(false);
 	}, [token, loading, isSignedIn]);
 
-	return (
-		<AuthContext.Provider value={globalContext}>
-			{children}
-		</AuthContext.Provider>
-	);
+	return <AuthContext.Provider value={globalContext}>{children}</AuthContext.Provider>;
 };

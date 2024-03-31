@@ -103,10 +103,9 @@ const ImageUploadScreen = ({navigation}) => {
 				title: 'Upload Successful', // required
 				preset: 'done',
 				duration: 2, // duration in seconds
-				preset: 'done',
 				shouldDismissByDrag: true,
 			});
-			navigation.navigate('Home', {refresh: true});
+			setTimeout(() => navigation.navigate('Home', {refresh: true}), 1000);
 		} else {
 			setLoading(false);
 			Burnt.alert({
@@ -177,31 +176,9 @@ const ImageUploadScreen = ({navigation}) => {
 			});
 
 			await uploadedHandler(response);
-			// if (response.ok) {
-			// 	console.log('UPLOAD RESULT', await response.json());
-			// 	return response;
-			// } else {
-			// 	// throw new Error(`HTTP Response Status ${response.status}`);
-			// 	Burnt.alert({
-			// 		title: 'Upload Failed', // required
-			// 		preset: 'error',
-			// 		message: `HTTP Response Status ${JSON.stringify(response.status)}`, // optional
-			// 		duration: 2, // duration in seconds
-			// 		shouldDismissByTap: true,
-			// 	});
-			// }
 		} catch (err) {
 			console.log('ERROR UPLOAD', err, response);
 			setLoading(false);
-			Burnt.dismissAllAlerts();
-
-			Burnt.alert({
-				title: 'Upload Failed', // required
-				preset: 'error',
-				message: `${err.toString()}`, // optional
-				duration: 2, // duration in seconds
-				shouldDismissByTap: true,
-			});
 		}
 	};
 
@@ -363,28 +340,11 @@ const ImageUploadScreen = ({navigation}) => {
 						defaultValue={bortle}
 						ref={(ref) => (inputRef.current[6] = ref)}
 						returnKeyType="done"
-						onSubmitEditing={
-							async () => uploadImage()
-							// .then((response) => {
-							// 	uploadedHandler(response);
-							// 	resetForm();
-							// })
-							// .catch(function (err) {
-							// 	console.log(err);
-							// })
-						}
+						onSubmitEditing={async () => uploadImage()}
 					/>
 				</View>
 
-				<TouchableOpacity
-					style={styles.loginBtn}
-					onPress={
-						async () => uploadImage()
-						// .then((response) => uploadedHandler(response))
-						// .catch(function (err) {
-						// 	console.log(err);
-						// })
-					}>
+				<TouchableOpacity style={styles.loginBtn} onPress={async () => uploadImage()}>
 					<Text style={styles.loginText}>Upload Post</Text>
 				</TouchableOpacity>
 				{loading && <LoadingAnimation />}
