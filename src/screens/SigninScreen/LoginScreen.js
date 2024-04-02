@@ -13,7 +13,8 @@ import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from '../../../constants/globalStyling';
-import {loadCurrentUser} from '../../utils';
+import {loadCurrentUser, apiCallLikeDislike} from '../../utils';
+
 
 export default function LoginScreen({navigation, route}) {
 	const {
