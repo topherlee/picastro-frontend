@@ -13,7 +13,7 @@ import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import globalStyling from '../../../constants/globalStyling';
-import {loadCurrentUser} from '../../utils';
+import {loadCurrentUser, apiCallLikeDislike} from '../../utils';
 
 export default function LoginScreen({navigation, route}) {
 	const {
@@ -24,6 +24,7 @@ export default function LoginScreen({navigation, route}) {
 		setListOfLikes,
 		fetchInstance,
 		setValidSubscription,
+		token
 	} = useContext(AuthContext); //get setIsSignedIn function from global context
 	const [username, setUsername] = useState(null);
 	const [password, setPassword] = useState(null);
@@ -98,7 +99,7 @@ export default function LoginScreen({navigation, route}) {
 				console.log('listOfLikes', listOfLikes);
 			}
 		} catch (error) {
-			console.log('ERROR starIcon loadLikedPostList', error);
+			console.log('ERROR LoginScreen loadLikedPostList', error);
 			return [];
 		}
 	}
