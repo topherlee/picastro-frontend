@@ -92,6 +92,7 @@ const UserScreen = ({navigation, route}) => {
 	};
 
 	const refreshPage = async () => {
+		setRefreshing(true);
 		setUserCurrentPage(1);
 		// const newData = await loadUserFeed(1);
 		// setData(newData);
@@ -105,10 +106,10 @@ const UserScreen = ({navigation, route}) => {
 				await fetchUser(route.params.userId);
 				var data = await loadUserFeed(userCurrentPage);
 				setData(data);
-				setRefreshing(false);
 			} catch (err) {
 				console.log('USERSCREEN', err);
 			}
+			setRefreshing(false);
 		}
 
 		loadData();

@@ -110,6 +110,7 @@ const HomeScreen = ({navigation, route}) => {
 	};
 
 	const refreshPage = async () => {
+		setRefreshing(true);
 		ref.current?.scrollTo({
 			y: 0,
 			animated: true,
