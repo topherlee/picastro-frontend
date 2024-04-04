@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -22,15 +22,26 @@ const UserNameImageBurgerHeader = () => {
 		user,
 	} = useContext(AuthContext);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const userPro = await loadUserProfile(token, fetchInstance, user);
-			setCurrentUser(userPro);
-			console.log('usernameburgerheader', userPro);
-		};
+	useFocusEffect(
+		useCallback(() => {
+			const fetchData = async () => {
+				const userPro = await loadUserProfile(token, fetchInstance, user);
+				setCurrentUser(userPro);
+				console.log('usernameburgerheader', userPro);
+			};
 
-		fetchData();
-	}, []);
+			fetchData();
+		}, []),
+	);
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const userPro = await loadUserProfile(token, fetchInstance, user);
+	// 		setCurrentUser(userPro);
+	// 		console.log('usernameburgerheader', userPro);
+	// 	};
+
+	// 	fetchData();
+	// }, []);
 
 	useEffect(() => {
 		console.log('userProfile User', currentUser);

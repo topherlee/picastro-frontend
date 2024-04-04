@@ -49,7 +49,7 @@ const EditProfile = ({navigation}) => {
 				userDescription: userDescription,
 				photo: photo,
 			});
-			console.log(originalState);
+			console.log(originalState, firstName);
 		}, []),
 	);
 
