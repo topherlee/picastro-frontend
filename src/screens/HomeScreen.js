@@ -8,7 +8,7 @@ import {
 	Alert,
 	Dimensions,
 } from 'react-native';
-
+import * as Burnt from 'burnt';
 import {useScrollToTop} from '@react-navigation/native';
 import {UserNameImageBurgerHeader} from '../components/molecules';
 import {AuthContext} from '../context/AuthContext';
@@ -83,12 +83,16 @@ const HomeScreen = ({navigation, route}) => {
 				setNext(response.next);
 				return response.results;
 			} else {
+				Burnt.toast({
+					title: 'Failed to Load Feed',
+					preset: 'error',
+					duration: 2, // duration in seconds
+					shouldDismissByDrag: true,
+				});
 				throw new Error(`HTTP response status ${response.status}`);
 			}
 		} catch (error) {
 			console.log('HOMESCREEN', error);
-
-			Alert.alert('Error Fetching Data', error.toString());
 			return [];
 		}
 	}
@@ -106,6 +110,7 @@ const HomeScreen = ({navigation, route}) => {
 	};
 
 	const refreshPage = async () => {
+		setRefreshing(true);
 		ref.current?.scrollTo({
 			y: 0,
 			animated: true,

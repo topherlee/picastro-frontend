@@ -1,4 +1,5 @@
 import {Alert} from 'react-native';
+import * as Burnt from 'burnt';
 
 const commentPostAPICall = async (fetchInstance, token, body, onSendComment, postId) => {
 	// console.log('commentPostAPIcall, body', body);
@@ -17,6 +18,13 @@ const commentPostAPICall = async (fetchInstance, token, body, onSendComment, pos
 			// console.log('RESPONSE', response);
 			return response;
 		} else {
+			Burnt.alert({
+				title: 'Failed to Post Comment',
+				message: `HTTP Response Status ${response?.status}`,
+				preset: 'error',
+				duration: 2, // duration in seconds
+				shouldDismissByTap: true,
+			});
 			throw new Error(`HTTP response status ${response.status}`);
 		}
 	} catch (error) {
@@ -41,11 +49,18 @@ const commentGetAPICall = async (fetchInstance, token, postId, setNextComments, 
 			setNextComments(response.next);
 			return response.results;
 		} else {
+			Burnt.toast({
+				title: 'Fetch Error',
+				message: 'Failed to Fetch Comments',
+				preset: 'error',
+				haptic: 'error',
+				duration: 4, // duration in seconds
+				shouldDismissByDrag: true,
+			});
 			throw new Error(`HTTP response status ${response.status}`);
 		}
 	} catch (error) {
 		console.log('commentGetAPI', error);
-		Alert.alert('Error Fetching Data', error.toString());
 		return [];
 	}
 };
@@ -62,13 +77,26 @@ const commentDeleteAPICall = async (fetchInstance, token, commentId) => {
 			},
 		});
 		if (response.ok) {
+			Burnt.toast({
+				title: 'Comment Deleted',
+				preset: 'done',
+				haptic: 'success',
+				duration: 2, // duration in seconds
+				shouldDismissByDrag: true,
+			});
 			return true;
 		} else {
+			Burnt.alert({
+				title: 'Failed to Delete Comment',
+				message: `HTTP Response Status ${response?.status}`,
+				preset: 'error',
+				duration: 2, // duration in seconds
+				shouldDismissByTap: true,
+			});
 			throw new Error(`HTTP response status ${response.status}`);
 		}
 	} catch (error) {
 		console.log('commentDeleteAPI', error);
-		Alert.alert('Error Fetching Data', error.toString());
 		return false;
 	}
 };

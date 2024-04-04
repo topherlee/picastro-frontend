@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import {jwtDecode} from 'jwt-decode';
-
+import * as Burnt from 'burnt';
 import styled from 'styled-components';
 import {AuthContext} from '../../../context/AuthContext';
 import StarIconSvg from '../../../assets/star-icon.svg';
@@ -10,14 +10,8 @@ import {apiCallLikeDislike} from '../../../utils';
 import {Alert} from 'react-native';
 
 const StarIcon = (props) => {
-	const {
-		token,
-		fetchInstance,
-		currentUser,
-		user,
-		listOfLikes,
-		setListOfLikes,
-	} = useContext(AuthContext);
+	const {token, fetchInstance, currentUser, user, listOfLikes, setListOfLikes} =
+		useContext(AuthContext);
 	const [imageIsSaved, setImageIsSaved] = React.useState(false);
 
 	const likeUrl = '/api/like/';
@@ -55,8 +49,16 @@ const StarIcon = (props) => {
 		}
 	}, [listOfLikes]);
 
-	const raiseAlert = () =>
-		Alert.alert('Sorry!', 'You cannot like your own posts');
+	const raiseAlert = () => {
+		Burnt.toast({
+			title: 'Sorry!',
+			message: "Can't Like Your Own Posts",
+			preset: 'error',
+			haptic: 'warning',
+			duration: 4, // duration in seconds
+			shouldDismissByDrag: true,
+		});
+	};
 
 	const saveImage = async () => {
 		console.log(props);
