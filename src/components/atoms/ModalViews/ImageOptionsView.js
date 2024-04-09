@@ -9,8 +9,9 @@ import {
 	Button,
 	Alert,
 } from 'react-native';
+import * as Burnt from 'burnt';
 import {TouchableIcon} from '../../common';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../../context/AuthContext';
 import globalStyling from '../../../../constants/globalStyling';
 
@@ -51,20 +52,35 @@ export default function ImageOptionsView({props}) {
 	const onConfirmDelete = () => {
 		deletePost(props.id).then((response) => {
 			if (response.ok) {
-				Alert.alert('Delete Successful', 'This post has been successfully deleted.', [
-					{
-						text: 'OK',
-						onPress: () => {
-							setModalVisible(false);
-							navigation.goBack();
-						},
-					},
-				]);
+				Burnt.toast({
+					title: 'Delete Successful', // required
+					preset: 'done',
+					message: `Post has been deleted`, // optional
+					duration: 2, // duration in seconds
+					shouldDismissByDrag: true,
+					haptic: 'success',
+				});
+				setModalVisible(false);
+				// navigation.goBack();
+				navigation.dispatch((state) => {
+					const prevRoute = state.routes[state.routes.length - 2];
+					return CommonActions.navigate({
+						name: prevRoute.name,
+						params: {refresh: true},
+						merge: true,
+					});
+				});
 			} else {
-				Alert.alert('Delete Failed', 'Please try again later.');
+				Burnt.toast({
+					title: 'Delete Failed', // required
+					preset: 'error',
+					message: 'Please try again', // optional
+					haptic: 'error',
+					duration: 2, // duration in seconds
+					shouldDismissByDrag: true,
+				});
 			}
 		});
-		console.log('OK Pressed');
 	};
 
 	return (

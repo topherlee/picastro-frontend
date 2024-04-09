@@ -148,7 +148,7 @@ const FullWidthBelowImage = ({props}) => {
 					}}>
 					{props.imageDescription}
 				</MoreOrLess>
-
+				{/* Comment Modal */}
 				<Modal
 					animationType="fade"
 					transparent={true}
@@ -205,22 +205,6 @@ const FullWidthBelowImage = ({props}) => {
 								scrollToTop={scrollToTop}
 								props={props}
 							/>
-							{/* <TextInput
-                    multiline={true}
-                    textAlignVertical="top"
-                    placeholder="Write a comment"
-                    placeholderTextColor="black"
-                    autoFocus={true}
-                    style={{
-                        backgroundColor: "white",
-                        width: "100%",
-                        minHeight: 50,
-                        maxHeight: 150,
-                        paddingHorizontal: "3%",
-                        paddingVertical: "4%",
-                        borderRadius: 10,
-                    }}
-                    /> */}
 						</View>
 					</KeyboardAvoidingView>
 				</Modal>

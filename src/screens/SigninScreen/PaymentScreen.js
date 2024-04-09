@@ -9,6 +9,7 @@ import {
 	Linking,
 	Alert,
 } from 'react-native';
+import * as Burnt from 'burnt';
 import {useStripe} from '@stripe/stripe-react-native';
 import {AuthContext} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -58,11 +59,27 @@ export default function PaymentScreen({navigation, route}) {
 		const {error} = await presentPaymentSheet();
 
 		if (error) {
-			Alert.alert(`Payment Failed: ${error.code}`, error.message);
+			// Alert.alert(`Payment Failed: ${error.code}`, error.message);
+
+			Burnt.alert({
+				title: 'Payment Failed',
+				message: `${(error.code, error.message)}`,
+				preset: 'error',
+				duration: 4, // duration in seconds
+				shouldDismissByTap: true,
+			});
 		} else {
-			Alert.alert('Payment Succeeded', 'Your payment is successful. Clear skies ahead!', [
-				{text: 'Go!', onPress: () => setValidSubscription(true)},
-			]);
+			// Alert.alert('Payment Succeeded', 'Your payment is successful. Clear skies ahead!', [
+			// 	{text: 'Go!', onPress: () => setValidSubscription(true)},
+			// ]);
+			Burnt.alert({
+				title: 'Payment Successful',
+				message: `Clear Skies Ahead!`,
+				preset: 'done',
+				duration: 4, // duration in seconds
+				shouldDismissByTap: true,
+			});
+			setValidSubscription(true);
 		}
 	};
 

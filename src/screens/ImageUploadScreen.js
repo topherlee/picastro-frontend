@@ -18,10 +18,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
-import * as DropdownMenu from 'zeego/dropdown-menu';
+import * as Burnt from 'burnt';
 import {AutoscaleImage} from '../components/atoms';
 import {jwtDecode} from 'jwt-decode';
-import {SelectList} from 'react-native-dropdown-select-list';
 import globalStyling from '../../constants/globalStyling';
 import {Dropdown} from '../components/common';
 
@@ -89,33 +88,34 @@ const ImageUploadScreen = ({navigation}) => {
 	//console.log("image category", imageCategory);
 
 	useEffect(() => {
-		//Platform.OS === "android" ? setDomain('http://10.0.2.2:8000') : "";
-
 		userId = jwtDecode(token?.access).user_id;
 	}, []);
 
-	const uploadedHandler = (response) => {
-		if (!response.ok) {
+	const uploadedHandler = async (response) => {
+		console.log(response);
+		Burnt.dismissAllAlerts();
+		if (response.ok) {
+			console.log('UPLOAD RESULT', await response.json());
+			setComplete(false);
 			setLoading(false);
-			Alert.alert('Upload Failed', JSON.stringify(response.status));
+			// resetForm();
+			Burnt.toast({
+				title: 'Upload Successful', // required
+				preset: 'done',
+				haptic: 'success',
+				duration: 2, // duration in seconds
+				shouldDismissByDrag: true,
+			});
+			setTimeout(() => navigation.navigate('Home', {refresh: true}), 1000);
 		} else {
-			setComplete(true);
-			setTimeout(() => {
-				navigation.navigate('Home', {refresh: true});
-				setComplete(false);
-				setLoading(false);
-			}, 1500);
-			// : Alert.alert(
-			//       'Upload Successful',
-			//       'Your image has been uploaded.',
-			//       [
-			//           {
-			//               text: 'Ok',
-			//               onPress: () =>
-			//                   navigation.navigate('Home', {refresh: true}),
-			//           },
-			//       ],
-			//   );
+			setLoading(false);
+			Burnt.alert({
+				title: 'Upload Failed', // required
+				preset: 'error',
+				message: `HTTP Response Status ${JSON.stringify(response.status)}`, // optional
+				shouldDismissByTap: true,
+				duration: 2, // duration in seconds
+			});
 		}
 	};
 
@@ -175,32 +175,21 @@ const ImageUploadScreen = ({navigation}) => {
 				},
 				body: formData,
 			});
-			if (response.ok) {
-				console.log('UPLOAD RESULT', await response.json());
-				return response;
-			} else {
-				throw new Error(`HTTP Response Status ${response.status}`);
-			}
+
+			await uploadedHandler(response);
 		} catch (err) {
 			console.log('ERROR UPLOAD', err, response);
 			setLoading(false);
-			Alert.alert('Error', err.toString());
 		}
 	};
 
 	function LoadingAnimation() {
-		return (
-			<Modal transparent={true}>
-				<View style={styles.indicatorWrapper}>
-					{complete ?
-						<Icon name={'check-circle'} size={100} color={'#FFC700'} />
-					:	<ActivityIndicator size="large" color={'#FFC700'} />}
-					<Text style={styles.indicatorText}>
-						{complete ? 'Upload Successful' : 'Uploading Image...'}
-					</Text>
-				</View>
-			</Modal>
-		);
+		Burnt.alert({
+			title: 'Uploading Image...', // required
+			preset: 'spinner',
+			shouldDismissByTap: true,
+			duration: 60,
+		});
 	}
 
 	return (
@@ -352,28 +341,11 @@ const ImageUploadScreen = ({navigation}) => {
 						defaultValue={bortle}
 						ref={(ref) => (inputRef.current[6] = ref)}
 						returnKeyType="done"
-						onSubmitEditing={() =>
-							uploadImage()
-								.then((response) => {
-									uploadedHandler(response);
-									resetForm();
-								})
-								.catch(function (err) {
-									console.log(err);
-								})
-						}
+						onSubmitEditing={async () => uploadImage()}
 					/>
 				</View>
 
-				<TouchableOpacity
-					style={styles.loginBtn}
-					onPress={() =>
-						uploadImage()
-							.then((response) => uploadedHandler(response))
-							.catch(function (err) {
-								console.log(err);
-							})
-					}>
+				<TouchableOpacity style={styles.loginBtn} onPress={async () => uploadImage()}>
 					<Text style={styles.loginText}>Upload Post</Text>
 				</TouchableOpacity>
 				{loading && <LoadingAnimation />}

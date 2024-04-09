@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {AuthContext} from '../../context/AuthContext';
 import {useNavigationState, getFocusedRouteNameFromRoute} from '@react-navigation/native';
@@ -22,6 +22,10 @@ const screenOptionStyle = {
 const BottomTabNavigator = ({navigation}) => {
 	const {isModalVisible, setModalVisible} = useContext(AuthContext);
 	const [subRoute, setSubRoute] = useState(null);
+
+	useEffect(() => {
+		setSubRoute('Home');
+	}, []);
 
 	return (
 		<Tab.Navigator screenOptions={screenOptionStyle}>
@@ -73,7 +77,7 @@ const BottomTabNavigator = ({navigation}) => {
 				listeners={{
 					tabPress: (e) => {
 						e.preventDefault();
-						// console.log(subRoute);
+						// console.log('SUBROUTE', subRoute);
 						if (
 							subRoute !== undefined &&
 							subRoute !== 'PostDetails' &&

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useState, useContext, useRef, useCallback} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -12,12 +12,14 @@ import {
 	Dimensions,
 	SafeAreaView,
 } from 'react-native';
+import {CommonActions} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
+import * as Burnt from 'burnt';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {AutoscaleImage} from '../components/atoms';
-import {SelectList} from 'react-native-dropdown-select-list';
 import globalStyling from '../../constants/globalStyling';
 
 var userID;
@@ -35,6 +37,36 @@ const EditProfile = ({navigation}) => {
 	const [userDescription, setUserDescription] = useState(currentUser?.userDescription);
 	//   const [phone, setPhone] = useState(currentUser?.phone_no)
 	const inputField = useRef([]);
+	const [originalState, setOriginalState] = useState({});
+
+	useFocusEffect(
+		useCallback(() => {
+			setOriginalState({
+				first: firstName,
+				last: lastName,
+				gender: genderIdentifier,
+				location: location,
+				userDescription: userDescription,
+				photo: photo,
+			});
+			console.log(originalState, firstName);
+		}, []),
+	);
+
+	const isProfileEdited = (original) => {
+		if (
+			firstName === original.first &&
+			lastName === original.last &&
+			genderIdentifier === original.gender &&
+			location === original.location &&
+			userDescription === original.userDescription &&
+			photo === original.photo
+		) {
+			return false;
+		} else {
+			return true;
+		}
+	};
 
 	const experienceCategory = [
 		{label: '0-1 years', value: '1'},
@@ -43,25 +75,32 @@ const EditProfile = ({navigation}) => {
 		{label: '10 years plus', value: '4'},
 	];
 
-	const uploadedHandler = async (res) => {
-		console.log(res);
-		if (!res.ok) {
-			Alert.alert('Profile Update Failed', JSON.stringify(res.status));
-		} else {
-			var data = await res.json();
-			console.log('UPLOAD RESULT', data);
-			setCurrentUser(data);
-			Alert.alert('Profile Updated', 'Your profile has been successfully updated.', [
-				{
-					text: 'Ok',
-					onPress: () => {
-						setRetry(retry + 1);
-						navigation.goBack();
-					},
-				},
-			]);
-		}
-	};
+	// const uploadedHandler = async (res) => {
+	// 	console.log(res);
+	// 	if (!res.ok) {
+	// 		Alert.alert('Profile Update Failed', JSON.stringify(res.status));
+	// 	} else {
+	// 		var data = await res.json();
+	// 		console.log('UPLOAD RESULT', data);
+	// 		setCurrentUser(data);
+	// 		Alert.alert('Profile Updated', 'Your profile has been successfully updated.', [
+	// 			{
+	// 				text: 'Ok',
+	// 				onPress: () => {
+	// 					setRetry(retry + 1);
+	// 					navigation.dispatch((state) => {
+	// 						const prevRoute = state.routes[state.routes.length - 2];
+	// 						return CommonActions.navigate({
+	// 							name: prevRoute.name,
+	// 							params: {refresh: true},
+	// 							merge: true,
+	// 						});
+	// 					});
+	// 				},
+	// 			},
+	// 		]);
+	// 	}
+	// };
 
 	const pickImage = () => {
 		launchImageLibrary(
@@ -82,39 +121,71 @@ const EditProfile = ({navigation}) => {
 	};
 
 	const uploadImage = async () => {
+		var response;
+		if (!isProfileEdited(originalState)) {
+			return;
+		}
+		var formData = new FormData();
+		if (photo?.uri && photo?.fileName && photo?.type) {
+			formData.append('profileImage', {
+				uri: photo.uri,
+				name: photo.fileName,
+				type: photo.type,
+			});
+		}
+
+		//   formData.append("username", currentUser?.username)
+		formData.append('first_name', firstName);
+		formData.append('last_name', lastName);
+		formData.append('genderIdentifier', genderIdentifier);
+		formData.append('location', location);
+		formData.append('userDescription', userDescription);
+		//   formData.append('phone_no', phone)
+
 		try {
-			var formData = new FormData();
-			if (photo?.uri && photo?.fileName && photo?.type) {
-				formData.append('profileImage', {
-					uri: photo.uri,
-					name: photo.fileName,
-					type: photo.type,
-				});
-			}
-
-			//   formData.append("username", currentUser?.username)
-			formData.append('first_name', firstName);
-			formData.append('last_name', lastName);
-			formData.append('genderIdentifier', genderIdentifier);
-			formData.append('location', location);
-			formData.append('userDescription', userDescription);
-			//   formData.append('phone_no', phone)
-
-			var response = await fetchInstance(`/api/user/${currentUser.id}`, {
+			response = await fetchInstance(`/api/user/${currentUser.id}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
 				body: formData,
 			});
-			if (response.ok) {
-				return response;
+
+			if (response?.ok) {
+				var data = await response.json();
+				console.log('UPLOAD RESULT', data);
+				setCurrentUser(data);
+
+				Burnt.toast({
+					title: 'Profile Updated',
+					preset: 'done',
+					duration: 2, // duration in seconds
+					shouldDismissByDrag: true,
+				});
+
+				setTimeout(() => {
+					setRetry(retry + 1);
+					navigation.dispatch((state) => {
+						const prevRoute = state.routes[state.routes.length - 2];
+						return CommonActions.navigate({
+							name: prevRoute.name,
+							params: {refresh: true},
+							merge: true,
+						});
+					});
+				}, 1000);
 			} else {
-				throw new Error(``);
+				Burnt.alert({
+					title: 'Profile Update Failed',
+					message: `HTTP Response Status ${response?.status}`,
+					preset: 'error',
+					duration: 2, // duration in seconds
+					shouldDismissByTap: true,
+				});
+				console.log(`HTTP Response Status ${response?.status}`);
 			}
 		} catch (err) {
-			console.log('ERROR EDIT PROFILE', err);
-			return response;
+			console.log('ERROR EDIT PROFILE');
 		}
 	};
 
@@ -262,14 +333,14 @@ const EditProfile = ({navigation}) => {
 
 				<TouchableOpacity
 					style={globalStyling.loginBtn}
-					onPress={() =>
-						uploadImage()
-							.then((response) => {
-								uploadedHandler(response);
-							})
-							.catch(function (err) {
-								console.log('ERROR EDIT PROFILE', err);
-							})
+					onPress={
+						async () => uploadImage()
+						// .then((response) => {
+						// 	uploadedHandler(response);
+						// })
+						// .catch(function (err) {
+						// 	console.log('ERROR EDIT PROFILE', err);
+						// })
 					}>
 					<Text style={globalStyling.loginText}>Save Changes</Text>
 				</TouchableOpacity>
