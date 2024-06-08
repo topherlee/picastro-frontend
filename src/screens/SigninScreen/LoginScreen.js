@@ -67,7 +67,7 @@ export default function LoginScreen({navigation, route}) {
 				await Keychain.setGenericPassword('token', JSON.stringify(json));
 				setToken(json);
 				setIsSignedIn(true);
-				loadLikedPostList();
+				// loadLikedPostList();
 
 				const curUser = await loadCurrentUser(json, fetchInstance);
 				setValidSubscription(curUser.valid_subscription);
@@ -78,13 +78,16 @@ export default function LoginScreen({navigation, route}) {
 					});
 				}
 			})
+			.then(async () => {
+				loadLikedPostList(token);
+			})
 			.catch((error) => {
 				console.log('LoginScreen error', error);
 				setError(true);
 			});
 	}
 
-	async function loadLikedPostList() {
+	async function loadLikedPostList(token) {
 		try {
 			var response = await apiCallLikeDislike(
 				getLikeListUrl,
